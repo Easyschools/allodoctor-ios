@@ -18,6 +18,10 @@
 		5E167EDB2C85EC87008864F6 /* LoadingLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E167EDA2C85EC87008864F6 /* LoadingLogo.swift */; };
 		5E167EDF2C85F53E008864F6 /* SelectlanguageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E167EDD2C85F53E008864F6 /* SelectlanguageViewController.swift */; };
 		5E167EE02C85F53E008864F6 /* SelectlanguageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E167EDE2C85F53E008864F6 /* SelectlanguageViewController.xib */; };
+		5E1FA0572C8C77A400F7314E /* UserDefaultProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1FA0562C8C77A400F7314E /* UserDefaultProtocol.swift */; };
+		5E1FA0592C8C77DF00F7314E /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1FA0582C8C77DF00F7314E /* UserDefaultsManager.swift */; };
+		5E389AA12C8BBD03002FA5F0 /* UIView+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E389AA02C8BBD02002FA5F0 /* UIView+Extentions.swift */; };
+		5E389AA32C8BBF45002FA5F0 /* UITextField+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E389AA22C8BBF45002FA5F0 /* UITextField+Extentions.swift */; };
 		5E6A804C2C87CEFB007C14CE /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6A804B2C87CEFB007C14CE /* MainCoordinator.swift */; };
 		5E6A80502C8848F1007C14CE /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6A804F2C8848F1007C14CE /* Coordinator.swift */; };
 		5E6A80542C88506A007C14CE /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6A80532C88506A007C14CE /* Router.swift */; };
@@ -31,6 +35,8 @@
 		5E6A806C2C8A436B007C14CE /* CustomPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6A806B2C8A436B007C14CE /* CustomPageController.swift */; };
 		5EC18B722C8A780E0076FFB7 /* SliderBoardingImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC18B702C8A780E0076FFB7 /* SliderBoardingImageCollectionViewCell.swift */; };
 		5EC18B732C8A780E0076FFB7 /* SliderBoardingImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EC18B712C8A780E0076FFB7 /* SliderBoardingImageCollectionViewCell.xib */; };
+		5EC18B792C8B9D790076FFB7 /* PhoneNumberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC18B772C8B9D790076FFB7 /* PhoneNumberViewController.swift */; };
+		5EC18B7A2C8B9D790076FFB7 /* PhoneNumberViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EC18B782C8B9D790076FFB7 /* PhoneNumberViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +72,10 @@
 		5E167EDA2C85EC87008864F6 /* LoadingLogo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingLogo.swift; sourceTree = "<group>"; };
 		5E167EDD2C85F53E008864F6 /* SelectlanguageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectlanguageViewController.swift; sourceTree = "<group>"; };
 		5E167EDE2C85F53E008864F6 /* SelectlanguageViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectlanguageViewController.xib; sourceTree = "<group>"; };
+		5E1FA0562C8C77A400F7314E /* UserDefaultProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultProtocol.swift; sourceTree = "<group>"; };
+		5E1FA0582C8C77DF00F7314E /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
+		5E389AA02C8BBD02002FA5F0 /* UIView+Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extentions.swift"; sourceTree = "<group>"; };
+		5E389AA22C8BBF45002FA5F0 /* UITextField+Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extentions.swift"; sourceTree = "<group>"; };
 		5E6A804B2C87CEFB007C14CE /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		5E6A804F2C8848F1007C14CE /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		5E6A80532C88506A007C14CE /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
@@ -79,6 +89,8 @@
 		5E6A806B2C8A436B007C14CE /* CustomPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPageController.swift; sourceTree = "<group>"; };
 		5EC18B702C8A780E0076FFB7 /* SliderBoardingImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderBoardingImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		5EC18B712C8A780E0076FFB7 /* SliderBoardingImageCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SliderBoardingImageCollectionViewCell.xib; sourceTree = "<group>"; };
+		5EC18B772C8B9D790076FFB7 /* PhoneNumberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberViewController.swift; sourceTree = "<group>"; };
+		5EC18B782C8B9D790076FFB7 /* PhoneNumberViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhoneNumberViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +141,7 @@
 		5E167EA02C85B8E6008864F6 /* Allo-Doctor */ = {
 			isa = PBXGroup;
 			children = (
+				5E1FA0542C8C777700F7314E /* Services */,
 				5E6A80582C886097007C14CE /* Utilities */,
 				5E6A80512C884F19007C14CE /* Resourses */,
 				5E6A80492C87CED7007C14CE /* Core */,
@@ -170,6 +183,7 @@
 		5E167ED22C85BEF1008864F6 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				5EC18B752C8B9BC00076FFB7 /* PhoneNumber */,
 				5E6A80652C88A082007C14CE /* BoardingScreens */,
 				5E167EDC2C85F0E0008864F6 /* Selectlanguage */,
 				5E167ED42C85DC1C008864F6 /* LaunchScreen */,
@@ -200,6 +214,31 @@
 				5E6A804E2C884899007C14CE /* ViewModel */,
 			);
 			path = Selectlanguage;
+			sourceTree = "<group>";
+		};
+		5E1FA0542C8C777700F7314E /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				5E1FA05A2C8C77F200F7314E /* NetworkLayer */,
+				5E1FA0552C8C777C00F7314E /* UserDefault */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		5E1FA0552C8C777C00F7314E /* UserDefault */ = {
+			isa = PBXGroup;
+			children = (
+				5E1FA0562C8C77A400F7314E /* UserDefaultProtocol.swift */,
+				5E1FA0582C8C77DF00F7314E /* UserDefaultsManager.swift */,
+			);
+			path = UserDefault;
+			sourceTree = "<group>";
+		};
+		5E1FA05A2C8C77F200F7314E /* NetworkLayer */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = NetworkLayer;
 			sourceTree = "<group>";
 		};
 		5E6A80492C87CED7007C14CE /* Core */ = {
@@ -268,6 +307,8 @@
 			children = (
 				5E6A805A2C886420007C14CE /* UIViewController+Extentions.swift */,
 				5E6A80632C88849F007C14CE /* UIColor+Extention.swift */,
+				5E389AA02C8BBD02002FA5F0 /* UIView+Extentions.swift */,
+				5E389AA22C8BBF45002FA5F0 /* UITextField+Extentions.swift */,
 			);
 			path = Extentions;
 			sourceTree = "<group>";
@@ -330,6 +371,23 @@
 			children = (
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		5EC18B752C8B9BC00076FFB7 /* PhoneNumber */ = {
+			isa = PBXGroup;
+			children = (
+				5EC18B762C8B9D3D0076FFB7 /* View */,
+			);
+			path = PhoneNumber;
+			sourceTree = "<group>";
+		};
+		5EC18B762C8B9D3D0076FFB7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				5EC18B772C8B9D790076FFB7 /* PhoneNumberViewController.swift */,
+				5EC18B782C8B9D790076FFB7 /* PhoneNumberViewController.xib */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -436,6 +494,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5EC18B7A2C8B9D790076FFB7 /* PhoneNumberViewController.xib in Resources */,
 				5E167EAB2C85B8E8008864F6 /* Assets.xcassets in Resources */,
 				5E167ED82C85DC4F008864F6 /* LaunchScreenViewController.xib in Resources */,
 				5E6A80692C88A0C9007C14CE /* OnBoardingScreensViewController.xib in Resources */,
@@ -468,17 +527,22 @@
 				5E6A806C2C8A436B007C14CE /* CustomPageController.swift in Sources */,
 				5E6A80542C88506A007C14CE /* Router.swift in Sources */,
 				5E167EA22C85B8E6008864F6 /* AppDelegate.swift in Sources */,
+				5EC18B792C8B9D790076FFB7 /* PhoneNumberViewController.swift in Sources */,
 				5E6A805E2C887997007C14CE /* Custombutton.swift in Sources */,
 				5E6A804C2C87CEFB007C14CE /* MainCoordinator.swift in Sources */,
 				5E6A805B2C886420007C14CE /* UIViewController+Extentions.swift in Sources */,
 				5E167ED72C85DC4F008864F6 /* LaunchScreenViewController.swift in Sources */,
+				5E1FA0592C8C77DF00F7314E /* UserDefaultsManager.swift in Sources */,
 				5E6A80682C88A0C9007C14CE /* OnBoardingScreensViewController.swift in Sources */,
+				5E389AA32C8BBF45002FA5F0 /* UITextField+Extentions.swift in Sources */,
 				5E167EA42C85B8E6008864F6 /* SceneDelegate.swift in Sources */,
 				5EC18B722C8A780E0076FFB7 /* SliderBoardingImageCollectionViewCell.swift in Sources */,
 				5E167EDB2C85EC87008864F6 /* LoadingLogo.swift in Sources */,
 				5E167EDF2C85F53E008864F6 /* SelectlanguageViewController.swift in Sources */,
+				5E1FA0572C8C77A400F7314E /* UserDefaultProtocol.swift in Sources */,
 				5E6A80642C88849F007C14CE /* UIColor+Extention.swift in Sources */,
 				5E6A80502C8848F1007C14CE /* Coordinator.swift in Sources */,
+				5E389AA12C8BBD03002FA5F0 /* UIView+Extentions.swift in Sources */,
 				5E6A80572C88511C007C14CE /* NavigationRouter.swift in Sources */,
 				5E6A80612C8879F3007C14CE /* Constants.swift in Sources */,
 			);

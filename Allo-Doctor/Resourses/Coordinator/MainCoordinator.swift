@@ -18,7 +18,7 @@ class MainCoordinator: Coordinator {
     }
 
     func start() {
-        let vc = SelectlanguageViewController()
+        let vc = PhoneNumberViewController()
         vc.coordinator = self
         navigationController.setViewControllers([vc], animated: false)
     }

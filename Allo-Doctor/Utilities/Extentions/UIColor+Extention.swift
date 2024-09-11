@@ -8,9 +8,9 @@
 import UIKit
 
 extension UIColor {
-    static let offWhite = UIColor(hex: "#A8A8A8")
+    static let offWhite_A8A8A8 = UIColor(hex: "#A8A8A8")
     static let appColor = UIColor(hex: "#1E7DC0")
-
+    
     // Helper initializer to create UIColor from hex string
     convenience init(hex: String) {
         var hexString = hex.trimmingCharacters(in: .whitespacesAndNewlines)

@@ -26,22 +26,22 @@ class SelectlanguageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         nextButton.setupButton(color: UIColor.blueApp, font: .body, title: "Next",borderColor: UIColor.appColor, textColor: UIColor.white)
-        englishButton.setupButton(color: UIColor.white, font: .body, title: "English",borderColor: UIColor.offWhite, textColor: UIColor.black)
-        arabicButton.setupButton(color: UIColor.white, font: .body, title: "عربي",borderColor: UIColor.offWhite, textColor: UIColor.black)
+        englishButton.setupButton(color: UIColor.white, font: .body, title: "English",borderColor: UIColor.offWhite_A8A8A8, textColor: UIColor.black)
+        arabicButton.setupButton(color: UIColor.white, font: .body, title: "عربي",borderColor: UIColor.offWhite_A8A8A8, textColor: UIColor.black)
     }
 
 
 }
 extension SelectlanguageViewController{
-    func updateButtons(for selectedLanguage: Language) {
+    func updateButtons(for selectedLanguage: Languages) {
         switch selectedLanguage {
         case .english:
             englishButton.configureImage(for: .english)
-            arabicButton.setupButton(color: .white, font: .body, title: "عربي", borderColor: .offWhite, textColor: .black)
+            arabicButton.setupButton(color: .white, font: .body, title: "عربي", borderColor: .offWhite_A8A8A8, textColor: .black)
             englishButton.setupButton(color: .appColor, font: .body, title: "English", borderColor: .appColor, textColor: .white)
         case .arabic:
             arabicButton.configureImage(for: .arabic)
-            englishButton.setupButton(color: .white, font: .body, title: "English", borderColor: .offWhite, textColor: .black)
+            englishButton.setupButton(color: .white, font: .body, title: "English", borderColor: .offWhite_A8A8A8, textColor: .black)
             arabicButton.setupButton(color: .appColor, font: .body, title: "عربي", borderColor: .appColor, textColor: .white)
         }
     }

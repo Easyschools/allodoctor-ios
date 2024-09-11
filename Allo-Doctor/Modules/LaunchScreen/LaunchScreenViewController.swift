@@ -8,10 +8,11 @@
 import UIKit
 
 class LaunchScreenViewController: UIViewController {
-
+    let loadingGifView = ImageLayerView(imageName: "loading")
+    @IBOutlet weak var loadingGif: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        loadingGif.addSubview(loadingGifView)
         // Do any additional setup after loading the view.
     }
 

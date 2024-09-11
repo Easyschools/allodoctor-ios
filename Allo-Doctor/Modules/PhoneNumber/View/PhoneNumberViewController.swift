@@ -8,15 +8,30 @@
 import UIKit
 
 class PhoneNumberViewController: UIViewController {
+    @IBOutlet weak var mobileNumberTextField: UITextField!
     @IBOutlet weak var otpButton: CustomButton!
+    var userDefaultsManager: UserDefaultProtocol
     weak var coordinator: MainCoordinator?
     override func viewDidLoad() {
         super.viewDidLoad()
-        otpButton.setupButton(color: .appColor, font: .headline, title: "Get OTP", borderColor: .appColor, textColor: .white)
-        // Do any additional setup after loading the view.
+        otpButton.setupButton(color: .appColor, font: .headline, title: buttonsText.getOtp.rawValue, borderColor: .appColor, textColor: .white)
+        mobileNumberTextField.addPadding(By: Dimensions.textFieldPadding.rawValue , for: .left)
+     
     }
+    init(userDefaultsManager: UserDefaultProtocol = UserDefaultsManager.sharedInstance) {
+           self.userDefaultsManager = userDefaultsManager
+           super.init(nibName: nil, bundle: nil)
+       }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
 
-
+    @IBAction func GetOtpAction(_ sender: Any) {
+        userDefaultsManager.setMobileNumber(mobileNumber: mobileNumberTextField.text)
+        coordinator?.goToRegister()
+    }
     /*
     // MARK: - Navigation
 

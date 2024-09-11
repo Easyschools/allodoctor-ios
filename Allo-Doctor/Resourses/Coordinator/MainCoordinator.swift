@@ -28,5 +28,11 @@ class MainCoordinator: Coordinator {
         navigationController.setViewControllers([vc], animated: false)
           
        }
+    func goToRegister(){
+        let viewModel = RegisterViewModel()
+        let vc = RegisterViewController(viewModel: viewModel)
+//        vc.coordinator = self
+        navigationController.setViewControllers([vc], animated: false)
+        }
 
 }

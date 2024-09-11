@@ -6,7 +6,7 @@
 //
 
 import UIKit
-enum Language {
+enum Languages {
     case english
     case arabic
 }
@@ -30,15 +30,15 @@ extension CustomButton {
         setTitle(title, for:.normal )
         setTitleColor(textColor, for: .normal)
         backgroundColor      = color
-        layer.cornerRadius   = CGFloat(Dimensions.borderRaduis.rawValue)
-        layer.borderWidth    = CGFloat(Dimensions.borderWidth.rawValue)
+        layer.cornerRadius   = Dimensions.borderRaduis.rawValue
+        layer.borderWidth    = Dimensions.borderWidth.rawValue
         layer.borderColor    = borderColor.cgColor
             }
 
     
 }
 extension CustomButton {
-    func configureImage(for language:Language) {
+    func configureImage(for language:Languages) {
         let image = UIImage.tickSquare
         setImage(image, for: .normal)
         

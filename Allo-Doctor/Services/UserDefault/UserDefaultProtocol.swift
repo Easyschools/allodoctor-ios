@@ -7,12 +7,14 @@
 
 import Foundation
 
-protocol UserDefaultProtocol{
-    func checkingShowingOnboarding()->Bool
+protocol UserDefaultProtocol {
+    func checkingShowingOnboarding() -> Bool
     func sawOnboarding()
     func presentOnboarding()
     
-    func isLoggedIn()->Bool
+    func isLoggedIn() -> Bool
     func login()
-    func logut()
+    func logout()
+    func setMobileNumber(mobileNumber: String?)
+    func getMobileNumber() -> String?
 }

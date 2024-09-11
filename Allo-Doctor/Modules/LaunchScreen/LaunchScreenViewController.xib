@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LaunchScreenViewController" customModule="Allo_Doctor" customModuleProvider="target">
             <connections>
+                <outlet property="loadingGif" destination="WUf-XV-YB6" id="gDw-FR-0dJ"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -29,16 +30,15 @@
                                 <constraint firstAttribute="height" constant="81" id="Ycd-Cu-3RK"/>
                             </constraints>
                         </imageView>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loading" translatesAutoresizingMaskIntoConstraints="NO" id="bZC-fy-xFV">
-                            <rect key="frame" x="39.999999999999986" y="83" width="88" height="86"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WUf-XV-YB6">
+                            <rect key="frame" x="0.0" y="83" width="168" height="86"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="86" id="xWe-Xb-5fe"/>
+                                <constraint firstAttribute="height" constant="86" id="MgR-mR-01j"/>
                             </constraints>
-                        </imageView>
+                        </view>
                     </subviews>
                     <constraints>
-                        <constraint firstItem="bZC-fy-xFV" firstAttribute="leading" secondItem="Qrs-tR-xFU" secondAttribute="leading" constant="40" id="J8V-9t-miF"/>
-                        <constraint firstAttribute="trailing" secondItem="bZC-fy-xFV" secondAttribute="trailing" constant="40" id="ns6-j8-o1b"/>
                         <constraint firstAttribute="width" constant="168" id="yX0-Rc-cfr"/>
                     </constraints>
                 </stackView>
@@ -59,7 +59,6 @@
     </objects>
     <resources>
         <image name="Group 14" width="168" height="81"/>
-        <image name="loading" width="86" height="86"/>
         <namedColor name="blueAppColor">
             <color red="0.11800000071525574" green="0.49000000953674316" blue="0.75300002098083496" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

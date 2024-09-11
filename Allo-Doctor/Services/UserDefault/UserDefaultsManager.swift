@@ -7,7 +7,8 @@
 
 import Foundation
 
-class UserDefaultsManager: UserDefaultProtocol{
+class UserDefaultsManager:UserDefaultProtocol {
+
     
     static let sharedInstance = UserDefaultsManager()
     
@@ -15,21 +16,9 @@ class UserDefaultsManager: UserDefaultProtocol{
         
     }
     
-//    func setToken(token: String?){
-//        UserDefaults.standard.set(token, forKey: "token")
-//    }
-//
-//    func getToken()-> String?{
-//        return UserDefaults.standard.string(forKey: "token")
-//    }
-//
-//    func setUserName(userName: String?){
-//        UserDefaults.standard.set(userName, forKey: "User_Name")
-//    }
-//
-//    func getUserName()-> String?{
-//        return UserDefaults.standard.string(forKey: "User_Name")
-//    }
+    func setUserName(userName: String?) {
+        UserDefaults.standard.set(userName, forKey: "User_Name")
+    }
     
     func checkingShowingOnboarding() -> Bool {
         return UserDefaults.standard.bool(forKey: "isJustDownloaded")
@@ -47,7 +36,7 @@ class UserDefaultsManager: UserDefaultProtocol{
         UserDefaults.standard.set(true, forKey: "IsLoggedIn")
     }
     
-    func logut() {
+    func logout() {
         UserDefaults.standard.set(false, forKey: "IsLoggedIn")
     }
     
@@ -55,5 +44,12 @@ class UserDefaultsManager: UserDefaultProtocol{
         return UserDefaults.standard.bool(forKey: "IsLoggedIn")
     }
 
+    func setMobileNumber(mobileNumber: String?) {
+        UserDefaults.standard.set(mobileNumber, forKey: "Mobile_Number")
+    }
+    
+    func getMobileNumber() -> String? {
+        return UserDefaults.standard.string(forKey: "Mobile_Number")
+    }
 }
 

@@ -28,14 +28,17 @@ class BaseViewController<ViewModelType>: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupUI()
         bindViewModel()
+        setupUI()
+        view.backgroundColor = .white
+       
+       
     }
     
     // MARK: - Setup UI
     func setupUI() {
         // Override this method to setup the UI in subclasses
-        view.backgroundColor = .white
+        
     }
     
     // MARK: - Bind ViewModel

@@ -22,7 +22,7 @@ class SelectlanguageViewController: UIViewController {
     @IBOutlet weak var nextButton: CustomButton!
     @IBOutlet weak var englishButton: CustomButton!
     @IBOutlet weak var arabicButton: CustomButton!
-    weak var coordinator: MainCoordinator?
+//    weak var coordinator: MainCoordinator?
     override func viewDidLoad() {
         super.viewDidLoad()
         nextButton.setupButton(color: UIColor.blueApp, font: .body, title: "Next",borderColor: UIColor.appColor, textColor: UIColor.white)

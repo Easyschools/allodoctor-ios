@@ -11,7 +11,7 @@ class PhoneNumberViewController: UIViewController {
     @IBOutlet weak var mobileNumberTextField: UITextField!
     @IBOutlet weak var otpButton: CustomButton!
     var userDefaultsManager: UserDefaultProtocol
-    weak var coordinator: MainCoordinator?
+// apiClient: APIClient = APIClient()
     override func viewDidLoad() {
         super.viewDidLoad()
         otpButton.setupButton(color: .appColor, font: .headline, title: buttonsText.getOtp.rawValue, borderColor: .appColor, textColor: .white)
@@ -30,7 +30,7 @@ class PhoneNumberViewController: UIViewController {
 
     @IBAction func GetOtpAction(_ sender: Any) {
         userDefaultsManager.setMobileNumber(mobileNumber: mobileNumberTextField.text)
-        coordinator?.goToRegister()
+//        coordinator?.goToRegister()
     }
     /*
     // MARK: - Navigation

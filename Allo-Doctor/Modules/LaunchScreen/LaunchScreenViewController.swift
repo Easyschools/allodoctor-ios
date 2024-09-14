@@ -6,25 +6,16 @@
 //
 
 import UIKit
-
+import Reachability
 class LaunchScreenViewController: UIViewController {
-    let loadingGifView = ImageLayerView(imageName: "loading")
-    @IBOutlet weak var loadingGif: UIView!
+   
+    @IBOutlet weak var loadingGif: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadingGif.addSubview(loadingGifView)
-        // Do any additional setup after loading the view.
+        let loadingimage = UIImage.gifImageWithName("loading")
+        loadingGif?.image = loadingimage 
     }
 
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

@@ -20,15 +20,16 @@ class CairoSemiBold: UILabel {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         updateView()
+        
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         updateView()
+        
+    }
+    private func updateView() {
+        self.font = UIFont(name: "Cairo-Bold", size: fontSize)
     }
     
-    private func updateView() {
-        // Use the fontSize property instead of hardcoding the size
-        self.font = UIFont(name: "Cairo-SemiBold", size: fontSize)
-    }
 }

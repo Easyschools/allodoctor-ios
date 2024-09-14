@@ -40,14 +40,11 @@ class APIClient {
 
                 // Handle non-200 status codes
                 guard (200...299).contains(httpResponse.statusCode) else {
-                    print("errrooooorrrrrrrrrrrr")
                     throw URLError(.badServerResponse)
                 }
                 
                 // Check if the response data is HTML
                 if rawData?.contains("<html") == true {
-                    print("errrooooorrrrrrrrrrrr")
-                    
                     throw URLError(.badServerResponse)
                 }
 

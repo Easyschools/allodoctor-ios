@@ -18,3 +18,7 @@ struct UserData: Codable {
     let default_language: String
     let age: String
 }
+struct UserRegistrationResponse: Codable {
+    let success: Bool
+    let message: String
+}

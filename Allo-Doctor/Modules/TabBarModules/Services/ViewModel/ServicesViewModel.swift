@@ -13,6 +13,7 @@ class ServicesViewModel{
     @Published var images: [UIImage] = []
     @Published var services: [Service] = []
     @Published var errorMessage: String?
+    var coordinator: HomeCoordinatorContact?
     private var cancellables = Set<AnyCancellable>()
 //    let router = APIRouter.fetchServices(isPaginate: 15)
     private let apiClient = APIClient()
@@ -60,5 +61,10 @@ extension ServicesViewModel{
             })
             .store(in: &cancellables)
         
+    }
+}
+extension ServicesViewModel{
+    func navToSubServiceScreen(){
+        coordinator?.showSubServicesVC()
     }
 }

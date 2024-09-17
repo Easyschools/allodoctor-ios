@@ -12,12 +12,14 @@ struct Service: Codable {
     let name: String
     let description: String?
     let price: Double?
+    let image: String?
 
     enum CodingKeys: String, CodingKey {
         case id
         case name
         case description
         case price
+        case image
     }
 }
 

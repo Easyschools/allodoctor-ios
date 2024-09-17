@@ -13,6 +13,7 @@ class APIClient {
                 guard let httpResponse = result.response as? HTTPURLResponse,
                       httpResponse.statusCode == 200 else {
                     throw URLError(.badServerResponse)
+                   
                 }
                 return result.data
             }

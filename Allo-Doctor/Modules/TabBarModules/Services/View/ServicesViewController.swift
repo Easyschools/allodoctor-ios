@@ -8,6 +8,8 @@
 import UIKit
 import Combine
 class ServicesViewController: BaseViewController<ServicesViewModel> {
+    @IBOutlet weak var searchBar: UIView!
+    @IBOutlet weak var upperStackView: UIStackView!
     let imageARR = [UIImage(named: "offers"), UIImage(named: "offers"), UIImage(named: "offers")].compactMap { $0 }
 // MARK: - @IBOutlets
     @IBOutlet weak private var offersCollectionView: UICollectionView!
@@ -67,10 +69,12 @@ extension ServicesViewController{
     private func setupCollectionViews(){
         //  offers CollectionView Setup
         offersCollectionView.registerCell(cellClass: OffersCollectionViewCell.self)
+        offersCollectionView.backgroundColor = .white
         offersCollectionView.dataSource = self
         offersCollectionView.delegate = self
         //  Service CollectionView Setup
         servicesCollectionView.registerCell(cellClass: ServicesCollectionViewCell.self)
+        servicesCollectionView.backgroundColor = .white
         servicesCollectionView.dataSource = self
         servicesCollectionView.delegate = self
     }
@@ -99,7 +103,11 @@ extension ServicesViewController: UICollectionViewDelegate, UICollectionViewData
         }
         
     }
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView == servicesCollectionView{
+            viewModel.navToSubServiceScreen()
+           }
+    }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
        
 
@@ -113,14 +121,14 @@ extension ServicesViewController: UICollectionViewDelegate, UICollectionViewData
             let service = viewModel.services[indexPath.row]
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ServicesCollectionViewCell", for: indexPath) as! ServicesCollectionViewCell
             cell.serviceLabel.text = service.name
-            
+//            cell.setupImage(with: service.image ?? Constants.imagePlaceHolder.rawValue)
             return cell
         }
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == offersCollectionView {
-            return CGSize(width: view.frame.width*0.9 , height: collectionView.frame.height)}
+            return CGSize(width: offersCollectionView.frame.width, height: collectionView.frame.height)}
         else {
             return CGSize(width: collectionView.frame.width*0.485, height: collectionView.frame.width*0.45)}
         }
@@ -155,6 +163,7 @@ extension ServicesViewController : UIScrollViewDelegate {
         }
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         tabBarController?.tabBar.barTintColor = .darkBlue295DA8
+        navigationController?.navigationBar.barTintColor = .white
         }
     }
 extension ServicesViewController {

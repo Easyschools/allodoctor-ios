@@ -10,15 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ServicesViewController" customModule="Allo_Doctor" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SubServiceViewController" customModule="Allo_Doctor" customModuleProvider="target">
             <connections>
-                <outlet property="offersCollectionView" destination="Ekx-5J-zrS" id="dZo-Mg-UYg"/>
-                <outlet property="offersPageControl" destination="RVV-ky-can" id="T3q-bq-SHy"/>
-                <outlet property="scrollView" destination="U7r-mZ-DXB" id="5OV-Yh-MuB"/>
-                <outlet property="searchBar" destination="9dN-0n-3eD" id="WAi-A0-1ml"/>
-                <outlet property="servicesCollectionView" destination="uuq-QY-FHN" id="XsO-FY-7Jx"/>
-                <outlet property="servicesCollectionViewDynamicHeight" destination="Qfy-lt-cPu" id="gBh-2T-JoQ"/>
-                <outlet property="upperStackView" destination="tqu-ot-ERu" id="Sf2-2G-mFm"/>
+                <outlet property="searchBar" destination="9dN-0n-3eD" id="EwO-uj-Xxw"/>
+                <outlet property="subServicesCollectionView" destination="uuq-QY-FHN" id="Wd3-G0-koW"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -31,10 +26,10 @@
                     <rect key="frame" x="0.0" y="50" width="375" height="728"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="81U-YA-3rA">
-                            <rect key="frame" x="0.0" y="0.0" width="371" height="571.33333333333337"/>
+                            <rect key="frame" x="0.0" y="0.0" width="371" height="551.33333333333337"/>
                             <subviews>
-                                <stackView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" axis="vertical" spacing="44" translatesAutoresizingMaskIntoConstraints="NO" id="QX6-kT-OVX">
-                                    <rect key="frame" x="16" y="0.0" width="339" height="319"/>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="44" translatesAutoresizingMaskIntoConstraints="NO" id="QX6-kT-OVX">
+                                    <rect key="frame" x="16" y="0.0" width="339" height="299"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="180" translatesAutoresizingMaskIntoConstraints="NO" id="ocW-lV-ctq">
                                             <rect key="frame" x="0.0" y="0.0" width="339" height="50"/>
@@ -51,17 +46,16 @@
                                                     </buttonConfiguration>
                                                 </button>
                                             </subviews>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstItem="ez6-Ia-gZQ" firstAttribute="width" secondItem="ocW-lV-ctq" secondAttribute="width" multiplier="0.279883" id="BQh-bt-dRf"/>
                                                 <constraint firstAttribute="height" constant="50" id="dnp-vu-Zv5"/>
                                             </constraints>
                                         </stackView>
-                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="tqu-ot-ERu">
-                                            <rect key="frame" x="0.0" y="94" width="339" height="225"/>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="tqu-ot-ERu">
+                                            <rect key="frame" x="0.0" y="94" width="339" height="205"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9dN-0n-3eD">
-                                                    <rect key="frame" x="0.0" y="0.0" width="339" height="40.666666666666664"/>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9dN-0n-3eD" customClass="CustomSearchBar" customModule="Allo_Doctor" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="339" height="39"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
@@ -75,43 +69,42 @@
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
-                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Ekx-5J-zrS">
-                                                    <rect key="frame" x="0.0" y="53.666666666666657" width="339" height="150"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="YRw-Qa-7yq">
-                                                        <size key="itemSize" width="328" height="150"/>
-                                                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                                    </collectionViewFlowLayout>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ri3-gZ-Rqb">
+                                                    <rect key="frame" x="0.0" y="54" width="339" height="151"/>
+                                                    <subviews>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="offers" translatesAutoresizingMaskIntoConstraints="NO" id="UCa-Qg-6Eb">
+                                                            <rect key="frame" x="0.0" y="0.0" width="339" height="151"/>
+                                                        </imageView>
+                                                    </subviews>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="trailing" secondItem="UCa-Qg-6Eb" secondAttribute="trailing" id="0qX-Yq-2vY"/>
+                                                        <constraint firstAttribute="bottom" secondItem="UCa-Qg-6Eb" secondAttribute="bottom" id="GVk-Ts-uK9"/>
+                                                        <constraint firstItem="UCa-Qg-6Eb" firstAttribute="leading" secondItem="Ri3-gZ-Rqb" secondAttribute="leading" id="rhc-rz-bSz"/>
+                                                        <constraint firstItem="UCa-Qg-6Eb" firstAttribute="top" secondItem="Ri3-gZ-Rqb" secondAttribute="top" id="yZY-tQ-FxI"/>
+                                                    </constraints>
                                                     <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <real key="value" value="10"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                            <real key="value" value="1"/>
+                                                        </userDefinedRuntimeAttribute>
                                                         <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                            <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
-                                                </collectionView>
-                                                <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="RVV-ky-can">
-                                                    <rect key="frame" x="0.0" y="216.66666666666669" width="339" height="8.3333333333333428"/>
-                                                    <color key="pageIndicatorTintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <color key="currentPageIndicatorTintColor" name="blueAppColor"/>
-                                                </pageControl>
+                                                </view>
                                             </subviews>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
-                                                <constraint firstItem="Ekx-5J-zrS" firstAttribute="height" secondItem="tqu-ot-ERu" secondAttribute="height" multiplier="0.666667" id="DL3-4d-cwb"/>
-                                                <constraint firstItem="9dN-0n-3eD" firstAttribute="height" secondItem="tqu-ot-ERu" secondAttribute="height" multiplier="0.18" id="Ptf-tF-ilQ"/>
-                                                <constraint firstAttribute="height" constant="225" id="Sx6-LY-lRq"/>
+                                                <constraint firstItem="9dN-0n-3eD" firstAttribute="height" secondItem="tqu-ot-ERu" secondAttribute="height" multiplier="0.19" id="Ptf-tF-ilQ"/>
+                                                <constraint firstAttribute="height" constant="205" id="Sx6-LY-lRq"/>
                                             </constraints>
                                         </stackView>
                                     </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <constraints>
-                                        <constraint firstItem="tqu-ot-ERu" firstAttribute="width" secondItem="QX6-kT-OVX" secondAttribute="width" id="sUu-uW-VcI"/>
-                                    </constraints>
                                 </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="06w-4I-nJT">
-                                    <rect key="frame" x="16" y="334" width="339" height="237.33333333333337"/>
+                                    <rect key="frame" x="16" y="314" width="339" height="237.33333333333337"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What we offer" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vPc-tF-iG0" customClass="CairoSemiBold" customModule="Allo_Doctor" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="339" height="20.333333333333332"/>
@@ -126,7 +119,7 @@
                                         </label>
                                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="uuq-QY-FHN">
                                             <rect key="frame" x="0.0" y="32.333333333333314" width="339" height="128"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" priority="999" constant="128" id="Qfy-lt-cPu"/>
                                             </constraints>
@@ -136,26 +129,29 @@
                                                 <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                                 <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                             </collectionViewFlowLayout>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                    <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                </userDefinedRuntimeAttribute>
-                                            </userDefinedRuntimeAttributes>
                                         </collectionView>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0U0-19-LTm">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0U0-19-LTm" customClass="CustomSearchBar" customModule="Allo_Doctor" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="172.33333333333337" width="339" height="65"/>
-                                            <color key="backgroundColor" systemColor="labelColor"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="65" id="lPR-sA-H4i"/>
                                             </constraints>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                    <real key="value" value="10"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                    <color key="value" name="grey-#A8A8A8"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                    <real key="value" value="1"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
                                         </view>
                                     </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </stackView>
                             </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
-                                <constraint firstItem="Ekx-5J-zrS" firstAttribute="width" secondItem="uuq-QY-FHN" secondAttribute="width" id="1Es-Pn-NDO"/>
                                 <constraint firstItem="06w-4I-nJT" firstAttribute="leading" secondItem="81U-YA-3rA" secondAttribute="leading" constant="16" id="9wy-Bg-n4i"/>
                                 <constraint firstItem="QX6-kT-OVX" firstAttribute="leading" secondItem="81U-YA-3rA" secondAttribute="leading" constant="16" id="IaD-xA-JaY"/>
                                 <constraint firstAttribute="trailing" secondItem="QX6-kT-OVX" secondAttribute="trailing" constant="16" id="Y1p-IW-hzk"/>
@@ -194,12 +190,10 @@
     <resources>
         <image name="BlueAppLogo" width="168" height="81"/>
         <image name="messages" width="24" height="24"/>
-        <namedColor name="blueAppColor">
-            <color red="0.11800000071525574" green="0.49000000953674316" blue="0.75300002098083496" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <image name="offers" width="1080" height="1080"/>
+        <namedColor name="grey-#A8A8A8">
+            <color red="0.6589999794960022" green="0.6589999794960022" blue="0.6589999794960022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

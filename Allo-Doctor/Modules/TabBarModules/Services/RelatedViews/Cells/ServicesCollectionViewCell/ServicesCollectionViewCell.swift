@@ -14,7 +14,12 @@ class ServicesCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var serviceLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+       
     }
 
+}
+extension ServicesCollectionViewCell{
+    func setupImage(with image:String){
+        serviceImage.loadImage(from: image)
+    }
 }

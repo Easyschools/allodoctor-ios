@@ -11,7 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ServicesCollectionViewCell" id="gTV-IL-0wX" customClass="ServicesCollectionViewCell" customModule="Allo_Doctor" customModuleProvider="target">
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SubServiceCollectionViewCell" id="gTV-IL-0wX" customClass="SubServiceCollectionViewCell" customModule="Allo_Doctor" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="167" height="125"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -28,7 +28,7 @@
                                 <rect key="frame" x="11" y="85" width="145" height="40"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Clinics" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="pBQ-K2-Ib8" customClass="CairoSemiBold" customModule="Allo_Doctor" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="87" height="40"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="124.66666666666667" height="40"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -38,14 +38,11 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </label>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Om3-mS-huu" customClass="UnderlinedButton" customModule="Allo_Doctor" customModuleProvider="target">
-                                        <rect key="frame" x="87" y="0.0" width="58" height="40"/>
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Om3-mS-huu">
+                                        <rect key="frame" x="124.66666666666664" y="0.0" width="20.333333333333329" height="40"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="12"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        <state key="normal" title="Book visit">
-                                            <color key="titleColor" name="blueAppColor"/>
-                                        </state>
+                                        <state key="normal" image="Arrow - Right Circle"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
                                                 <real key="value" value="12"/>
@@ -54,7 +51,7 @@
                                     </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="Om3-mS-huu" firstAttribute="width" secondItem="88S-QW-NVD" secondAttribute="width" multiplier="0.4" id="T33-lE-zrq"/>
+                                    <constraint firstItem="Om3-mS-huu" firstAttribute="width" secondItem="88S-QW-NVD" secondAttribute="width" multiplier="0.14" id="T33-lE-zrq"/>
                                 </constraints>
                             </stackView>
                         </subviews>
@@ -88,26 +85,24 @@
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
             <connections>
-                <outlet property="bookVisitButton" destination="Om3-mS-huu" id="9f7-To-gpk"/>
-                <outlet property="serviceImage" destination="ibu-Ni-h9K" id="eGT-7c-uQx"/>
-                <outlet property="serviceLabel" destination="pBQ-K2-Ib8" id="WM4-O3-QJT"/>
+                <outlet property="subServiceButton" destination="Om3-mS-huu" id="Yh8-8G-RMO"/>
+                <outlet property="subServiceImage" destination="ibu-Ni-h9K" id="RVh-hF-xJo"/>
+                <outlet property="subServiceName" destination="pBQ-K2-Ib8" id="LZg-pn-dQL"/>
             </connections>
             <point key="canvasLocation" x="130.53435114503816" y="-32.04225352112676"/>
         </collectionViewCell>
     </objects>
     <designables>
         <designable name="Om3-mS-huu">
-            <size key="intrinsicContentSize" width="58" height="26.333333333333332"/>
+            <size key="intrinsicContentSize" width="20" height="22"/>
         </designable>
         <designable name="pBQ-K2-Ib8">
             <size key="intrinsicContentSize" width="50.333333333333336" height="20.333333333333332"/>
         </designable>
     </designables>
     <resources>
+        <image name="Arrow - Right Circle" width="20" height="20"/>
         <image name="OnBoarding" width="375" height="466"/>
-        <namedColor name="blueAppColor">
-            <color red="0.11800000071525574" green="0.49000000953674316" blue="0.75300002098083496" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <namedColor name="grey-#A8A8A8">
             <color red="0.6589999794960022" green="0.6589999794960022" blue="0.6589999794960022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

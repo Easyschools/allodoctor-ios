@@ -563,3 +563,17 @@ extension UIView {
         layer.add(animation, forKey: "shake")
     }
 }
+extension UIView{ 
+static func instantiateFromNib() -> Self {
+    return instantiateFromNibHelper()
+}
+
+/// Helper method to handle instantiation and type casting.
+private static func instantiateFromNibHelper<T>() -> T where T: UIView {
+    let nibName = String(describing: self)
+    guard let nib = Bundle.main.loadNibNamed(nibName, owner: nil, options: nil),
+          let view = nib.first as? T else {
+        fatalError("Error: No nib with name \(nibName) found.")
+    }
+    return view
+}}

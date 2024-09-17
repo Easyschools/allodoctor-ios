@@ -15,6 +15,7 @@ class BaseViewController<ViewModelType>: UIViewController {
     var viewModel: ViewModelType
     var cancellables = Set<AnyCancellable>()
     
+    
     // MARK: - Initializer
     init(viewModel: ViewModelType) {
         self.viewModel = viewModel
@@ -30,6 +31,8 @@ class BaseViewController<ViewModelType>: UIViewController {
         super.viewDidLoad()
         bindViewModel()
         setupUI()
+     
+       
         view.backgroundColor = .white
        
        

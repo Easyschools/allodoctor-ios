@@ -9,13 +9,16 @@ import Foundation
 enum APIRouter {
     case registerUser(UserData)
     case fetchServices(isPaginate: Int)
-    
+    case fetchSubServices(isPaginate: Int)
     var url: URL {
         switch self {
         case .registerUser:
             return URL(string: "https://allodoctor-backend.developnetwork.net/api/auth/register")!
         case .fetchServices(let isPaginate):
             return URL(string: "https://allodoctor-backend.developnetwork.net/api/admin/service/all?is_paginate=\(isPaginate)")!
+        case .fetchSubServices(let isPaginate):
+            return URL(string: "https://allodoctor-backend.developnetwork.net/api/admin/sub-service/all?is_paginate=\(isPaginate)")!
+        
         }
     }
     
@@ -23,7 +26,7 @@ enum APIRouter {
         switch self {
         case .registerUser:
             return "POST"
-        case .fetchServices:
+        case .fetchServices,.fetchSubServices:
             return "GET"
         }
     }
@@ -32,7 +35,7 @@ enum APIRouter {
         switch self {
         case .registerUser(let request):
             return try? JSONEncoder().encode(request)
-        case .fetchServices:
+        case .fetchServices,.fetchSubServices:
             return nil
         }
     }
@@ -41,7 +44,7 @@ enum APIRouter {
         switch self {
         case .registerUser:
             return ["Content-Type": "application/json"]
-        case .fetchServices:
+        case .fetchServices,.fetchSubServices:
             return ["Content-Type": "application/json"]
         }
     }

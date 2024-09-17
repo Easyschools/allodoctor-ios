@@ -17,6 +17,8 @@ protocol HomeCoordinatorContact: AnyObject {
     func showOffersVC() -> UIViewController
     func showServicesVC() -> UIViewController
     func showTabBar()
+    func showSubServicesVC()
+    func showSearchScreen()
     func dismiss(completion: (() -> Void)?)
     
     var navigationController: UINavigationController { get }
@@ -34,11 +36,17 @@ final class HomeCoordinator: Coordinator, TabbarCoordinator {
     
     /// starts the coordinator
     func start() {
-        showLaunchscrean()
+        showSubServiceScreen()
     }
     
 }
 extension HomeCoordinator: HomeCoordinatorContact {
+    func showSubServicesVC() {
+        let viewModel = SubServiceViewModel(coordinator: self)
+        let viewController = SubServiceViewController(viewModel: viewModel)
+        navigationController.setViewControllers([viewController], animated: false)
+    }
+    
     func showTabBar() {
         let tabBar = MainTabBarController()
         tabBar.coordinator = self
@@ -97,6 +105,17 @@ extension HomeCoordinator: HomeCoordinatorContact {
     }
     func showLaunchscrean (){
         let viewController = LaunchScreenViewController()
+        navigationController.setViewControllers([viewController], animated: false)
+    }
+    func showSubServiceScreen(){
+        let viewModel = SubServiceViewModel()
+        viewModel.coordinator = self
+        let viewController = SubServiceViewController(viewModel: viewModel)
+        navigationController.setViewControllers([viewController], animated: false)
+    }
+    func showSearchScreen(){
+        let viewController = SearchViewController()
+        
         navigationController.setViewControllers([viewController], animated: false)
     }
     

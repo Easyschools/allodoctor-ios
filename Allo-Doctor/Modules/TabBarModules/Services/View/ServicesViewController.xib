@@ -33,7 +33,7 @@
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="81U-YA-3rA">
                             <rect key="frame" x="0.0" y="0.0" width="371" height="571.33333333333337"/>
                             <subviews>
-                                <stackView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" axis="vertical" spacing="44" translatesAutoresizingMaskIntoConstraints="NO" id="QX6-kT-OVX">
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="44" translatesAutoresizingMaskIntoConstraints="NO" id="QX6-kT-OVX">
                                     <rect key="frame" x="16" y="0.0" width="339" height="319"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="180" translatesAutoresizingMaskIntoConstraints="NO" id="ocW-lV-ctq">

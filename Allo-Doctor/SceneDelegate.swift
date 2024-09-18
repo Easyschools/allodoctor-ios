@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+@_exported import Combine
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?

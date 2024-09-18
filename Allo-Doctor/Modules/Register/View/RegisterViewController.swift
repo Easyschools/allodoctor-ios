@@ -12,7 +12,7 @@ class RegisterViewController: BaseViewController<RegisterViewModel> {
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet private weak var createAccButton: CustomButton!
     @IBOutlet private weak var selectGenderView: UIView!
-    private let dropdownView = DropdownTextFieldView()
+    private let dropdownView = CustomDropDownList()
     @IBOutlet private weak var selectAreaView: UIView!
     let selectGender = SelectGenderView()
     override func viewDidLoad() {

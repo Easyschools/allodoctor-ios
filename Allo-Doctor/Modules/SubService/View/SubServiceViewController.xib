@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SubServiceViewController" customModule="Allo_Doctor" customModuleProvider="target">
             <connections>
+                <outlet property="dropdownlist" destination="0U0-19-LTm" id="OHP-HK-VEt"/>
                 <outlet property="searchBar" destination="9dN-0n-3eD" id="EwO-uj-Xxw"/>
                 <outlet property="subServicesCollectionView" destination="uuq-QY-FHN" id="Wd3-G0-koW"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -130,9 +131,12 @@
                                                 <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                             </collectionViewFlowLayout>
                                         </collectionView>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0U0-19-LTm" customClass="CustomSearchBar" customModule="Allo_Doctor" customModuleProvider="target">
+                                        <view multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0U0-19-LTm" customClass="CustomDropDownList" customModule="Allo_Doctor" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="172.33333333333337" width="339" height="65"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <accessibility key="accessibilityConfiguration">
+                                                <bool key="isElement" value="YES"/>
+                                            </accessibility>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="65" id="lPR-sA-H4i"/>
                                             </constraints>

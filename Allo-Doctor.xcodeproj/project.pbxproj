@@ -39,6 +39,7 @@
 		5E6A80682C88A0C9007C14CE /* OnBoardingScreensViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6A80662C88A0C9007C14CE /* OnBoardingScreensViewController.swift */; };
 		5E6A80692C88A0C9007C14CE /* OnBoardingScreensViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E6A80672C88A0C9007C14CE /* OnBoardingScreensViewController.xib */; };
 		5E6A806C2C8A436B007C14CE /* CustomPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6A806B2C8A436B007C14CE /* CustomPageController.swift */; };
+		5E6AFB082C9A5BE100252EA9 /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = 5E6AFB072C9A5BE100252EA9 /* Reachability */; };
 		5E6BC04D2C96A5AD009BACEC /* UIImageView+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6BC04C2C96A5AD009BACEC /* UIImageView+Extentions.swift */; };
 		5E6BC04F2C96B21F009BACEC /* CustomSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6BC04E2C96B21F009BACEC /* CustomSearchBar.swift */; };
 		5E6BC0522C96B24A009BACEC /* CustomSearchBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E6BC0512C96B24A009BACEC /* CustomSearchBar.xib */; };
@@ -93,6 +94,10 @@
 		5E7F39AF2C93521600D7E24D /* Cairo-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E7F39AD2C9351C500D7E24D /* Cairo-SemiBold.ttf */; };
 		5E7F39B02C93521700D7E24D /* Cairo-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E7F39AD2C9351C500D7E24D /* Cairo-SemiBold.ttf */; };
 		5E7F39B12C93521800D7E24D /* Cairo-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E7F39AD2C9351C500D7E24D /* Cairo-SemiBold.ttf */; };
+		5E8086542C99D8CB00E59471 /* SearchScreenReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E8086532C99D8CB00E59471 /* SearchScreenReusableView.xib */; };
+		5E8086562C99F14900E59471 /* SearchScreenReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E8086552C99F14900E59471 /* SearchScreenReusableView.swift */; };
+		5E87168E2C9A2516006E8E66 /* SearchView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E87168D2C9A2516006E8E66 /* SearchView.xib */; };
+		5E8716902C9A2CE1006E8E66 /* CustomDropDownList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E87168F2C9A2CE1006E8E66 /* CustomDropDownList.swift */; };
 		5EBC2D012C93CD7F00FC233F /* ServicesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EBC2CFF2C93CD7F00FC233F /* ServicesCollectionViewCell.swift */; };
 		5EBC2D022C93CD7F00FC233F /* ServicesCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EBC2D002C93CD7F00FC233F /* ServicesCollectionViewCell.xib */; };
 		5EBC2D052C93CDB800FC233F /* OffersCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EBC2D032C93CDB800FC233F /* OffersCollectionViewCell.swift */; };
@@ -101,10 +106,8 @@
 		5EC18B732C8A780E0076FFB7 /* SliderBoardingImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EC18B712C8A780E0076FFB7 /* SliderBoardingImageCollectionViewCell.xib */; };
 		5EC18B792C8B9D790076FFB7 /* PhoneNumberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC18B772C8B9D790076FFB7 /* PhoneNumberViewController.swift */; };
 		5EC18B7A2C8B9D790076FFB7 /* PhoneNumberViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EC18B782C8B9D790076FFB7 /* PhoneNumberViewController.xib */; };
-		5EDD8F692C8D5FC00046FE19 /* DropdownTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EDD8F682C8D5FC00046FE19 /* DropdownTextFieldView.swift */; };
 		5EDD8F6C2C8D6F2A0046FE19 /* SelectGenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EDD8F6B2C8D6F2A0046FE19 /* SelectGenderView.swift */; };
 		5EDD8F6E2C8D6F4C0046FE19 /* RadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EDD8F6D2C8D6F4C0046FE19 /* RadioButton.swift */; };
-		5EE8317E2C9608CE00671BD7 /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = 5EE8317D2C9608CE00671BD7 /* Reachability */; };
 		5EE831802C961ED000671BD7 /* loading.gif in Resources */ = {isa = PBXBuildFile; fileRef = 5EE8317F2C961ED000671BD7 /* loading.gif */; };
 		5EE831832C961F3400671BD7 /* GifLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE831822C961F3400671BD7 /* GifLoader.swift */; };
 		5EE831862C96461400671BD7 /* SubServiceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE831852C96461400671BD7 /* SubServiceModel.swift */; };
@@ -220,6 +223,10 @@
 		5E7F39A52C92452600D7E24D /* MyProfileViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyProfileViewController.xib; sourceTree = "<group>"; };
 		5E7F39A82C92456E00D7E24D /* MyProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileViewModel.swift; sourceTree = "<group>"; };
 		5E7F39AC2C9351C500D7E24D /* en */ = {isa = PBXFileReference; lastKnownFileType = file; name = en; path = "en.lproj/Cairo-SemiBold.ttf"; sourceTree = "<group>"; };
+		5E8086532C99D8CB00E59471 /* SearchScreenReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchScreenReusableView.xib; sourceTree = "<group>"; };
+		5E8086552C99F14900E59471 /* SearchScreenReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchScreenReusableView.swift; sourceTree = "<group>"; };
+		5E87168D2C9A2516006E8E66 /* SearchView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchView.xib; sourceTree = "<group>"; };
+		5E87168F2C9A2CE1006E8E66 /* CustomDropDownList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDropDownList.swift; sourceTree = "<group>"; };
 		5EBC2CFF2C93CD7F00FC233F /* ServicesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesCollectionViewCell.swift; sourceTree = "<group>"; };
 		5EBC2D002C93CD7F00FC233F /* ServicesCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ServicesCollectionViewCell.xib; sourceTree = "<group>"; };
 		5EBC2D032C93CDB800FC233F /* OffersCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffersCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -228,7 +235,6 @@
 		5EC18B712C8A780E0076FFB7 /* SliderBoardingImageCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SliderBoardingImageCollectionViewCell.xib; sourceTree = "<group>"; };
 		5EC18B772C8B9D790076FFB7 /* PhoneNumberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberViewController.swift; sourceTree = "<group>"; };
 		5EC18B782C8B9D790076FFB7 /* PhoneNumberViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhoneNumberViewController.xib; sourceTree = "<group>"; };
-		5EDD8F682C8D5FC00046FE19 /* DropdownTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownTextFieldView.swift; sourceTree = "<group>"; };
 		5EDD8F6B2C8D6F2A0046FE19 /* SelectGenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGenderView.swift; sourceTree = "<group>"; };
 		5EDD8F6D2C8D6F4C0046FE19 /* RadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButton.swift; sourceTree = "<group>"; };
 		5EE8317F2C961ED000671BD7 /* loading.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = loading.gif; sourceTree = "<group>"; };
@@ -245,7 +251,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5EE8317E2C9608CE00671BD7 /* Reachability in Frameworks */,
+				5E6AFB082C9A5BE100252EA9 /* Reachability in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -509,11 +515,12 @@
 		5E6A805C2C887978007C14CE /* UIComponets */ = {
 			isa = PBXGroup;
 			children = (
+				5E8086522C99D86900E59471 /* SearchScreenReusbaleView */,
 				5E71D06C2C993EB5001F5061 /* CustomSearchBar */,
 				5E6A805D2C887997007C14CE /* Custombutton.swift */,
-				5EDD8F682C8D5FC00046FE19 /* DropdownTextFieldView.swift */,
 				5EDD8F6D2C8D6F4C0046FE19 /* RadioButton.swift */,
 				5E639B242C944A82004AD3AB /* UnderlinedButton.swift */,
+				5E87168F2C9A2CE1006E8E66 /* CustomDropDownList.swift */,
 			);
 			path = UIComponets;
 			sourceTree = "<group>";
@@ -871,6 +878,16 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		5E8086522C99D86900E59471 /* SearchScreenReusbaleView */ = {
+			isa = PBXGroup;
+			children = (
+				5E8086532C99D8CB00E59471 /* SearchScreenReusableView.xib */,
+				5E8086552C99F14900E59471 /* SearchScreenReusableView.swift */,
+				5E87168D2C9A2516006E8E66 /* SearchView.xib */,
+			);
+			path = SearchScreenReusbaleView;
+			sourceTree = "<group>";
+		};
 		5EBC2CF62C93CCA900FC233F /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -1059,7 +1076,7 @@
 			);
 			name = "Allo-Doctor";
 			packageProductDependencies = (
-				5EE8317D2C9608CE00671BD7 /* Reachability */,
+				5E6AFB072C9A5BE100252EA9 /* Reachability */,
 			);
 			productName = "Allo-Doctor";
 			productReference = 5E167E9E2C85B8E6008864F6 /* Allo-Doctor.app */;
@@ -1134,7 +1151,7 @@
 			);
 			mainGroup = 5E167E952C85B8E6008864F6;
 			packageReferences = (
-				5E639B2C2C95CFCD004AD3AB /* XCRemoteSwiftPackageReference "Reachability" */,
+				5E6AFB062C9A5BBA00252EA9 /* XCRemoteSwiftPackageReference "Reachability" */,
 			);
 			productRefGroup = 5E167E9F2C85B8E6008864F6 /* Products */;
 			projectDirPath = "";
@@ -1156,6 +1173,7 @@
 				5EBC2D022C93CD7F00FC233F /* ServicesCollectionViewCell.xib in Resources */,
 				5EC18B7A2C8B9D790076FFB7 /* PhoneNumberViewController.xib in Resources */,
 				5E7260D72C90934B00A0F2C7 /* Cairo-ExtraLight.ttf in Resources */,
+				5E8086542C99D8CB00E59471 /* SearchScreenReusableView.xib in Resources */,
 				5E7260D62C90934B00A0F2C7 /* Cairo-ExtraBold.ttf in Resources */,
 				5E7260DC2C90934B00A0F2C7 /* Cairo-VariableFont_slnt,wght.ttf in Resources */,
 				5EE831952C9652F000671BD7 /* SearchViewController.xib in Resources */,
@@ -1167,6 +1185,7 @@
 				5E7F39932C92432000D7E24D /* ServicesViewController.xib in Resources */,
 				5E7F39B02C93521700D7E24D /* Cairo-SemiBold.ttf in Resources */,
 				5E7F399F2C92441800D7E24D /* OffersViewController.xib in Resources */,
+				5E87168E2C9A2516006E8E66 /* SearchView.xib in Resources */,
 				5EE8318D2C9649DB00671BD7 /* SubServiceViewController.xib in Resources */,
 				5E7260DE2C90934B00A0F2C7 /* README.txt in Resources */,
 				5E7260D92C90934B00A0F2C7 /* Cairo-Medium.ttf in Resources */,
@@ -1251,10 +1270,10 @@
 				5E7ABECD2C91CC08007A0BA1 /* HomeViewModel.swift in Sources */,
 				5E167EA42C85B8E6008864F6 /* SceneDelegate.swift in Sources */,
 				5EE831832C961F3400671BD7 /* GifLoader.swift in Sources */,
-				5EDD8F692C8D5FC00046FE19 /* DropdownTextFieldView.swift in Sources */,
 				5E7ABEB52C90F3F1007A0BA1 /* UIButton+Publisher.swift in Sources */,
 				5EE831862C96461400671BD7 /* SubServiceModel.swift in Sources */,
 				5E639B2B2C950893004AD3AB /* APIClientProtocol.swift in Sources */,
+				5E8086562C99F14900E59471 /* SearchScreenReusableView.swift in Sources */,
 				5EC18B722C8A780E0076FFB7 /* SliderBoardingImageCollectionViewCell.swift in Sources */,
 				5E167EDB2C85EC87008864F6 /* LoadingLogo.swift in Sources */,
 				5E167EDF2C85F53E008864F6 /* SelectlanguageViewController.swift in Sources */,
@@ -1267,6 +1286,7 @@
 				5E6A80642C88849F007C14CE /* UIColor+Extention.swift in Sources */,
 				5E7ABEBA2C90F3F1007A0BA1 /* UISwitch+Publisher.swift in Sources */,
 				5E6A80502C8848F1007C14CE /* Coordinator.swift in Sources */,
+				5E8716902C9A2CE1006E8E66 /* CustomDropDownList.swift in Sources */,
 				5E389AA12C8BBD03002FA5F0 /* UIView+Extentions.swift in Sources */,
 				5E7ABEC12C910B46007A0BA1 /* APIParameters.swift in Sources */,
 				5E7ABEB82C90F3F1007A0BA1 /* UIScrollView+Publisher.swift in Sources */,
@@ -1630,7 +1650,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		5E639B2C2C95CFCD004AD3AB /* XCRemoteSwiftPackageReference "Reachability" */ = {
+		5E6AFB062C9A5BBA00252EA9 /* XCRemoteSwiftPackageReference "Reachability" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ashleymills/Reachability.swift";
 			requirement = {
@@ -1641,9 +1661,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		5EE8317D2C9608CE00671BD7 /* Reachability */ = {
+		5E6AFB072C9A5BE100252EA9 /* Reachability */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5E639B2C2C95CFCD004AD3AB /* XCRemoteSwiftPackageReference "Reachability" */;
+			package = 5E6AFB062C9A5BBA00252EA9 /* XCRemoteSwiftPackageReference "Reachability" */;
 			productName = Reachability;
 		};
 /* End XCSwiftPackageProductDependency section */

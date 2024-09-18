@@ -6,7 +6,6 @@
 //
 
 import UIKit
-
 class SubServiceCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var subServiceName: CairoSemiBold!

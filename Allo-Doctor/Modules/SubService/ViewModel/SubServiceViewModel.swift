@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Combine
 class SubServiceViewModel{
     @Published var subServices: [SubService] = []
     @Published var errorMessage: String?
@@ -28,18 +27,11 @@ extension SubServiceViewModel{
                 case .finished:
                    break
                 case .failure(let error):
-                    print ("error")
                   self.errorMessage = "Failed to fetch Services: \(error.localizedDescription)"
-                  
-                  
-               
-                 
                 }
             }, receiveValue: { subServiceResponse in
                 self.subServices = subServiceResponse.data
                 print(subServiceResponse.data)
-                
-               
             })
             .store(in: &cancellables)
         

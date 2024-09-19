@@ -13,9 +13,9 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RegisterViewController" customModule="Allo_Doctor" customModuleProvider="target">
             <connections>
                 <outlet property="ageTextField" destination="a2L-q7-TNx" id="qFj-Gt-aCH"/>
+                <outlet property="areaOfResidence" destination="Urc-LI-cg9" id="wvJ-L8-myB"/>
                 <outlet property="createAccButton" destination="uFI-oB-Jnk" id="zud-a0-kyw"/>
                 <outlet property="nameTextField" destination="LIy-Ns-14B" id="csD-I9-BL9"/>
-                <outlet property="selectAreaView" destination="Urc-LI-cg9" id="Xkb-vl-TFG"/>
                 <outlet property="selectGenderView" destination="uFI-oB-Jnk" id="H0w-P9-cU9"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -126,11 +126,11 @@
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Area of residence" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="6Bw-Wn-7yx">
                                                     <rect key="frame" x="0.0" y="0.0" width="288" height="9"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Urc-LI-cg9">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Urc-LI-cg9" customClass="CustomDropDownList" customModule="Allo_Doctor" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="12" width="288" height="31.5"/>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 </view>

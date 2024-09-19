@@ -9,59 +9,43 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SearchView" customModule="Allo_Doctor" customModuleProvider="target">
+            <connections>
+                <outlet property="searchButton" destination="VVh-4V-GCC" id="hX0-1e-XPH"/>
+                <outlet property="searchTextfield" destination="8mN-FK-YFs" id="WMc-c0-bGh"/>
+            </connections>
+        </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB">
-            <rect key="frame" x="0.0" y="0.0" width="393" height="90"/>
+            <rect key="frame" x="0.0" y="0.0" width="393" height="40"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ccR-dj-gFk">
-                    <rect key="frame" x="16" y="0.0" width="361" height="90"/>
+                <stackView opaque="NO" contentMode="scaleToFill" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="kVp-0J-HgB">
+                    <rect key="frame" x="0.0" y="0.0" width="383" height="40"/>
                     <subviews>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n6V-ot-6FW" customClass="CustomDropDownList" customModule="Allo_Doctor" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="0.0" width="361" height="40"/>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        </view>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fcQ-Ih-akG">
-                            <rect key="frame" x="0.0" y="50" width="361" height="40"/>
-                            <subviews>
-                                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kVp-0J-HgB">
-                                    <rect key="frame" x="0.0" y="0.0" width="361" height="40"/>
-                                    <subviews>
-                                        <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search for specialty ,Doctor or hospital" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8mN-FK-YFs">
-                                            <rect key="frame" x="0.0" y="0.0" width="325" height="40"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <textInputTraits key="textInputTraits"/>
-                                        </textField>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VVh-4V-GCC">
-                                            <rect key="frame" x="325" y="0.0" width="36" height="40"/>
-                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                            <state key="normal" image="Search"/>
-                                        </button>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstItem="VVh-4V-GCC" firstAttribute="width" secondItem="kVp-0J-HgB" secondAttribute="width" multiplier="0.1" id="Dfe-CH-PlR"/>
-                                    </constraints>
-                                </stackView>
-                            </subviews>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            <constraints>
-                                <constraint firstItem="kVp-0J-HgB" firstAttribute="top" secondItem="fcQ-Ih-akG" secondAttribute="top" id="275-Hq-0HQ"/>
-                                <constraint firstAttribute="bottom" secondItem="kVp-0J-HgB" secondAttribute="bottom" id="MYo-cS-PWs"/>
-                                <constraint firstAttribute="trailing" secondItem="kVp-0J-HgB" secondAttribute="trailing" id="rqr-Tc-Yo9"/>
-                                <constraint firstItem="kVp-0J-HgB" firstAttribute="leading" secondItem="fcQ-Ih-akG" secondAttribute="leading" id="x0G-gE-Umh"/>
-                            </constraints>
-                        </view>
+                        <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Search for specialty ,Doctor or hospital" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8mN-FK-YFs">
+                            <rect key="frame" x="0.0" y="0.0" width="342.66666666666669" height="40"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VVh-4V-GCC">
+                            <rect key="frame" x="344.66666666666669" y="0.0" width="38.333333333333314" height="40"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" image="Search"/>
+                        </button>
                     </subviews>
+                    <constraints>
+                        <constraint firstItem="VVh-4V-GCC" firstAttribute="width" secondItem="kVp-0J-HgB" secondAttribute="width" multiplier="0.1" id="Dfe-CH-PlR"/>
+                    </constraints>
                 </stackView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="ccR-dj-gFk" secondAttribute="bottom" id="481-nT-6nr"/>
-                <constraint firstItem="ccR-dj-gFk" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="CjJ-8D-NGN"/>
-                <constraint firstItem="ccR-dj-gFk" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Gxg-4l-FbW"/>
-                <constraint firstAttribute="trailing" secondItem="ccR-dj-gFk" secondAttribute="trailing" constant="16" id="O9g-dL-LsG"/>
+                <constraint firstAttribute="trailing" secondItem="kVp-0J-HgB" secondAttribute="trailing" constant="10" id="CSH-C9-yKM"/>
+                <constraint firstItem="kVp-0J-HgB" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="T2h-to-KvK"/>
+                <constraint firstAttribute="bottom" secondItem="kVp-0J-HgB" secondAttribute="bottom" id="i4h-ha-V4S"/>
+                <constraint firstItem="kVp-0J-HgB" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="irZ-DF-oqf"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>

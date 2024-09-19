@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -11,6 +12,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SearchViewController" customModule="Allo_Doctor" customModuleProvider="target">
             <connections>
+                <outlet property="searchTableView" destination="njD-iR-K9G" id="rzL-BE-aaw"/>
+                <outlet property="upperView" destination="NtZ-it-y7c" id="XY2-Ys-92L"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -19,39 +22,101 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NtZ-it-y7c" customClass="SearchScreenReusableView" customModule="Allo_Doctor" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="211"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                </view>
-                <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="jMW-Cg-bBg">
-                    <rect key="frame" x="16" y="273" width="343" height="508.33333333333326"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NtZ-it-y7c">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="219.33333333333334"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mgl-Fz-3ET">
-                            <rect key="frame" x="0.0" y="0.0" width="343" height="20.333333333333343"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cws-sr-JHi">
+                            <rect key="frame" x="16.000000000000007" y="55" width="121.66666666666669" height="27"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" title="Operations" image="chevron.left" catalog="system">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <connections>
+                                <action selector="navBackAction:" destination="-1" eventType="touchUpInside" id="Zlv-hx-NoZ"/>
+                            </connections>
+                        </button>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Kxt-dQ-cug">
+                            <rect key="frame" x="16" y="97" width="343" height="90"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QpO-eU-U9w" customClass="CustomDropDownList" customModule="Allo_Doctor" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="343" height="40"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T6K-pu-QcB" customClass="SearchView" customModule="Allo_Doctor" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="50" width="343" height="40"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="10"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </view>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="90" id="v5i-qc-D3E"/>
+                            </constraints>
+                        </stackView>
+                    </subviews>
+                    <color key="backgroundColor" name="blueAppColor"/>
+                    <constraints>
+                        <constraint firstItem="Kxt-dQ-cug" firstAttribute="top" secondItem="Cws-sr-JHi" secondAttribute="bottom" constant="15" id="4ru-Fd-ox7"/>
+                        <constraint firstAttribute="trailing" secondItem="Kxt-dQ-cug" secondAttribute="trailing" constant="16" id="I3C-Ie-83K"/>
+                        <constraint firstItem="Cws-sr-JHi" firstAttribute="leading" secondItem="NtZ-it-y7c" secondAttribute="leading" constant="16" id="XzC-hx-ZYc"/>
+                        <constraint firstItem="Kxt-dQ-cug" firstAttribute="leading" secondItem="NtZ-it-y7c" secondAttribute="leading" constant="16" id="p7L-Te-uK7"/>
+                    </constraints>
+                </view>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="jMW-Cg-bBg">
+                    <rect key="frame" x="16" y="234.33333333333331" width="343" height="543.66666666666674"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All specialties" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mgl-Fz-3ET" customClass="CairoSemiBold" customModule="Allo_Doctor" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="343" height="24.666666666666668"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="21"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
+                                    <real key="value" value="20"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
                         </label>
-                        <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="njD-iR-K9G">
-                            <rect key="frame" x="0.0" y="20.333333333333314" width="343" height="488"/>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="njD-iR-K9G">
+                            <rect key="frame" x="0.0" y="36.666666666666629" width="343" height="507"/>
                         </tableView>
                     </subviews>
+                    <constraints>
+                        <constraint firstItem="njD-iR-K9G" firstAttribute="height" secondItem="jMW-Cg-bBg" secondAttribute="height" multiplier="0.932367" id="CvM-ES-S2V"/>
+                    </constraints>
                 </stackView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="jMW-Cg-bBg" secondAttribute="trailing" constant="16" id="AbK-g3-KyH"/>
+                <constraint firstItem="jMW-Cg-bBg" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="H91-LF-g9A"/>
                 <constraint firstItem="NtZ-it-y7c" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="LMg-ky-sRO"/>
                 <constraint firstAttribute="trailing" secondItem="NtZ-it-y7c" secondAttribute="trailing" id="RuL-5a-bBi"/>
-                <constraint firstItem="NtZ-it-y7c" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.26" id="VTr-EJ-nug"/>
+                <constraint firstItem="NtZ-it-y7c" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.27" id="VTr-EJ-nug"/>
+                <constraint firstItem="Cws-sr-JHi" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="5" id="crd-ws-KCa"/>
                 <constraint firstItem="NtZ-it-y7c" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="dbl-zK-GdL"/>
+                <constraint firstItem="jMW-Cg-bBg" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="n8u-03-Anu"/>
+                <constraint firstItem="jMW-Cg-bBg" firstAttribute="top" secondItem="NtZ-it-y7c" secondAttribute="bottom" constant="15" id="zTk-gZ-85o"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="136.80000000000001" y="0.0"/>
         </view>
     </objects>
+    <designables>
+        <designable name="Mgl-Fz-3ET">
+            <size key="intrinsicContentSize" width="124.33333333333333" height="25.333333333333332"/>
+        </designable>
+    </designables>
     <resources>
+        <image name="chevron.left" catalog="system" width="97" height="128"/>
+        <namedColor name="blueAppColor">
+            <color red="0.11800000071525574" green="0.49000000953674316" blue="0.75300002098083496" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

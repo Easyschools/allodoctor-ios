@@ -14,6 +14,7 @@ enum Dimensions:CGFloat{
     case borderRaduis = 10
     case borderWidth = 1
     case textFieldPadding = 13
+    case upperViewBorderRaduis = 30
 }
 enum buttonsText:String{
     case Next = "Next"

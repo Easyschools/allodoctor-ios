@@ -6,14 +6,13 @@
 //
 
 import UIKit
-import Combine
 class RegisterViewController: BaseViewController<RegisterViewModel> {
     @IBOutlet weak var ageTextField: UITextField!
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet private weak var createAccButton: CustomButton!
     @IBOutlet private weak var selectGenderView: UIView!
-    private let dropdownView = CustomDropDownList()
-    @IBOutlet private weak var selectAreaView: UIView!
+
+    @IBOutlet weak var areaOfResidence: CustomDropDownList!
     let selectGender = SelectGenderView()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,8 +31,8 @@ class RegisterViewController: BaseViewController<RegisterViewModel> {
 }
 extension RegisterViewController{
     private func setupDropdownView() {
-           dropdownView.translatesAutoresizingMaskIntoConstraints = false
-        selectAreaView.addSubview(dropdownView)
+         
+      
         
        }
 }

@@ -10,23 +10,26 @@ enum APIRouter {
     case registerUser(UserData)
     case fetchServices(isPaginate: Int)
     case fetchSubServices(isPaginate: Int)
+    case fetchInfoService(id:Int)
     var url: URL {
         switch self {
         case .registerUser:
-            return URL(string: "https://allodoctor-backend.developnetwork.net/api/auth/register")!
+            return URL(string:  APIConstants.basedURL + HTTPHeaderField.authentication.rawValue)!
         case .fetchServices(let isPaginate):
-            return URL(string: "https://allodoctor-backend.developnetwork.net/api/admin/service/all?is_paginate=\(isPaginate)")!
+            return URL(string: APIConstants.basedURL + "/admin/service/all?is_paginate=\(isPaginate)")!
         case .fetchSubServices(let isPaginate):
-            return URL(string: "https://allodoctor-backend.developnetwork.net/api/admin/sub-service/all?is_paginate=\(isPaginate)")!
-        
+            return URL(string: APIConstants.basedURL + "/admin/sub-service/all?is_paginate=\(isPaginate)")!
+        case.fetchInfoService(let id):
+            return  URL(string: APIConstants.basedURL + "/admin/service/get?id=\(id)")!
         }
+      
     }
     
     var method: String {
         switch self {
         case .registerUser:
             return "POST"
-        case .fetchServices,.fetchSubServices:
+        case .fetchServices,.fetchSubServices,.fetchInfoService:
             return "GET"
         }
     }
@@ -35,7 +38,7 @@ enum APIRouter {
         switch self {
         case .registerUser(let request):
             return try? JSONEncoder().encode(request)
-        case .fetchServices,.fetchSubServices:
+        case .fetchServices,.fetchSubServices,.fetchInfoService:
             return nil
         }
     }
@@ -44,7 +47,7 @@ enum APIRouter {
         switch self {
         case .registerUser:
             return ["Content-Type": "application/json"]
-        case .fetchServices,.fetchSubServices:
+        case .fetchServices,.fetchSubServices,.fetchInfoService:
             return ["Content-Type": "application/json"]
         }
     }

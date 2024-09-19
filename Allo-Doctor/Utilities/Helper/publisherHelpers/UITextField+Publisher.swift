@@ -18,7 +18,13 @@ extension UITextField {
             .compactMap { ($0.object as? UITextField)?.text }
             .eraseToAnyPublisher()
     }
-    
+//    var textPublisher: AnyPublisher<String, Never> {
+//           NotificationCenter.default
+//               .publisher(for: UITextField.textDidChangeNotification, object: self)
+//               .compactMap { $0.object as? UITextField }
+//               .map { $0.text ?? "" }
+//               .eraseToAnyPublisher()
+//       }
     // Binds the text field to a subject for two-way binding
     func bindText(to subject: CurrentValueSubject<String, Never>,
                   storeIn subscriptions: inout Set<AnyCancellable>) {

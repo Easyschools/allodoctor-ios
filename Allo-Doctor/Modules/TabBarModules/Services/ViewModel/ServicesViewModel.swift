@@ -12,9 +12,8 @@ class ServicesViewModel{
     @Published var images: [UIImage] = []
     @Published var services: [Service] = []
     @Published var errorMessage: String?
-    var coordinator: HomeCoordinatorContact?
+    private var coordinator: HomeCoordinatorContact?
     private var cancellables = Set<AnyCancellable>()
-//    let router = APIRouter.fetchServices(isPaginate: 15)
     private let apiClient = APIClient()
     private let imageARR = [UIImage(named: "offers"),UIImage(named: "offers"),UIImage(named: "offers")].compactMap{$0}
     private var timer: AnyCancellable?

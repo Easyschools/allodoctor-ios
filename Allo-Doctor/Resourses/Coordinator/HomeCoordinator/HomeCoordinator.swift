@@ -114,7 +114,8 @@ extension HomeCoordinator: HomeCoordinatorContact {
         navigationController.setViewControllers([viewController], animated: false)
     }
     func showSearchScreen(){
-        let viewController = SearchViewController()
+        let viewModel = SearchViewModel()
+        let viewController = SearchViewController(viewModel: viewModel)
         
         navigationController.setViewControllers([viewController], animated: false)
     }

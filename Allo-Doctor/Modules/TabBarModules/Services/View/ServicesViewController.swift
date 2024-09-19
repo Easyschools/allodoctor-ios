@@ -7,62 +7,37 @@
 
 import UIKit
 class ServicesViewController: BaseViewController<ServicesViewModel> {
-    @IBOutlet weak var searchBar: UIView!
-    @IBOutlet weak var upperStackView: UIStackView!
+    // MARK: - @IBOutlets
+    @IBOutlet weak private var searchBar: UIView!
+    @IBOutlet weak private var upperStackView: UIStackView!
     let imageARR = [UIImage(named: "offers"), UIImage(named: "offers"), UIImage(named: "offers")].compactMap { $0 }
-// MARK: - @IBOutlets
     @IBOutlet weak private var offersCollectionView: UICollectionView!
     @IBOutlet weak private var servicesCollectionView: UICollectionView!
     @IBOutlet weak private var scrollView: UIScrollView!
     @IBOutlet weak private var servicesCollectionViewDynamicHeight: NSLayoutConstraint!
     @IBOutlet weak private var offersPageControl: UIPageControl!
-// MARK: - LifeCycle
+    // MARK: - LifeCycle
     override func viewDidLoad() {
-            super.viewDidLoad()
-       
-            viewModel.fetchServices()
-        }
+        super.viewDidLoad()
+        viewModel.fetchServices()
+    }
     override func viewDidAppear(_ animated: Bool) {
-           super.viewDidAppear(animated)
-
-           // Force the tab bar color after the view has fully appeared
+        super.viewDidAppear(animated)
+        // Force the tab bar color after the view has fully appeared
         tabBarController?.tabBar.barTintColor = .darkBlue_295DA8
-       }
-// MARK: - Setup UI
-override func setupUI() {
-         
-       
+    }
+    // MARK: - Setup UI
+    override func setupUI() {
         bindCollectionViewHeight()
         setupCollectionViews()
         viewModel.startAutoScroll()
-        
         offersPageControl.numberOfPages = imageARR.count
     }
-        override func bindViewModel() {
-            bindServices()
-            viewModel.$currentImageIndex
-                .sink { [weak self] index in
-                    guard let self = self else { return }
-                    self.offersPageControl.currentPage = index
-                    let indexPath = IndexPath(item: index, section: 0)
-                    if self.offersCollectionView.numberOfItems(inSection: 0) > index {
-                        self.offersCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-                    }
-                }
-                .store(in: &cancellables)
-
-            
-            viewModel.$images
-                .sink { [weak self] images in
-                    self?.offersCollectionView.reloadData()
-                    self?.offersPageControl.numberOfPages = images.count
-                }
-                .store(in: &cancellables)
-
-        }
-        
-       
+    override func bindViewModel() {
+        bindServices()
+        bindImageControl()
     }
+}
 // MARK: -  Setup CollectionViews & Register cells
 extension ServicesViewController{
     private func setupCollectionViews(){
@@ -88,7 +63,7 @@ extension ServicesViewController{
                 }
             }
             .store(in: &cancellables)
-     
+        
     }
 }
 // MARK: - CollectionViews Functions
@@ -105,11 +80,11 @@ extension ServicesViewController: UICollectionViewDelegate, UICollectionViewData
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == servicesCollectionView{
             viewModel.navToSubServiceScreen()
-           }
+        }
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-       
-
+        
+        
         if collectionView == offersCollectionView {
             // Dequeueing OffersCollectionViewCell
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "OffersCollectionViewCell", for: indexPath) as! OffersCollectionViewCell
@@ -120,57 +95,78 @@ extension ServicesViewController: UICollectionViewDelegate, UICollectionViewData
             let service = viewModel.services[indexPath.row]
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ServicesCollectionViewCell", for: indexPath) as! ServicesCollectionViewCell
             cell.serviceLabel.text = service.name
-//            cell.setupImage(with: service.image ?? Constants.imagePlaceHolder.rawValue)
+            //            cell.setupImage(with: service.image ?? Constants.imagePlaceHolder.rawValue)
             return cell
         }
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == offersCollectionView {
             return CGSize(width: offersCollectionView.frame.width, height: collectionView.frame.height)}
         else {
             return CGSize(width: collectionView.frame.width*0.485, height: collectionView.frame.width*0.45)}
-        }
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-//        return
-//    }
-       
     }
+    //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+    //        return
+    //    }
+    
+}
 
 extension ServicesViewController : UIScrollViewDelegate {
-        
-        func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-            if scrollView == offersCollectionView {
-                viewModel.stopAutoScroll()
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        if scrollView == offersCollectionView {
+            viewModel.stopAutoScroll()
+        }
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if scrollView == offersCollectionView {
+            viewModel.startAutoScroll()
+        }
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        if scrollView == offersCollectionView {
+            let visibleRect = CGRect(origin: offersCollectionView.contentOffset, size: offersCollectionView.bounds.size)
+            let visiblePoint = CGPoint(x: visibleRect.midX, y: visibleRect.midY)
+            if let visibleIndexPath = offersCollectionView.indexPathForItem(at: visiblePoint) {
+                viewModel.updateCurrentIndex(to: visibleIndexPath.item)
             }
         }
-        
-        func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-            if scrollView == offersCollectionView {
-                viewModel.startAutoScroll()
-            }
-        }
-        
-        func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-            if scrollView == offersCollectionView {
-                let visibleRect = CGRect(origin: offersCollectionView.contentOffset, size: offersCollectionView.bounds.size)
-                let visiblePoint = CGPoint(x: visibleRect.midX, y: visibleRect.midY)
-                if let visibleIndexPath = offersCollectionView.indexPathForItem(at: visiblePoint) {
-                    viewModel.updateCurrentIndex(to: visibleIndexPath.item)
-                }
-            }
-        }
+    }
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         tabBarController?.tabBar.barTintColor = .darkBlue295DA8
         navigationController?.navigationBar.barTintColor = .white
-        }
     }
+}
+// MARK: - ViewModel Binding for services & images in offers collectionview
 extension ServicesViewController {
     func bindServices(){
         viewModel.$services
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 self?.servicesCollectionView.reloadData()}
+            .store(in: &cancellables)
+    }
+    func bindImageControl() {
+        viewModel.$currentImageIndex
+            .sink { [weak self] index in
+                guard let self = self else { return }
+                self.offersPageControl.currentPage = index
+                let indexPath = IndexPath(item: index, section: 0)
+                if self.offersCollectionView.numberOfItems(inSection: 0) > index {
+                    self.offersCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+                }
+            }
+            .store(in: &cancellables)
+        
+        
+        viewModel.$images
+            .sink { [weak self] images in
+                self?.offersCollectionView.reloadData()
+                self?.offersPageControl.numberOfPages = images.count
+            }
             .store(in: &cancellables)
     }
 }

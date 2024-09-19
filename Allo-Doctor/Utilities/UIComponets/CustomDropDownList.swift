@@ -46,42 +46,52 @@ class CustomDropDownList: UIView {
         addGestureRecognizer(tapGesture)
         
         NSLayoutConstraint.activate([
-            label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
+            label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 13),
             label.trailingAnchor.constraint(equalTo: arrowImageView.leadingAnchor, constant: -10),
             label.centerYAnchor.constraint(equalTo: centerYAnchor),
             
-            arrowImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
+            arrowImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -13),
             arrowImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            arrowImageView.widthAnchor.constraint(equalToConstant: 20),
-            arrowImageView.heightAnchor.constraint(equalToConstant: 20)
+            arrowImageView.widthAnchor.constraint(equalToConstant: 24),
+            arrowImageView.heightAnchor.constraint(equalToConstant: 24)
         ])
     }
     
     @objc private func toggleDropdown() {
         if dropdownTableView == nil {
-            arrowImageView =  UIImageView(image: UIImage(systemName: "chevron.up"))
             showDropdown()
+            animateArrow(up: true)  // Rotate the arrow up
         } else {
-          
             hideDropdown()
         }
     }
     
     private func showDropdown() {
         guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) else { return }
-     
+        
         let backgroundView = UIView(frame: window.bounds)
         backgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideDropdown))
         backgroundView.addGestureRecognizer(tapGesture)
         window.addSubview(backgroundView)
-        arrowImageView.image =   UIImage(systemName: "chevron.up")
+        
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.layer.cornerRadius = 5
-        tableView.backgroundColor = .white
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        
+        // Add border, corner radius, and shadow to the table view
+        tableView.layer.cornerRadius = 10
+        tableView.layer.borderWidth = 1
+        tableView.layer.borderColor = UIColor.lightGray.cgColor
+        
+        tableView.layer.shadowColor = UIColor.black.cgColor
+        tableView.layer.shadowOpacity = 0.3
+        tableView.layer.shadowOffset = CGSize(width: 0, height: 3)
+        tableView.layer.shadowRadius = 4
+        tableView.clipsToBounds = false
+        
+        tableView.backgroundColor = .white
         tableView.isUserInteractionEnabled = true
         
         backgroundView.addSubview(tableView)
@@ -95,12 +105,13 @@ class CustomDropDownList: UIView {
         
         self.dropdownTableView = tableView
         self.dropdownBackgroundView = backgroundView
-        
         tableView.reloadData()
     }
     
     @objc private func hideDropdown() {
-    
+        // Reset arrow direction to point down when dropdown is dismissed
+        animateArrow(up: false)
+        
         dropdownTableView?.removeFromSuperview()
         dropdownTableView = nil
         dropdownBackgroundView?.removeFromSuperview()
@@ -119,6 +130,15 @@ class CustomDropDownList: UIView {
         didSelectItem?(selectedItem)
         label.textColor = .black
         hideDropdown()
+    }
+    
+    // Animation function for the arrow
+    private func animateArrow(up: Bool) {
+        let rotationAngle: CGFloat = up ? .pi : 0
+        
+        UIView.animate(withDuration: 0.3) {
+            self.arrowImageView.transform = CGAffineTransform(rotationAngle: rotationAngle)
+        }
     }
 }
 
@@ -141,10 +161,10 @@ extension CustomDropDownList: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
         let selectedItem = items[indexPath.row]
         label.text = selectedItem
         didSelectItem?(selectedItem)
+
         hideDropdown()
     }
 }

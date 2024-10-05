@@ -11,7 +11,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MyActivityViewController" customModule="Allo_Doctor" customModuleProvider="target">
             <connections>
-                <outlet property="gs" destination="GaZ-L5-Flt" id="qr6-cS-TFw"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -20,33 +19,23 @@
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Activtiy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GaZ-L5-Flt" customClass="CairoSemiBold" customModule="Allo_Doctor" customModuleProvider="target">
-                    <rect key="frame" x="95.666666666666671" y="426" width="201.66666666666663" height="25.333333333333314"/>
-                    <fontDescription key="fontDescription" name="BodoniOrnamentsITCTT" family="Bodoni Ornaments" pointSize="25"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
-                            <real key="value" value="50"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
-                </label>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Screenshot 2024-09-24 at 7.48.01 AM" translatesAutoresizingMaskIntoConstraints="NO" id="mGB-Xz-JDL">
+                    <rect key="frame" x="0.0" y="0.0" width="393" height="818"/>
+                </imageView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="GaZ-L5-Flt" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="8XV-vx-9qn"/>
-                <constraint firstItem="GaZ-L5-Flt" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="I1r-m0-Ac2"/>
+                <constraint firstItem="mGB-Xz-JDL" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Dcq-0M-zqK"/>
+                <constraint firstItem="mGB-Xz-JDL" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="OQN-EL-NdD"/>
+                <constraint firstItem="mGB-Xz-JDL" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="shl-R2-6Rh"/>
+                <constraint firstItem="mGB-Xz-JDL" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="xvc-Ou-lar"/>
             </constraints>
-            <point key="canvasLocation" x="132" y="-32"/>
+            <point key="canvasLocation" x="130.53435114503816" y="-32.394366197183103"/>
         </view>
     </objects>
-    <designables>
-        <designable name="GaZ-L5-Flt">
-            <size key="intrinsicContentSize" width="201.66666666666666" height="25.333333333333332"/>
-        </designable>
-    </designables>
     <resources>
+        <image name="Screenshot 2024-09-24 at 7.48.01 AM" width="1284" height="2144"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

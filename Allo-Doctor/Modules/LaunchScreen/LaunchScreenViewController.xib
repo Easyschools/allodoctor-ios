@@ -12,6 +12,9 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LaunchScreenViewController" customModule="Allo_Doctor" customModuleProvider="target">
             <connections>
                 <outlet property="loadingGif" destination="XgV-Jc-YZp" id="NS1-Z3-CNV"/>
+                <outlet property="offlineStackView" destination="V3a-kF-pYp" id="iqT-hg-00Y"/>
+                <outlet property="offlineView" destination="LXb-Ug-iua" id="Nwx-Ve-kqQ"/>
+                <outlet property="retryButton" destination="Mnt-74-rUZ" id="hEV-JQ-snf"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -21,30 +24,32 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="92" translatesAutoresizingMaskIntoConstraints="NO" id="8sk-TX-aD3">
-                    <rect key="frame" x="47" y="249" width="281" height="330"/>
+                    <rect key="frame" x="47" y="299" width="281" height="330"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="3dR-7b-IRs">
                             <rect key="frame" x="0.0" y="0.0" width="281" height="168.33333333333334"/>
                             <subviews>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AppLogo" translatesAutoresizingMaskIntoConstraints="NO" id="Yxq-EL-D68">
-                                    <rect key="frame" x="0.0" y="0.0" width="281" height="81.666666666666671"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="281" height="81"/>
                                 </imageView>
-                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XgV-Jc-YZp">
-                                    <rect key="frame" x="0.0" y="81.666666666666686" width="281" height="86.666666666666686"/>
-                                </imageView>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="RKr-y9-a4F">
+                                    <rect key="frame" x="0.0" y="81" width="281" height="87.333333333333314"/>
+                                    <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XgV-Jc-YZp">
+                                            <rect key="frame" x="0.0" y="0.0" width="281" height="87.333333333333329"/>
+                                        </imageView>
+                                    </subviews>
+                                </stackView>
                             </subviews>
-                            <constraints>
-                                <constraint firstItem="XgV-Jc-YZp" firstAttribute="height" secondItem="3dR-7b-IRs" secondAttribute="height" multiplier="0.51497" id="dFu-YI-i41"/>
-                            </constraints>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="V3a-kF-pYp">
-                            <rect key="frame" x="0.0" y="260.33333333333331" width="281" height="69.666666666666686"/>
+                            <rect key="frame" x="0.0" y="260.33333333333337" width="281" height="69.666666666666686"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LXb-Ug-iua">
                                     <rect key="frame" x="0.0" y="0.0" width="281" height="36.333333333333336"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You are offline , check your internet connection" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AJf-X0-bjV" customClass="CairoSemiBold" customModule="Allo_Doctor" customModuleProvider="target">
-                                            <rect key="frame" x="-38.666666666666657" y="8.0000000000000551" width="358.33333333333326" height="20.333333333333329"/>
+                                            <rect key="frame" x="-38.666666666666657" y="7.9999999999999982" width="358.33333333333326" height="20.333333333333329"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
@@ -67,7 +72,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </view>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mnt-74-rUZ" customClass="UnderlinedButton" customModule="Allo_Doctor" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="46.333333333333314" width="281" height="23.333333333333329"/>
+                                    <rect key="frame" x="0.0" y="46.333333333333258" width="281" height="23.333333333333329"/>
                                     <state key="normal" title="Button"/>
                                     <buttonConfiguration key="configuration" style="plain" title="Retry">
                                         <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -77,6 +82,9 @@
                                             <real key="value" value="12"/>
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="retryAction:" destination="-1" eventType="touchUpInside" id="Fcl-BK-ff1"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <constraints>
@@ -85,6 +93,7 @@
                         </stackView>
                     </subviews>
                     <constraints>
+                        <constraint firstItem="RKr-y9-a4F" firstAttribute="height" secondItem="8sk-TX-aD3" secondAttribute="height" multiplier="0.264646" id="Psq-Tw-gdh"/>
                         <constraint firstItem="3dR-7b-IRs" firstAttribute="height" secondItem="8sk-TX-aD3" secondAttribute="height" multiplier="0.51" id="hlE-rn-7CB"/>
                     </constraints>
                 </stackView>
@@ -93,7 +102,7 @@
             <color key="backgroundColor" name="blueAppColor"/>
             <constraints>
                 <constraint firstItem="8sk-TX-aD3" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="09W-cD-ND2"/>
-                <constraint firstItem="8sk-TX-aD3" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="Idm-iG-xeE"/>
+                <constraint firstItem="8sk-TX-aD3" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" constant="50" id="Idm-iG-xeE"/>
                 <constraint firstItem="8sk-TX-aD3" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.749333" id="Q1l-7b-twx"/>
                 <constraint firstItem="8sk-TX-aD3" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.406404" id="Yjd-tW-FK2"/>
             </constraints>
@@ -114,7 +123,7 @@
             <color red="0.11800000071525574" green="0.49000000953674316" blue="0.75300002098083496" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="lightGrey-#D9D9D9">
-            <color red="0.85098039215686272" green="0.85098039215686272" blue="0.85098039215686272" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.85100001096725464" green="0.85100001096725464" blue="0.85100001096725464" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

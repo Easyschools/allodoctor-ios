@@ -12,7 +12,7 @@ final class AppCoordinator: Coordinator {
     private let window: UIWindow
     private var children: [Coordinator] = []
     var navigationController: UINavigationController
-
+     
     /// Initializes an instance of `AppCoordinator`.
     ///
     /// - Parameters:
@@ -37,7 +37,7 @@ private extension AppCoordinator {
     func displayHomeFlow() {
         var coordinator: Coordinator
         
-        coordinator = HomeCoordinator(navigationController: navigationController)
+        coordinator = HomeCoordinator(navigationController: navigationController,window: window )
         coordinator.start()
         children.append(coordinator)
         replaceRootViewController(navigationController)

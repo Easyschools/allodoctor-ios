@@ -6,7 +6,9 @@
 //
 
 import UIKit
-
+var bundle: Bundle {
+    return Bundle(identifier: "com.DevelopNetwork.AlloDoctor")!
+}
 public extension UIView {
     
     @IBInspectable var cornerRadius: CGFloat {
@@ -56,6 +58,7 @@ public extension UIView {
             layer.borderColor = newValue?.cgColor
         }
     }
+    
 }
 
 public extension UIView {
@@ -586,3 +589,73 @@ private static func instantiateFromNibHelper<T>() -> T where T: UIView {
     }
     return view
 }}
+
+extension UIView {
+    func applyDropShadow(color: UIColor = UIColor.black.withAlphaComponent(0.1),
+                            opacity: Float = 1.0,
+                            offset: CGSize = CGSize(width: 4, height: 4),
+                            radius: CGFloat = 15,
+                            shouldRasterize: Bool = false) {
+           self.layer.shadowColor = color.cgColor
+           self.layer.shadowOpacity = opacity
+           self.layer.shadowOffset = offset
+           self.layer.shadowRadius = radius
+           self.layer.masksToBounds = false // Ensures the shadow is not clipped
+           self.layer.shadowPath = UIBezierPath(rect: self.bounds).cgPath // Creates a shadow path based on the view's bounds
+           
+           // Optional: Improve performance by rasterizing the shadow
+           self.layer.shouldRasterize = shouldRasterize
+           self.layer.rasterizationScale = shouldRasterize ? UIScreen.main.scale : 1
+       }
+    }
+
+
+
+import UIKit
+
+@IBDesignable
+class CustomShadowView: UIView {
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        setupView()
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        applyDropShadow()
+    }
+
+    private func setupView() {
+        // Optional: Set background color if not set in XIB
+        if self.backgroundColor == nil {
+            self.backgroundColor = .white
+        }
+    }
+
+    func applyDropShadow(color: UIColor = UIColor.black.withAlphaComponent(0.1),
+                         opacity: Float = 1.0,
+                         offset: CGSize = CGSize(width: 4, height: 4),
+                         radius: CGFloat = 15) {
+        // Apply drop shadow properties
+        self.layer.shadowColor = color.cgColor
+        self.layer.shadowOpacity = opacity
+        self.layer.shadowOffset = offset
+        self.layer.shadowRadius = radius
+        self.layer.masksToBounds = false
+        
+        // Set the shadow path based on the view’s bounds
+        self.layer.shadowPath = UIBezierPath(rect: self.bounds).cgPath
+    }
+}
+extension UIView {
+    func addXibSubview(named xibName: String) {
+        guard let xibView = bundle.loadNibNamed(xibName, owner: self, options: nil)?.first as? UIView else {
+            fatalError("Failed to load XIB named \(xibName)")
+        }
+        
+        xibView.frame = bounds
+        xibView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        addSubview(xibView)
+    }
+}

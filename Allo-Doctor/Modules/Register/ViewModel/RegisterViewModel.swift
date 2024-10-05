@@ -6,15 +6,13 @@
 //
 
 import Foundation
-import Combine
-
 class RegisterViewModel:ObservableObject {
     var coordinator: HomeCoordinatorContact?
     var nameSubject = CurrentValueSubject<String, Never>("")
     var ageSubject = CurrentValueSubject<String, Never>("")
     var cancellables = Set<AnyCancellable>()
-
-  
+    @Published var cities:[City] = []
+    @Published var errorMessage: String?
     private let apiClient: APIClient
     init(coordinator: HomeCoordinatorContact? = nil,apiClient: APIClient = APIClient()) {
         self.coordinator = coordinator
@@ -54,3 +52,18 @@ extension RegisterViewModel{
     func nav(){
       
     }}
+extension RegisterViewModel{
+    func getAllAreaOfResidence(){
+        apiClient.fetchData(from: URL(string: "https://allodoctor-backend.developnetwork.net/api/admin/city/all?is_paginate=30")!, as: CityResponse.self)
+            .sink(receiveCompletion: {completion in switch  completion {
+            case.finished:
+                break
+            case .failure(let error):
+                self.errorMessage  = "Failed to fetch Cities: \(error.localizedDescription)"
+            }}, receiveValue: { citiesResponse in
+                self.cities = citiesResponse.data
+                
+            }).store(in: &cancellables)
+    }
+
+}

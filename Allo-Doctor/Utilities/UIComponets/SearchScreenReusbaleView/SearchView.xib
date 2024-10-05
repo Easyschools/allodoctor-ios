@@ -21,15 +21,15 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="kVp-0J-HgB">
-                    <rect key="frame" x="0.0" y="0.0" width="383" height="40"/>
+                    <rect key="frame" x="0.0" y="0.0" width="385" height="40"/>
                     <subviews>
                         <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Search for specialty ,Doctor or hospital" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8mN-FK-YFs">
-                            <rect key="frame" x="0.0" y="0.0" width="342.66666666666669" height="40"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <rect key="frame" x="0.0" y="0.0" width="344.66666666666669" height="40"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VVh-4V-GCC">
-                            <rect key="frame" x="344.66666666666669" y="0.0" width="38.333333333333314" height="40"/>
+                            <rect key="frame" x="346.66666666666669" y="0.0" width="38.333333333333314" height="40"/>
                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                             <state key="normal" image="Search"/>
                         </button>
@@ -42,7 +42,7 @@
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="kVp-0J-HgB" secondAttribute="trailing" constant="10" id="CSH-C9-yKM"/>
+                <constraint firstAttribute="trailing" secondItem="kVp-0J-HgB" secondAttribute="trailing" constant="8" id="CSH-C9-yKM"/>
                 <constraint firstItem="kVp-0J-HgB" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="T2h-to-KvK"/>
                 <constraint firstAttribute="bottom" secondItem="kVp-0J-HgB" secondAttribute="bottom" id="i4h-ha-V4S"/>
                 <constraint firstItem="kVp-0J-HgB" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="irZ-DF-oqf"/>

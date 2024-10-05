@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DoctorSearchViewController" customModule="Allo_Doctor" customModuleProvider="target">
+            <connections>
+                <outlet property="citiesDropList" destination="QpO-eU-U9w" id="Mhm-XB-Ucq"/>
+                <outlet property="doctorSearchBar" destination="T6K-pu-QcB" id="Ndl-qU-Jc4"/>
+                <outlet property="doctorsCollectionView" destination="uae-7I-Z6m" id="FKV-r2-KM3"/>
+                <outlet property="lowerStackView" destination="bk0-6E-cyW" id="Kkj-y9-RX1"/>
+                <outlet property="upperView" destination="NtZ-it-y7c" id="Ifv-RH-xbL"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NtZ-it-y7c">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="243.66666666666666"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cws-sr-JHi" customClass="CustomNavigationBackButton" customModule="Allo_Doctor" customModuleProvider="target">
+                            <rect key="frame" x="12.000000000000007" y="49.999999999999993" width="117.5136612021858" height="45.333333333333321"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" title="Doctors" image="chevron.left" catalog="system">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="spacingBetweenImageAndLabel">
+                                    <real key="value" value="5"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="labelFontSize">
+                                    <real key="value" value="21"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="navBack:" destination="-1" eventType="touchUpInside" id="9Fu-pI-4uj"/>
+                            </connections>
+                        </button>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Kxt-dQ-cug">
+                            <rect key="frame" x="16" y="113.66666666666669" width="343" height="100"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QpO-eU-U9w" customClass="CustomDropDownList" customModule="Allo_Doctor" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="343" height="45"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T6K-pu-QcB" customClass="SearchView" customModule="Allo_Doctor" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="54.999999999999986" width="343" height="45"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="10"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </view>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                    <color key="backgroundColor" name="blueAppColor"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="Kxt-dQ-cug" secondAttribute="trailing" constant="16" id="I3C-Ie-83K"/>
+                        <constraint firstItem="Kxt-dQ-cug" firstAttribute="height" secondItem="NtZ-it-y7c" secondAttribute="height" multiplier="0.41" id="Umz-7e-6E1"/>
+                        <constraint firstAttribute="bottom" secondItem="Kxt-dQ-cug" secondAttribute="bottom" constant="30" id="WeP-HK-0UI"/>
+                        <constraint firstItem="Cws-sr-JHi" firstAttribute="leading" secondItem="NtZ-it-y7c" secondAttribute="leading" constant="12" id="XzC-hx-ZYc"/>
+                        <constraint firstItem="Kxt-dQ-cug" firstAttribute="leading" secondItem="NtZ-it-y7c" secondAttribute="leading" constant="16" id="p7L-Te-uK7"/>
+                    </constraints>
+                </view>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="jMW-Cg-bBg">
+                    <rect key="frame" x="16" y="268.66666666666669" width="343" height="514.33333333333326"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="bk0-6E-cyW">
+                            <rect key="frame" x="0.0" y="0.0" width="343" height="42"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iyU-jq-eUi">
+                                    <rect key="frame" x="0.0" y="0.0" width="166.66666666666666" height="42"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TnU-pF-tWm">
+                                            <rect key="frame" x="43.333333333333343" y="10" width="80" height="22"/>
+                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                            <state key="normal" title="Sort by" image="Swap">
+                                                <color key="titleColor" name="blueAppColor"/>
+                                            </state>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="spacingBetweenImageAndLabel">
+                                                    <real key="value" value="3"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="labelFontSize">
+                                                    <real key="value" value="14"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </button>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstItem="TnU-pF-tWm" firstAttribute="centerX" secondItem="iyU-jq-eUi" secondAttribute="centerX" id="Rp9-Jy-WNm"/>
+                                        <constraint firstItem="TnU-pF-tWm" firstAttribute="centerY" secondItem="iyU-jq-eUi" secondAttribute="centerY" id="Tcm-o8-f21"/>
+                                    </constraints>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="5"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                            <real key="value" value="1"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                            <color key="value" name="lightGrey-#D9D9D9"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v0u-ts-2Jb">
+                                    <rect key="frame" x="176.66666666666663" y="0.0" width="166.33333333333337" height="42"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OU2-fc-oHf">
+                                            <rect key="frame" x="53" y="10" width="60" height="22"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="tintColor" name="blueAppColor"/>
+                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                            <state key="normal" title="Filter" image="Filter">
+                                                <color key="titleColor" name="blueAppColor"/>
+                                            </state>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="spacingBetweenImageAndLabel">
+                                                    <real key="value" value="3"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="labelFontSize">
+                                                    <real key="value" value="14"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </button>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstItem="OU2-fc-oHf" firstAttribute="centerX" secondItem="v0u-ts-2Jb" secondAttribute="centerX" id="TZW-4v-sDR"/>
+                                        <constraint firstItem="OU2-fc-oHf" firstAttribute="centerY" secondItem="v0u-ts-2Jb" secondAttribute="centerY" id="o7Q-SA-xW6"/>
+                                    </constraints>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                            <color key="value" name="lightGrey-#D9D9D9"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="5"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                            <real key="value" value="1"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </view>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="42" id="qCV-De-RnS"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                    <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </stackView>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="2FS-4l-9fP">
+                            <rect key="frame" x="0.0" y="42" width="343" height="15"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="15" id="P6w-bq-oXa"/>
+                            </constraints>
+                        </stackView>
+                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="uae-7I-Z6m">
+                            <rect key="frame" x="0.0" y="56.999999999999972" width="343" height="457.33333333333326"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Bj8-Us-s33">
+                                <size key="itemSize" width="128" height="128"/>
+                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            </collectionViewFlowLayout>
+                        </collectionView>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </stackView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="jMW-Cg-bBg" secondAttribute="trailing" constant="16" id="AbK-g3-KyH"/>
+                <constraint firstItem="jMW-Cg-bBg" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="H91-LF-g9A"/>
+                <constraint firstItem="NtZ-it-y7c" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="LMg-ky-sRO"/>
+                <constraint firstAttribute="trailing" secondItem="NtZ-it-y7c" secondAttribute="trailing" id="RuL-5a-bBi"/>
+                <constraint firstItem="Cws-sr-JHi" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="crd-ws-KCa"/>
+                <constraint firstItem="NtZ-it-y7c" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="dbl-zK-GdL"/>
+                <constraint firstItem="NtZ-it-y7c" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.3" id="mEp-Ps-3OE"/>
+                <constraint firstItem="jMW-Cg-bBg" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" constant="5" id="veg-Mj-IJ6"/>
+                <constraint firstItem="jMW-Cg-bBg" firstAttribute="top" secondItem="NtZ-it-y7c" secondAttribute="bottom" constant="25" id="zTk-gZ-85o"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="136.80000000000001" y="0.0"/>
+        </view>
+    </objects>
+    <designables>
+        <designable name="Cws-sr-JHi">
+            <size key="intrinsicContentSize" width="117" height="45.333333333333329"/>
+        </designable>
+    </designables>
+    <resources>
+        <image name="Filter" width="22" height="22"/>
+        <image name="Swap" width="22" height="22"/>
+        <image name="chevron.left" catalog="system" width="97" height="128"/>
+        <namedColor name="blueAppColor">
+            <color red="0.11800000071525574" green="0.49000000953674316" blue="0.75300002098083496" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="lightGrey-#D9D9D9">
+            <color red="0.85100001096725464" green="0.85100001096725464" blue="0.85100001096725464" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

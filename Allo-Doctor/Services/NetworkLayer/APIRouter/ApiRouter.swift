@@ -11,6 +11,7 @@ enum APIRouter {
     case fetchServices(isPaginate: Int)
     case fetchSubServices(isPaginate: Int)
     case fetchInfoService(id:Int)
+    case fetchDoctors(isPaginate: Int)
     var url: URL {
         switch self {
         case .registerUser:
@@ -21,15 +22,19 @@ enum APIRouter {
             return URL(string: APIConstants.basedURL + "/admin/sub-service/all?is_paginate=\(isPaginate)")!
         case.fetchInfoService(let id):
             return  URL(string: APIConstants.basedURL + "/admin/service/get?id=\(id)")!
-        }
+        case.fetchDoctors(let isPaginate):
+            return URL(string: APIConstants.basedURL + "/admin/doctor/all?is_paginate=\(isPaginate)")!
       
+        }
+ 
+   
     }
     
     var method: String {
         switch self {
         case .registerUser:
             return "POST"
-        case .fetchServices,.fetchSubServices,.fetchInfoService:
+        case .fetchServices,.fetchSubServices,.fetchInfoService,.fetchDoctors:
             return "GET"
         }
     }
@@ -38,7 +43,7 @@ enum APIRouter {
         switch self {
         case .registerUser(let request):
             return try? JSONEncoder().encode(request)
-        case .fetchServices,.fetchSubServices,.fetchInfoService:
+        case .fetchServices,.fetchSubServices,.fetchInfoService,.fetchDoctors:
             return nil
         }
     }
@@ -47,7 +52,7 @@ enum APIRouter {
         switch self {
         case .registerUser:
             return ["Content-Type": "application/json"]
-        case .fetchServices,.fetchSubServices,.fetchInfoService:
+        case .fetchServices,.fetchSubServices,.fetchInfoService,.fetchDoctors:
             return ["Content-Type": "application/json"]
         }
     }

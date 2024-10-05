@@ -6,15 +6,13 @@
 //
 
 import UIKit
-import Combine
 
-// A generic BaseViewController that works with any ViewModel type.
 class BaseViewController<ViewModelType>: UIViewController {
     
     // MARK: - Properties
     var viewModel: ViewModelType
     var cancellables = Set<AnyCancellable>()
-    
+    let textField = UITextField()
     // MARK: - Initializer
     init(viewModel: ViewModelType) {
         self.viewModel = viewModel
@@ -28,6 +26,8 @@ class BaseViewController<ViewModelType>: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.setNavigationBarHidden(true, animated: false) 
+       
         bindViewModel()
         setupUI()
      
@@ -54,9 +54,15 @@ class BaseViewController<ViewModelType>: UIViewController {
         alert.addAction(UIAlertAction(title: "OK", style: .default))
         present(alert, animated: true)
     }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+           textField.resignFirstResponder()
+           return true
+       }
     
     // MARK: - Combine Clean-Up
     deinit {
         cancellables.removeAll()
     }
+  
 }
+

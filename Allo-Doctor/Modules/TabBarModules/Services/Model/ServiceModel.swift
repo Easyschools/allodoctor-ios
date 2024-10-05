@@ -34,3 +34,40 @@ struct ServiceResponse: Codable {
         case totalPages = "total_pages"
     }
 }
+struct ServiceResponseData: Decodable {
+    let data: ServiceData
+}
+struct ServiceData: Decodable {
+    let id: Int
+    let name_ar: String
+    let name_en: String
+    let name: String
+    let slug: String
+    let description_ar: String
+    let description: String
+    let description_en: String
+    let order: Int
+    let image: String
+    let info_service: [ServiceInfo]
+
+  
+}
+struct ServiceInfo: Decodable {
+    let id: Int
+    let name: String
+    let name_ar: String
+    let name_en: String
+    let description_ar: String
+    let description_en: String
+    let district_id: Int
+    let image: String
+    let is_active: Int
+    let address: String
+    let lat: Double?
+    let long: Double?
+    let doctors_count: Int
+    let specialties_count: Int
+    let branches_count: Int
+
+    // No need for custom coding keys since property names match the JSON keys
+}

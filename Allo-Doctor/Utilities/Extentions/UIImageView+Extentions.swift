@@ -20,3 +20,14 @@ extension UIImageView {
         }.resume()
     }
 }
+import UIKit
+extension UIImage {
+    static let homeunfilled =  home
+    static let homefilled = homeFilled
+    static let profileUnfilld = profile
+    static let profileImageFileld = profileFilled
+    static let offersUnfilled = offferUnfilled
+    static let offersfilled = offerFilled
+    static let activityFilled = activityfiiled
+    static let activityUnfilled = activity
+}

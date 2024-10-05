@@ -25,11 +25,11 @@
                                 <rect key="frame" x="0.0" y="0.0" width="167" height="85"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="88S-QW-NVD">
-                                <rect key="frame" x="11" y="85" width="145" height="40"/>
+                                <rect key="frame" x="9" y="85" width="149" height="40"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Clinics" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="pBQ-K2-Ib8" customClass="CairoSemiBold" customModule="Allo_Doctor" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="87" height="40"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Clinics" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="pBQ-K2-Ib8" customClass="CairoRegular" customModule="Allo_Doctor" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="82" height="40"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="12"/>
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                         <userDefinedRuntimeAttributes>
@@ -38,8 +38,8 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </label>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Om3-mS-huu" customClass="UnderlinedButton" customModule="Allo_Doctor" customModuleProvider="target">
-                                        <rect key="frame" x="87" y="0.0" width="58" height="40"/>
+                                    <button opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Om3-mS-huu" customClass="CustomUnderlinedButton" customModule="Allo_Doctor" customModuleProvider="target">
+                                        <rect key="frame" x="82" y="0.0" width="67" height="40"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="12"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -48,20 +48,20 @@
                                         </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
-                                                <real key="value" value="12"/>
+                                                <real key="value" value="9"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="Om3-mS-huu" firstAttribute="width" secondItem="88S-QW-NVD" secondAttribute="width" multiplier="0.4" id="T33-lE-zrq"/>
+                                    <constraint firstItem="Om3-mS-huu" firstAttribute="width" secondItem="88S-QW-NVD" secondAttribute="width" multiplier="0.45" id="T33-lE-zrq"/>
                                 </constraints>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="88S-QW-NVD" firstAttribute="leading" secondItem="Dhf-gi-i9D" secondAttribute="leading" constant="11" id="JkH-9H-YXw"/>
-                            <constraint firstAttribute="trailing" secondItem="88S-QW-NVD" secondAttribute="trailing" constant="11" id="lBG-G4-8me"/>
+                            <constraint firstItem="88S-QW-NVD" firstAttribute="leading" secondItem="Dhf-gi-i9D" secondAttribute="leading" constant="9" id="JkH-9H-YXw"/>
+                            <constraint firstAttribute="trailing" secondItem="88S-QW-NVD" secondAttribute="trailing" constant="9" id="lBG-G4-8me"/>
                             <constraint firstItem="ibu-Ni-h9K" firstAttribute="height" secondItem="Dhf-gi-i9D" secondAttribute="height" multiplier="0.68" id="vLw-Uy-6ux"/>
                         </constraints>
                     </stackView>
@@ -97,10 +97,7 @@
     </objects>
     <designables>
         <designable name="Om3-mS-huu">
-            <size key="intrinsicContentSize" width="58" height="26.333333333333332"/>
-        </designable>
-        <designable name="pBQ-K2-Ib8">
-            <size key="intrinsicContentSize" width="50.333333333333336" height="20.333333333333332"/>
+            <size key="intrinsicContentSize" width="56" height="26.333333333333332"/>
         </designable>
     </designables>
     <resources>

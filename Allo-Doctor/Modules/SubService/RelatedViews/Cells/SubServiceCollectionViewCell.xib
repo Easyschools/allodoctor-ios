@@ -34,7 +34,7 @@
                                         <nil key="highlightedColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
-                                                <real key="value" value="12"/>
+                                                <real key="value" value="13"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </label>
@@ -93,9 +93,6 @@
         </collectionViewCell>
     </objects>
     <designables>
-        <designable name="Om3-mS-huu">
-            <size key="intrinsicContentSize" width="20" height="22"/>
-        </designable>
         <designable name="pBQ-K2-Ib8">
             <size key="intrinsicContentSize" width="50.333333333333336" height="20.333333333333332"/>
         </designable>

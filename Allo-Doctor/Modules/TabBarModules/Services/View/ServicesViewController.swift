@@ -6,53 +6,87 @@
 //
 
 import UIKit
+import Kingfisher
+enum NavToServiceId:Int
+{
+    case hospital = 1
+    case clinics = 2
+    case labs = 16
+    case scans = 17
+}
+
 class ServicesViewController: BaseViewController<ServicesViewModel> {
     // MARK: - @IBOutlets
-    @IBOutlet weak private var searchBar: UIView!
+    @IBOutlet weak var searchView: CustomSearchBar!
     @IBOutlet weak private var upperStackView: UIStackView!
-    let imageARR = [UIImage(named: "offers"), UIImage(named: "offers"), UIImage(named: "offers")].compactMap { $0 }
     @IBOutlet weak private var offersCollectionView: UICollectionView!
     @IBOutlet weak private var servicesCollectionView: UICollectionView!
     @IBOutlet weak private var scrollView: UIScrollView!
     @IBOutlet weak private var servicesCollectionViewDynamicHeight: NSLayoutConstraint!
     @IBOutlet weak private var offersPageControl: UIPageControl!
+    private let loadingScreen = CustomLoadingScreen()
+
     // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
+
+      
+        view.addSubview(loadingScreen)
+       
+        bindSearchBarButton()
+        setupUI()
+        bindViewModel()
         viewModel.fetchServices()
+        
     }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        // Force the tab bar color after the view has fully appeared
         tabBarController?.tabBar.barTintColor = .darkBlue_295DA8
+        viewModel.startAutoScroll()
     }
+    
+ 
     // MARK: - Setup UI
     override func setupUI() {
-        bindCollectionViewHeight()
         setupCollectionViews()
-        viewModel.startAutoScroll()
-        offersPageControl.numberOfPages = imageARR.count
+        offersPageControl.numberOfPages = viewModel.images.count
     }
+
     override func bindViewModel() {
         bindServices()
         bindImageControl()
     }
+
+    override func viewDidLayoutSubviews() {
+        bindCollectionViewHeight()
+        loadingScreen.frame = view.bounds
+        loadingScreen.startLoading()
+    }
 }
+
 // MARK: -  Setup CollectionViews & Register cells
-extension ServicesViewController{
-    private func setupCollectionViews(){
-        //  offers CollectionView Setup
+extension ServicesViewController {
+    private func setupCollectionViews() {
+        // Offers CollectionView Setup
         offersCollectionView.registerCell(cellClass: OffersCollectionViewCell.self)
         offersCollectionView.backgroundColor = .white
         offersCollectionView.dataSource = self
         offersCollectionView.delegate = self
-        //  Service CollectionView Setup
+        offersCollectionView.isPagingEnabled = true
+        
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 0
+        offersCollectionView.collectionViewLayout = layout
+        
+        // Service CollectionView Setup
         servicesCollectionView.registerCell(cellClass: ServicesCollectionViewCell.self)
         servicesCollectionView.backgroundColor = .white
         servicesCollectionView.dataSource = self
         servicesCollectionView.delegate = self
     }
-    // Update the dynamic height of servicesCollectionView
+
     private func bindCollectionViewHeight() {
         servicesCollectionView.publisher(for: \.contentSize)
             .sink { [weak self] newSize in
@@ -63,92 +97,101 @@ extension ServicesViewController{
                 }
             }
             .store(in: &cancellables)
-        
     }
 }
+
 // MARK: - CollectionViews Functions
-extension ServicesViewController: UICollectionViewDelegate, UICollectionViewDataSource , UICollectionViewDelegateFlowLayout{
-    
+extension ServicesViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView == offersCollectionView{
-            return imageARR.count }
-        else{
+        if collectionView == offersCollectionView {
+            return viewModel.images.count
+        } else {
             return viewModel.services.count
         }
-        
     }
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if collectionView == servicesCollectionView{
-            viewModel.navToSubServiceScreen()
-        }
-    }
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        
         if collectionView == offersCollectionView {
-            // Dequeueing OffersCollectionViewCell
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "OffersCollectionViewCell", for: indexPath) as! OffersCollectionViewCell
-            cell.offersImage.image = imageARR[indexPath.row]
+            cell.offersImage.image = viewModel.images[indexPath.row]
             return cell
         } else {
-            // Dequeueing ServicesCollectionViewCell
             let service = viewModel.services[indexPath.row]
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ServicesCollectionViewCell", for: indexPath) as! ServicesCollectionViewCell
             cell.serviceLabel.text = service.name
-            //            cell.setupImage(with: service.image ?? Constants.imagePlaceHolder.rawValue)
+            cell.serviceImage.kf.setImage(with:URL(string: service.image ?? ""))
             return cell
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == offersCollectionView {
-            return CGSize(width: offersCollectionView.frame.width, height: collectionView.frame.height)}
-        else {
-            return CGSize(width: collectionView.frame.width*0.485, height: collectionView.frame.width*0.45)}
+            return collectionView.bounds.size
+        } else {
+            return CGSize(width: collectionView.frame.width * 0.485, height: collectionView.frame.width * 0.364)
+        }
     }
-    //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-    //        return
-    //    }
     
-}
 
-extension ServicesViewController : UIScrollViewDelegate {
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView == servicesCollectionView {
+            let serviceid = viewModel.services[indexPath.row].id
+            if let navServiceId = NavToServiceId(rawValue: serviceid) {
+                switch navServiceId {
+                case .hospital:
+                    viewModel.navToSubServiceScreen()
+                case .clinics:
+                    viewModel.navtoclinicsSearch()
+                case .labs:
+                    viewModel.navToLabsAndScanSearchScreen(screenId:String(serviceid))
+                case .scans:
+                    viewModel.navToLabsAndScanSearchScreen(screenId:String(serviceid))
+                }
+            } else {
+                viewModel.navToSearchScreen()
+            }
+            
+            
+        }
+    }}
+
+// MARK: - UIScrollViewDelegate
+extension ServicesViewController: UIScrollViewDelegate {
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         if scrollView == offersCollectionView {
             viewModel.stopAutoScroll()
         }
     }
-    
+
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if scrollView == offersCollectionView {
             viewModel.startAutoScroll()
         }
     }
-    
+
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         if scrollView == offersCollectionView {
-            let visibleRect = CGRect(origin: offersCollectionView.contentOffset, size: offersCollectionView.bounds.size)
-            let visiblePoint = CGPoint(x: visibleRect.midX, y: visibleRect.midY)
-            if let visibleIndexPath = offersCollectionView.indexPathForItem(at: visiblePoint) {
-                viewModel.updateCurrentIndex(to: visibleIndexPath.item)
-            }
+            let visibleIndex = Int(scrollView.contentOffset.x / scrollView.frame.width)
+            viewModel.updateCurrentIndex(to: visibleIndex)
         }
     }
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        tabBarController?.tabBar.barTintColor = .darkBlue295DA8
-        navigationController?.navigationBar.barTintColor = .white
-    }
 }
-// MARK: - ViewModel Binding for services & images in offers collectionview
+
+// MARK: - ViewModel Binding
 extension ServicesViewController {
-    func bindServices(){
+    func bindServices() {
         viewModel.$services
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                self?.servicesCollectionView.reloadData()}
+            .sink { [weak self] services in
+                self?.servicesCollectionView.reloadData()
+                if !services.isEmpty {
+                    self?.loadingScreen.stopLoading()
+                }
+            }
             .store(in: &cancellables)
+      
     }
+
     func bindImageControl() {
         viewModel.$currentImageIndex
             .sink { [weak self] index in
@@ -160,12 +203,19 @@ extension ServicesViewController {
                 }
             }
             .store(in: &cancellables)
-        
-        
+
         viewModel.$images
             .sink { [weak self] images in
                 self?.offersCollectionView.reloadData()
                 self?.offersPageControl.numberOfPages = images.count
+            }
+            .store(in: &cancellables)
+    }
+
+    private func bindSearchBarButton() {
+        searchView.navButtonTapped
+            .sink { [weak self] in
+                self?.viewModel.navToSearchScreen()
             }
             .store(in: &cancellables)
     }

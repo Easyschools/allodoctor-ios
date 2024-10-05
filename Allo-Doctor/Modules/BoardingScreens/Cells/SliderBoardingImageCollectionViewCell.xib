@@ -18,18 +18,21 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="OnBoarding" translatesAutoresizingMaskIntoConstraints="NO" id="0Yx-bI-5Jh">
-                        <rect key="frame" x="5" y="5" width="295" height="305"/>
+                        <rect key="frame" x="0.0" y="0.0" width="305" height="315"/>
                     </imageView>
                 </subviews>
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <constraints>
-                <constraint firstItem="0Yx-bI-5Jh" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="5" id="PS4-fU-kqZ"/>
-                <constraint firstAttribute="trailing" secondItem="0Yx-bI-5Jh" secondAttribute="trailing" constant="5" id="SQI-ec-v2m"/>
-                <constraint firstAttribute="bottom" secondItem="0Yx-bI-5Jh" secondAttribute="bottom" constant="5" id="uzi-PS-For"/>
-                <constraint firstItem="0Yx-bI-5Jh" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="5" id="wzS-fj-Vok"/>
+                <constraint firstItem="0Yx-bI-5Jh" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="PS4-fU-kqZ"/>
+                <constraint firstAttribute="trailing" secondItem="0Yx-bI-5Jh" secondAttribute="trailing" id="SQI-ec-v2m"/>
+                <constraint firstAttribute="bottom" secondItem="0Yx-bI-5Jh" secondAttribute="bottom" id="uzi-PS-For"/>
+                <constraint firstItem="0Yx-bI-5Jh" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="wzS-fj-Vok"/>
             </constraints>
             <size key="customSize" width="305" height="315"/>
+            <connections>
+                <outlet property="onBoardingImage" destination="0Yx-bI-5Jh" id="U7i-n7-LD2"/>
+            </connections>
             <point key="canvasLocation" x="209.92366412213741" y="82.042253521126767"/>
         </collectionViewCell>
     </objects>

@@ -14,7 +14,8 @@ class ServicesCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var serviceLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
-       
+        
+        
     }
 
 }

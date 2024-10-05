@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AppointmentsCollectionViewCell" id="gTV-IL-0wX" customClass="AppointmentsCollectionViewCell" customModule="Allo_Doctor" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="97" height="148"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="97" height="148"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="pRb-fK-tGM">
+                        <rect key="frame" x="5" y="17" width="87" height="121"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Monady 20 /8 " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="68L-dQ-1gU" customClass="CairoSemiBold" customModule="Allo_Doctor" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="87" height="36.333333333333336"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
+                                        <real key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="0PS-N8-4TG">
+                                <rect key="frame" x="5" y="48.333333333333321" width="77" height="72.666666666666686"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="nO4-wg-d7K">
+                                        <rect key="frame" x="0.0" y="0.0" width="77" height="30"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From 7:00 PM" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zCx-hL-9Ee">
+                                                <rect key="frame" x="0.0" y="0.0" width="77" height="14"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To 10:00 Pm" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nsJ-NC-xRf">
+                                                <rect key="frame" x="0.0" y="16" width="77" height="14"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="AX5-K7-wak"/>
+                                        </constraints>
+                                    </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vep-uf-8xf" customClass="CustomUnderlinedButton" customModule="Allo_Doctor" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="54" width="77" height="18.666666666666671"/>
+                                        <color key="tintColor" name="blueAppColor"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Book Now">
+                                            <color key="titleColor" name="blueAppColor"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
+                                                <real key="value" value="14"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="68L-dQ-1gU" firstAttribute="leading" secondItem="pRb-fK-tGM" secondAttribute="leading" id="6Pj-np-kYZ"/>
+                            <constraint firstAttribute="trailing" secondItem="0PS-N8-4TG" secondAttribute="trailing" constant="5" id="IvC-2Y-tsC"/>
+                            <constraint firstAttribute="trailing" secondItem="68L-dQ-1gU" secondAttribute="trailing" id="MgZ-Pe-qjh"/>
+                            <constraint firstItem="0PS-N8-4TG" firstAttribute="height" secondItem="pRb-fK-tGM" secondAttribute="height" multiplier="0.6" id="bx3-ro-10O"/>
+                            <constraint firstItem="0PS-N8-4TG" firstAttribute="leading" secondItem="pRb-fK-tGM" secondAttribute="leading" constant="5" id="hwH-XJ-0mf"/>
+                        </constraints>
+                    </stackView>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="pRb-fK-tGM" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="17" id="F86-Q9-IR9"/>
+                <constraint firstAttribute="bottom" secondItem="pRb-fK-tGM" secondAttribute="bottom" constant="10" id="VWr-IU-NoT"/>
+                <constraint firstAttribute="trailing" secondItem="pRb-fK-tGM" secondAttribute="trailing" constant="5" id="hum-pv-5Oh"/>
+                <constraint firstItem="pRb-fK-tGM" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="5" id="lpO-e6-JRd"/>
+            </constraints>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                    <real key="value" value="10"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                    <real key="value" value="1"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                    <color key="value" name="lightGrey-#D9D9D9"/>
+                </userDefinedRuntimeAttribute>
+            </userDefinedRuntimeAttributes>
+            <connections>
+                <outlet property="ToHour" destination="nsJ-NC-xRf" id="u5P-lu-X2a"/>
+                <outlet property="appointDate" destination="68L-dQ-1gU" id="Xym-Cc-BrB"/>
+                <outlet property="fromHour" destination="zCx-hL-9Ee" id="NED-h3-gRY"/>
+            </connections>
+            <point key="canvasLocation" x="54.198473282442748" y="0.0"/>
+        </collectionViewCell>
+    </objects>
+    <designables>
+        <designable name="68L-dQ-1gU">
+            <size key="intrinsicContentSize" width="81.666666666666671" height="14.333333333333334"/>
+        </designable>
+        <designable name="vep-uf-8xf">
+            <size key="intrinsicContentSize" width="70" height="30"/>
+        </designable>
+    </designables>
+    <resources>
+        <namedColor name="blueAppColor">
+            <color red="0.11800000071525574" green="0.49000000953674316" blue="0.75300002098083496" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="lightGrey-#D9D9D9">
+            <color red="0.85100001096725464" green="0.85100001096725464" blue="0.85100001096725464" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

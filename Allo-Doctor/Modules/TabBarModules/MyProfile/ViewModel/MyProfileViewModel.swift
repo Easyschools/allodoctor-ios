@@ -7,5 +7,17 @@
 
 
 import Foundation
-class MyProfileViewModel{}
+class MyProfileViewModel{
+    var coordinator: HomeCoordinatorContact?
+    init(coordinator: HomeCoordinatorContact? = nil, apiClient: APIClient = APIClient()) {
+        self.coordinator = coordinator
+      
+    }
+    
+}
+extension MyProfileViewModel{
+   func  navToLogin(){
+       coordinator?.showPhonenumberScreen()
+    }
+}
 

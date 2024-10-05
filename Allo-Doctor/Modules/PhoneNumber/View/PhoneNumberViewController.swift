@@ -4,45 +4,62 @@
 //
 //  Created by Abdallah ismail on 06/09/2024.
 //
-
 import UIKit
-
-class PhoneNumberViewController: UIViewController {
+import Foundation
+class PhoneNumberViewController: BaseViewController<PhoneNumberViewModel> {
+    
+    // MARK: - IBOutlets
     @IBOutlet weak var mobileNumberTextField: UITextField!
     @IBOutlet weak var otpButton: CustomButton!
-    var userDefaultsManager: UserDefaultProtocol
-// apiClient: APIClient = APIClient()
+    @IBOutlet weak var enterValidNumberImage: UIImageView!
+    @IBOutlet weak var enterValidNumberLabel: UILabel!
+    // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        otpButton.setupButton(color: .appColor, font: .headline, title: buttonsText.getOtp.rawValue, borderColor: .appColor, textColor: .white)
-        mobileNumberTextField.addPadding(By: Dimensions.textFieldPadding.rawValue , for: .left)
-     
+        setupUI()
     }
+    
+    // MARK: - Setup UI
+    internal override func setupUI() {
+        enterValidNumberImage.isHidden = true
+        enterValidNumberLabel.isHidden = true
+        otpButton.setupButton(color: .appColor,  title: buttonsText.getOtp.rawValue, borderColor: .appColor, textColor: .white)
+        mobileNumberTextField.addPadding(By: Dimensions.textFieldPadding.rawValue, for: .left)
+    }
+    override func bindViewModel() {
+        mobileNumberTextField.bindText(to: viewModel.mobileSubject, storeIn: &cancellables)
+    }
+    
+
+    // MARK: - Get OTP Action
+    @IBAction func getOtpAction(_ sender: Any) {
+        guard let mobileNumber = mobileNumberTextField.text else { return }
+        
+        if mobileNumber.isValidEgyptianNumber {
+            // Valid number, navigate to OTP screen
+            enterValidNumberImage.isHidden = true
+            enterValidNumberLabel.isHidden = true
+            
+            // Save the valid mobile number
+            viewModel.postMobileNumber()
+           
+        } else {
+            // Invalid number, show error image and label
+            enterValidNumberImage.isHidden = false
+            enterValidNumberLabel.isHidden = false
+        }
+    }
+    
+    // MARK: - Dismiss Keyboard on Tap
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing (true)
+        self.view.endEditing(true)
     }
-    init(userDefaultsManager: UserDefaultProtocol = UserDefaultsManager.sharedInstance) {
-           self.userDefaultsManager = userDefaultsManager
-           super.init(nibName: nil, bundle: nil)
-       }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+}
+extension String {
+    // Validate if the string is a valid Egyptian mobile number
+    var isValidEgyptianNumber: Bool {
+        let regex = "^01[0-2,5]{1}[0-9]{8}$"
+        let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
+        return predicate.evaluate(with: self)
     }
-    
-
-    @IBAction func GetOtpAction(_ sender: Any) {
-        userDefaultsManager.setMobileNumber(mobileNumber: mobileNumberTextField.text)
-//        coordinator?.goToRegister()
-    }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

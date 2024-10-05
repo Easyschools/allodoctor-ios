@@ -8,7 +8,7 @@
 import Foundation
 
 class UserDefaultsManager:UserDefaultProtocol {
-
+    
     
     static let sharedInstance = UserDefaultsManager()
     
@@ -43,13 +43,20 @@ class UserDefaultsManager:UserDefaultProtocol {
     func isLoggedIn() -> Bool {
         return UserDefaults.standard.bool(forKey: "IsLoggedIn")
     }
-
+    
     func setMobileNumber(mobileNumber: String?) {
         UserDefaults.standard.set(mobileNumber, forKey: "Mobile_Number")
     }
     
     func getMobileNumber() -> String? {
         return UserDefaults.standard.string(forKey: "Mobile_Number")
+    }
+    func isVerifiedNumber() -> Bool {
+        return UserDefaults.standard.bool(forKey: "IsVerifiedNumber")
+    }
+    
+    func setVerifiedNumber(isVerified: Bool) {
+        UserDefaults.standard.set(isVerified, forKey: "IsVerifiedNumber")
     }
 }
 

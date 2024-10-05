@@ -10,6 +10,11 @@ enum Constants:String {
   case imagePlaceHolder = "https://community.softr.io/uploads/db9110/original/2X/7/74e6e7e382d0ff5d7773ca9a87e6f6f8817a68a6.jpeg"
 
 }
+enum labAndScan:String{
+case labs = "16"
+case scans = "17"
+}
+
 enum Dimensions:CGFloat{
     case borderRaduis = 10
     case borderWidth = 1
@@ -20,4 +25,10 @@ enum buttonsText:String{
     case Next = "Next"
     case getOtp = "Get OTP"
     case createAccount = "Create Account"
+}
+enum ToolBarVCs:String{
+    case services = "Services"
+    case activity = "Activity"
+    case  offers = "Offers"
+    case profile = "Profile"
 }

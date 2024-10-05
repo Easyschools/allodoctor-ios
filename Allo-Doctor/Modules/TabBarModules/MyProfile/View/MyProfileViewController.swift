@@ -9,21 +9,26 @@ import UIKit
 
 class MyProfileViewController: BaseViewController<MyProfileViewModel> {
 
+    @IBOutlet weak var userInfo: CairoRegular!
+    @IBOutlet weak var userName: CairoSemiBold!
+    @IBOutlet weak var myActivity: UIControl!
+    @IBOutlet weak var logoutButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+      
+        logoutButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 0)
+        logoutButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 24, bottom: 2, right: 0)
     }
 
 
-    /*
-    // MARK: - Navigation
+    @IBAction func activityAction(_ sender: Any) {
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
     }
-    */
-
+    
+    @IBAction func medicalInfoAction(_ sender: Any){
+    }
+    @IBAction func logoutAction(_ sender: Any) {
+        UserDefaultsManager.sharedInstance.logout()
+        viewModel.navToLogin()
+    }
 }

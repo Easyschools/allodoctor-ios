@@ -11,7 +11,8 @@ protocol UserDefaultProtocol {
     func checkingShowingOnboarding() -> Bool
     func sawOnboarding()
     func presentOnboarding()
-    
+    func isVerifiedNumber() -> Bool
+    func setVerifiedNumber(isVerified: Bool)
     func isLoggedIn() -> Bool
     func login()
     func logout()

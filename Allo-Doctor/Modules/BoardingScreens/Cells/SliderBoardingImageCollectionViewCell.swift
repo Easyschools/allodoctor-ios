@@ -9,9 +9,12 @@ import UIKit
 
 class SliderBoardingImageCollectionViewCell: UICollectionViewCell {
 
+    @IBOutlet weak var onBoardingImage: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+       
     }
-
+    func configure(with image: UIImage) {
+        onBoardingImage.image = image
+       }
 }

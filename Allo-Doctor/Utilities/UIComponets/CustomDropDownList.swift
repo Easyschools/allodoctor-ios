@@ -4,19 +4,30 @@
 //
 //  Created by Abdallah ismail on 18/09/2024.
 //
+
 import UIKit
 
 class CustomDropDownList: UIView {
     
-    private let label = UILabel()
+    enum DropdownDirection {
+        case up, down
+    }
+    
+    let label = UILabel()
     private var arrowImageView = UIImageView(image: UIImage(systemName: "chevron.down"))
     
     var didSelectItem: ((String) -> Void)?
     var items: [String] = []
+    private var filteredItems: [String] = []
     
     private var dropdownTableView: UITableView?
     private var dropdownBackgroundView: UIView?
+    private var searchBar: UISearchBar?
+    private var containerView: UIView?
     
+    private var dropdownHeight: CGFloat = 200
+    private var dropdownDirection: DropdownDirection = .down
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
@@ -32,10 +43,12 @@ class CustomDropDownList: UIView {
         layer.cornerRadius = 10
         layer.borderWidth = 1
         layer.borderColor = UIColor.lightGray.cgColor
+        clipsToBounds = true
         
-        label.text = "Select city and area"
+        label.text = "Tap to Select"
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .systemGray
+        label.textColor = .greyA8A8A8
+        label.font.withSize(12)
         addSubview(label)
         
         arrowImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -57,10 +70,14 @@ class CustomDropDownList: UIView {
         ])
     }
     
+    func setDropdownDirection(_ direction: DropdownDirection) {
+        dropdownDirection = direction
+    }
+    
     @objc private func toggleDropdown() {
         if dropdownTableView == nil {
             showDropdown()
-            animateArrow(up: true)  // Rotate the arrow up
+            animateArrow(up: dropdownDirection == .up)
         } else {
             hideDropdown()
         }
@@ -71,51 +88,101 @@ class CustomDropDownList: UIView {
         
         let backgroundView = UIView(frame: window.bounds)
         backgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        backgroundView.alpha = 0
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideDropdown))
         backgroundView.addGestureRecognizer(tapGesture)
         window.addSubview(backgroundView)
+        
+        let containerView = UIView()
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        containerView.backgroundColor = .white
+        containerView.layer.cornerRadius = 10
+        containerView.layer.borderWidth = 1
+        containerView.layer.borderColor = UIColor.lightGray.cgColor
+        containerView.layer.masksToBounds = true
+        containerView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+        containerView.alpha = 0
+        backgroundView.addSubview(containerView)
+        
+        let searchBar = UISearchBar()
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        searchBar.placeholder = "Search"
+        searchBar.delegate = self
+        containerView.addSubview(searchBar)
         
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.dataSource = self
         tableView.delegate = self
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        containerView.addSubview(tableView)
         
-        // Add border, corner radius, and shadow to the table view
-        tableView.layer.cornerRadius = 10
-        tableView.layer.borderWidth = 1
-        tableView.layer.borderColor = UIColor.lightGray.cgColor
+        var containerConstraints: [NSLayoutConstraint] = []
+        if dropdownDirection == .down {
+            containerConstraints = [
+                containerView.topAnchor.constraint(equalTo: bottomAnchor, constant: 5),
+                containerView.leadingAnchor.constraint(equalTo: leadingAnchor),
+                containerView.trailingAnchor.constraint(equalTo: trailingAnchor),
+                containerView.heightAnchor.constraint(lessThanOrEqualToConstant: dropdownHeight),
+                
+                searchBar.topAnchor.constraint(equalTo: containerView.topAnchor),
+                tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
+                tableView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
+            ]
+        } else {
+            containerConstraints = [
+                containerView.bottomAnchor.constraint(equalTo: topAnchor, constant: -5),
+                containerView.leadingAnchor.constraint(equalTo: leadingAnchor),
+                containerView.trailingAnchor.constraint(equalTo: trailingAnchor),
+                containerView.heightAnchor.constraint(lessThanOrEqualToConstant: dropdownHeight),
+                
+                searchBar.topAnchor.constraint(equalTo: containerView.topAnchor),
+                tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
+                tableView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
+            ]
+        }
         
-        tableView.layer.shadowColor = UIColor.black.cgColor
-        tableView.layer.shadowOpacity = 0.3
-        tableView.layer.shadowOffset = CGSize(width: 0, height: 3)
-        tableView.layer.shadowRadius = 4
-        tableView.clipsToBounds = false
-        
-        tableView.backgroundColor = .white
-        tableView.isUserInteractionEnabled = true
-        
-        backgroundView.addSubview(tableView)
-        
-        NSLayoutConstraint.activate([
-            tableView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            tableView.topAnchor.constraint(equalTo: bottomAnchor, constant: 5),
-            tableView.heightAnchor.constraint(lessThanOrEqualToConstant: 200)
+        NSLayoutConstraint.activate(containerConstraints + [
+            searchBar.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            searchBar.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+            searchBar.heightAnchor.constraint(equalToConstant: 56),
+            
+            tableView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor)
         ])
         
         self.dropdownTableView = tableView
         self.dropdownBackgroundView = backgroundView
+        self.searchBar = searchBar
+        self.containerView = containerView
+        self.filteredItems = items
         tableView.reloadData()
+        
+        UIView.animate(withDuration: 0.3) {
+            backgroundView.alpha = 1
+            containerView.alpha = 1
+            containerView.transform = .identity
+        }
     }
     
     @objc private func hideDropdown() {
-        // Reset arrow direction to point down when dropdown is dismissed
         animateArrow(up: false)
         
-        dropdownTableView?.removeFromSuperview()
-        dropdownTableView = nil
-        dropdownBackgroundView?.removeFromSuperview()
-        dropdownBackgroundView = nil
+        UIView.animate(withDuration: 0.3, animations: {
+            self.dropdownBackgroundView?.alpha = 0
+            self.containerView?.alpha = 0
+            self.containerView?.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+        }) { _ in
+            self.dropdownTableView?.removeFromSuperview()
+            self.dropdownTableView = nil
+            self.dropdownBackgroundView?.removeFromSuperview()
+            self.dropdownBackgroundView = nil
+            self.searchBar = nil
+            self.containerView = nil
+        }
+    }
+    
+    func setDropdownHeight(_ height: CGFloat) {
+        dropdownHeight = height
     }
     
     @objc private func cellTapped(_ gesture: UITapGestureRecognizer) {
@@ -125,34 +192,32 @@ class CustomDropDownList: UIView {
             return
         }
         
-        let selectedItem = items[indexPath.row]
+        let selectedItem = filteredItems[indexPath.row]
         label.text = selectedItem
         didSelectItem?(selectedItem)
         label.textColor = .black
         hideDropdown()
     }
     
-    // Animation function for the arrow
     private func animateArrow(up: Bool) {
         let rotationAngle: CGFloat = up ? .pi : 0
-        
         UIView.animate(withDuration: 0.3) {
             self.arrowImageView.transform = CGAffineTransform(rotationAngle: rotationAngle)
         }
     }
 }
 
+
 extension CustomDropDownList: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return items.count
+        return filteredItems.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .default, reuseIdentifier: "dropdownCell")
-        cell.textLabel?.text = items[indexPath.row]
+        cell.textLabel?.text = filteredItems[indexPath.row]
         
-        // Add tap gesture recognizer to the cell
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(cellTapped(_:)))
         cell.addGestureRecognizer(tapGesture)
         cell.isUserInteractionEnabled = true
@@ -161,10 +226,20 @@ extension CustomDropDownList: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedItem = items[indexPath.row]
+        let selectedItem = filteredItems[indexPath.row]
         label.text = selectedItem
         didSelectItem?(selectedItem)
-
         hideDropdown()
+    }
+}
+
+extension CustomDropDownList: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.isEmpty {
+            filteredItems = items
+        } else {
+            filteredItems = items.filter { $0.lowercased().contains(searchText.lowercased()) }
+        }
+        dropdownTableView?.reloadData()
     }
 }

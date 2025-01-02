@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PharmacyCollectionViewCell" id="gTV-IL-0wX" customClass="PharmacyCollectionViewCell" customModule="Allo_Doctor" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="343" height="140"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="343" height="140"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="CI3-MC-clJ">
+                        <rect key="frame" x="0.0" y="0.0" width="343" height="140"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7uD-HH-EXX">
+                                <rect key="frame" x="0.0" y="0.0" width="343" height="96"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="backGroundPharmacyImage" translatesAutoresizingMaskIntoConstraints="NO" id="gM2-AI-h7U">
+                                        <rect key="frame" x="0.0" y="0.0" width="343" height="96"/>
+                                    </imageView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="g5Y-cu-HVR">
+                                        <rect key="frame" x="16" y="16" width="311" height="40"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="seifPhamracyLogo" translatesAutoresizingMaskIntoConstraints="NO" id="TBo-dI-b4F" customClass="CircularImageView" customModule="Allo_Doctor" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="24" height="24"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="24" id="RfD-Xc-D7h"/>
+                                                    <constraint firstAttribute="width" constant="24" id="jt3-BG-MUl"/>
+                                                </constraints>
+                                            </imageView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Hvh-6n-s2y">
+                                                <rect key="frame" x="34" y="0.0" width="192" height="40"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Seif Pharmacies" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RP6-XV-kME" customClass="CairoBold" customModule="Allo_Doctor" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="192" height="24"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="24" id="llv-Fr-UIy"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <nil key="highlightedColor"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
+                                                                <real key="value" value="20"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </label>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VMl-SX-Eto">
+                                                        <rect key="frame" x="0.0" y="24" width="192" height="16"/>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                    </view>
+                                                </subviews>
+                                            </stackView>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vPI-LD-rB2">
+                                                <rect key="frame" x="236" y="0.0" width="75" height="24"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="H0M-dU-EXk">
+                                                        <rect key="frame" x="8" y="5" width="59" height="14"/>
+                                                        <subviews>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="clock" translatesAutoresizingMaskIntoConstraints="NO" id="gTn-Kw-Zw0">
+                                                                <rect key="frame" x="0.0" y="0.0" width="14" height="14"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="14" id="atJ-Pm-CCT"/>
+                                                                </constraints>
+                                                            </imageView>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10 min" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PB0-E5-OOP" customClass="CairoRegular" customModule="Allo_Doctor" customModuleProvider="target">
+                                                                <rect key="frame" x="18" y="0.0" width="41" height="14"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                                <color key="textColor" name="blueAppColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
+                                                                        <real key="value" value="12"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                </userDefinedRuntimeAttributes>
+                                                            </label>
+                                                        </subviews>
+                                                    </stackView>
+                                                </subviews>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="75" id="AMR-nW-OK9"/>
+                                                    <constraint firstItem="H0M-dU-EXk" firstAttribute="top" secondItem="vPI-LD-rB2" secondAttribute="top" constant="5" id="COc-WF-ggL"/>
+                                                    <constraint firstItem="H0M-dU-EXk" firstAttribute="leading" secondItem="vPI-LD-rB2" secondAttribute="leading" constant="8" id="SSb-Zc-RUE"/>
+                                                    <constraint firstAttribute="height" constant="24" id="Wof-jL-p8B"/>
+                                                    <constraint firstItem="H0M-dU-EXk" firstAttribute="centerY" secondItem="vPI-LD-rB2" secondAttribute="centerY" id="Ziy-ZS-Y5w"/>
+                                                    <constraint firstAttribute="bottom" secondItem="H0M-dU-EXk" secondAttribute="bottom" constant="5" id="dlD-HS-aRD"/>
+                                                    <constraint firstItem="H0M-dU-EXk" firstAttribute="centerX" secondItem="vPI-LD-rB2" secondAttribute="centerX" id="m4s-qH-mkR"/>
+                                                    <constraint firstAttribute="trailing" secondItem="H0M-dU-EXk" secondAttribute="trailing" constant="8" id="ror-oC-oa9"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="10"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="gM2-AI-h7U" firstAttribute="top" secondItem="7uD-HH-EXX" secondAttribute="top" id="0HK-E9-eoy"/>
+                                    <constraint firstAttribute="trailing" secondItem="g5Y-cu-HVR" secondAttribute="trailing" constant="16" id="LdR-W6-Y9R"/>
+                                    <constraint firstAttribute="bottom" secondItem="g5Y-cu-HVR" secondAttribute="bottom" constant="40" id="SLH-2b-2uB"/>
+                                    <constraint firstAttribute="trailing" secondItem="gM2-AI-h7U" secondAttribute="trailing" id="WUr-1u-7Dg"/>
+                                    <constraint firstItem="gM2-AI-h7U" firstAttribute="leading" secondItem="7uD-HH-EXX" secondAttribute="leading" id="bfN-Ja-WC8"/>
+                                    <constraint firstAttribute="bottom" secondItem="gM2-AI-h7U" secondAttribute="bottom" id="eWM-Zm-lme"/>
+                                    <constraint firstItem="g5Y-cu-HVR" firstAttribute="top" secondItem="7uD-HH-EXX" secondAttribute="top" constant="16" id="yuA-Oa-kdY"/>
+                                    <constraint firstItem="g5Y-cu-HVR" firstAttribute="leading" secondItem="7uD-HH-EXX" secondAttribute="leading" constant="16" id="zBY-oR-fDE"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fza-UM-SXK">
+                                <rect key="frame" x="0.0" y="96" width="343" height="44"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="oPe-Ix-QGy">
+                                        <rect key="frame" x="8" y="12" width="327" height="20"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="6AK-nq-cFq">
+                                                <rect key="frame" x="0.0" y="0.0" width="163.66666666666666" height="20"/>
+                                                <subviews>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pinLocation" translatesAutoresizingMaskIntoConstraints="NO" id="OdD-jE-BHU">
+                                                        <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="20" id="Dzj-2w-eQT"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Cairo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vSW-F7-ZPx" customClass="CairoRegular" customModule="Allo_Doctor" customModuleProvider="target">
+                                                        <rect key="frame" x="24" y="0.0" width="139.66666666666666" height="20"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
+                                                                <real key="value" value="14"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="qcF-l0-BdR">
+                                                <rect key="frame" x="163.66666666666663" y="0.0" width="163.33333333333337" height="20"/>
+                                                <subviews>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="deleviry" translatesAutoresizingMaskIntoConstraints="NO" id="CYW-iq-Id3">
+                                                        <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="20" id="qhs-TE-7mI"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="-10" translatesAutoresizingMaskIntoConstraints="NO" id="ZDT-MB-YAr">
+                                                        <rect key="frame" x="26" y="0.0" width="137.33333333333334" height="20"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Delivery Fees :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6lX-o7-TW8" customClass="CairoRegular" customModule="Allo_Doctor" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="0.0" width="90" height="20"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="90" id="IyN-FB-Imt"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="75 Egp" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h50-2H-LK0">
+                                                                <rect key="frame" x="80.000000000000028" y="0.0" width="57.333333333333343" height="20"/>
+                                                                <color key="tintColor" name="blueAppColor"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                                <color key="textColor" name="blueAppColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                        </subviews>
+                                                    </stackView>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="oPe-Ix-QGy" firstAttribute="top" secondItem="fza-UM-SXK" secondAttribute="top" constant="12" id="0KE-Rr-kkJ"/>
+                                    <constraint firstItem="oPe-Ix-QGy" firstAttribute="leading" secondItem="fza-UM-SXK" secondAttribute="leading" constant="8" id="fzI-bv-rVV"/>
+                                    <constraint firstAttribute="bottom" secondItem="oPe-Ix-QGy" secondAttribute="bottom" constant="12" id="xHy-Yb-IxH"/>
+                                    <constraint firstAttribute="trailing" secondItem="oPe-Ix-QGy" secondAttribute="trailing" constant="8" id="zx3-mY-4tl"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="7uD-HH-EXX" firstAttribute="height" secondItem="CI3-MC-clJ" secondAttribute="height" multiplier="0.685714" id="F4Z-12-vN3"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="10"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </stackView>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="CI3-MC-clJ" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="915-tP-E01"/>
+                <constraint firstAttribute="bottom" secondItem="CI3-MC-clJ" secondAttribute="bottom" id="Zms-WU-at5"/>
+                <constraint firstAttribute="trailing" secondItem="CI3-MC-clJ" secondAttribute="trailing" id="guD-SF-hcU"/>
+                <constraint firstItem="CI3-MC-clJ" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="oH1-YZ-XZS"/>
+            </constraints>
+            <size key="customSize" width="343" height="162"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                    <real key="value" value="10"/>
+                </userDefinedRuntimeAttribute>
+            </userDefinedRuntimeAttributes>
+            <connections>
+                <outlet property="contentStackView" destination="CI3-MC-clJ" id="WHc-Po-xjR"/>
+                <outlet property="deleviryFees" destination="h50-2H-LK0" id="7Yp-it-BV1"/>
+                <outlet property="deleviryTime" destination="PB0-E5-OOP" id="b5i-HU-qo7"/>
+                <outlet property="phamracyBacgroundImage" destination="gM2-AI-h7U" id="gby-GT-3xQ"/>
+                <outlet property="pharmacyArea" destination="vSW-F7-ZPx" id="WB0-FV-d8j"/>
+                <outlet property="pharmacyLogo" destination="TBo-dI-b4F" id="BaP-4u-zmv"/>
+                <outlet property="pharmacyName" destination="RP6-XV-kME" id="xDT-F9-NYt"/>
+            </connections>
+            <point key="canvasLocation" x="353.43511450381681" y="7.042253521126761"/>
+        </collectionViewCell>
+    </objects>
+    <designables>
+        <designable name="RP6-XV-kME">
+            <size key="intrinsicContentSize" width="122.66666666666667" height="20.333333333333332"/>
+        </designable>
+    </designables>
+    <resources>
+        <image name="backGroundPharmacyImage" width="343" height="120"/>
+        <image name="clock" width="14" height="14"/>
+        <image name="deleviry" width="20" height="20"/>
+        <image name="pinLocation" width="20" height="20"/>
+        <image name="seifPhamracyLogo" width="24" height="24"/>
+        <namedColor name="blueAppColor">
+            <color red="0.11800000071525574" green="0.49000000953674316" blue="0.75300002098083496" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

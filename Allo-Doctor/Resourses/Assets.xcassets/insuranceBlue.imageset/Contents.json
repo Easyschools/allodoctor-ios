@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "insuranceBlue.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

@@ -15,6 +15,7 @@
                 <outlet property="backButton" destination="Y4Z-Ak-1t3" id="VCl-fZ-qxw"/>
                 <outlet property="pharmaciesCollectionView" destination="7oa-k6-sJL" id="C4C-Eh-GLU"/>
                 <outlet property="pharmaciesCollectionViewDynamicHeightConstraint" destination="w9R-x7-4wz" id="0rH-lG-hAh"/>
+                <outlet property="searchView" destination="ch5-Fd-3CO" id="Nyf-XC-uoa"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -24,7 +25,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y4Z-Ak-1t3" customClass="CustomNavigationBackButton" customModule="Allo_Doctor" customModuleProvider="target">
-                    <rect key="frame" x="16" y="50" width="153" height="44"/>
+                    <rect key="frame" x="16" y="50" width="80" height="30"/>
                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                     <state key="normal" title="Pharmacies">
                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -37,9 +38,12 @@
                             <real key="value" value="5"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="navBackAction:" destination="-1" eventType="touchUpInside" id="xcy-34-MUz"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c4G-wZ-M2G">
-                    <rect key="frame" x="335" y="60" width="24" height="24"/>
+                    <rect key="frame" x="335" y="53" width="24" height="24"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="24" id="rAT-YC-Qax"/>
                         <constraint firstAttribute="width" constant="24" id="rxE-pq-qdR"/>
@@ -51,7 +55,7 @@
                     </connections>
                 </button>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OwZ-4v-e82">
-                    <rect key="frame" x="0.0" y="117.33333333333331" width="375" height="660.66666666666674"/>
+                    <rect key="frame" x="0.0" y="103.33333333333331" width="375" height="674.66666666666674"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="NWj-tI-2nC">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="630"/>
@@ -77,7 +81,7 @@
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bDE-hN-gZ6">
                                     <rect key="frame" x="16" y="60" width="343" height="150"/>
                                     <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="offers" translatesAutoresizingMaskIntoConstraints="NO" id="HFK-sa-iuF">
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pharmacybanner" translatesAutoresizingMaskIntoConstraints="NO" id="HFK-sa-iuF">
                                             <rect key="frame" x="0.0" y="0.0" width="343" height="150"/>
                                         </imageView>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LJo-G5-ZpG">
@@ -158,12 +162,12 @@
     </objects>
     <designables>
         <designable name="Y4Z-Ak-1t3">
-            <size key="intrinsicContentSize" width="132" height="44"/>
+            <size key="intrinsicContentSize" width="80" height="30"/>
         </designable>
     </designables>
     <resources>
         <image name="basket" width="20" height="20"/>
-        <image name="offers" width="1080" height="1080"/>
+        <image name="pharmacybanner" width="343" height="145"/>
         <namedColor name="grey-#A8A8A8">
             <color red="0.6589999794960022" green="0.6589999794960022" blue="0.6589999794960022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

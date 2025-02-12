@@ -16,6 +16,7 @@
                 <outlet property="appointmentsCollectionView" destination="7bW-kd-QSd" id="1ww-8w-OcO"/>
                 <outlet property="confirmationButton" destination="iBa-z0-qbQ" id="reL-g9-w1l"/>
                 <outlet property="dateLabel" destination="YyX-W2-04S" id="ODy-XY-2Wp"/>
+                <outlet property="upperView" destination="PT2-FA-AMU" id="66P-6l-efr"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -39,6 +40,7 @@
                                 <userDefinedRuntimeAttribute type="number" keyPath="spacingBetweenImageAndLabel">
                                     <real key="value" value="5"/>
                                 </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="Choose a slot"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="navBackButtonAction:" destination="-1" eventType="touchUpInside" id="8fC-hx-PJb"/>
@@ -120,6 +122,7 @@
                                                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                                             <real key="value" value="10"/>
                                                                         </userDefinedRuntimeAttribute>
+                                                                        <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="Confirm"/>
                                                                     </userDefinedRuntimeAttributes>
                                                                     <connections>
                                                                         <action selector="confirmationButtonAction:" destination="-1" eventType="touchUpInside" id="Baa-bG-GdI"/>

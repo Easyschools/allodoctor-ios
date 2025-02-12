@@ -9,7 +9,7 @@ import UIKit
 
 @IBDesignable
 class CustomNavigationBackButton: UIButton {
-
+    
     // Font size property with IBInspectable
     @IBInspectable var labelFontSize: CGFloat = 16 {
         didSet {
@@ -25,7 +25,7 @@ class CustomNavigationBackButton: UIButton {
     
     // Padding around content
     private let contentInset: CGFloat = 10
-
+    
     // Common initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -39,12 +39,19 @@ class CustomNavigationBackButton: UIButton {
     
     // Common setup for the button
     private func commonInit() {
-        setTitleColor(.white, for: .normal)  // Label color to white
-        setImage(UIImage(systemName: "chevron.left"), for: .normal)  // Left chevron image
-        tintColor = .white  // Image color
-        backgroundColor = .clear  // Default clear background
-        contentHorizontalAlignment = .left  // Align content to the left
-        updateFont()  // Set font for label
+        setTitleColor(.white, for: .normal)
+        updateDirectionalImage()
+        tintColor = .white
+        backgroundColor = .clear
+        contentHorizontalAlignment = .left
+        updateFont()
+    }
+    
+    // Update the image based on language direction
+    private func updateDirectionalImage() {
+        let isRTL = LocalizationManager.shared.isRTL()
+        let imageName = isRTL ? "chevron.right" : "chevron.left"
+        setImage(UIImage(systemName: imageName), for: .normal)
     }
     
     // Update the font and trigger layout changes
@@ -57,37 +64,46 @@ class CustomNavigationBackButton: UIButton {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        // Ensure both imageView and titleLabel exist
         guard let imageView = imageView, let titleLabel = titleLabel else { return }
-
-        // Calculate image and label sizes
+        
         let titleSize = titleLabel.intrinsicContentSize
-        let imageHeight = labelFontSize  // Make image height equal to font size
-        let imageWidth = imageView.intrinsicContentSize.width * (imageHeight / imageView.intrinsicContentSize.height)  // Scale width proportionally
-
-        // Calculate total width and height for button content
+        let imageHeight = labelFontSize
+        let imageWidth = imageView.intrinsicContentSize.width * (imageHeight / imageView.intrinsicContentSize.height)
+        
         let totalWidth = contentInset + imageWidth + spacingBetweenImageAndLabel + titleSize.width + contentInset
         let totalHeight = max(imageHeight, titleSize.height) + 2 * contentInset
-
-        // Update the button's size
+        
         frame.size = CGSize(width: totalWidth, height: totalHeight)
         
-        // Position the imageView
-        imageView.frame = CGRect(x: contentInset,
-                                 y: (totalHeight - imageHeight) / 2,
-                                 width: imageWidth,
-                                 height: imageHeight)
-
-        // Position the titleLabel
-        titleLabel.frame = CGRect(x: contentInset + imageWidth + spacingBetweenImageAndLabel,
-                                  y: (totalHeight - titleSize.height) / 2,
-                                  width: titleSize.width,
-                                  height: titleSize.height)
+        let isRTL = LocalizationManager.shared.isRTL()
+        
+        if isRTL {
+            // RTL Layout (Arabic)
+            titleLabel.frame = CGRect(x: contentInset,
+                                    y: (totalHeight - titleSize.height) / 2,
+                                    width: titleSize.width,
+                                    height: titleSize.height)
+            
+            imageView.frame = CGRect(x: contentInset + titleSize.width + spacingBetweenImageAndLabel,
+                                   y: (totalHeight - imageHeight) / 2,
+                                   width: imageWidth,
+                                   height: imageHeight)
+        } else {
+            // LTR Layout (English)
+            imageView.frame = CGRect(x: contentInset,
+                                   y: (totalHeight - imageHeight) / 2,
+                                   width: imageWidth,
+                                   height: imageHeight)
+            
+            titleLabel.frame = CGRect(x: contentInset + imageWidth + spacingBetweenImageAndLabel,
+                                    y: (totalHeight - titleSize.height) / 2,
+                                    width: titleSize.width,
+                                    height: titleSize.height)
+        }
     }
     
     // Override intrinsicContentSize to provide a proper size for the button
     override var intrinsicContentSize: CGSize {
-        // Calculate the intrinsic content size based on image and title
         let titleSize = titleLabel?.intrinsicContentSize ?? .zero
         let imageHeight = labelFontSize
         let imageWidth = imageView?.intrinsicContentSize.width ?? 0 * (imageHeight / (imageView?.intrinsicContentSize.height ?? 1))
@@ -101,7 +117,14 @@ class CustomNavigationBackButton: UIButton {
     // Override setTitle to avoid needing to pass control state
     func setTitle(_ title: String) {
         super.setTitle(title, for: .normal)
-        setNeedsLayout()  // Trigger layout update when title changes
-        invalidateIntrinsicContentSize()  // Ensure intrinsic size is recalculated
+        setNeedsLayout()
+        invalidateIntrinsicContentSize()
+    }
+    
+    // Update layout when language changes
+    func updateForLanguageChange() {
+        updateDirectionalImage()
+        setNeedsLayout()
+        invalidateIntrinsicContentSize()
     }
 }

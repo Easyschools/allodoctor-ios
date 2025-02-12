@@ -14,7 +14,6 @@ class AppointmentsCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var appointDate: CairoBold!
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
 }

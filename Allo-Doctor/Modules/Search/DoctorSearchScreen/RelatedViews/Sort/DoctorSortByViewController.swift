@@ -6,24 +6,36 @@
 //
 
 import UIKit
-
+enum SortOption:String {
+    case priceHighToLow = "price_high_to_low"
+    case priceLowToHigh = "price_low_to_high"
+    case topRated = "rating_high_to_low"
+}
 class DoctorSortByViewController: UIViewController {
-
+    // Subject to emit selected sort options
+    let sortOptionSelected = PassthroughSubject<SortOption, Never>()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
 
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @IBAction func priceHighToLow(_ sender: Any) {
+        sortOptionSelected.send(.priceHighToLow)
+        dismiss(animated: true)
     }
-    */
-
+    
+    @IBAction func priceLowToHigh(_ sender: Any) {
+        sortOptionSelected.send(.priceLowToHigh)
+        dismiss(animated: true)
+    }
+    
+    @IBAction func topRatedAction(_ sender: Any) {
+        sortOptionSelected.send(.topRated)
+        dismiss(animated: true)
+    }
+    
+    @IBAction func dismissView(_ sender: Any) {
+        dismiss(animated: true)
+    }
 }
+

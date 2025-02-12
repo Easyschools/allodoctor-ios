@@ -5,12 +5,15 @@
 //  Created by Abdallah ismail on 03/10/2024.
 //
 import UIKit
-import Combine
-
+import Kingfisher
 class DoctorProfileViewController: BaseViewController<DoctorProfileViewModel> {
     // MARK: - Outlets
+    @IBOutlet weak var ratingCount: CairoRegular!
+    @IBOutlet weak var clinicPhotosStackView: UIStackView!
+    @IBOutlet weak var heartButton: UIButton!
+    @IBOutlet weak var ChooseYourAppointmentLabel: CairoMeduim!
     @IBOutlet weak var subSpecialityExtenableView: UIView!
-    @IBOutlet weak var clinicPhotosPageControl: UIPageControl!
+    @IBOutlet weak var doctorPhoto: CircularImageView!
     @IBOutlet weak var clinicPhotosCollectionView: UICollectionView!
     @IBOutlet weak var appointmentsCollectionView: UICollectionView!
     @IBOutlet weak var doctorDetailsView: UIView!
@@ -33,24 +36,53 @@ class DoctorProfileViewController: BaseViewController<DoctorProfileViewModel> {
     private var isExpanded = false
     private let collapsedHeight: CGFloat = 100
     private var doctorsData: DoctorProfile?
-    var doctorFeature: [String] = ["Hygiene", "Good listener"]
-    
+    private var appointments:[DoctorAppointment]?
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupUI()
         setupCollectionView()
-        setupExpandableView()
-        bindAppoinments()
+        placesToggleSwitch.onToggle = { [weak self] index in
+            guard let self = self else { return }
+            
+            // Reset the view model or any relevant state
+            viewModel.reset()
+            
+            // Generate the new data for the collection view
+            appointments = viewModel.generateNextThreeDates(
+                from: viewModel.doctorData?.doctorServiceSpecialtyIds?[index].appointments ?? []
+            )
+         
+            // Reload the collection view with the new data
+            DispatchQueue.main.async {
+                self.appointmentsCollectionView.reloadData()
+            }
+        }
         doctorSpecialityExtenabaleConstraint.constant = self.subSpecialityTextView.contentSize.height + 40
         subSpecialityTextView.isScrollEnabled = false
         subSpecialityExtenableView.isHidden = true
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    @IBAction func descriptionExtendAction(_ sender: Any) {
+        UIView.animate(withDuration: 0.3) {
+            self.doctorDetailsView.alpha = self.doctorDetailsView.isHidden ? 1 : 0
+        } completion: { _ in
+            self.doctorDetailsView.isHidden.toggle()
+        }
     }
-    
+
+
+    @IBAction func addToFavAction(_ sender: Any) {
+        if heartButton.tag == 0 {
+                  // Switch to filled heart
+            heartButton.setImage(UIImage.heartFilled, for: .normal)
+                  heartButton.tag = 1
+              } else {
+                  // Switch back to unfilled heart
+                  heartButton.setImage(UIImage.heart, for: .normal)
+                  heartButton.tag = 0
+              }
+        viewModel.addToFav()
+    }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         configureUpperView()
@@ -60,15 +92,17 @@ class DoctorProfileViewController: BaseViewController<DoctorProfileViewModel> {
     override func bindViewModel() {
         viewModel.fetchDoctorData()
         bindDoctorData()
+        bindAppoinments()
+        viewModel.fetchDoctorFavourite()
     }
     
     // MARK: - Setup Methods
     internal override func setupUI() {
         super.setupUI()
-        placesToggleSwitch.setToggleOptions(["New Cairo", "Nasr City"])
-        ratingView.configure(withRating: 4.5)
+        
+        ratingView.configure(withRating: doctorsData?.avgRating ?? 0)
         doctorDetailsView.isUserInteractionEnabled = true
-        expandButton.addTarget(self, action: #selector(toggleExpandableView), for: .touchUpInside)
+
     }
     
     private func configureUpperView() {
@@ -76,11 +110,11 @@ class DoctorProfileViewController: BaseViewController<DoctorProfileViewModel> {
                              radius: Dimensions.upperViewBorderRaduis.rawValue)
     }
     
-    private func setupExpandableView() {
-        doctorDetailsStackView.clipsToBounds = true
-    }
     
     private func setupCollectionView() {
+        if UserDefaultsManager.sharedInstance.getLanguage() == .ar{
+            appointmentsCollectionView.semanticContentAttribute = .forceRightToLeft}
+        else{appointmentsCollectionView.semanticContentAttribute = .forceLeftToRight}
         appointmentsCollectionView.registerCell(cellClass: AppointmentsCollectionViewCell.self)
         appointmentsCollectionView.dataSource = self
         appointmentsCollectionView.delegate = self
@@ -99,63 +133,112 @@ class DoctorProfileViewController: BaseViewController<DoctorProfileViewModel> {
                 self?.clinicPhotosCollectionView.reloadData()
                 self?.doctorsData = doctor
                 self?.populateDoctorData()
+                
+                if let doctorServiceSpecialtyIds = self?.viewModel.doctorData?.doctorServiceSpecialtyIds {
+                    
+                    let infoServices = doctorServiceSpecialtyIds.compactMap {
+                        if UserDefaultsManager.sharedInstance.getLanguage() == .ar{ $0.infoService?.nameAr }
+                        else{
+                            $0.infoService?.nameEn }}
+                
+                    self?.placesToggleSwitch.setToggleOptions(infoServices.isEmpty ? ["Not Available"] : infoServices)
+                } else {
+                    self?.placesToggleSwitch.setToggleOptions(["Not Available"])
+                }
+
+
+
             }.store(in: &cancellables)
     }
     
+
     func bindAppoinments() {
-        Publishers.CombineLatest(viewModel.$displayedData, viewModel.$generatedDates)
-            .receive(on: RunLoop.main)
-            .sink { [weak self] _, _ in
-                self?.appointmentsCollectionView.reloadData()
+        viewModel.$displayedData
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] data in
+                guard let self = self else { return }
+                
+                appointmentsCollectionView.reloadData()
             }
             .store(in: &cancellables)
+        viewModel.$favData
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] data in
+                guard let self = self else { return }
+                
+                // Safely check if `data` is non-nil and contains at least one element
+                if let firstItem = data?.first, firstItem.id != nil {
+                    self.heartButton.setImage(.heartFilled, for: .normal)
+                } else {
+                    // Optional: Set the button to an unselected state if no valid data is found
+                    self.heartButton.setImage(.heart, for: .normal)
+                }
+            }
+            .store(in: &cancellables)
+
     }
     
     private func populateDoctorData() {
         let doctorData = viewModel.doctorData
-        doctorNameLabel.text = doctorData?.name
-        doctorFeesLabel.text = doctorData?.price?.prepend("Fees", separator: ": ")
-        addressLabel.text = doctorData?.address
-        doctorSpecialityLabel.text = doctorData?.descriptionEn
-        doctorDetailsLabel.text = doctorData?.titleEn
+        if let imageUrl = URL(string: doctorData?.mainImage ?? "") {
+            doctorPhoto.kf.setImage(with: imageUrl)
+        }
+        if doctorData?.images?.count == 0 {
+            clinicPhotosStackView.isHidden = true
+        }
+        ratingView.configure(withRating: doctorData?.avgRating ?? 0)
+        ratingCount.text = (doctorData?.reviewsCount?.toString().prepend("(") ?? "0")+")"
+        if UserDefaultsManager.sharedInstance.getLanguage() == .ar{
+            doctorNameLabel.text = doctorData?.nameAr
+            doctorFeesLabel.text = doctorData?.price?.prepend(AppLocalizedKeys.fees.localized, separator: ": ").appendingWithSpace(AppLocalizedKeys.EGP.localized)
+            addressLabel.text = doctorData?.address
+            doctorSpecialityLabel.text = doctorData?.descriptionAr
+            doctorDetailsLabel.text = doctorData?.titleAr
+            waitingTimeLabel.text = doctorData?.waitingTime?.toString().appendingWithSpace(AppLocalizedKeys.waitingTime.localized) 
+            appointments = viewModel.generateNextThreeDates(from: viewModel.doctorData?.doctorServiceSpecialtyIds?[0].appointments ?? [])}
+        else{
+            doctorNameLabel.text = doctorData?.nameEn
+            doctorFeesLabel.text = doctorData?.price?.prepend(AppLocalizedKeys.fees.localized, separator: ": ").appendingWithSpace(AppLocalizedKeys.EGP.localized)
+            addressLabel.text = doctorData?.address
+            doctorSpecialityLabel.text = doctorData?.descriptionEn
+            doctorDetailsLabel.text = doctorData?.titleEn
+            waitingTimeLabel.text = doctorData?.waitingTime?.toString().appendingWithSpace(AppLocalizedKeys.waitingTime.localized)
+            appointments = viewModel.generateNextThreeDates(from: viewModel.doctorData?.doctorServiceSpecialtyIds?[0].appointments ?? [])}
+        ChooseYourAppointmentLabel.text = AppLocalizedKeys.ChooseYourAppointment.localized
+        appointmentsCollectionView.reloadData()
         
         view.layoutIfNeeded()
-        setupExpandableView()
+
     }
     
     // MARK: - Actions
     @IBAction func loadNextAppoinmentPage(_ sender: Any) {
-        viewModel.loadNextData()
+        appointments = viewModel.generateNextThreeDates(from: viewModel.doctorData?.doctorServiceSpecialtyIds?[0].appointments ?? [])
         appointmentsCollectionView.reloadData()
     }
     
     @IBAction func backToPreviousAppoinmantPage(_ sender: Any) {
-        viewModel.loadPreviousData()
-        appointmentsCollectionView.reloadData()
+        if let previousAppointments = viewModel.getPreviousAppointments() {
+                   appointments = previousAppointments
+                   appointmentsCollectionView.reloadData()
+               }
     }
     
     @IBAction func specialityExtendAction(_ sender: Any) {
-        subSpecialityExtenableView.isHidden = false
+        subSpecialityExtenableView.isHidden.toggle()
     }
     
     @IBAction func navBack(_ sender: Any) {
         viewModel.coordinator?.navigateBack()
     }
     
-    @objc private func toggleExpandableView() {
-        isExpanded.toggle()
-        UIView.animate(withDuration: 0.3) {
-            self.expandButton.isSelected = self.isExpanded
-            self.view.layoutIfNeeded()
-        }
-    }
 }
 
 // MARK: - UICollectionView Extensions
 extension DoctorProfileViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == appointmentsCollectionView {
-            return viewModel.allGeneratedDates.count
+            return appointments?.count ?? 0
         } else {
             return doctorsData?.images?.count ?? 0
         }
@@ -164,18 +247,26 @@ extension DoctorProfileViewController: UICollectionViewDelegate, UICollectionVie
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == appointmentsCollectionView {
             let cell = collectionView.dequeue(indexpath: indexPath) as AppointmentsCollectionViewCell
-            if indexPath.row < viewModel.allGeneratedDates.count {
-                let date = viewModel.allGeneratedDates[indexPath.row]
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateStyle = .medium
-                cell.appointDate.text = dateFormatter.string(from: date)
-                
-                // Configure appointment details if available
-                if indexPath.row < viewModel.displayedData.count {
-                    let appointment = viewModel.displayedData[indexPath.row]
-                 
-                }
+            if UserDefaultsManager.sharedInstance.getLanguage() == .ar{
+                let day = appointments?[indexPath.row].day.nameAr ?? ""
+                let date =
+                (appointments?[indexPath.row].day.date?.convertDateFormat() ?? "Not Available" ).prepend(day, separator: " ")
+                cell.appointDate.text = date
+                cell.fromHour.text = (appointments?[indexPath.row].hour[0].from.convertTo12HourFormat() ?? "Not Available").prepend(AppLocalizedKeys.From.localized)
+                cell.ToHour.text = (appointments?[indexPath.row].hour[0].to.convertTo12HourFormat() ?? "Not Available").prepend(AppLocalizedKeys.To.localized)
             }
+            else{
+                let day = appointments?[indexPath.row].day.nameEn ?? ""
+                let date =
+                (appointments?[indexPath.row].day.date?.convertDateFormat() ?? "Not Available" ).prepend(day, separator: " ")
+                cell.appointDate.text = date
+                cell.fromHour.text = (appointments?[indexPath.row].hour[0].from.convertTo12HourFormat() ?? "Not Available").appendingWithSpace(AppLocalizedKeys.From.localized)
+                cell.ToHour.text = (appointments?[indexPath.row].hour[0].to.convertTo12HourFormat() ?? "Not Available").appendingWithSpace(AppLocalizedKeys.To.localized)
+            }
+//            let date =
+//            (appointments?[indexPath.row].day.date?.convertDateFormat() ?? "Not Available" ).prepend(day, separator: " ")
+         
+         
             return cell
         } else {
             let cell = collectionView.dequeue(indexpath: indexPath) as DoctorClinicPhotosCollectionViewCell
@@ -196,12 +287,12 @@ extension DoctorProfileViewController: UICollectionViewDelegate, UICollectionVie
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == appointmentsCollectionView {
             guard let doctor = viewModel.doctorData else {
-                // Handle the case where doctorData is nil
                 print("Error: Doctor data is unavailable.")
                 return
             }
-
-            viewModel.navToAppointmentsScreen(doctor: doctor)
+            let day = appointments?[indexPath.row].day.nameEn ?? ""
+            let date = appointments?[indexPath.row].day.date ?? "Not Available"
+            viewModel.navToAppointmentsScreen(doctor: doctor, date: date, day: day, doctorServiceSpecialityId: doctor.doctorServiceSpecialtyIds?[0].id ?? 0)
         }
     }
 }

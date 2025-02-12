@@ -17,7 +17,10 @@
                 <outlet property="appointmentsCollectionView" destination="JgR-2j-h61" id="A0H-lw-7TC"/>
                 <outlet property="appointmentsCollectionViewDynamicHeightConstraint" destination="fD1-7l-Nvj" id="DaV-5e-tgp"/>
                 <outlet property="bookingTypeView" destination="OMw-s8-lJx" id="8h8-S3-4XG"/>
+                <outlet property="calendarView" destination="9DB-ec-msI" id="u8D-Xy-dJj"/>
+                <outlet property="confirmationButton" destination="ZMS-cE-4T8" id="n37-zh-BUQ"/>
                 <outlet property="datesDropDownList" destination="9DB-ec-msI" id="eyH-x5-f0h"/>
+                <outlet property="upperView" destination="UrC-Aa-4ti" id="7C3-nG-cKL"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -27,10 +30,13 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UrC-Aa-4ti">
-                    <rect key="frame" x="0.0" y="0.0" width="393" height="157.33333333333334"/>
+                    <rect key="frame" x="0.0" y="0.0" width="393" height="106"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CG4-im-L2z" customClass="CustomNavigationBackButton" customModule="Allo_Doctor" customModuleProvider="target">
-                            <rect key="frame" x="14" y="60" width="156" height="30"/>
+                            <rect key="frame" x="14" y="50" width="156" height="32"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="32" id="vJs-Oe-fBe"/>
+                            </constraints>
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                             <state key="normal" title="Booking Appointments"/>
@@ -41,24 +47,29 @@
                                 <userDefinedRuntimeAttribute type="number" keyPath="spacingBetweenImageAndLabel">
                                     <real key="value" value="5"/>
                                 </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="Booking Appointments"/>
                             </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="navBackAction:" destination="-1" eventType="touchUpInside" id="y1p-Dy-7eQ"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" name="blueAppColor"/>
                     <constraints>
                         <constraint firstItem="CG4-im-L2z" firstAttribute="leading" secondItem="UrC-Aa-4ti" secondAttribute="leading" constant="14" id="aUz-2a-aJf"/>
+                        <constraint firstAttribute="bottom" secondItem="CG4-im-L2z" secondAttribute="bottom" constant="24" id="tRB-25-WCm"/>
                     </constraints>
                 </view>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="poQ-jF-vZz">
-                    <rect key="frame" x="0.0" y="157.33333333333331" width="393" height="660.66666666666674"/>
+                    <rect key="frame" x="0.0" y="106" width="393" height="712"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4wf-ab-huC">
-                            <rect key="frame" x="0.0" y="0.0" width="393" height="661.66666666666663"/>
+                            <rect key="frame" x="0.0" y="0.0" width="393" height="713"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Ugf-Wu-kui">
                                     <rect key="frame" x="16" y="24" width="361" height="432"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Availabile Appointments" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DbD-fb-am9" customClass="CairoSemiBold" customModule="Allo_Doctor" customModuleProvider="target">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Availabile Appointments" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DbD-fb-am9" customClass="CairoBold" customModule="Allo_Doctor" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="361" height="24"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="24" id="FJb-qv-ON2"/>
@@ -68,8 +79,9 @@
                                             <nil key="highlightedColor"/>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
-                                                    <real key="value" value="24"/>
+                                                    <real key="value" value="20"/>
                                                 </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="Availabile Appointments"/>
                                             </userDefinedRuntimeAttributes>
                                         </label>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OMw-s8-lJx" customClass="CustomToggleSwitch" customModule="Allo_Doctor" customModuleProvider="target">
@@ -105,18 +117,18 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="xHs-1r-zhT">
                                                     <rect key="frame" x="12" y="12" width="337" height="304"/>
                                                     <subviews>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="YZv-B5-tb7">
+                                                        <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="YZv-B5-tb7">
                                                             <rect key="frame" x="0.0" y="0.0" width="337" height="25"/>
                                                             <subviews>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="calendarBlue" translatesAutoresizingMaskIntoConstraints="NO" id="uod-ab-Yyu">
-                                                                    <rect key="frame" x="0.0" y="2.6666666666666856" width="20" height="20"/>
+                                                                    <rect key="frame" x="0.0" y="2.6666666666666572" width="20" height="20"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="20" id="An2-hw-C6v"/>
                                                                         <constraint firstAttribute="height" constant="20" id="P8g-qs-Kgq"/>
                                                                     </constraints>
                                                                 </imageView>
-                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9DB-ec-msI" customClass="CustomDropDownList" customModule="Allo_Doctor" customModuleProvider="target">
-                                                                    <rect key="frame" x="23" y="0.0" width="314" height="25"/>
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9DB-ec-msI" customClass="CalendarDropdownView" customModule="Allo_Doctor" customModuleProvider="target">
+                                                                    <rect key="frame" x="30" y="0.0" width="307" height="25"/>
                                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="25" id="eJF-XI-INU"/>
@@ -152,7 +164,7 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </collectionView>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZMS-cE-4T8" customClass="CustomButton" customModule="Allo_Doctor" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="254.00000000000006" width="337" height="50"/>
+                                                            <rect key="frame" x="0.0" y="254" width="337" height="50"/>
                                                             <color key="backgroundColor" name="grey-#A8A8A8"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="50" id="7JK-CE-B1e"/>
@@ -166,6 +178,7 @@
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                                     <real key="value" value="10"/>
                                                                 </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="Confirm"/>
                                                             </userDefinedRuntimeAttributes>
                                                             <connections>
                                                                 <action selector="AppointmentConfirmation:" destination="-1" eventType="touchUpInside" id="hFJ-bq-A2r"/>
@@ -231,9 +244,8 @@
                 <constraint firstItem="poQ-jF-vZz" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="6Vi-rk-Tew"/>
                 <constraint firstItem="poQ-jF-vZz" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="9Ms-tL-PPI"/>
                 <constraint firstItem="UrC-Aa-4ti" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="BqS-I1-sF5"/>
-                <constraint firstItem="CG4-im-L2z" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="10" id="FVy-5A-eSc"/>
+                <constraint firstItem="CG4-im-L2z" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="FVy-5A-eSc"/>
                 <constraint firstItem="poQ-jF-vZz" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="Jfx-id-1Ux"/>
-                <constraint firstItem="UrC-Aa-4ti" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.184729" id="KJq-vW-ume"/>
                 <constraint firstItem="UrC-Aa-4ti" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="ZwW-Kj-zcF"/>
                 <constraint firstItem="poQ-jF-vZz" firstAttribute="top" secondItem="UrC-Aa-4ti" secondAttribute="bottom" id="kYh-xD-Hjq"/>
             </constraints>
@@ -244,6 +256,9 @@
     <designables>
         <designable name="CG4-im-L2z">
             <size key="intrinsicContentSize" width="156" height="30"/>
+        </designable>
+        <designable name="DbD-fb-am9">
+            <size key="intrinsicContentSize" width="182" height="20.333333333333332"/>
         </designable>
     </designables>
     <resources>

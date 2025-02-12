@@ -6,102 +6,118 @@
 //
 
 import UIKit
+import Combine
 
-class OTPViewController: BaseViewController<OTPViewModel>,UITextFieldDelegate{
-
+class OTPViewController: BaseViewController<OTPViewModel> {
+    
+    // MARK: - Outlets
     @IBOutlet weak var errorMessageLabel: UILabel!
     @IBOutlet weak var textFieldFour: UITextField!
     @IBOutlet weak var textFieldThree: UITextField!
     @IBOutlet weak var textFieldTwo: UITextField!
     @IBOutlet weak var textFieldOne: UITextField!
     @IBOutlet weak var submitButton: CustomButton!
+    
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        textFieldViewModelBind()
         setupTextFields()
-        submitButton.setupButton(color: .appColor, title: "Submit", borderColor: .appColor, textColor: .white)
+        textFieldViewModelBind()
+        setupUI()
     }
+    
     override func setupUI() {
         errorMessageLabel.isHidden = true
-        submitButton.setupButton(color: .appColor, title: "Submit", borderColor: .appColor, textColor: .white)
+        configureTextFieldsAppearance()
     }
-
-    @IBAction func submitButttonAction(_ sender: Any) {
-//        if viewModel.checkOtp() == true {
+    
+    // MARK: - Actions
+    @IBAction func submitButtonAction(_ sender: Any) {
+         viewModel.checkOtp()
 //            UserDefaultsManager.sharedInstance.login()
 //            viewModel.coordinator?.showTabBar()
-//        }
-//        else {
+//        } else {
 //            errorMessageLabel.isHidden = false
 //        }
-        viewModel.checkOtp()
     }
     
-}
-extension OTPViewController{
-    func setupTextFields(){
-            textFieldOne.delegate = self
-            textFieldTwo.delegate = self
-            textFieldThree.delegate = self
-            textFieldFour.delegate = self
+    // MARK: - Helper Methods
+    private func configureTextFieldsAppearance() {
+        let textFields = [textFieldOne, textFieldTwo, textFieldThree, textFieldFour]
+        textFields.forEach { textField in
+            textField?.textAlignment = .center
+            textField?.keyboardType = .numberPad
+            textField?.layer.cornerRadius = 5
+            textField?.layer.borderWidth = 1
+        }
     }
-@objc func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        guard let index = getTextFieldIndex(for: textField) else { return false }
+    
+    private func updateTextFieldFocus(to index: Int) {
+        switch index {
+        case 0: textFieldOne.becomeFirstResponder()
+        case 1: textFieldTwo.becomeFirstResponder()
+        case 2: textFieldThree.becomeFirstResponder()
+        case 3: textFieldFour.becomeFirstResponder()
+        default: break
+        }
+    }
+}
 
-        // Manually update the text field’s text
-        if !string.isEmpty {
+// MARK: - UITextFieldDelegate
+extension OTPViewController: UITextFieldDelegate {
+    func setupTextFields() {
+        textFieldOne.delegate = self
+        textFieldTwo.delegate = self
+        textFieldThree.delegate = self
+        textFieldFour.delegate = self
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard let index = getTextFieldIndex(for: textField) else { return false }
+        
+        if !string.isEmpty { // Input a number
             textField.text = string
             viewModel.handleInput(for: index, with: string)
-            return false
-        } else {
+            let nextIndex = index + 1
+            if nextIndex < 4 {
+                updateTextFieldFocus(to: nextIndex)
+            } else {
+                textField.resignFirstResponder()
+            }
+        } else { // Delete a number
             textField.text = ""
             viewModel.handleInput(for: index, with: string)
-            return false
+            let previousIndex = index - 1
+            if previousIndex >= 0 {
+                updateTextFieldFocus(to: previousIndex)
+            }
         }
+        return false
     }
-
+    
     private func getTextFieldIndex(for textField: UITextField) -> Int? {
         switch textField {
-        case textFieldOne:
-            return 0
-        case textFieldTwo:
-            return 1
-        case textFieldThree:
-            return 2
-        case textFieldFour:
-            return 3
-        default:
-            return nil
+        case textFieldOne: return 0
+        case textFieldTwo: return 1
+        case textFieldThree: return 2
+        case textFieldFour: return 3
+        default: return nil
         }
     }
-    @objc  private func updateTextFieldFocus(to index: Int) {
-           switch index {
-           case 0:
-               textFieldOne.becomeFirstResponder()
-           case 1:
-               textFieldTwo.becomeFirstResponder()
-           case 2:
-               textFieldThree.becomeFirstResponder()
-           case 3:
-               textFieldFour.becomeFirstResponder()
-           default:
-               break
-           }
-       }
-    
 }
-extension OTPViewController{
-    func textFieldViewModelBind(){
+
+// MARK: - Combine Binding
+extension OTPViewController {
+    func textFieldViewModelBind() {
         viewModel.$activeTextField
             .sink { [weak self] activeIndex in
                 self?.updateTextFieldFocus(to: activeIndex)
             }
             .store(in: &cancellables)
         
-        // Observe if the OTP is complete to enable the submit button
         viewModel.$otpInput
             .map { $0.allSatisfy { !$0.isEmpty } }
             .assign(to: \.isEnabled, on: submitButton)
-        .store(in: &cancellables)}
-    
+            .store(in: &cancellables)
+    }
 }

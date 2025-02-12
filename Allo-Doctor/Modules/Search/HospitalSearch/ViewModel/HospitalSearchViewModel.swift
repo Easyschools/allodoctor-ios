@@ -36,6 +36,6 @@ extension HospitalSearchViewModel{
     }
     func navToDoctorsSearch() {
 
-        coordinator?.showDoctorSearch()
+        coordinator?.showDoctorSearch(specialityId: "1", externalClinicServiceId: "")
     }
 }

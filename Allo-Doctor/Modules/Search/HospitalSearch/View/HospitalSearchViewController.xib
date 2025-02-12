@@ -26,7 +26,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="250"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cws-sr-JHi" customClass="CustomNavigationBackButton" customModule="Allo_Doctor" customModuleProvider="target">
-                            <rect key="frame" x="16" y="55" width="140.07650273224044" height="44"/>
+                            <rect key="frame" x="16.000000000000007" y="55" width="115.66666666666669" height="27"/>
                             <fontDescription key="fontDescription" type="system" pointSize="22"/>
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -46,7 +46,7 @@
                             </connections>
                         </button>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Kxt-dQ-cug">
-                            <rect key="frame" x="16" y="114" width="343" height="90"/>
+                            <rect key="frame" x="16" y="97" width="343" height="90"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QpO-eU-U9w" customClass="CustomDropDownList" customModule="Allo_Doctor" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="343" height="40"/>
@@ -93,7 +93,7 @@
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="jMW-Cg-bBg">
                     <rect key="frame" x="16" y="265" width="343" height="513"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hospitals" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rNR-Ai-DzX" customClass="CairoSemiBold" customModule="Allo_Doctor" customModuleProvider="target">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hospitals" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rNR-Ai-DzX" customClass="CairoBold" customModule="Allo_Doctor" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="0.0" width="343" height="38"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="38" id="Pf6-WT-53W"/>
@@ -146,7 +146,7 @@
     </objects>
     <designables>
         <designable name="Cws-sr-JHi">
-            <size key="intrinsicContentSize" width="140.33333333333334" height="44"/>
+            <size key="intrinsicContentSize" width="115.66666666666667" height="27"/>
         </designable>
         <designable name="rNR-Ai-DzX">
             <size key="intrinsicContentSize" width="71.333333333333329" height="20.333333333333332"/>

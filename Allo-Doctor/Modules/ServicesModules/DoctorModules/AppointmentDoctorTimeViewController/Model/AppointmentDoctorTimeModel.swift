@@ -7,63 +7,74 @@
 
 import Foundation
 
-// MARK: - DoctorAppointment
-struct DoctorAppointmentAvailable: Decodable {
-    var id: Int?
-    var appointmentDay: AppointmentDay?
-    var appointmentHour: [AppointmentHour]?
+// Main response model
+struct DoctorAppointmentAvailableResponse: Decodable {
+    let appointments: [DoctorAppointmentAvailable]?
     
-    // MARK: - AppointmentDay
-    struct AppointmentDay: Decodable {
-        var id: Int?
-        var nameAr: String?
-        var nameEn: String?
-        var available: Int?
-        var deletedAt: String?
-        var createdAt: String?
-        var updatedAt: String?
-        
-        private enum CodingKeys: String, CodingKey {
-            case id
-            case nameAr = "name_ar"
-            case nameEn = "name_en"
-            case available
-            case deletedAt = "deleted_at"
-            case createdAt = "created_at"
-            case updatedAt = "updated_at"
-        }
-    }
-    
-    // MARK: - AppointmentHour
-    struct AppointmentHour: Decodable {
-        var appointmentDayHoursId: Int?
-        var id: Int?
-        var from: String?
-        var to: String?
-        var appointmentDayId: Int?
-        var deletedAt: String?
-        var createdAt: String?
-        var updatedAt: String?
-        var availability: String?
-        var hasBooking: Bool?
-        
-        private enum CodingKeys: String, CodingKey {
-            case appointmentDayHoursId = "appointment_day_hours_id"
-            case id
-            case from
-            case to
-            case appointmentDayId = "appointment_day_id"
-            case deletedAt = "deleted_at"
-            case createdAt = "created_at"
-            case updatedAt = "updated_at"
-            case availability
-            case hasBooking = "hasbooking"
-        }
+    init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        appointments = try container.decode([DoctorAppointmentAvailable]?.self)
     }
 }
 
-// MARK: - DoctorAppointmentsResponse
-struct DoctorAppointmentsResponse: Decodable {
-    var data: [DoctorAppointmentAvailable]?
-  
+// Individual appointment model
+struct DoctorAppointmentAvailable: Decodable {
+    let id: Int?
+    let appointmentDay: DoctorAppointmentDay?
+    let appointmentHour: [DoctorAppointmentHour]?
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case appointmentDay = "appointment_day"
+        case appointmentHour = "appointment_hour"
+    }
+}
+
+// Day model
+struct DoctorAppointmentDay: Decodable {
+    let id: Int?
+    let nameAr: String?
+    let nameEn: String?
+    let available: Int?
+    let deletedAt: String?
+    let createdAt: String?
+    let updatedAt: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case nameAr = "name_ar"
+        case nameEn = "name_en"
+        case available
+        case deletedAt = "deleted_at"
+        case createdAt = "created_at"
+        case updatedAt = "updated_at"
+    }
+}
+
+// Hour model
+struct DoctorAppointmentHour: Decodable {
+    let appointmentDayHoursId: Int?
+    let id: Int?
+    let from: String?
+    let to: String?
+    let appointmentDayId: Int?
+    let deletedAt: String?
+    let createdAt: String?
+    let updatedAt: String?
+    let availability: String?
+    let hasBooking: Bool?
+    
+    enum CodingKeys: String, CodingKey {
+        case appointmentDayHoursId = "appointment_day_hours_id"
+        case id
+        case from
+        case to
+        case appointmentDayId = "appointment_day_id"
+        case deletedAt = "deleted_at"
+        case createdAt = "created_at"
+        case updatedAt = "updated_at"
+        case availability
+        case hasBooking = "hasbooking"
+    
+    }
 }

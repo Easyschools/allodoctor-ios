@@ -15,6 +15,8 @@
                 <outlet property="backButton" destination="HDV-yn-DuC" id="iwY-x7-6Np"/>
                 <outlet property="categoryCollectionView" destination="use-md-eXS" id="ggX-99-8G4"/>
                 <outlet property="categoryCollectionViewDynamicHeightConstraint" destination="MSU-Lr-7YA" id="eCb-N4-02M"/>
+                <outlet property="heartButton" destination="yxo-HE-lhC" id="N4N-0l-7aa"/>
+                <outlet property="searchView" destination="hvl-Gs-AT6" id="0pe-Y3-oTe"/>
                 <outlet property="uploadPrescriptionView" destination="pHI-eU-pmu" id="iwP-6H-3RV"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -37,7 +39,11 @@
                         <userDefinedRuntimeAttribute type="number" keyPath="spacingBetweenImageAndLabel">
                             <real key="value" value="5"/>
                         </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="CategoriesMedication"/>
                     </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="navBackAction:" destination="-1" eventType="touchUpInside" id="qOo-Ow-UpH"/>
+                    </connections>
                 </button>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CGd-fh-xr3">
                     <rect key="frame" x="0.0" y="80" width="375" height="698"/>
@@ -69,7 +75,7 @@
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Sf-5x-toV">
                                             <rect key="frame" x="16" y="56" width="343" height="150"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="offers" translatesAutoresizingMaskIntoConstraints="NO" id="N33-Bi-yv5">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pharmacybanner" translatesAutoresizingMaskIntoConstraints="NO" id="N33-Bi-yv5">
                                                     <rect key="frame" x="0.0" y="0.0" width="343" height="150"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -99,6 +105,7 @@
                                                         <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
                                                             <real key="value" value="16"/>
                                                         </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="PrescriptionDocuments"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pHI-eU-pmu">
@@ -123,6 +130,7 @@
                                                                         <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
                                                                             <real key="value" value="14"/>
                                                                         </userDefinedRuntimeAttribute>
+                                                                        <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="uploadPrescriptionInstruction"/>
                                                                     </userDefinedRuntimeAttributes>
                                                                 </label>
                                                             </subviews>
@@ -139,6 +147,9 @@
                                                                     <real key="value" value="10"/>
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
+                                                            <connections>
+                                                                <action selector="showUploadPrescriptionAction:" destination="-1" eventType="touchUpInside" id="fob-yE-aKT"/>
+                                                            </connections>
                                                         </button>
                                                     </subviews>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -213,27 +224,47 @@
                     <viewLayoutGuide key="contentLayoutGuide" id="3et-SC-0Mv"/>
                     <viewLayoutGuide key="frameLayoutGuide" id="4zr-xA-M6R"/>
                 </scrollView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Kq-s0-wce">
-                    <rect key="frame" x="335" y="53" width="24" height="24"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="24" id="Oef-RN-pzb"/>
-                        <constraint firstAttribute="height" constant="24" id="x4C-Ff-PCx"/>
-                    </constraints>
-                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                    <state key="normal" image="basket"/>
-                </button>
+                <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="HRd-6Z-Uut">
+                    <rect key="frame" x="303" y="53" width="56" height="24"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yxo-HE-lhC">
+                            <rect key="frame" x="0.0" y="0.0" width="20" height="24"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="24" id="YCq-aG-EH0"/>
+                                <constraint firstAttribute="width" constant="20" id="lNE-kY-pH6"/>
+                            </constraints>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" image="heartBlue"/>
+                            <connections>
+                                <action selector="heartButtonAction:" destination="-1" eventType="touchUpInside" id="XdA-fe-sIv"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Kq-s0-wce">
+                            <rect key="frame" x="32" y="0.0" width="24" height="24"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="24" id="Oef-RN-pzb"/>
+                                <constraint firstAttribute="height" constant="24" id="x4C-Ff-PCx"/>
+                            </constraints>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" image="basket"/>
+                            <connections>
+                                <action selector="navToPharmacyCart:" destination="-1" eventType="touchUpInside" id="SzH-QE-cJ8"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                </stackView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="3Kq-s0-wce" firstAttribute="centerY" secondItem="HDV-yn-DuC" secondAttribute="centerY" id="BFU-Jn-ulh"/>
+                <constraint firstItem="HRd-6Z-Uut" firstAttribute="centerY" secondItem="HDV-yn-DuC" secondAttribute="centerY" id="ET9-Rq-fpP"/>
                 <constraint firstItem="HDV-yn-DuC" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="Mx3-kN-34f"/>
                 <constraint firstItem="HDV-yn-DuC" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="RXa-mX-ZNz"/>
                 <constraint firstItem="CGd-fh-xr3" firstAttribute="top" secondItem="HDV-yn-DuC" secondAttribute="bottom" id="SNh-he-X7c"/>
                 <constraint firstItem="CGd-fh-xr3" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="dVS-kH-tG0"/>
                 <constraint firstItem="CGd-fh-xr3" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="hvd-no-Lk0"/>
                 <constraint firstItem="CGd-fh-xr3" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="i99-gf-Kuh"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="3Kq-s0-wce" secondAttribute="trailing" constant="16" id="iGq-XN-LpP"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="HRd-6Z-Uut" secondAttribute="trailing" constant="16" id="zfX-vd-YoR"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="104.8" y="-33.251231527093594"/>
@@ -246,7 +277,8 @@
     </designables>
     <resources>
         <image name="basket" width="20" height="20"/>
-        <image name="offers" width="1080" height="1080"/>
+        <image name="heartBlue" width="20" height="20"/>
+        <image name="pharmacybanner" width="343" height="145"/>
         <image name="uploadPrescription" width="36" height="36"/>
         <namedColor name="grey-#A8A8A8">
             <color red="0.6589999794960022" green="0.6589999794960022" blue="0.6589999794960022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -24,16 +24,18 @@ struct Pharmacy: Decodable {
     let descriptionEn: String
     let descriptionAr: String
     let distance: Double?
-    let address: String
+    let addressAr: String?
+    let addressEn: String?
     let cityId: Int?
     let districtId: Int
     let districtName: String
-//    let district: District
+    let district: District?
     let latitude: String
     let longitude: String
     let to: String?
     let from: String?
     let pickup: Int
+    let deliveryTime:String?
     let delivery: Int
     let phone: String?
     let url: String?
@@ -41,16 +43,21 @@ struct Pharmacy: Decodable {
     let mainImage: String?
     let backgroundImage: String?
     let categories: [Category]
-//    let reviews: [Review]
+    let avgRating:Double?
+    let reviewsCount: Int?
+   
+
     
     enum CodingKeys: String, CodingKey {
-        case id, address, latitude, longitude, to, from, pickup, delivery, phone, url, experience
+        case id, latitude, longitude, to, from, pickup, delivery, phone, url, experience
         case nameEn = "name_en"
         case nameAr = "name_ar"
         case titleEn = "title_en"
         case titleAr = "title_ar"
         case descriptionEn = "description_en"
         case descriptionAr = "description_ar"
+        case addressEn = "address_en"
+        case addressAr = "address_ar"
         case distance
         case cityId = "city_id"
         case districtId = "district_id"
@@ -58,24 +65,30 @@ struct Pharmacy: Decodable {
         case mainImage = "main_image"
         case backgroundImage = "background_image"
         case categories
+        case district
+        case avgRating = "avg_rating"
+        case deliveryTime = "delivery_time"
+        case reviewsCount = "reviews_count"
+        
+        
     }
 }
 
-// MARK: - District
-//struct District: Decodable {
-//    let id: Int
-//    let cityId: Int
-//    let name: String
-//    let nameAr: String
-//    let nameEn: String
-//    
-//    enum CodingKeys: String, CodingKey {
-//        case id, name
-//        case cityId = "city_id"
-//        case nameAr = "name_ar"
-//        case nameEn = "name_en"
-//    }
-//}
+
+struct District: Decodable {
+    let id: Int?
+    let cityId: Int?
+    let name: String?
+    let nameAr: String?
+    let nameEn: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case id, name
+        case cityId = "city_id"
+        case nameAr = "name_ar"
+        case nameEn = "name_en"
+    }
+}
 
 // MARK: - Category
 struct Category: Decodable {

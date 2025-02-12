@@ -14,7 +14,7 @@ class CustomDropDownList: UIView {
     }
     
     let label = UILabel()
-    private var arrowImageView = UIImageView(image: UIImage(systemName: "chevron.down"))
+    private var arrowImageView = UIImageView(image: UIImage.dropDownArrow)
     
     var didSelectItem: ((String) -> Void)?
     var items: [String] = []

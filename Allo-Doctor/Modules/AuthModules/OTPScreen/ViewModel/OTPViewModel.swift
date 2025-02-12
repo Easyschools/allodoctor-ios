@@ -15,7 +15,7 @@ class OTPViewModel {
     private let apiClient: APIClient
     private var cancellables = Set<AnyCancellable>()
     private var userdefault: UserDefaultProtocol?
-
+    @Published var errorMessage: String?
     // MARK: - Init
     init(coordinator: HomeCoordinatorContact? = nil, apiClient: APIClient = APIClient(), userDefaultsManager: UserDefaultProtocol = UserDefaultsManager.sharedInstance) {
         self.coordinator = coordinator
@@ -87,14 +87,117 @@ extension OTPViewModel {
         if response.message == "OTP verified successfully." {
             DispatchQueue.main.async {
                 if self.userdefault?.isVerifiedNumber() == true {
-                    UserDefaultsManager.sharedInstance.login()
-                    self.coordinator?.showTabBar()
+                    self.login()
+                  
                 } else {
                     self.coordinator?.showRegisterScreen()
                 }
             }
         } else {
             print("Cannot verify OTP")
+        }
+    }
+}
+extension OTPViewModel{
+    private func login(){
+        let phone = UserDefaultsManager.sharedInstance.getMobileNumber() ?? ""
+        let phoneLoginRequest = PhoneLoginRequest(phone: phone)
+        NetworkService.shared.postData(endpoint:"auth/login", data: phoneLoginRequest) { result in
+            switch result {
+            case .success(let data):
+             
+                do {
+                    let decoder = JSONDecoder()
+                    let order = try decoder.decode(LoginResponse.self, from: data)
+                    self.handleSuccess(order)
+                } catch {
+                    self.errorMessage = "Failed to parse server response."
+                    print("Decoding error: \(error.localizedDescription)")
+                }
+                
+            case .failure(let error):
+                self.handleError(error)
+            }
+        }
+    }
+//    private func handleSuccess(_ login: LoginResponse) {
+//        UserDefaultsManager.sharedInstance.login()
+//        print(login)
+//        self.coordinator?.showTabBar()
+//        AuthManager.shared.setToken(login.token ?? "")
+//        userdefault?.setUserName(userName: login.name ?? "")
+//        coordinator?.showTabBar()
+//    }
+    private func handleError(_ error: NetworkError) {
+        switch error {
+        case .serverError(let message):
+            // Handle Laravel-style errors
+            errorMessage = message
+            print("Server error: \(message)")
+            
+        case .unauthorized:
+            errorMessage = "Unauthorized: Please log in again."
+            print("Unauthorized access.")
+            
+        case .invalidData:
+            errorMessage = "Failed to parse server response."
+            print("Invalid data received from server.")
+            
+        case .networkError(let message):
+            errorMessage = "Network error: \(message)"
+            print("Network error: \(message)")
+            
+        case .invalidResponse:
+            errorMessage = "Unexpected server response."
+            print("Invalid response from server.")
+            
+        case .invalidImage:
+            // No action needed for this case
+            break
+        }
+    }
+}
+extension OTPViewModel {
+    private func handleSuccess(_ login: LoginResponse) {
+        // First store all user data in UserDefaults
+        if let token = login.token {
+            AuthManager.shared.setToken(token)
+            print(token)
+        }
+
+        if let name = login.name {
+            userdefault?.setUserName(userName: name)
+        
+        
+        }
+        func setUserId(UserId: Int?) {
+            UserDefaults.standard.set(UserId, forKey: "User_Id")
+        }
+        
+        func getUserId() -> Int? {
+            return UserDefaults.standard.integer(forKey: "User_Id")
+        }
+        if let phone = login.phone {
+            userdefault?.setMobileNumber(mobileNumber: phone)
+        }
+        if let userId = login.id {
+            userdefault?.setUserId(UserId: userId)
+        }
+        
+        // Mark user as logged in
+        UserDefaultsManager.sharedInstance.login()
+        
+        // Verify all required data is stored
+        guard AuthManager.shared.hasToken() != nil,
+              userdefault?.getUserName() != nil,
+              userdefault?.getMobileNumber() != nil else {
+            errorMessage = "Failed to save user data"
+            return
+        }
+        
+        // After ensuring all data is saved, navigate to tab bar
+        DispatchQueue.main.async {
+            self.coordinator?.showTabBar()
         }
     }
 }

@@ -6,3 +6,6 @@
 //
 
 import Foundation
+protocol PaymentTaskHandling {
+    func handlePaymentCompletion(orderId:Int)
+}

@@ -8,6 +8,7 @@
 import UIKit
 class EmergencyView:UIView{
     @IBOutlet weak var emergencyButton: UnderlinedButton!
+    var onEmergencyButtonTapped: (() -> Void)?
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
@@ -18,6 +19,9 @@ class EmergencyView:UIView{
         commonInit()
     }
     
+    @IBAction func showEmergencyAction(_ sender: Any) {
+        onEmergencyButtonTapped?()
+    }
     private func commonInit() {
         guard let xibView = Bundle.main.loadNibNamed("EmergencyView", owner: self, options: nil)?.first as? UIView else {
             return

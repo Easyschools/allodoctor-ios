@@ -64,34 +64,43 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZB0-9q-c0P" userLabel="Consultant of Endodontics and Cosmetic Dentistry  Member of The Royal Surgeons Collage -Edinburgh">
-                                                        <rect key="frame" x="0.0" y="25" width="229" height="32"/>
+                                                        <rect key="frame" x="0.0" y="25" width="229" height="25"/>
                                                         <string key="text">Consultant of Endodontics and Cosmetic Dentistry 
 Member of The Royal Surgeons Collage -Edinburgh</string>
                                                         <fontDescription key="fontDescription" type="system" pointSize="9"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PHJ-W8-uyQ">
-                                                        <rect key="frame" x="0.0" y="57" width="229" height="19"/>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="Pz3-nX-bCU">
+                                                        <rect key="frame" x="0.0" y="50" width="229" height="26"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No reviews Yet" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ziH-xG-O3r">
-                                                                <rect key="frame" x="0.0" y="0.0" width="229" height="19"/>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PHJ-W8-uyQ" customClass="StarRatingView" customModule="Allo_Doctor" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="5" width="81" height="16"/>
+                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="height" constant="19" id="Q8y-5F-tju"/>
+                                                                    <constraint firstAttribute="height" constant="16" id="exS-Ou-OTW"/>
+                                                                    <constraint firstAttribute="width" constant="81" id="jeC-lj-pUM"/>
                                                                 </constraints>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                            </view>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(500+)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2uA-MK-jZO" customClass="CairoRegular" customModule="Allo_Doctor" customModuleProvider="target">
+                                                                <rect key="frame" x="87" y="0.0" width="142" height="26"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
+                                                                        <real key="value" value="13"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                </userDefinedRuntimeAttributes>
                                                             </label>
                                                         </subviews>
-                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="trailing" secondItem="ziH-xG-O3r" secondAttribute="trailing" id="TuQ-Un-O88"/>
-                                                            <constraint firstItem="ziH-xG-O3r" firstAttribute="top" secondItem="PHJ-W8-uyQ" secondAttribute="top" id="Ukk-id-aX4"/>
-                                                            <constraint firstAttribute="bottom" secondItem="ziH-xG-O3r" secondAttribute="bottom" id="uoI-EE-pva"/>
-                                                            <constraint firstItem="ziH-xG-O3r" firstAttribute="leading" secondItem="PHJ-W8-uyQ" secondAttribute="leading" id="xmM-3c-5Fb"/>
+                                                            <constraint firstItem="PHJ-W8-uyQ" firstAttribute="top" secondItem="Pz3-nX-bCU" secondAttribute="top" constant="5" id="56C-gd-K4O"/>
+                                                            <constraint firstItem="2uA-MK-jZO" firstAttribute="top" secondItem="Pz3-nX-bCU" secondAttribute="top" id="UPm-lL-kki"/>
+                                                            <constraint firstAttribute="bottom" secondItem="2uA-MK-jZO" secondAttribute="bottom" id="m7a-Oy-a9h"/>
+                                                            <constraint firstAttribute="bottom" secondItem="PHJ-W8-uyQ" secondAttribute="bottom" constant="5" id="shY-0a-3pw"/>
                                                         </constraints>
-                                                    </view>
+                                                    </stackView>
                                                 </subviews>
                                             </stackView>
                                         </subviews>
@@ -164,6 +173,9 @@ Member of The Royal Surgeons Collage -Edinburgh</string>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="Fees:"/>
+                                                                </userDefinedRuntimeAttributes>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YBf-aw-zDe" customClass="CairoBold" customModule="Allo_Doctor" customModuleProvider="target">
                                                                 <rect key="frame" x="36" y="0.0" width="230" height="20.333333333333332"/>
@@ -201,6 +213,9 @@ Member of The Royal Surgeons Collage -Edinburgh</string>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="WaitingTime:"/>
+                                                                </userDefinedRuntimeAttributes>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Ek-f5-2IG" customClass="CairoBold" customModule="Allo_Doctor" customModuleProvider="target">
                                                                 <rect key="frame" x="76" y="0.0" width="190" height="20.333333333333332"/>
@@ -240,11 +255,14 @@ Member of The Royal Surgeons Collage -Edinburgh</string>
                                                             <constraint firstAttribute="width" constant="17" id="fih-g3-84x"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Available Today from 6 pm" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dG7-YZ-Z2K">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Available Today" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dG7-YZ-Z2K">
                                                         <rect key="frame" x="22" y="12.333333333333343" width="189" height="15.666666666666664"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="AvailableToday"/>
+                                                        </userDefinedRuntimeAttributes>
                                                     </label>
                                                 </subviews>
                                             </stackView>
@@ -257,6 +275,9 @@ Member of The Royal Surgeons Collage -Edinburgh</string>
                                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" title="Book Now"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="bookVisit"/>
+                                                </userDefinedRuntimeAttributes>
                                             </button>
                                         </subviews>
                                         <constraints>
@@ -312,8 +333,11 @@ Member of The Royal Surgeons Collage -Edinburgh</string>
                 <outlet property="cityLabel" destination="cYZ-gF-Om6" id="g7h-wr-CSy"/>
                 <outlet property="customAdressLabel" destination="yfi-Ah-sss" id="kRl-a8-CNM"/>
                 <outlet property="descriptionLabel" destination="ZB0-9q-c0P" id="Uao-js-8Hu"/>
+                <outlet property="doctorImage" destination="cdM-SL-Yzv" id="ktY-dS-ZzW"/>
                 <outlet property="doctorName" destination="yfi-Ah-sss" id="pfj-gb-vv8"/>
                 <outlet property="feesLabel" destination="YBf-aw-zDe" id="obT-Z3-CPB"/>
+                <outlet property="ratingView" destination="PHJ-W8-uyQ" id="3DM-lC-Qdt"/>
+                <outlet property="reviewsCount" destination="2uA-MK-jZO" id="6P7-YP-l8U"/>
                 <outlet property="waitingTime" destination="8Ek-f5-2IG" id="ybU-kk-KVx"/>
             </connections>
             <point key="canvasLocation" x="-115.26717557251908" y="-0.35211267605633806"/>
@@ -340,7 +364,7 @@ Member of The Royal Surgeons Collage -Edinburgh</string>
         <image name="Calendar" width="24" height="24"/>
         <image name="Location 1" width="20" height="20"/>
         <image name="Time Circle" width="20" height="20"/>
-        <image name="coin" width="20" height="20"/>
+        <image name="coin" width="24" height="24"/>
         <image name="istockphoto-981306892-612x612" width="499" height="612"/>
         <namedColor name="blueAppColor">
             <color red="0.11800000071525574" green="0.49000000953674316" blue="0.75300002098083496" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

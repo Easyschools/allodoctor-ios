@@ -22,7 +22,6 @@ final class AppCoordinator: Coordinator {
     init(window: UIWindow, navigationController: UINavigationController) {
         self.navigationController = navigationController
         self.window = window
-        setupGoogleMaps()
     }
 
     /// Starts the app coordinator by configuring dependencies and displaying the home flow.
@@ -43,21 +42,7 @@ private extension AppCoordinator {
         children.append(coordinator)
         replaceRootViewController(navigationController)
     }
-    private func setupGoogleMaps() {
-          let dispatchSemaphore = DispatchSemaphore(value: 0)
-          
-          let backgroundQueue = DispatchQueue(label: "com.yourapp.googleMaps.initialization",
-                                            qos: .userInitiated)
-          
-          backgroundQueue.async {
-              autoreleasepool {
-                  GMSServices.provideAPIKey("AIzaSyDJkVY_BdzPGHKPRV1zvVNoqiw2sbOszXg")
-                  dispatchSemaphore.signal()
-              }
-          }
-          
-          _ = dispatchSemaphore.wait(timeout: .now() + 5.0)
-      }
+   
 }
 
 // MARK: Window Replacement

@@ -9,9 +9,25 @@ import Foundation
 class SelectlanguageViewModel{
     var coordinator:HomeCoordinatorContact?
     
-}
+init(coordinator: HomeCoordinatorContact? = nil) {
+    self.coordinator = coordinator
+
+}}
 extension SelectlanguageViewModel {
-    func goToBordingScreen(){
+    func handleAppLaunch() {
+        if UserDefaultsManager.sharedInstance.checkingShowingOnboarding() {
+            goToPhoneNoScreen()
+      
+        } else {
+            // Show the onboarding flow
+            goToBordingScreen()
+        }
+    }
+  private  func goToBordingScreen(){
+        coordinator?.showOnboardingScreen()
+    }
+   private  func goToPhoneNoScreen(){
         coordinator?.showPhonenumberScreen()
     }
+    
 }

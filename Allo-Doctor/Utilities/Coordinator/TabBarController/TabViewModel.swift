@@ -18,7 +18,7 @@ final class TabBarViewModel {
         // Create view controllers with their respective view models
         let servicesVC = ServicesViewController(viewModel: ServicesViewModel(coordinator: coordinator))
         let profileVC = MyProfileViewController(viewModel: MyProfileViewModel(coordinator: coordinator))
-        let profileUnAuthVC = NonAuthUserViewController(viewModel:NonAuthUserViewModel())
+        let profileUnAuthVC = NonAuthUserViewController(viewModel:NonAuthUserViewModel(coordinator: coordinator))
         let activityVC = MyActivityViewController(viewModel: MyActivityViewModel(coordinator: coordinator))
         let offersVC = OffersViewController(viewModel: OffersViewModel(coordinator: coordinator))
         
@@ -28,6 +28,7 @@ final class TabBarViewModel {
         let activityNav = createNavController(viewController: activityVC, title: AppLocalizedKeys.Activity.localized, image: .activityUnfilled, selectedImage: .activityFilled)
         let offersNav = createNavController(viewController: offersVC, title: AppLocalizedKeys.Offers.localized, image: .offersUnfilled, selectedImage: .offersfilled)
         let profileNonAuthNav = createNavController(viewController: profileUnAuthVC, title: AppLocalizedKeys.Profile.localized, image: .user, selectedImage: .userFilled)
+        
 
         // Return the navigation controllers as tab bar items
         if UserDefaultsManager.sharedInstance.isLoggedIn() {

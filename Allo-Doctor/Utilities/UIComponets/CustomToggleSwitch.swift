@@ -27,16 +27,30 @@ class CustomToggleSwitch: UIView {
         }
     }
 
+    // Callback for button taps
+    var onToggle: ((Int) -> Void)?
+
     // Public function to set the toggle options
-    func setToggleOptions(_ options: [String]) {
+    func setToggleOptions(_ options: Any) {
         buttons.forEach { $0.removeFromSuperview() }
         buttons.removeAll()
 
-        for (index, option) in options.enumerated() {
+        var optionsArray: [String] = []
+
+        if let singleOption = options as? String {
+            optionsArray.append(singleOption)
+        } else if let multipleOptions = options as? [String] {
+            optionsArray = multipleOptions
+        } else {
+            print("Invalid options type. Must be String or [String].")
+            return
+        }
+
+        for (index, option) in optionsArray.enumerated() {
             let button = UIButton(type: .custom)
             button.setTitle(option, for: .normal)
             button.tag = index
-            button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+            button.titleLabel?.font = UIFont(name: "Cairo-Bold", size: 14) ?? UIFont.boldSystemFont(ofSize: 14)
             button.addTarget(self, action: #selector(toggleTapped(_:)), for: .touchUpInside)
             button.contentEdgeInsets = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
 
@@ -82,20 +96,29 @@ class CustomToggleSwitch: UIView {
     }
 
     @objc private func toggleTapped(_ sender: UIButton) {
-        selectedIndex = sender.tag
+        setSelectedIndex(sender.tag)
+        onToggle?(sender.tag)
     }
 
     private func updateUI() {
-        for (index, button) in buttons.enumerated() {
-            if index == selectedIndex {
-                button.backgroundColor = selectedBackgroundColor
-                button.setTitleColor(selectedTextColor, for: .normal)
-                button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
-            } else {
-                button.backgroundColor = defaultBackgroundColor
-                button.setTitleColor(defaultTextColor, for: .normal)
-                button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+        UIView.animate(withDuration: 0.3) {
+            for (index, button) in self.buttons.enumerated() {
+                if index == self.selectedIndex {
+                    button.backgroundColor = self.selectedBackgroundColor
+                    button.setTitleColor(self.selectedTextColor, for: .normal)
+                    button.titleLabel?.font = UIFont(name: "Cairo-Bold", size: 14) ?? UIFont.boldSystemFont(ofSize: 14)
+                } else {
+                    button.backgroundColor = self.defaultBackgroundColor
+                    button.setTitleColor(self.defaultTextColor, for: .normal)
+                    button.titleLabel?.font = UIFont(name: "Cairo-Regular", size: 14) ?? UIFont.systemFont(ofSize: 14)
+                }
             }
         }
+    }
+
+    // Public function to set the selected index
+    func setSelectedIndex(_ index: Int) {
+        guard index >= 0 && index < buttons.count else { return }
+        selectedIndex = index
     }
 }

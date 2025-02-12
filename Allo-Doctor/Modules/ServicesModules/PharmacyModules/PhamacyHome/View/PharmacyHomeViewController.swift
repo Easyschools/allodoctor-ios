@@ -6,9 +6,10 @@
 //
 
 import UIKit
-
+import GoogleMaps
 class PharmacyHomeViewController: BaseViewController<PharmacyHomeViewModel> {
     // MARK: - IBOutlets
+    @IBOutlet weak var searchView: CustomSearchBar!
     @IBOutlet weak var pharmaciesCollectionViewDynamicHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var pharmaciesCollectionView: UICollectionView!
     @IBOutlet weak var backButton: CustomNavigationBackButton!
@@ -16,29 +17,42 @@ class PharmacyHomeViewController: BaseViewController<PharmacyHomeViewModel> {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        bindViewModel()
     }
     // MARK: - Overided FunctionFrom baseViewController
     override func bindViewModel() {
         bindPhamraciesData()
         viewModel.getPharmacies()
+        bindSearchBarButton()
     }
     override func setupUI() {
+        searchView.searchTextfield.placeholder = AppLocalizedKeys.searchForPharmacyOrProduct.localized
         setupViewControllerUI()
         bindCollectionViewHeight()
         setupCollectionView()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        bindViewModel()
+        if let coordinates = UserDefaultsManager.sharedInstance.getCoordinates() {
+            viewModel.getPharmacies(lat: coordinates.lat, long: coordinates.long)
+        }
+        else {
+          
+        }
+
+    }
+    @IBAction func navBackAction(_ sender: Any) {
+        viewModel.navigationBack()
     }
     @IBAction func goToBasketAction(_ sender: Any) {
+        viewModel.navToshowPharmaciesCartViewController()
     }
 }
 extension PharmacyHomeViewController{
     private func setupViewControllerUI() {
         backButton.tintColor = .black
         backButton.setTitleColor(.black, for: .normal)
+        backButton.updateForLanguageChange()
+        backButton.setTitle("Pharmacies".localized)
     }
     private func setupCollectionView(){
         pharmaciesCollectionView.registerCell(cellClass: PharmacyCollectionViewCell.self)
@@ -65,8 +79,13 @@ extension PharmacyHomeViewController:UICollectionViewDelegate,UICollectionViewDa
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
        let cell = collectionView.dequeue(indexpath: indexPath) as PharmacyCollectionViewCell
+       let pharmacyData = viewModel.pharmacies?[indexPath.row]
         cell.cornerRadius = 10
         cell.applyDropShadow()
+        if UserDefaultsManager.sharedInstance.getLanguage() == .ar{
+            cell.setupCell(pharmacyName: pharmacyData?.nameAr ?? "", area: pharmacyData?.addressAr ?? "", deliveryFees: pharmacyData?.delivery.toString() ?? "",deliveryTime: pharmacyData?.deliveryTime?.appendingWithSpace(AppLocalizedKeys.mintutes.localized) ?? "", logoUrl: pharmacyData?.mainImage, backgroundImageUrl: pharmacyData?.backgroundImage)
+        }else{
+            cell.setupCell(pharmacyName: pharmacyData?.nameEn ?? "", area: pharmacyData?.addressEn ?? "", deliveryFees: pharmacyData?.delivery.toString() ?? "", deliveryTime: pharmacyData?.deliveryTime?.appendingWithSpace(AppLocalizedKeys.mintutes.localized) ?? "", logoUrl: pharmacyData?.mainImage, backgroundImageUrl: pharmacyData?.backgroundImage)}
         return cell
     }
    
@@ -87,7 +106,7 @@ extension PharmacyHomeViewController:UICollectionViewDelegate,UICollectionViewDa
         return 24
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-           return UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+           return UIEdgeInsets(top: 0, left: 16, bottom: 20, right: 16)
        }
        
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -106,8 +125,17 @@ extension PharmacyHomeViewController{
             }.store(in: &cancellables)
     }
     func showMapView(){
-        viewModel.coordinator?.showMapView(screenType: .pharmacyHome)
+        guard let coordinates = UserDefaultsManager.sharedInstance.getCoordinates() else {
+            viewModel.coordinator?.showMapView(screenType: .pharmacyHome)
+            return
+        }
+ }
+    private func bindSearchBarButton() {
+        searchView.navButtonTapped
+            .sink { [weak self] in
+                self?.viewModel.navToSearchScreen()
+            }
+            .store(in: &cancellables)
     }
-   
 }
 

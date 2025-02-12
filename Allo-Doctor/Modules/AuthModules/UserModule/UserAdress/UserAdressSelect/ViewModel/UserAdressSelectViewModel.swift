@@ -5,27 +5,29 @@
 //  Created by Abdallah ismail on 05/11/2024.
 //
 
-import Foundation
-class UserAdressSelectViewModel{
+import Combine
+
+class UserAdressSelectViewModel {
     var coordinator: HomeCoordinatorContact?
     private var cancellables = Set<AnyCancellable>()
     @Published var errorMessage: String?
+    @Published var userAddresses: [UserAddress]?
+    @Published var isLoading = false // Track loading state
     private var apiClient = APIClient()
-    @Published var userAddresses : [UserAddress]?
-    
-//    @Published var productId:Int?
-    
+
     init(coordinator: HomeCoordinatorContact? = nil, apiClient: APIClient = APIClient()) {
         self.coordinator = coordinator
         self.apiClient = apiClient
-   
-       
-    }}
-extension UserAdressSelectViewModel{
+    }
+}
+
+extension UserAdressSelectViewModel {
     func getUserAddresses() {
+        isLoading = true // Start loading
         let router = APIRouter.fetchUserAddresses
         apiClient.fetchData(from: router.url, as: UserAddressResponse.self)
             .sink(receiveCompletion: { [weak self] completion in
+                self?.isLoading = false // Stop loading
                 switch completion {
                 case .finished:
                     break
@@ -34,10 +36,8 @@ extension UserAdressSelectViewModel{
                     self?.errorMessage = "Failed to fetch address: \(error.localizedDescription)"
                 }
             }, receiveValue: { [weak self] addressResponse in
-                // Filter out addresses that are nil or empty
                 self?.userAddresses = addressResponse.data?.filter { $0.address != nil && !$0.address!.isEmpty }
             })
             .store(in: &cancellables)
     }
-
 }

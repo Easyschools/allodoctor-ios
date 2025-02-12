@@ -17,26 +17,31 @@
                 <rect key="frame" x="0.0" y="0.0" width="305" height="315"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="OnBoarding" translatesAutoresizingMaskIntoConstraints="NO" id="0Yx-bI-5Jh">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0Yx-bI-5Jh">
                         <rect key="frame" x="0.0" y="0.0" width="305" height="315"/>
                     </imageView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PDb-Hb-xgI" customClass="TransparentLinearShadowView" customModule="Allo_Doctor" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="111" width="305" height="204"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
                 </subviews>
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <constraints>
+                <constraint firstItem="PDb-Hb-xgI" firstAttribute="height" secondItem="gTV-IL-0wX" secondAttribute="height" multiplier="0.647619" id="78g-SM-8Md"/>
+                <constraint firstItem="PDb-Hb-xgI" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="ELe-t0-2IF"/>
                 <constraint firstItem="0Yx-bI-5Jh" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="PS4-fU-kqZ"/>
                 <constraint firstAttribute="trailing" secondItem="0Yx-bI-5Jh" secondAttribute="trailing" id="SQI-ec-v2m"/>
+                <constraint firstAttribute="trailing" secondItem="PDb-Hb-xgI" secondAttribute="trailing" id="lBQ-J5-sSc"/>
+                <constraint firstAttribute="bottom" secondItem="PDb-Hb-xgI" secondAttribute="bottom" id="mO7-ri-xmZ"/>
                 <constraint firstAttribute="bottom" secondItem="0Yx-bI-5Jh" secondAttribute="bottom" id="uzi-PS-For"/>
                 <constraint firstItem="0Yx-bI-5Jh" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="wzS-fj-Vok"/>
             </constraints>
             <size key="customSize" width="305" height="315"/>
             <connections>
-                <outlet property="onBoardingImage" destination="0Yx-bI-5Jh" id="U7i-n7-LD2"/>
+                <outlet property="onBoardingImage" destination="0Yx-bI-5Jh" id="mH8-Mh-PiK"/>
             </connections>
             <point key="canvasLocation" x="209.92366412213741" y="82.042253521126767"/>
         </collectionViewCell>
     </objects>
-    <resources>
-        <image name="OnBoarding" width="375" height="466"/>
-    </resources>
 </document>

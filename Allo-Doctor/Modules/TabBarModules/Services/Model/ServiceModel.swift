@@ -9,7 +9,8 @@ import Foundation
 
 struct Service: Codable {
     let id: Int
-    let name: String
+    let name: String?
+    let nameAr : String?
     let description: String?
     let price: Double?
     let image: String?
@@ -20,6 +21,7 @@ struct Service: Codable {
         case description
         case price
         case image
+        case nameAr = "name_ar"
     }
 }
 

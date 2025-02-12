@@ -31,9 +31,21 @@ struct AllSpeciality: Decodable {
 
 // Model for the response
 struct AllSpecialityResponse: Decodable {
-    let data: [AllSpeciality]
+    let data: [AllSpeciality]?
+    let links: Links?
+    let meta: Meta?
 }
-
+extension AllSpecialityResponse: PaginatedResponse {
+    
+    typealias Item = AllSpeciality
+    
+    
+    // Computed property to get the next page URL
+    var nextPageURL: URL? {
+        guard let next = links?.next else { return nil }
+        return URL(string: next)
+    }
+}
 struct SearchResultResponseData: Decodable {
     let data: [SearchResult]
 }

@@ -25,7 +25,6 @@
                 <outlet property="quantityDecreaseButton" destination="7DO-Aj-vLP" id="77H-hc-Ia6"/>
                 <outlet property="quantityIncreaseButton" destination="IxJ-8g-wQh" id="XUK-yL-wBf"/>
                 <outlet property="quantityLabel" destination="KhL-Ga-GdB" id="4Ff-ZB-nHz"/>
-                <outlet property="relatedProductsCollectionView" destination="QKJ-ip-iF0" id="g3O-AH-v9U"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -38,7 +37,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="AlE-uT-cNZ">
-                            <rect key="frame" x="16" y="80" width="344.33333333333331" height="704.66666666666663"/>
+                            <rect key="frame" x="16" y="80" width="344.33333333333331" height="521.33333333333337"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="4hl-eu-akm">
                                     <rect key="frame" x="0.0" y="0.0" width="344.33333333333331" height="329.33333333333331"/>
@@ -168,7 +167,7 @@
                                     </subviews>
                                 </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="27" translatesAutoresizingMaskIntoConstraints="NO" id="Jhp-l0-DoD">
-                                    <rect key="frame" x="0.0" y="345.33333333333337" width="344.33333333333331" height="359.33333333333337"/>
+                                    <rect key="frame" x="0.0" y="345.33333333333331" width="344.33333333333331" height="175.99999999999994"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="gD6-WI-WoN">
                                             <rect key="frame" x="0.0" y="0.0" width="344.33333333333331" height="176"/>
@@ -184,6 +183,9 @@
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
+                                                                    <userDefinedRuntimeAttributes>
+                                                                        <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="Product Description"/>
+                                                                    </userDefinedRuntimeAttributes>
                                                                 </label>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a5p-x6-Sga">
                                                                     <rect key="frame" x="292.33333333333331" y="2" width="20" height="20"/>
@@ -221,20 +223,23 @@
                                                     <rect key="frame" x="0.0" y="48" width="344.33333333333331" height="128"/>
                                                     <subviews>
                                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="uCe-CI-38d">
-                                                            <rect key="frame" x="16" y="8" width="312.33333333333331" height="112"/>
+                                                            <rect key="frame" x="8" y="8" width="328.33333333333331" height="116"/>
                                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                             <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis</string>
                                                             <color key="textColor" systemColor="labelColor"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="."/>
+                                                            </userDefinedRuntimeAttributes>
                                                         </textView>
                                                     </subviews>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <constraints>
                                                         <constraint firstItem="uCe-CI-38d" firstAttribute="top" secondItem="u4e-34-cnA" secondAttribute="top" constant="8" id="7Cl-y0-LRd"/>
-                                                        <constraint firstItem="uCe-CI-38d" firstAttribute="leading" secondItem="u4e-34-cnA" secondAttribute="leading" constant="16" id="E8K-tE-F6F"/>
-                                                        <constraint firstAttribute="bottom" secondItem="uCe-CI-38d" secondAttribute="bottom" constant="8" id="a6A-qi-EWU"/>
-                                                        <constraint firstAttribute="trailing" secondItem="uCe-CI-38d" secondAttribute="trailing" constant="16" id="hto-zH-39C"/>
+                                                        <constraint firstItem="uCe-CI-38d" firstAttribute="leading" secondItem="u4e-34-cnA" secondAttribute="leading" constant="8" id="E8K-tE-F6F"/>
+                                                        <constraint firstAttribute="bottom" secondItem="uCe-CI-38d" secondAttribute="bottom" constant="4" id="a6A-qi-EWU"/>
+                                                        <constraint firstAttribute="trailing" secondItem="uCe-CI-38d" secondAttribute="trailing" constant="8" id="hto-zH-39C"/>
                                                         <constraint firstAttribute="height" priority="999" constant="128" id="qWw-ct-mJ9"/>
                                                     </constraints>
                                                 </view>
@@ -250,30 +255,6 @@
                                                     <color key="value" name="lightGrey-#D9D9D9"/>
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
-                                        </stackView>
-                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="nHp-bj-MYi">
-                                            <rect key="frame" x="0.0" y="203.00000000000006" width="344.33333333333331" height="156.33333333333331"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Related Products" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sil-ok-i0P">
-                                                    <rect key="frame" x="0.0" y="0.0" width="344.33333333333331" height="20.333333333333332"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="QKJ-ip-iF0">
-                                                    <rect key="frame" x="0.0" y="28.333333333333258" width="344.33333333333331" height="128"/>
-                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="128" id="zYt-cD-eDB"/>
-                                                    </constraints>
-                                                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="7Jn-PF-1w7">
-                                                        <size key="itemSize" width="128" height="128"/>
-                                                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                                    </collectionViewFlowLayout>
-                                                </collectionView>
-                                            </subviews>
                                         </stackView>
                                     </subviews>
                                 </stackView>
@@ -313,6 +294,7 @@
                                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                     <real key="value" value="24"/>
                                 </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="Add To Cart"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="addToCartAction:" destination="-1" eventType="touchUpInside" id="npo-b6-3vE"/>

@@ -591,6 +591,7 @@ private static func instantiateFromNibHelper<T>() -> T where T: UIView {
 }}
 
 extension UIView {
+    
     func applyDropShadow(color: UIColor = UIColor.black.withAlphaComponent(0.1),
                             opacity: Float = 1.0,
                             offset: CGSize = CGSize(width: 4, height: 4),
@@ -614,7 +615,7 @@ extension UIView {
 import UIKit
 
 @IBDesignable
-class CustomShadowView: UIView {
+class CustomShadowVieww: UIView {
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -657,5 +658,43 @@ extension UIView {
         xibView.frame = bounds
         xibView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         addSubview(xibView)
+    }
+}
+extension UIView{
+    func addLowerDropShadow() {
+        self.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.1).cgColor // #0000001A
+        self.layer.shadowOpacity = 1.0 // Full opacity as it's included in the color
+        self.layer.shadowOffset = CGSize(width: 4, height: 4)
+        self.layer.shadowRadius = 15 // Half of 30px for a more natural look
+        self.layer.masksToBounds = false
+        
+        // Create a shadow path that extends beyond the view's bounds
+        let shadowPath = UIBezierPath(rect: self.bounds.insetBy(dx: -15, dy: -15).offsetBy(dx: 0, dy: 15))
+        self.layer.shadowPath = shadowPath.cgPath
+    }
+}
+extension UIView {
+    func animate(isHidden: Bool, duration: TimeInterval = 0.3, completion: ((Bool) -> Void)? = nil) {
+        if isHidden {
+            UIView.animate(withDuration: duration, animations: {
+                self.alpha = 0
+            }, completion: { finished in
+                self.isHidden = true
+                completion?(finished)
+            })
+        } else {
+            self.alpha = 0
+            self.isHidden = false
+            UIView.animate(withDuration: duration, animations: {
+                self.alpha = 1
+            }, completion: completion)
+        }
+    }
+    
+}
+extension UIView {
+    func customCircularView() {
+        self.layer.cornerRadius = min(self.frame.width, self.frame.height) / 2
+        self.layer.masksToBounds = true
     }
 }

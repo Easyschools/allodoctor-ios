@@ -103,3 +103,14 @@ extension UITextField {
         }
     }
 }
+
+
+extension UITextView: XIBLocalizable {
+    @IBInspectable var xibLocKey: String? {
+        get { return nil }
+        set(key) {
+            text = key?.localized
+            textAlignment = LocalizationManager.shared.isRTL() ? .right : .left // Adjust alignment based on language direction
+        }
+    }
+}

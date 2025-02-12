@@ -50,6 +50,9 @@
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="Your Addresses"/>
+                    </userDefinedRuntimeAttributes>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eHd-8k-epf">
                     <rect key="frame" x="16" y="677" width="447" height="48"/>
@@ -71,6 +74,7 @@
                         <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                             <real key="value" value="1"/>
                         </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="cancel"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="cancelButtonAction:" destination="-1" eventType="touchUpInside" id="Zla-Mv-kja"/>

@@ -28,7 +28,7 @@
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
-                                        <real key="value" value="15"/>
+                                        <real key="value" value="12"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </label>
@@ -66,6 +66,7 @@
                                             <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
                                                 <real key="value" value="14"/>
                                             </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="bookNow"/>
                                         </userDefinedRuntimeAttributes>
                                     </button>
                                 </subviews>
@@ -109,9 +110,6 @@
         </collectionViewCell>
     </objects>
     <designables>
-        <designable name="68L-dQ-1gU">
-            <size key="intrinsicContentSize" width="81.666666666666671" height="14.333333333333334"/>
-        </designable>
         <designable name="vep-uf-8xf">
             <size key="intrinsicContentSize" width="70" height="30"/>
         </designable>

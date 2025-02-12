@@ -8,7 +8,7 @@
 import UIKit
 
 class RatingView: UIView {
-    
+
     // MARK: - Properties
     private var rating: Double = 0 {
         didSet {
@@ -41,32 +41,38 @@ class RatingView: UIView {
         let fullStars = Int(rating)
         let hasHalfStar = rating - Double(fullStars) >= 0.5
         
+        // Calculate the total width of all stars including spacing
+        let totalWidth = CGFloat(maxStars) * starSize.width + CGFloat(maxStars - 1) * starSpacing
+        
+        // Calculate the starting X position to center the stars
+        let startingX = (self.frame.width - totalWidth) / 2
+        
         // Create star views
         for i in 0..<maxStars {
             let starImageView = UIImageView()
             starImageView.frame = CGRect(
-                x: CGFloat(i) * (starSize.width + starSpacing),
+                x: startingX + CGFloat(i) * (starSize.width + starSpacing),  // Adjust X based on centering
                 y: 0,
                 width: starSize.width,
                 height: starSize.height
             )
             
+            // Set star image based on rating
             if i < fullStars {
-                starImageView.image = UIImage.filledStar // Replace with your filled star image
+                starImageView.image = .filledStar // Replace with your filled star image
             } else if i == fullStars && hasHalfStar {
-                starImageView.image = UIImage.star // Replace with your half-filled star image
+                starImageView.image = .star // Replace with your half-filled star image
             } else {
-                starImageView.image = UIImage.star // Replace with your empty star image
+                starImageView.image = .star // Replace with your empty star image
             }
             
             addSubview(starImageView)
         }
         
-        // Adjust the view's width based on the number of stars
-        let totalWidth = CGFloat(maxStars) * starSize.width + CGFloat(maxStars - 1) * starSpacing
+        // Adjust the view's intrinsic content size based on the total width
         frame.size = CGSize(width: totalWidth, height: starSize.height)
     }
-    
+
     // MARK: - Configure View
     func configure(withRating rating: Double) {
         self.rating = rating

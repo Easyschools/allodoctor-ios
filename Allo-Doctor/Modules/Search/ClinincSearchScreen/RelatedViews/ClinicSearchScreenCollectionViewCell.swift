@@ -10,7 +10,7 @@ import UIKit
 class ClinicSearchScreenCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var ClinicTitle: UILabel!
     
-    @IBOutlet weak var ClinicName: CairoSemiBold!
+    @IBOutlet weak var ClinicName: CairoBold!
     @IBOutlet weak var clinicImage: CircularImageView!
     override func awakeFromNib() {
         super.awakeFromNib()

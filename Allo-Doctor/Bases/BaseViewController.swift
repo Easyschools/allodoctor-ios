@@ -7,7 +7,8 @@
 
 import UIKit
 
-class BaseViewController<ViewModelType>: UIViewController {
+
+class BaseViewController<ViewModelType>: UIViewController, UIGestureRecognizerDelegate {
     
     // MARK: - Properties
     var viewModel: ViewModelType
@@ -26,21 +27,32 @@ class BaseViewController<ViewModelType>: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.setNavigationBarHidden(true, animated: false) 
-       
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
+        
+        setupTapGesture() // Setup tap gesture to dismiss keyboard
+        
         bindViewModel()
         setupUI()
-     
-       
+        
         view.backgroundColor = .white
-       
-       
+    }
+    
+    // MARK: - Setup Tap Gesture
+    private func setupTapGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboards))
+        tapGesture.cancelsTouchesInView = false // Allows other touch events to be processed
+        view.addGestureRecognizer(tapGesture)
+    }
+    
+    // MARK: - Dismiss Keyboard
+    @objc private func dismissKeyboards() {
+        view.endEditing(true)
     }
     
     // MARK: - Setup UI
     func setupUI() {
         // Override this method to setup the UI in subclasses
-        
     }
     
     // MARK: - Bind ViewModel
@@ -54,15 +66,15 @@ class BaseViewController<ViewModelType>: UIViewController {
         alert.addAction(UIAlertAction(title: "OK", style: .default))
         present(alert, animated: true)
     }
+    
+    // MARK: - UITextFieldDelegate
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-           textField.resignFirstResponder()
-           return true
-       }
+        textField.resignFirstResponder()
+        return true
+    }
     
     // MARK: - Combine Clean-Up
     deinit {
         cancellables.removeAll()
     }
-  
 }
-

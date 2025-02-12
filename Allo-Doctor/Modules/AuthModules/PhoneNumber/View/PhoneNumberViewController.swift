@@ -23,7 +23,7 @@ class PhoneNumberViewController: BaseViewController<PhoneNumberViewModel> {
     internal override func setupUI() {
         enterValidNumberImage.isHidden = true
         enterValidNumberLabel.isHidden = true
-        otpButton.setupButton(color: .appColor,  title: buttonsText.getOtp.rawValue, borderColor: .appColor, textColor: .white)
+    
         mobileNumberTextField.addPadding(By: Dimensions.textFieldPadding.rawValue, for: .left)
     }
     override func bindViewModel() {
@@ -58,8 +58,41 @@ class PhoneNumberViewController: BaseViewController<PhoneNumberViewModel> {
 extension String {
     // Validate if the string is a valid Egyptian mobile number
     var isValidEgyptianNumber: Bool {
+        // Convert Arabic numerals to Western numerals
+        let westernizedString = self.convertArabicNumeralsToWestern()
+        
+        // Define the regex for a valid Egyptian mobile number
         let regex = "^01[0-2,5]{1}[0-9]{8}$"
         let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
-        return predicate.evaluate(with: self)
+        
+        // Evaluate the predicate with the westernized string
+        return predicate.evaluate(with: westernizedString)
+    }
+    
+    // Helper function to convert Arabic numerals to Western numerals
+    private func convertArabicNumeralsToWestern() -> String {
+        let arabicToWesternMap: [Character: Character] = [
+            "٠": "0",
+            "١": "1",
+            "٢": "2",
+            "٣": "3",
+            "٤": "4",
+            "٥": "5",
+            "٦": "6",
+            "٧": "7",
+            "٨": "8",
+            "٩": "9"
+        ]
+        
+        var westernizedString = ""
+        for char in self {
+            if let westernChar = arabicToWesternMap[char] {
+                westernizedString.append(westernChar)
+            } else {
+                westernizedString.append(char)
+            }
+        }
+        
+        return westernizedString
     }
 }

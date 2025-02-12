@@ -32,7 +32,7 @@
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="HL3-Ot-asr">
                             <rect key="frame" x="0.0" y="0.0" width="288" height="165"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Verify your number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="qfd-PK-vdm" customClass="CairoBold" customModule="Allo_Doctor" customModuleProvider="target">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Verify your number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="qfd-PK-vdm" customClass="CairoBold" customModule="Allo_Doctor" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="288" height="47"/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="24"/>
                                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -41,6 +41,7 @@
                                         <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
                                             <real key="value" value="24"/>
                                         </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="verifyYourNumber"/>
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="kxS-rE-xdH">
@@ -55,6 +56,7 @@
                                                 <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
                                                     <real key="value" value="15"/>
                                                 </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="mobileNumber"/>
                                             </userDefinedRuntimeAttributes>
                                         </label>
                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="cn4-Xw-gCn">
@@ -163,11 +165,19 @@
                         </stackView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FBE-Py-VVR" customClass="CustomButton" customModule="Allo_Doctor" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="275" width="288" height="55"/>
+                            <color key="backgroundColor" name="blueAppColor"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="55" id="AES-Pf-ItN"/>
                             </constraints>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                             <state key="normal" title="Button"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="getOTP"/>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <real key="value" value="8"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="getOtpAction:" destination="-1" eventType="touchUpInside" id="3I6-UV-uLP"/>
                             </connections>
@@ -192,10 +202,18 @@
             <point key="canvasLocation" x="128.80000000000001" y="0.0"/>
         </view>
     </objects>
+    <designables>
+        <designable name="qfd-PK-vdm">
+            <size key="intrinsicContentSize" width="201.5" height="28"/>
+        </designable>
+    </designables>
     <resources>
         <image name="BlueAppLogo" width="168" height="81"/>
         <image name="egyptLogo" width="21" height="14"/>
         <image name="exclamationmark.circle.fill" catalog="system" width="128" height="123"/>
+        <namedColor name="blueAppColor">
+            <color red="0.11800000071525574" green="0.49000000953674316" blue="0.75300002098083496" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="grey-#A8A8A8">
             <color red="0.6589999794960022" green="0.6589999794960022" blue="0.6589999794960022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

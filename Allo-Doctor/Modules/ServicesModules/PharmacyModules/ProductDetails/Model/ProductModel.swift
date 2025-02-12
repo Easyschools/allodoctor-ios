@@ -7,13 +7,12 @@
 
 import Foundation
 struct AddToCartResponse: Codable {
-    let addProductToCart: AddProductToCart
+    let addProductToCart: AddProductToCart?
 }
 
 struct AddProductToCart: Codable {
     let pharmacy_id: String
     let category_id: String
-    let medication_pharmacy_id: String
     let medication_id: String
     let quantity: String
 }

@@ -4,8 +4,7 @@
 //
 //  Created by Abdallah ismail on 29/10/2024.
 //
-
-import Foundation
+ 
 import CoreLocation
 import GoogleMaps
 import UIKit
@@ -13,6 +12,7 @@ import UIKit
 enum ScreenUserLocationType {
     case pharmacyHome
     case userAddress
+    case uploadPresription
 }
 
 class UserLocationViewModel: NSObject, ObservableObject {
@@ -20,12 +20,14 @@ class UserLocationViewModel: NSObject, ObservableObject {
     @Published var userLocation: CLLocation?
     @Published var markerPosition: CLLocationCoordinate2D?
     @Published var errorMessage: String?
-    private var screenType: ScreenUserLocationType?
+    private let screenType: ScreenUserLocationType
     var coordinator: HomeCoordinatorContact?
-    private var apiClient = APIClient()
+    private let apiClient: APIClient
     private var cancellables = Set<AnyCancellable>()
     
-    init(coordinator: HomeCoordinatorContact? = nil, apiClient: APIClient = APIClient(), screenType: ScreenUserLocationType) {
+    init(coordinator: HomeCoordinatorContact? = nil,
+         apiClient: APIClient = APIClient(),
+         screenType: ScreenUserLocationType) {
         self.coordinator = coordinator
         self.apiClient = apiClient
         self.screenType = screenType
@@ -56,24 +58,24 @@ class UserLocationViewModel: NSObject, ObservableObject {
 extension UserLocationViewModel: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.first else { return }
-        
-        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+        DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            DispatchQueue.main.async {
-                self.userLocation = location
-                if self.markerPosition == nil {
-                    self.markerPosition = location.coordinate
-                }
-                manager.stopUpdatingLocation()
+            self.userLocation = location
+            if self.markerPosition == nil {
+                self.markerPosition = location.coordinate
             }
+            manager.stopUpdatingLocation()
         }
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        errorMessage = error.localizedDescription
+        DispatchQueue.main.async { [weak self] in
+            self?.errorMessage = error.localizedDescription
+        }
     }
 }
 
+// MARK: - Navigation Handling
 extension UserLocationViewModel {
     func handleNavigation() {
         switch screenType {
@@ -81,22 +83,27 @@ extension UserLocationViewModel {
             dismissToPharmacyModel()
         case .userAddress:
             navToUserAddress()
-        case .none:
-            return
+        case .uploadPresription:
+            navToUserAddress()
         }
     }
     
-    func dismissToPharmacyModel() {
+    private func dismissToPharmacyModel() {
         guard let position = markerPosition else { return }
         let lat = String(format: "%.6f", position.latitude)
         let long = String(format: "%.6f", position.longitude)
+        UserDefaultsManager.sharedInstance.setCoordinates(lat:lat,long:long)
         dismissToPharmacyModel(lat: lat, long: long)
     }
     
-    func navToUserAddress() {
-        coordinator?.showCreateAddress()
+    private func navToUserAddress() {
+        guard let position = markerPosition else { return }
+        let lat = String(format: "%.6f", position.latitude)
+        let long = String(format: "%.6f", position.longitude)
+        coordinator?.showCreateAddress(lat: lat, long: long)
     }
-    func dismissMapView(viewController:UIViewController){
+    
+    func dismissMapView(viewController: UIViewController) {
         coordinator?.dismissPresnetiontabBarNav(viewController)
     }
 }

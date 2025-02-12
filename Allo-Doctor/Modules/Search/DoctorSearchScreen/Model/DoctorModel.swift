@@ -7,10 +7,10 @@
 
 import Foundation
 
-struct DoctorsResponse: Decodable {
-    let data: [DoctorData]
-
-}
+//struct DoctorsResponse: Decodable {
+//    let data: [DoctorData]
+//
+//}
 struct DoctorResponse: Decodable {
     let data: DoctorData
 
@@ -37,10 +37,13 @@ struct DoctorData: Decodable {
     let serviceSpecialtyIds: Int
     let appointments: [Appointment]?
     let services: [DoctorService]
+    let subServices:String
     let branches: [String]
-
+    let avgRating : Double
+    let reviewsCount: Int
+    let doctorServiceSpecialtyIds:[DoctorServiceSpecialty]?
     enum CodingKeys: String, CodingKey {
-        case id, name, title, address, lat, long, rate, price, experience, images, appointments, services, branches
+        case id, name, title, address, lat, long, rate, price, experience, images, appointments, services, branches,subServices
         case titleEn = "title_en"
         case titleAr = "title_ar"
         case descriptionEn = "description_en"
@@ -49,10 +52,21 @@ struct DoctorData: Decodable {
         case waitngTime = "waitng_time"
         case priceAfterDiscount = "price_after_discount"
         case mainImage = "main_image"
+        case avgRating = "avg_rating"
+        case reviewsCount = "reviews_count"
         case serviceSpecialtyIds = "service_specialty_ids"
+        case doctorServiceSpecialtyIds = "doctor_service_specialty_ids"
     }
 }
+struct DoctorServiceSpecialty: Decodable {
+    let id: Int?
+    let infoService: InfoService?
 
+    enum CodingKeys: String, CodingKey {
+        case id
+        case infoService = "info_service"
+    }
+}
 struct DoctorImage: Decodable {
     let id: Int
     let image: String
@@ -66,10 +80,10 @@ struct Appointment: Decodable {
 
 struct Day: Decodable {
     let id: Int
-    let nameEn: String
-    let nameAr: String
-    let name: String
-    let available: Int
+    let nameEn: String?
+    let nameAr: String?
+    let name: String?
+    let available: Int?
 
     enum CodingKeys: String, CodingKey {
         case id, name, available

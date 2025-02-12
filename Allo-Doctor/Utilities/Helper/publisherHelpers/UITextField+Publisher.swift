@@ -40,3 +40,24 @@ extension UITextField {
             .store(in: &subscriptions)
     }
 }
+extension UITextView {
+   func textPublisher() -> AnyPublisher<String, Never> {
+       NotificationCenter.default
+           .publisher(for: UITextView.textDidChangeNotification, object: self)
+           .compactMap { ($0.object as? UITextView)?.text }
+           .eraseToAnyPublisher()
+   }
+   
+   func bindText(to subject: CurrentValueSubject<String, Never>,
+                storeIn subscriptions: inout Set<AnyCancellable>) {
+       subject
+           .filter { [weak self] in $0 != self?.text }
+           .sink { [weak self] in self?.text = $0 }
+           .store(in: &subscriptions)
+
+       self.textPublisher()
+           .filter { $0 != subject.value }
+           .sink { subject.send($0) }
+           .store(in: &subscriptions)
+   }
+}

@@ -6,3 +6,16 @@
 //
 
 import Foundation
+class NonAuthUserViewModel{
+    var coordinator: HomeCoordinatorContact?
+    private let apiClient: APIClient
+    init(coordinator: HomeCoordinatorContact? = nil,apiClient: APIClient = APIClient()) {
+        self.coordinator = coordinator
+        self.apiClient = apiClient
+    }
+}
+extension NonAuthUserViewModel{
+  func navToPHoneNumber(){
+      coordinator?.showPhonenumberScreen()
+    }
+}

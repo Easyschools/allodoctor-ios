@@ -7,117 +7,154 @@
 
 import UIKit
 import Kingfisher
+
+
 class LabsAndScanProfileViewController: BaseViewController<LabsAndScanProfileViewModel> {
+    // MARK: - Outlets
+    @IBOutlet weak var searchBar: SearchView!
     @IBOutlet weak var totalPrice: CairoBold!
     @IBOutlet weak var noOfTestes: CairoRegular!
-    let coordintor = HomeCoordinator?.self
     @IBOutlet weak var searchForTestView: SearchView!
     @IBOutlet weak var upperView: CustomCornerRaduis!
-    
     @IBOutlet weak var testTypesTableView: UITableView!
     @IBOutlet weak var bookingDetailsView: UIView!
     @IBOutlet weak var insuranceDropList: CustomDropDownList!
     @IBOutlet weak var labOrScanImage: UIImageView!
+    
+    // MARK: - Properties
+    let coordintor = HomeCoordinator?.self
     private var imageUrl: String?
     private var screenType: String = ""
-    var arrinsurance = ["AXA", "Misr Insurance", "Good life Insurance"]
     
+    // MARK: - Actions
     @IBAction func navBack(_ sender: Any) {
         viewModel.navigationBacK()
     }
-//     MARK: - Initializers
-
-    @IBAction func bookByPrescriptionAction(_ sender: Any) {
-
-
+    
+    @IBAction func openInsurance(_ sender: Any) {
+        let insuranceVC = InsuranceCompanyTableViewController()
+        insuranceVC.delegate = self
+        viewModel.coordinator?.presentModallyWithRoot(insuranceVC)
     }
-
+    
+    @IBAction func uploadPrescriptionAction(_ sender: Any) {
+        viewModel.navToUploadPresc()
+    }
+    
     @IBAction func navToBookingPage(_ sender: Any) {
-        viewModel.navToBookingTests()
+        viewModel.navToBookingAppointments()
+    }
+    
+    @IBAction func callSupportAction(_ sender: Any) {
+        viewModel.showNumberView(uiviewController: self)
     }
     
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel.getLabData()
+    }
+    
+    override func setupUI() {
         bookingDetailsView.isHidden = true
+        setupTableView()
+        setupSearchBar()
+        searchForTestView.searchTextfield.placeholder = AppLocalizedKeys.searchForTest.localized
+        insuranceDropList.label.text = AppLocalizedKeys.SelectInsurance.localized
+    }
+    
+    private func setupSearchBar() {
+        searchForTestView.searchTextfield.addTarget(
+            self,
+            action: #selector(searchTextDidChange),
+            for: .editingChanged
+        )
+    }
+    
+    @objc private func searchTextDidChange(_ textField: UITextField) {
+        viewModel.filterTests(with: textField.text ?? "")
+        testTypesTableView.reloadData()
+    }
+    
+    override func bindViewModel() {
+        viewModel.getLabData()
         bindViewModelImage()
         bindViewModelTests()
-        setupTableView()
-        // Set placeholder text for the search text field
-        searchForTestView.searchTextfield.placeholder = "Search for Lab test"
-
-        insuranceDropList.items = arrinsurance
+        BindTotalPriceView()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        insuranceDropList.setDropdownHeight(200)
         setupShadow()
-      
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupShadow()
     }
-
 }
 
-// MARK: - Shadow Setup
+// MARK: - UI Setup
 extension LabsAndScanProfileViewController {
     func setupShadow() {
-     
         upperView.addLowerDropShadow()
-       
     }
+    
     func setupTableView() {
         testTypesTableView.dataSource = self
         testTypesTableView.delegate = self
         testTypesTableView.registerCell(cellClass: TestTypeTableViewCell.self)
+//        testTypesTableView.applyDropShadow()
     }
 }
 
-extension LabsAndScanProfileViewController:UITableViewDelegate,UITableViewDataSource{
+// MARK: - TableView DataSource & Delegate
+extension LabsAndScanProfileViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.labsAndScans?.types?.count ?? 0
+        return viewModel.displayedTests.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = testTypesTableView.dequeue(indexPath: indexPath) as TestTypeTableViewCell
-        cell.testTypeLabel.text = viewModel.labsAndScans?.types?[indexPath.row].nameEn
-        cell.testPrice.text =  viewModel.labsAndScans?.types?[indexPath.row].price
+        let test = viewModel.displayedTests[indexPath.row]
+        
+        if UserDefaultsManager.sharedInstance.getLanguage() == .ar {
+            cell.testTypeLabel.text = test.test.nameAr
+        } else {
+            cell.testTypeLabel.text = test.test.nameEn
+        }
+        
+        cell.testPrice.text = (test.price ?? "0").appendingWithSpace(AppLocalizedKeys.EGP.localized)
         cell.selectionStyle = .none
-        let test = viewModel.labsAndScans?.types?[safe: indexPath.row]!
-        let isAdded = viewModel.isAdded(test: test!)
-             
-             cell.configure(isAdded: isAdded)
-             
-             cell.onButtonTap = { [weak self] in
-                 self?.viewModel.toggleAdded(test: test!)
-                 cell.updateButtonAppearance(isAdded: self?.viewModel.isAdded(test: test!) ?? false)
-                 if (self?.viewModel.AddedItems.count) == 0
-                 {
-                     self?.bookingDetailsView.isHidden = true
-                 }
-                 else{
-                     self?.bookingDetailsView.isHidden = false
-                     self?.BindTotalPriceView()}
-             }
-             
+        
+        let isAdded = viewModel.isAdded(test: test)
+        cell.configure(isAdded: isAdded)
+        
+        cell.onButtonTap = { [weak self] in
+            self?.viewModel.toggleAdded(test: test)
+            cell.updateButtonAppearance(isAdded: self?.viewModel.isAdded(test: test) ?? false)
+            if (self?.viewModel.AddedItems.count) == 0 {
+                self?.bookingDetailsView.isHidden = true
+            } else {
+                self?.bookingDetailsView.isHidden = false
+                self?.BindTotalPriceView()
+            }
+        }
+        
         return cell
     }
-    
 }
-extension LabsAndScanProfileViewController{
-    func bindViewModelImage(){
+
+// MARK: - Data Binding
+extension LabsAndScanProfileViewController {
+    func bindViewModelImage() {
         viewModel.$imageUrl
             .receive(on: DispatchQueue.main)
             .sink { [weak self] imageUrl in
                 self?.imageUrl = imageUrl
-                
             }.store(in: &cancellables)
     }
-    func bindViewModelTests(){
+    
+    func bindViewModelTests() {
         viewModel.$labsAndScans
             .receive(on: DispatchQueue.main)
             .sink { [weak self] result in
@@ -126,16 +163,36 @@ extension LabsAndScanProfileViewController{
                 self?.labOrScanImage.kf.setImage(with: URL(string: imageUrl ?? ""))
             }.store(in: &cancellables)
     }
-    func BindTotalPriceView(){
+    
+    func BindTotalPriceView() {
         viewModel.$AddedItems
             .receive(on: DispatchQueue.main)
             .sink { [weak self] tests in
                 let tests = Array(tests)
-                let total = tests.reduce(0.0) { $0 + (Double($1.price) ?? 0.0) }
-                self?.totalPrice.text = String(format: "%.2f", total).prepend("Total ")
-                self?.noOfTestes.text = String(tests.count).prepend("Added Tests:")
+                let total = tests.reduce(0.0) { $0 + Double((Double(($1.price ?? "0").replacingOccurrences(of: ",", with: "")) ?? 0)) }
+                self?.totalPrice.text = String(format: "EGP %.2f", total)
+                
+                let testCount = tests.count
+                let testCountText = testCount == 1 ? "1 Test" : "\(testCount) Tests"
+                self?.noOfTestes.text = "Added \(testCountText)"
+                
+                self?.bookingDetailsView.isHidden = testCount == 0
             }.store(in: &cancellables)
-        
     }
 }
 
+// MARK: - Insurance Delegate
+extension LabsAndScanProfileViewController: InsuranceCompanyTableViewControllerDelegate {
+    func insuranceCompanyTableViewController(_ controller: InsuranceCompanyTableViewController, didSelectItem item: InsuranceCompany) {
+        if UserDefaultsManager.sharedInstance.getLanguage() == .ar {
+            insuranceDropList.label.text = item.name_ar
+        } else {
+            insuranceDropList.label.text = item.name_en
+        }
+        viewModel.coordinator?.dismissPresnetiontabBarNav(self)
+    }
+    
+    func insuranceCompanyTableViewControllerDidTapDismiss(_ controller: InsuranceCompanyTableViewController) {
+        viewModel.coordinator?.dismissPresnetiontabBarNav(self)
+    }
+}

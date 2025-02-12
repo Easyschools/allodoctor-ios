@@ -17,9 +17,11 @@ class PharmacyCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var pharmacyLogo: CircularImageView!
     @IBOutlet weak var phamracyBacgroundImage: UIImageView!
 
+    @IBOutlet weak var ratingView: StarRatingView!
     override func awakeFromNib() {
         super.awakeFromNib()
         self.applyDropShadow()
+        phamracyBacgroundImage.addOverlay(color: .black)
             }
 
     func setupCell(pharmacyName: String, area: String, deliveryFees: String, deliveryTime: String, logoUrl: String?, backgroundImageUrl: String?) {

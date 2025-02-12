@@ -13,12 +13,18 @@ enum NavToServiceId:Int
     case clinics = 2
     case labs = 16
     case scans = 17
+    case pharmacy = 24
+    case homeVisit = 31
+    case homeNursing = 34
 }
 
 class ServicesViewController: BaseViewController<ServicesViewModel> {
     // MARK: - @IBOutlets
+    @IBOutlet weak var appLogo: UIImageView!
     @IBOutlet weak var searchView: CustomSearchBar!
     @IBOutlet weak private var upperStackView: UIStackView!
+    @IBOutlet weak var chatWithUsView: ChatWithUsView!
+    @IBOutlet weak var emergencyView: EmergencyView!
     @IBOutlet weak private var offersCollectionView: UICollectionView!
     @IBOutlet weak private var servicesCollectionView: UICollectionView!
     @IBOutlet weak private var scrollView: UIScrollView!
@@ -29,33 +35,37 @@ class ServicesViewController: BaseViewController<ServicesViewModel> {
     // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
-      
         view.addSubview(loadingScreen)
-       
         bindSearchBarButton()
-        setupUI()
-        bindViewModel()
         viewModel.fetchServices()
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         tabBarController?.tabBar.barTintColor = .darkBlue_295DA8
-        viewModel.startAutoScroll()
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        viewModel.fetchServices()
+        bindServices()
+    }
  
     // MARK: - Setup UI
     override func setupUI() {
+        searchView.searchTextfield.placeholder = AppLocalizedKeys.searchForSpecialityOrDoctor.localized 
         setupCollectionViews()
         offersPageControl.numberOfPages = viewModel.images.count
+        emergencyView.onEmergencyButtonTapped = { [weak self] in
+            self?.viewModel.showEmergency()
+                }
+        chatWithUsView.onChatWithUsButtonTapped = { [weak self] in
+            self?.viewModel.showChatwithUs()
+                }
     }
 
     override func bindViewModel() {
         bindServices()
         bindImageControl()
+        viewModel.getAllOffers()
     }
 
     override func viewDidLayoutSubviews() {
@@ -104,7 +114,7 @@ extension ServicesViewController {
 extension ServicesViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == offersCollectionView {
-            return viewModel.images.count
+            return viewModel.banners?.count ?? 0
         } else {
             return viewModel.services.count
         }
@@ -112,13 +122,18 @@ extension ServicesViewController: UICollectionViewDelegate, UICollectionViewData
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == offersCollectionView {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "OffersCollectionViewCell", for: indexPath) as! OffersCollectionViewCell
-            cell.offersImage.image = viewModel.images[indexPath.row]
+            let images = viewModel.banners?[indexPath.row].image ?? ""
+            let cell = collectionView.dequeue(indexpath: indexPath) as OffersCollectionViewCell
+            cell.configureCellImage(with: images)
             return cell
         } else {
             let service = viewModel.services[indexPath.row]
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ServicesCollectionViewCell", for: indexPath) as! ServicesCollectionViewCell
-            cell.serviceLabel.text = service.name
+            let cell = collectionView.dequeue(indexpath: indexPath) as ServicesCollectionViewCell
+            if UserDefaultsManager.sharedInstance.getLanguage() == .ar{
+                cell.serviceLabel.text = service.nameAr
+            }
+            else{
+                cell.serviceLabel.text = service.name}
             cell.serviceImage.kf.setImage(with:URL(string: service.image ?? ""))
             return cell
         }
@@ -133,7 +148,7 @@ extension ServicesViewController: UICollectionViewDelegate, UICollectionViewData
     }
     
 
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == servicesCollectionView {
             let serviceid = viewModel.services[indexPath.row].id
             if let navServiceId = NavToServiceId(rawValue: serviceid) {
@@ -141,11 +156,17 @@ extension ServicesViewController: UICollectionViewDelegate, UICollectionViewData
                 case .hospital:
                     viewModel.navToSubServiceScreen()
                 case .clinics:
-                    viewModel.navtoclinicsSearch()
+                    viewModel.navToSearchScreen()
                 case .labs:
                     viewModel.navToLabsAndScanSearchScreen(screenId:String(serviceid))
                 case .scans:
                     viewModel.navToLabsAndScanSearchScreen(screenId:String(serviceid))
+                case .pharmacy:
+                    viewModel.navToPharmacyHome()
+                case .homeVisit:
+                    viewModel.navToHomeVisit()
+                case .homeNursing:
+                    viewModel.navTohomeNursing()
                 }
             } else {
                 viewModel.navToSearchScreen()
@@ -203,11 +224,13 @@ extension ServicesViewController {
                 }
             }
             .store(in: &cancellables)
-
-        viewModel.$images
+       
+        viewModel.$banners
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] images in
                 self?.offersCollectionView.reloadData()
-                self?.offersPageControl.numberOfPages = images.count
+                self?.offersPageControl.numberOfPages = images?.count ?? 0
+                self?.viewModel.startAutoScroll()
             }
             .store(in: &cancellables)
     }

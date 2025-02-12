@@ -9,9 +9,8 @@ import UIKit
 
 @IBDesignable
 class CustomPageControl: UIControl {
-    
+
     // MARK: - Properties
-    
     private var dotViews = [UIView]()
     
     @IBInspectable var numberOfPages: Int = 0 {
@@ -26,21 +25,30 @@ class CustomPageControl: UIControl {
         }
     }
     
-    @IBInspectable var pageIndicatorTintColor: UIColor? = .lightGray
-    @IBInspectable var currentPageIndicatorTintColor: UIColor? = .appColor
+    @IBInspectable var pageIndicatorTintColor: UIColor? = .lightGray {
+        didSet {
+            updateCurrentPageAppearance()
+        }
+    }
     
+    @IBInspectable var currentPageIndicatorTintColor: UIColor? = .blue {
+        didSet {
+            updateCurrentPageAppearance()
+        }
+    }
+    
+    // MARK: - UI Components
     private lazy var stackView: UIStackView = {
-        let stack = UIStackView(frame: self.bounds)
+        let stack = UIStackView()
         stack.alignment = .center
         stack.axis = .horizontal
-        stack.distribution = .fillEqually
-        stack.spacing = 8
+        stack.distribution = .equalSpacing
+        stack.spacing = 6
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
     
-    // MARK: - Initializers
-    
+    // MARK: - Initialization
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
@@ -51,71 +59,83 @@ class CustomPageControl: UIControl {
         setupViews()
     }
     
-    // MARK: - Setup Views
-    
+    // MARK: - View Setup
     private func setupViews() {
+        backgroundColor = .clear
         addSubview(stackView)
-        setupPageControlConstraints() // Automatically called when the view is initialized
+        setupPageControlConstraints()
     }
     
+    private func setupPageControlConstraints() {
+        NSLayoutConstraint.activate([
+            stackView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            stackView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            stackView.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor, constant: 16),
+            stackView.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -16),
+            stackView.heightAnchor.constraint(equalToConstant: 20)
+        ])
+    }
+    
+    // MARK: - Dot Configuration
     private func configureDotViews() {
-        // Remove old dots
         dotViews.forEach { $0.removeFromSuperview() }
         dotViews.removeAll()
         
-        // Create new dot views
         for index in 0..<numberOfPages {
             let dot = createDotView(for: index)
             dotViews.append(dot)
             stackView.addArrangedSubview(dot)
         }
+        
+        layoutIfNeeded()
+        updateCurrentPageAppearance()
     }
     
     private func createDotView(for index: Int) -> UIView {
         let dot = UIView()
         dot.tag = index
         dot.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            dot.widthAnchor.constraint(equalToConstant: 12),
+            dot.heightAnchor.constraint(equalToConstant: 12)
+        ])
+        
         styleDotView(dot, isCurrent: index == currentPage)
         return dot
     }
     
-    private func setupPageControlConstraints() {
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            stackView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            stackView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            stackView.heightAnchor.constraint(equalToConstant: 30),
-            stackView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.8)
-        ])
-    }
-    
-    // MARK: - Dot Styling
-    
+    // MARK: - Styling
     private func styleDotView(_ dot: UIView, isCurrent: Bool) {
-        dot.transform = .identity
-        dot.layer.cornerRadius = dot.bounds.height / 2
+        dot.layer.cornerRadius = 6
         dot.layer.masksToBounds = true
-        dot.backgroundColor = isCurrent ? currentPageIndicatorTintColor : pageIndicatorTintColor
         
         if isCurrent {
+            dot.backgroundColor = currentPageIndicatorTintColor
             applyCurrentPageStyle(to: dot)
+        } else {
+            dot.backgroundColor = pageIndicatorTintColor
+            dot.transform = .identity
         }
     }
     
     private func applyCurrentPageStyle(to dot: UIView) {
-        UIView.animate(withDuration: 0.2) {
-            dot.layer.cornerRadius = dot.bounds.height / 4
-            dot.transform = CGAffineTransform(scaleX: 1.5, y: 1)
+        UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseInOut], animations: {
+            dot.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+        })
+    }
+    
+    // MARK: - Updates
+    private func updateCurrentPageAppearance() {
+        guard currentPage >= 0 && currentPage < dotViews.count else { return }
+        
+        for (index, dot) in dotViews.enumerated() {
+            styleDotView(dot, isCurrent: index == currentPage)
         }
     }
     
-    // MARK: - Update Current Page Appearance
-    
-    private func updateCurrentPageAppearance() {
-        for (index, dot) in dotViews.enumerated() {
-            let isCurrent = index == currentPage
-            styleDotView(dot, isCurrent: isCurrent)
-        }
+    // MARK: - Layout
+    override var intrinsicContentSize: CGSize {
+        return CGSize(width: CGFloat(numberOfPages * 20), height: 20)
     }
 }

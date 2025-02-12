@@ -13,10 +13,15 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PharmacyCartViewController" customModule="Allo_Doctor" customModuleProvider="target">
             <connections>
                 <outlet property="cartProductsTableView" destination="0Yh-52-WWX" id="RaH-Ch-KR0"/>
+                <outlet property="checkOutLabel" destination="zlg-nb-GCo" id="Lma-wg-3xS"/>
                 <outlet property="checkOutView" destination="AXY-Nx-x0X" id="AS8-3f-BlP"/>
+                <outlet property="confirmationView" destination="AXY-Nx-x0X" id="se4-Gs-Abt"/>
                 <outlet property="numberOfItems" destination="bMk-j1-zZc" id="GHE-hY-l3p"/>
+                <outlet property="pharmacyImage" destination="57x-yy-MuL" id="Xi7-Kw-5Py"/>
                 <outlet property="pharmacyName" destination="nUm-16-sD2" id="4nK-PQ-OMl"/>
+                <outlet property="productsStackView" destination="m93-YO-tp5" id="t4N-jD-w0K"/>
                 <outlet property="totalPrice" destination="1N1-0w-x3C" id="Th2-tp-uN0"/>
+                <outlet property="upperStackView" destination="9uB-Bo-XCo" id="gDx-xg-Yk5"/>
                 <outlet property="upperView" destination="c89-Lz-Jay" id="7Xz-vp-pGE"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -27,10 +32,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c89-Lz-Jay">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="98.333333333333329"/>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="78"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Basket" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vfy-l1-vWa" customClass="CairoBold" customModule="Allo_Doctor" customModuleProvider="target">
-                            <rect key="frame" x="161.66666666666666" y="62.000000000000007" width="51.666666666666657" height="20.333333333333336"/>
+                            <rect key="frame" x="161.66666666666666" y="62" width="51.666666666666657" height="0.0"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -38,10 +43,11 @@
                                 <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
                                     <real key="value" value="24"/>
                                 </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="Basket"/>
                             </userDefinedRuntimeAttributes>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="etv-b8-KVy">
-                            <rect key="frame" x="16" y="60.333333333333343" width="24" height="24"/>
+                            <rect key="frame" x="16" y="50" width="24" height="24"/>
                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                             <state key="normal" image="arrowDownBlack"/>
                             <connections>
@@ -59,7 +65,7 @@
                     </constraints>
                 </view>
                 <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="9uB-Bo-XCo">
-                    <rect key="frame" x="16" y="122.33333333333331" width="343" height="40"/>
+                    <rect key="frame" x="16" y="102" width="343" height="40"/>
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="seifPhamracyLogo" translatesAutoresizingMaskIntoConstraints="NO" id="57x-yy-MuL">
                             <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
@@ -85,7 +91,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Order List " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bMk-j1-zZc" customClass="CairoRegular" customModule="Allo_Doctor" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="24.000000000000014" width="295" height="16"/>
+                                    <rect key="frame" x="0.0" y="24" width="295" height="16"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <color key="textColor" name="grey-#6B7280"/>
                                     <nil key="highlightedColor"/>
@@ -105,7 +111,7 @@
                     </constraints>
                 </stackView>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="m93-YO-tp5">
-                    <rect key="frame" x="0.0" y="170.33333333333331" width="375" height="641.66666666666674"/>
+                    <rect key="frame" x="0.0" y="150" width="375" height="552"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sz9-q2-Ozu">
                             <rect key="frame" x="20" y="0.0" width="335" height="1"/>
@@ -122,8 +128,8 @@
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </view>
-                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="0Yh-52-WWX">
-                            <rect key="frame" x="16" y="1" width="343" height="640.66666666666663"/>
+                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" indicatorStyle="white" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="0Yh-52-WWX">
+                            <rect key="frame" x="16" y="1" width="343" height="551"/>
                             <color key="separatorColor" name="grey-#A8A8A8"/>
                         </tableView>
                     </subviews>
@@ -134,7 +140,7 @@
                         <constraint firstItem="0Yh-52-WWX" firstAttribute="leading" secondItem="m93-YO-tp5" secondAttribute="leading" constant="16" id="yGi-DU-VI5"/>
                     </constraints>
                 </stackView>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AXY-Nx-x0X">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AXY-Nx-x0X" customClass="ShadowView" customModule="Allo_Doctor" customModuleProvider="target">
                     <rect key="frame" x="16" y="710" width="343" height="68"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ayu-xw-Bt6">
@@ -166,6 +172,7 @@
                                                 <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
                                                     <real key="value" value="14"/>
                                                 </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="Incl VAT"/>
                                             </userDefinedRuntimeAttributes>
                                         </label>
                                     </subviews>
@@ -173,7 +180,7 @@
                                         <constraint firstAttribute="width" constant="190" id="RoO-0o-sq2"/>
                                     </constraints>
                                 </stackView>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Check Out" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zlg-nb-GCo" customClass="CairoBold" customModule="Allo_Doctor" customModuleProvider="target">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Check Out" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zlg-nb-GCo" customClass="CairoBold" customModule="Allo_Doctor" customModuleProvider="target">
                                     <rect key="frame" x="198" y="0.0" width="113" height="44"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -226,7 +233,7 @@
                 <constraint firstItem="c89-Lz-Jay" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="cIV-gE-xRw"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="AXY-Nx-x0X" secondAttribute="trailing" constant="16" id="kZB-8Q-vCL"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="AXY-Nx-x0X" secondAttribute="bottom" id="lI1-es-7Pr"/>
-                <constraint firstAttribute="bottom" secondItem="m93-YO-tp5" secondAttribute="bottom" id="nGf-Sg-LS3"/>
+                <constraint firstAttribute="bottom" secondItem="m93-YO-tp5" secondAttribute="bottom" constant="110" id="nGf-Sg-LS3"/>
                 <constraint firstItem="Vfy-l1-vWa" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="12" id="rqi-pl-bZZ"/>
                 <constraint firstAttribute="trailing" secondItem="m93-YO-tp5" secondAttribute="trailing" id="yab-ap-Tyf"/>
             </constraints>

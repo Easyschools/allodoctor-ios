@@ -28,7 +28,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="147"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select your Location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wKF-jx-dxy" customClass="CairoBold" customModule="Allo_Doctor" customModuleProvider="target">
-                            <rect key="frame" x="100.33333333333333" y="50" width="174.66666666666669" height="25"/>
+                            <rect key="frame" x="110.00000000000001" y="50" width="155.33333333333337" height="25"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
@@ -36,6 +36,7 @@
                                 <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
                                     <real key="value" value="20"/>
                                 </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="Select your Location"/>
                             </userDefinedRuntimeAttributes>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RSg-11-oAC">
@@ -100,6 +101,7 @@
                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                             <real key="value" value="10"/>
                                         </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="Confirm"/>
                                     </userDefinedRuntimeAttributes>
                                     <connections>
                                         <action selector="confirmationButtonAction:" destination="-1" eventType="touchUpInside" id="KPY-Ne-nKp"/>
@@ -136,7 +138,7 @@
     </objects>
     <designables>
         <designable name="wKF-jx-dxy">
-            <size key="intrinsicContentSize" width="174.66666666666666" height="37.666666666666664"/>
+            <size key="intrinsicContentSize" width="155.33333333333334" height="20.333333333333332"/>
         </designable>
     </designables>
     <resources>

@@ -14,6 +14,7 @@
                 <outlet property="SelectLanguageLabel" destination="Y3D-IS-hMA" id="QHb-MA-Bzz"/>
                 <outlet property="arabicLabel" destination="5rq-RW-pcY" id="QbI-wO-c6x"/>
                 <outlet property="arabicUiview" destination="Mzp-jE-psM" id="Y37-3n-req"/>
+                <outlet property="changeLaterLabel" destination="Mrg-Am-6O3" id="B49-fS-fTi"/>
                 <outlet property="englishLabel" destination="9pq-gj-a7L" id="qYA-eo-sK5"/>
                 <outlet property="englishUIview" destination="0Pe-0O-Tba" id="MYP-pY-roY"/>
                 <outlet property="nextButton" destination="VQj-w0-z0V" id="sVo-69-Nrc"/>

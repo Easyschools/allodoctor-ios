@@ -6,3 +6,12 @@
 //
 
 import Foundation
+struct UploadPrescriptionBodyResponse: Codable {
+    let confirmOrderBody: ConfirmUploadPrescriptionBody
+}
+struct ConfirmUploadPrescriptionBody: Codable {
+    let address_id: Int
+    let pharmacy_id: Int
+    let address_user_id : Int
+    let payment_type:String
+}

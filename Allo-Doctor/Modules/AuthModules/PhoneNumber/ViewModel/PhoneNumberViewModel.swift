@@ -9,6 +9,8 @@ import Foundation
 enum isVerified:String{
     case yes = "Phone already exists."
     case no = "OTP sent successfully."
+    case noData = "Data is empty."
+    case dataExists = "Data already exists."
 }
 class PhoneNumberViewModel{
 // MARK: - Private Vars
@@ -61,11 +63,15 @@ extension PhoneNumberViewModel{
       
     }
    private func handleResponse(_ response: responseMessage) {
-        if response.message == isVerified.yes.rawValue{
+       if response.message == isVerified.yes.rawValue && response.data == isVerified.dataExists.rawValue {
             userDefaultsManager.setVerifiedNumber(isVerified: true )
         }
-      else if response.message == isVerified.no.rawValue{
+       else if response.message == isVerified.no.rawValue {
             userDefaultsManager.setVerifiedNumber(isVerified: false )
         }
+       else {
+            userDefaultsManager.setVerifiedNumber(isVerified: false )
+        }
+     
        }
 }

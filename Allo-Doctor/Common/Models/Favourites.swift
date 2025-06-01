@@ -6,3 +6,11 @@
 //
 
 import Foundation
+struct FavouritesModel:Codable{
+ let favoritable_entity:String
+  let favoritable_id:Int
+}
+struct FavouritesModelResponse:Codable{
+    let message: String?
+}
+

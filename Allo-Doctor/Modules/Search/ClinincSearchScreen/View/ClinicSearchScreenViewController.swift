@@ -44,14 +44,14 @@ extension ClinicSearchScreenViewController:UICollectionViewDelegate, UICollectio
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.clinics?.info_service.count ?? 2
+        return viewModel.clinics?.info_service?.count ?? 2
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ClinicSearchScreenCollectionViewCell", for: indexPath) as? ClinicSearchScreenCollectionViewCell else {
             fatalError("Unable to dequeue DoctorSearchCollectionViewCell")
         }
-        let clinic = viewModel.clinics?.info_service[indexPath.row]
+        let clinic = viewModel.clinics?.info_service?[indexPath.row]
         cell.ClinicName.text = clinic?.name_en
         cell.ClinicTitle.text = clinic?.name_en
         cell.clinicImage.kf.setImage(with:URL(string: clinic?.image ?? ""))
@@ -61,9 +61,12 @@ extension ClinicSearchScreenViewController:UICollectionViewDelegate, UICollectio
         return CGSize(width: collectionView.frame.width, height: 200)
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let clinicID = viewModel.clinics?.info_service[indexPath.row].id
-     
-        viewModel.navToClinicProfile(clinicID: String(clinicID!))
+        if let clinicID = viewModel.clinics?.info_service?[indexPath.row].id {
+            viewModel.navToClinicProfile(clinicID: String(clinicID))
+        } else {
+            print("Error: clinicID is nil.")
+        }
+
     }
 }
 extension ClinicSearchScreenViewController{

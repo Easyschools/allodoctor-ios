@@ -46,8 +46,8 @@ struct LabCity: Decodable {
     let name: String
 }
 
-// MARK: - District
-struct District: Decodable {
-    let id: Int
-    let name: String
-}
+//// MARK: - District
+//struct District: Decodable {
+//    let id: Int
+//    let name: String
+//}

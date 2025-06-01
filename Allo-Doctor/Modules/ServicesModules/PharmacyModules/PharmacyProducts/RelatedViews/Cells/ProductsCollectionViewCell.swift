@@ -22,6 +22,6 @@ class ProductsCollectionViewCell: UICollectionViewCell {
             productImage.kf.setImage(with: url)
         }
         productName.text = name
-        productPrice.text = price + " EGP"
+        productPrice.text = price.appendingWithSpace(AppLocalizedKeys.EGP.localized)
     }
 }

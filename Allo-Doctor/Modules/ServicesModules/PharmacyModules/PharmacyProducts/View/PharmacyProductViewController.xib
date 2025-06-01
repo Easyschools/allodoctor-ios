@@ -18,6 +18,7 @@
                 <outlet property="productsCollectionView" destination="6W3-oj-fj5" id="mfo-pu-UeN"/>
                 <outlet property="productsCollectionViewDynamicConstraint" destination="fTD-ft-GA2" id="ByW-wj-eKe"/>
                 <outlet property="productsStackView" destination="E6K-bm-fje" id="o41-9T-pdo"/>
+                <outlet property="searchTextfield" destination="70a-JL-ZgU" id="1EW-XI-vg1"/>
                 <outlet property="searchView" destination="70a-JL-ZgU" id="GQR-hA-gp9"/>
                 <outlet property="totalPrice" destination="VVl-7K-CAx" id="W1F-cw-zK3"/>
                 <outlet property="upperView" destination="ftU-7A-8VT" id="tD5-8A-q8z"/>
@@ -30,16 +31,16 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EqP-Wv-jnk">
-                    <rect key="frame" x="0.0" y="142" width="375" height="636"/>
+                    <rect key="frame" x="0.0" y="154" width="375" height="624"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hxX-v7-hDm">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="637"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="625"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="E6K-bm-fje">
-                                    <rect key="frame" x="16" y="0.0" width="343" height="550"/>
+                                    <rect key="frame" x="16" y="0.0" width="343" height="625"/>
                                     <subviews>
                                         <collectionView multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="6W3-oj-fj5">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="550"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="625"/>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" priority="999" constant="550" id="fTD-ft-GA2"/>
@@ -59,6 +60,7 @@
                                 <constraint firstAttribute="trailing" secondItem="E6K-bm-fje" secondAttribute="trailing" constant="16" id="Lk3-FN-Dv7"/>
                                 <constraint firstItem="E6K-bm-fje" firstAttribute="top" secondItem="hxX-v7-hDm" secondAttribute="top" id="Md3-gx-zF4"/>
                                 <constraint firstItem="E6K-bm-fje" firstAttribute="leading" secondItem="hxX-v7-hDm" secondAttribute="leading" constant="16" id="dQM-Hw-rIR"/>
+                                <constraint firstAttribute="bottom" secondItem="E6K-bm-fje" secondAttribute="bottom" id="kc5-M7-xh9"/>
                             </constraints>
                         </view>
                     </subviews>
@@ -73,11 +75,14 @@
                     <viewLayoutGuide key="contentLayoutGuide" id="QDK-Vd-OQQ"/>
                     <viewLayoutGuide key="frameLayoutGuide" id="qZ8-rx-Syn"/>
                 </scrollView>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ftU-7A-8VT">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="142"/>
+                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ftU-7A-8VT" customClass="ShadowView" customModule="Allo_Doctor" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="154"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8lt-k7-4ia" customClass="CustomNavigationBackButton" customModule="Allo_Doctor" customModuleProvider="target">
-                            <rect key="frame" x="16" y="50" width="125" height="28"/>
+                            <rect key="frame" x="16" y="50" width="125" height="32"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="32" id="Vw9-Ej-E94"/>
+                            </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                             <state key="normal" title="products medication">
@@ -90,10 +95,14 @@
                                 <userDefinedRuntimeAttribute type="number" keyPath="spacingBetweenImageAndLabel">
                                     <real key="value" value="5"/>
                                 </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="products medication"/>
                             </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="navBack:" destination="-1" eventType="touchUpInside" id="Atr-N1-cin"/>
+                            </connections>
                         </button>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="70a-JL-ZgU" customClass="SearchView" customModule="Allo_Doctor" customModuleProvider="target">
-                            <rect key="frame" x="16" y="86" width="343" height="40"/>
+                            <rect key="frame" x="16" y="98" width="343" height="40"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="40" id="8E2-Em-m4U"/>
@@ -114,11 +123,16 @@
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="70a-JL-ZgU" secondAttribute="trailing" constant="16" id="6je-tH-xOY"/>
-                        <constraint firstItem="70a-JL-ZgU" firstAttribute="top" secondItem="8lt-k7-4ia" secondAttribute="bottom" constant="8" id="WH8-dJ-kOq"/>
+                        <constraint firstItem="70a-JL-ZgU" firstAttribute="top" secondItem="8lt-k7-4ia" secondAttribute="bottom" constant="16" id="WH8-dJ-kOq"/>
                         <constraint firstItem="8lt-k7-4ia" firstAttribute="leading" secondItem="ftU-7A-8VT" secondAttribute="leading" constant="16" id="lxD-62-hVC"/>
                         <constraint firstAttribute="bottom" secondItem="70a-JL-ZgU" secondAttribute="bottom" constant="16" id="wkk-CS-2le"/>
                         <constraint firstItem="70a-JL-ZgU" firstAttribute="leading" secondItem="ftU-7A-8VT" secondAttribute="leading" constant="16" id="xyX-P0-7d5"/>
                     </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="30"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="utK-3A-btE">
                     <rect key="frame" x="16" y="694" width="343" height="68"/>
@@ -168,6 +182,7 @@
                                         <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
                                             <real key="value" value="16"/>
                                         </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="View Basket"/>
                                     </userDefinedRuntimeAttributes>
                                 </label>
                             </subviews>

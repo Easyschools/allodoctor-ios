@@ -22,7 +22,6 @@ struct ClinicService:Decodable {
     let image: String?
     let info_service: [ClinicInfo]?
 }
-
 // Model for Clinic Info
 struct ClinicInfo :Decodable{
     let id: Int
@@ -59,7 +58,6 @@ struct Clinic: Decodable {
     let doctors: [ClinicDoctor]
     let specialties: [ClinicSpecialty]
     let branches: [Branch]
-
     enum CodingKeys: String, CodingKey {
         case id, name, image, address, lat, long, branches
         case nameAr = "name_ar"

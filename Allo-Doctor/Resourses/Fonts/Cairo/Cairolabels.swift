@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 @IBDesignable
-class CairoSemiBold: UILabel {
+class CairoBold: UILabel {
     
     @IBInspectable var fontSize: CGFloat = 12 {
         didSet {
@@ -33,7 +33,7 @@ class CairoSemiBold: UILabel {
     }
     
 }
-class CairoRegular: UILabel {
+class CairoMeduim: UILabel {
     
     @IBInspectable var fontSize: CGFloat = 12 {
         didSet {
@@ -44,6 +44,7 @@ class CairoRegular: UILabel {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         updateView()
+  
         
     }
     
@@ -53,7 +54,34 @@ class CairoRegular: UILabel {
         
     }
     private func updateView() {
+        self.font = UIFont(name: "Cairo-Medium", size: fontSize)
+        self.numberOfLines = 0
+    }
+    
+}
+class CairoRegular: UILabel {
+    
+    @IBInspectable var fontSize: CGFloat = 12 {
+        didSet {
+            updateView()
+            self.numberOfLines = 0
+        }
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        updateView()
+        self.numberOfLines = 0
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        updateView()
+        
+    }
+    private func updateView() {
         self.font = UIFont(name: "Cairo-Regular", size: fontSize)
+       
     }
     
 }
@@ -80,6 +108,31 @@ class CairoLight: UILabel {
     }
     private func updateView() {
         self.font = UIFont(name: "Cairo-Light", size: fontSize)
+    }
+    
+}
+class CairoSemiBold: UILabel {
+    
+    @IBInspectable var fontSize: CGFloat = 12 {
+        didSet {
+            updateView()
+        }
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        updateView()
+        
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        updateView()
+        
+    }
+    private func updateView() {
+        self.font = UIFont(name: "Cairo-SemiBold", size: fontSize)
+        self.numberOfLines = 0
     }
     
 }

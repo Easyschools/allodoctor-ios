@@ -7,27 +7,9 @@
 
 import UIKit
 
-class RegisterViewController: BaseViewController<RegisterViewModel> {
+class RegisterViewController: BaseViewController<RegisterViewModel>
+{
     @IBOutlet weak var selectAreaLabel: CairoRegular!
-    @IBOutlet weak var medicalConditionLabel: UILabel!
-    let medicalConditions = [
-        "Hypertension",
-        "Diabetes",
-        "Asthma",
-        "Heart Disease",
-        "Arthritis",
-        "Chronic Kidney Disease",
-    ]
-    
-    let cities = [
-        "cairo",
-        "Alexandria",
-        "Aswan",
-        "Matrouh",
-        "Giza",
-        "Elmanya"
-    ]
-    
     @IBOutlet weak var selectMedicalButton: UIButton!
     @IBOutlet weak var selectAreaButton: UIButton!
     @IBOutlet weak var genderSelection: GenderSelectionControl!
@@ -37,7 +19,7 @@ class RegisterViewController: BaseViewController<RegisterViewModel> {
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet private weak var createAccButton: CustomButton!
     private var selectedData:String?
-    private var isMedicalConditionSelected = false
+    private var isGenderSelected = false
     private var isCitySelected = false
    
     override func viewDidLoad() {
@@ -48,6 +30,14 @@ class RegisterViewController: BaseViewController<RegisterViewModel> {
     }
     
     override func setupUI() {
+        genderSelection.onGenderSelected = { [weak self] gender in
+            if gender == .female {
+                self?.isGenderSelected = true
+                self?.viewModel.genderSubject.send("female")
+            }
+            else {self?.isGenderSelected = true
+                self?.viewModel.genderSubject.send("male")}
+        }
         errorImage.isHidden = true
         errorMessage.isHidden = true
         ageTextField.addPadding(By: 10, for: .left)
@@ -57,28 +47,20 @@ class RegisterViewController: BaseViewController<RegisterViewModel> {
     override func bindViewModel() {
         nameTextField.bindText(to: viewModel.nameSubject, storeIn: &cancellables)
         ageTextField.bindText(to: viewModel.ageSubject, storeIn: &cancellables)
+        viewModel.getAllAreaOfResidence()
     }
     
-    @IBAction func showMedicalConditions(_ sender: Any) {
-        let medicalConditionVC = SearchableTableViewController(items: medicalConditions)
-        medicalConditionVC.delegate = self
-        medicalConditionVC.setTitle("Select Medical Condition")
-        viewModel.coordinator?.presentModally(medicalConditionVC)
-        selectedData = "medical"
-    }
     
     @IBAction func createAccount(_ sender: Any) {
         if validateInputs() {
             viewModel.createuser()
-            UserDefaultsManager.sharedInstance.login()
-            dismiss(animated: true, completion: nil)
+          
         }
     }
     
     @IBAction func areaResidencePresentView(_ sender: Any) {
-        let citiesVC = SearchableTableViewController(items: cities)
+        let citiesVC = SectionSearchableTableViewController(cityData: viewModel.cities)
         citiesVC.delegate = self
-        citiesVC.setTitle("Select Area")
         viewModel.coordinator?.presentModally(citiesVC)
         selectedData = "area"
         selectAreaButton.tag = 1
@@ -87,40 +69,39 @@ class RegisterViewController: BaseViewController<RegisterViewModel> {
     private func validateInputs() -> Bool {
         // Validate name
         guard let name = nameTextField.text, !name.isEmpty else {
-            showError("Please enter a name.")
+            showError(AppLocalizedKeys.EnterName.localized)
             return false
         }
         
         let nameRegex = "^[a-zA-Z ]+$"
         let namePredicate = NSPredicate(format: "SELF MATCHES %@", nameRegex)
         guard namePredicate.evaluate(with: name) else {
-            showError("Name should contain only letters and spaces.")
+            showError(AppLocalizedKeys.NameValidation.localized)
             return false
         }
         
         // Validate age
         guard let ageText = ageTextField.text, let age = Int(ageText) else {
-            showError("Please enter a valid age.")
+            showError(AppLocalizedKeys.ValidAge.localized)
             return false
         }
         
         if age <= 10 || age > 100 {
-            showError("Age should be between 10 and 100.")
+            showError(AppLocalizedKeys.AgeVerify.localized)
             return false
         }
         
         // Validate medical condition selection
-        guard isMedicalConditionSelected else {
-            showError("Please select a medical condition.")
-            return false
-        }
-        
+       
         // Validate city selection
         guard isCitySelected else {
-            showError("Please select a city.")
+            showError(AppLocalizedKeys.SelectCity.localized)
             return false
         }
-
+        guard isGenderSelected else {
+            showError(AppLocalizedKeys.selectGender.localized)
+            return false
+        }
         hideError()
         return true
     }
@@ -152,14 +133,23 @@ extension RegisterViewController: SearchableTableViewControllerDelegate {
     }
     
     func searchableTableViewController(_ controller: SearchableTableViewController, didSelectItem item: String) {
-        if selectedData == "area" {
+
             selectAreaLabel.text = item
             isCitySelected = true
-        } else {
-            medicalConditionLabel.text = item
-            isMedicalConditionSelected = true
-        }
         
         viewModel.coordinator?.dismissPresnet(self)
     }
 }
+extension RegisterViewController:SectionSearchableTableViewControllerDelegate {
+    func sectionSearchableTableViewController(_ controller: SectionSearchableTableViewController, didSelectDistrictWithID id: Int, districtName name: String) {
+            selectAreaLabel.text = name
+            viewModel.districtId.value = id
+            isCitySelected = true
+        viewModel.coordinator?.dismissPresnet(self)
+    }
+    
+        func sectionSearchableTableViewControllerDidTapDismiss(_ controller: SectionSearchableTableViewController) {
+            viewModel.coordinator?.dismissPresnet(self)
+        }
+        
+    }

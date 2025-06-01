@@ -47,6 +47,9 @@
                     <color key="value" name="greyBorderColor#E5E7EB"/>
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
+            <connections>
+                <outlet property="appointmentLabel" destination="cyr-AA-3LT" id="Jan-bi-ceG"/>
+            </connections>
             <point key="canvasLocation" x="41.221374045801525" y="17.95774647887324"/>
         </collectionViewCell>
     </objects>

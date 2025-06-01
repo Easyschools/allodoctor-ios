@@ -24,7 +24,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="92" translatesAutoresizingMaskIntoConstraints="NO" id="8sk-TX-aD3">
-                    <rect key="frame" x="57" y="299" width="281" height="330"/>
+                    <rect key="frame" x="47" y="299" width="281" height="330"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="3dR-7b-IRs">
                             <rect key="frame" x="0.0" y="0.0" width="281" height="168.33333333333334"/>
@@ -101,7 +101,7 @@
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" name="blueAppColor"/>
             <constraints>
-                <constraint firstItem="8sk-TX-aD3" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" constant="10" id="09W-cD-ND2"/>
+                <constraint firstItem="8sk-TX-aD3" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="09W-cD-ND2"/>
                 <constraint firstItem="8sk-TX-aD3" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" constant="50" id="Idm-iG-xeE"/>
                 <constraint firstItem="8sk-TX-aD3" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.749333" id="Q1l-7b-twx"/>
                 <constraint firstItem="8sk-TX-aD3" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.406404" id="Yjd-tW-FK2"/>

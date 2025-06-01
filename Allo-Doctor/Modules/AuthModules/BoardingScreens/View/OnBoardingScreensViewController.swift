@@ -5,161 +5,232 @@
 //  Created by Abdallah ismail on 04/09/2024.
 //
 
-
 import UIKit
-import Foundation
-import Combine
 
+
+// MARK: - OnBoardingScreensViewController
 class OnBoardingScreensViewController: BaseViewController<OnBoardingScreensViewModel> {
-    
     // MARK: - Outlets
-    @IBOutlet weak var pageControlView: CustomPageControl!
-    @IBOutlet weak var boardingImagesCollectionView: UICollectionView!
+    @IBOutlet weak var pageControlView: UIView!
+    @IBOutlet private weak var boardingImagesCollectionView: UICollectionView!
     @IBOutlet private weak var getStartedButton: CustomButton!
     @IBOutlet private weak var serviceLabel: UILabel!
     @IBOutlet private weak var serviceDescription: UILabel!
     
-  
+    // MARK: - Properties
+    private var isScrollingProgrammatically = false
+   
     
-    // MARK: - LifeCycle
+    let pageControl = CustomPageControl.init(frame: .zero)
+    
+    private var currentCellIndex: Int = 1 {
+        didSet {
+            pageControl.currentPage = currentCellIndex
+        }
+    }
+    
+    
+    
+    
+    
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupCollectionView()
+        setupUI()
        
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        setupInitialState()
-        bindingViewModel()
-    }
-    
-    private func setupInitialState() {
-        updateGetStartedButton()
-        updateLabels(for: viewModel.currentImageIndex)
-        pageControlView.numberOfPages = viewModel.images.count
-        pageControlView.currentPage = viewModel.currentImageIndex
-        boardingImagesCollectionView.reloadData()
         
-        // Delay scrolling to ensure collection view is ready
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
-            self?.scrollToIndex(self?.viewModel.currentImageIndex ?? 0)
+        // Update collection view layout
+        if let layout = boardingImagesCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            layout.itemSize = boardingImagesCollectionView.bounds.size
+            layout.invalidateLayout()
         }
     }
+    private func setupPageControl() {
+        pageControl.currentPageIndicatorTintColor = .appColor
+        pageControl.pageIndicatorTintColor = .greyA8A8A8
+        pageControl.numberOfPages = viewModel.images.count
+        
+        // Configure page control
+        pageControl.translatesAutoresizingMaskIntoConstraints = false
+        pageControlView.addSubview(pageControl)
+        
+        // Add constraints
+        NSLayoutConstraint.activate([
+            pageControl.centerXAnchor.constraint(equalTo: pageControlView.centerXAnchor),
+            pageControl.centerYAnchor.constraint(equalTo: pageControlView.centerYAnchor),
+            pageControl.widthAnchor.constraint(equalTo: pageControlView.widthAnchor),
+            pageControl.heightAnchor.constraint(equalTo: pageControlView.heightAnchor)
+        ])
+    }
     
-    @IBAction func getStartedAction(_ sender: Any) {
-        print("Get Started button tapped")
-        if viewModel.isLastImage() {
-            print("Last image reached, navigating to next screen")
-            navigateToNextScreen()
-        } else {
-            print("Scrolling to next image")
-            viewModel.scrollToNextImage()
-            let nextIndex = viewModel.currentImageIndex
-            print("New index: \(nextIndex)")
-            
-            // Manually update UI
-            updateGetStartedButton()
-            updateLabels(for: nextIndex)
-            
-            // Scroll to the next image
-            scrollToIndex(nextIndex)
-            
-            // Update page control
-            pageControlView.currentPage = nextIndex
-        }
+    @IBAction func continueAsGuest(_ sender: Any) {
+        UserDefaultsManager.sharedInstance.sawOnboarding()
+        viewModel.navToTabBarAsGuest()
+    }
+    // MARK: - Private Methods
+    internal override func setupUI() {
+        setupCollectionView()
+        setupInitialState()
+        bindViewModel()
+        setupPageControl()
     }
     
     private func setupCollectionView() {
-        boardingImagesCollectionView.register(SliderBoardingImageCollectionViewCell.self, forCellWithReuseIdentifier: "SliderBoardingImageCollectionViewCell")
+        // Configure collection view
+        boardingImagesCollectionView.registerCell(cellClass: SliderBoardingImageCollectionViewCell.self)
         boardingImagesCollectionView.dataSource = self
         boardingImagesCollectionView.delegate = self
         boardingImagesCollectionView.isPagingEnabled = true
+        boardingImagesCollectionView.showsHorizontalScrollIndicator = false
+        boardingImagesCollectionView.bounces = false
+        boardingImagesCollectionView.backgroundColor = .clear
+        
+        // Configure layout
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 0
+        layout.minimumInteritemSpacing = 0
+        layout.sectionInset = .zero
+        boardingImagesCollectionView.collectionViewLayout = layout
+        
+        // Prevent scrolling both directions
+        boardingImagesCollectionView.alwaysBounceVertical = false
+        boardingImagesCollectionView.alwaysBounceHorizontal = false
     }
     
-    private func navigateToNextScreen() {
-        // Add navigation logic here
-        print("Navigating to the next screen...")
-        // For example:
-        // let nextVC = YourNextViewController()
-        // navigationController?.pushViewController(nextVC, animated: true)
+    private func setupInitialState() {
+        updateUI(for: viewModel.currentImageIndex)
+        pageControl.numberOfPages = viewModel.images.count
+        boardingImagesCollectionView.reloadData()
+        
+        // Initial scroll without animation
+        DispatchQueue.main.async { [weak self] in
+            self?.scrollToIndex(self?.viewModel.currentImageIndex ?? 0, animated: false)
+            self?.pageControl.currentPage = self?.viewModel.currentImageIndex ?? 0
+        }
     }
     
-    private func updateGetStartedButton() {
-        let buttonTitle = viewModel.isLastImage() ? "Get Started" : "Next"
-        getStartedButton.setupButton(color: .appColor, title: buttonTitle, borderColor: .appColor, textColor: .white)
+    internal override func bindViewModel() {
+        viewModel.$currentImageIndex
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] index in
+                self?.updateUI(for: index)
+            }
+            .store(in: &cancellables)
+        
+        viewModel.$images
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] images in
+                self?.pageControl.numberOfPages = images.count
+                self?.boardingImagesCollectionView.reloadData()
+            }
+            .store(in: &cancellables)
+    }
+    
+    private func updateUI(for index: Int) {
+        updateLabels(for: index)
+        updateGetStartedButton()
+        updatePageControl(for: index)
     }
     
     private func updateLabels(for index: Int) {
-        serviceLabel.text = viewModel.getServiceTitle(for: index)
-        serviceDescription.text = viewModel.getServiceDescription(for: index)
-    }
-    
-    private func scrollToIndex(_ index: Int) {
-        guard index < viewModel.images.count, boardingImagesCollectionView.numberOfItems(inSection: 0) > index else {
-            print("Cannot scroll: index out of bounds or collection view not ready")
-            return
+        if let content = viewModel.getContent(for: index) {
+            UIView.transition(with: serviceLabel, duration: 0.3, options: .transitionCrossDissolve) {
+                self.serviceLabel.text = content.title
+            }
+            
+            UIView.transition(with: serviceDescription, duration: 0.3, options: .transitionCrossDissolve) {
+                self.serviceDescription.text = content.description
+            }
         }
-        let indexPath = IndexPath(item: index, section: 0)
-        boardingImagesCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
     }
-}
-
-extension OnBoardingScreensViewController {
-    func bindingViewModel() {
-        viewModel.$currentImageIndex
-            .sink { [weak self] index in
-                guard let self = self else { return }
-                
-                print("Current image index changed to: \(index)")
-                
-                self.updateGetStartedButton()
-                self.updateLabels(for: index)
-                self.pageControlView.currentPage = index
-                
-                // Delay scrolling to ensure collection view is ready
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                    self.scrollToIndex(index)
-                }
-            }
-            .store(in: &cancellables)
-
-        viewModel.$images
-            .sink { [weak self] images in
-                guard let self = self else { return }
-                
-                print("Images updated, count: \(images.count)")
-                
-                self.boardingImagesCollectionView.reloadData()
-                self.pageControlView.numberOfPages = images.count
-                
-                // Delay scrolling to ensure collection view is ready
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                    self.scrollToIndex(self.viewModel.currentImageIndex)
-                }
-            }
-            .store(in: &cancellables)
-    }
-}
-
-extension OnBoardingScreensViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
+    private func updateGetStartedButton() {
+        let buttonTitle = viewModel.isLastScreen ? "Get Started" : "Next"
+        UIView.transition(with: getStartedButton, duration: 0.3, options: .transitionCrossDissolve) {
+            self.getStartedButton.setupButton(
+                color: .appColor,
+                title: buttonTitle,
+                borderColor: .appColor,
+                textColor: .white
+            )
+        }
+    }
+    
+    private func updatePageControl(for index: Int) {
+        pageControl.currentPage = index
+    }
+    
+    private func scrollToIndex(_ index: Int, animated: Bool) {
+        guard index >= 0, index < viewModel.images.count else { return }
+        
+        isScrollingProgrammatically = true
+        let indexPath = IndexPath(item: index, section: 0)
+        
+        boardingImagesCollectionView.scrollToItem(
+            at: indexPath,
+            at: .centeredHorizontally,
+            animated: animated
+        )
+        
+        // Reset the flag after animation completes
+        if animated {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+                self?.isScrollingProgrammatically = false
+            }
+        } else {
+            isScrollingProgrammatically = false
+        }
+    }
+    
+    // MARK: - Actions
+    @IBAction private func getStartedAction(_ sender: Any) {
+        if viewModel.isLastScreen {
+            navigateToNextScreen()
+        } else {
+            viewModel.scrollToNextImage()
+            scrollToIndex(viewModel.currentImageIndex, animated: true)
+            boardingImagesCollectionView.reloadData()
+        
+        }
+    }
+
+    private func navigateToNextScreen() {
+        UserDefaultsManager.sharedInstance.sawOnboarding()
+        viewModel.navToNumberScreen()
+    }
+}
+
+// MARK: - UICollectionView Extensions
+extension OnBoardingScreensViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewModel.images.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SliderBoardingImageCollectionViewCell", for: indexPath) as! SliderBoardingImageCollectionViewCell
-        cell.configure(with: viewModel.images[indexPath.item])
+        let cell = collectionView.dequeue(indexpath: indexPath) as SliderBoardingImageCollectionViewCell
+        cell.configure(with: viewModel.images[viewModel.currentImageIndex])
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return collectionView.frame.size
+        return collectionView.bounds.size
     }
     
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let pageIndex = Int(scrollView.contentOffset.x / scrollView.frame.width)
-        viewModel.currentImageIndex = pageIndex
+    // MARK: - Scroll View Delegate Methods
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard !isScrollingProgrammatically else { return }
+        
+        let pageWidth = scrollView.bounds.width
+        let currentPage = round(scrollView.contentOffset.x / pageWidth)
+        let index = Int(currentPage)
+        
+        if index != viewModel.currentImageIndex {
+            viewModel.updateCurrentIndex(index)
+        }
     }
 }

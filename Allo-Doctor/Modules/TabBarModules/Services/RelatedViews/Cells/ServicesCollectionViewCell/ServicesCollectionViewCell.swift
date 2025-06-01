@@ -14,10 +14,13 @@ class ServicesCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var serviceLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+  
         
     }
-
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        contentView.applyDropShadow()
+    }
 }
 extension ServicesCollectionViewCell{
     func setupImage(with image:String){

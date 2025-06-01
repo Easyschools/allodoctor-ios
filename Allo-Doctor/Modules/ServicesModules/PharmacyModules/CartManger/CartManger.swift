@@ -13,3 +13,6 @@ struct GrandTotalManger {
         grandTotalUpdatePublisher.send()
     }
 }
+protocol addToCartTapped: AnyObject {
+    func didTapButton()
+}

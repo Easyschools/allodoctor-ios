@@ -16,7 +16,7 @@ class AlertManager {
                     UIApplication.shared.open(settingsURL)
                 }
             }
-            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            let okAction = UIAlertAction(title: AppLocalizedKeys.ok.localized, style: .default, handler: nil)
             
             alert.addAction(settingsAction)
             alert.addAction(okAction)
@@ -24,4 +24,11 @@ class AlertManager {
             viewController.present(alert, animated: true, completion: nil)
         }
     }
+    static func showAlert(on viewController: UIViewController, title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: AppLocalizedKeys.ok.localized, style: .default, handler: nil)
+        alertController.addAction(okAction)
+        viewController.present(alertController, animated: true, completion: nil)
+    }
+    
 }

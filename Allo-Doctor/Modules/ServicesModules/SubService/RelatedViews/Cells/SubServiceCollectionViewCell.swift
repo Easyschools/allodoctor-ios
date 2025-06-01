@@ -13,7 +13,7 @@ class SubServiceCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var subServiceImage: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
     }
 
 }

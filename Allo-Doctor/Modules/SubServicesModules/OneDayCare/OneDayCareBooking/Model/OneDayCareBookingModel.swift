@@ -6,3 +6,16 @@
 //
 
 import Foundation
+
+
+// Request Body Model
+struct ConfirmOneDayRequestResponse: Codable {
+    let data: ConfirmOneDayRequest?
+}
+struct ConfirmOneDayRequest: Codable {
+    let name: String?
+    let phone: String?
+    let info_day_service_id: Int?
+    let date: String?
+}
+

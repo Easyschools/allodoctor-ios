@@ -17,23 +17,29 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="6eg-NL-sHd">
-                        <rect key="frame" x="12" y="0.0" width="296" height="44"/>
+                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="6eg-NL-sHd">
+                        <rect key="frame" x="26" y="0.0" width="282" height="44"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="⁃" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2pK-eQ-sXA">
-                                <rect key="frame" x="0.0" y="0.0" width="10" height="44"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="▪" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2pK-eQ-sXA">
+                                <rect key="frame" x="0.0" y="19.666666666666668" width="10" height="5"/>
                                 <constraints>
+                                    <constraint firstAttribute="height" constant="5" id="GnP-lv-xWL"/>
                                     <constraint firstAttribute="width" constant="10" id="ckR-R8-Thz"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="8"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kER-To-1SO">
-                                <rect key="frame" x="15" y="0.0" width="281" height="44"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kER-To-1SO" customClass="CairoRegular" customModule="Allo_Doctor" customModuleProvider="target">
+                                <rect key="frame" x="15" y="11.999999999999998" width="267" height="20.333333333333329"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
+                                        <real key="value" value="14"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </label>
                         </subviews>
                     </stackView>
@@ -41,7 +47,7 @@
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="6eg-NL-sHd" secondAttribute="trailing" constant="12" id="Bfj-gh-NUz"/>
                     <constraint firstAttribute="bottom" secondItem="6eg-NL-sHd" secondAttribute="bottom" id="JSW-YD-GsU"/>
-                    <constraint firstItem="6eg-NL-sHd" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="TOi-gE-dpY"/>
+                    <constraint firstItem="6eg-NL-sHd" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="26" id="TOi-gE-dpY"/>
                     <constraint firstItem="6eg-NL-sHd" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="cMZ-Qo-Bky"/>
                 </constraints>
             </tableViewCellContentView>

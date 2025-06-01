@@ -1,21 +1,260 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13142" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12042"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="OperationHospitalsCollectionViewCell" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="OperationHospitalsCollectionViewCell" id="gTV-IL-0wX" customClass="OperationHospitalsCollectionViewCell" customModule="Allo_Doctor" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="343" height="188"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                <rect key="frame" x="0.0" y="0.0" width="343" height="188"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="xif-FT-s0j">
+                        <rect key="frame" x="0.0" y="0.0" width="343" height="188"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1ny-Lc-yUO">
+                                <rect key="frame" x="0.0" y="0.0" width="343" height="96"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hospitalsBackGround" translatesAutoresizingMaskIntoConstraints="NO" id="bic-Js-YEv">
+                                        <rect key="frame" x="0.0" y="0.0" width="343" height="96"/>
+                                    </imageView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="Kyw-M5-A8h">
+                                        <rect key="frame" x="16" y="16" width="311" height="40"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="5ak-HX-gjd">
+                                                <rect key="frame" x="0.0" y="0.0" width="24" height="40"/>
+                                                <subviews>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hospitalLogo" translatesAutoresizingMaskIntoConstraints="NO" id="cGd-GQ-lPy" customClass="CircularImageView" customModule="Allo_Doctor" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="24" height="24"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="24" id="RF1-kK-J3N"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C2v-5F-d0G">
+                                                        <rect key="frame" x="0.0" y="24" width="24" height="16"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </view>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="24" id="QqX-FN-dfB"/>
+                                                </constraints>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="xno-wa-f3S">
+                                                <rect key="frame" x="28" y="0.0" width="283" height="40"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Kasr Al-Ainy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L4r-tc-rGa" customClass="CairoBold" customModule="Allo_Doctor" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="283" height="24"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="24" id="DdU-Wk-KWV"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <nil key="highlightedColor"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
+                                                                <real key="value" value="18"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </label>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="lL9-mX-KXY">
+                                                        <rect key="frame" x="0.0" y="24" width="283" height="16"/>
+                                                        <subviews>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6vl-fh-aAp" customClass="StarRatingView" customModule="Allo_Doctor" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="0.0" width="82" height="16"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="82" id="afC-zm-1m9"/>
+                                                                </constraints>
+                                                            </view>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(500+)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7vj-rI-rDZ" customClass="CairoRegular" customModule="Allo_Doctor" customModuleProvider="target">
+                                                                <rect key="frame" x="90" y="0.0" width="193" height="16"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <nil key="highlightedColor"/>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
+                                                                        <real key="value" value="10"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                </userDefinedRuntimeAttributes>
+                                                            </label>
+                                                        </subviews>
+                                                    </stackView>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="C7r-Qx-J2G"/>
+                                        </constraints>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="bic-Js-YEv" firstAttribute="leading" secondItem="1ny-Lc-yUO" secondAttribute="leading" id="CmI-7t-veb"/>
+                                    <constraint firstItem="bic-Js-YEv" firstAttribute="top" secondItem="1ny-Lc-yUO" secondAttribute="top" id="LPf-HG-S5x"/>
+                                    <constraint firstItem="Kyw-M5-A8h" firstAttribute="top" secondItem="1ny-Lc-yUO" secondAttribute="top" constant="16" id="Wbc-je-2ai"/>
+                                    <constraint firstAttribute="trailing" secondItem="Kyw-M5-A8h" secondAttribute="trailing" constant="16" id="Zij-2w-ucx"/>
+                                    <constraint firstAttribute="bottom" secondItem="bic-Js-YEv" secondAttribute="bottom" id="whT-Id-XUi"/>
+                                    <constraint firstItem="Kyw-M5-A8h" firstAttribute="leading" secondItem="1ny-Lc-yUO" secondAttribute="leading" constant="16" id="z3s-zu-Hy2"/>
+                                    <constraint firstAttribute="trailing" secondItem="bic-Js-YEv" secondAttribute="trailing" id="zut-JI-Pev"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k97-GD-6p8">
+                                <rect key="frame" x="0.0" y="96" width="343" height="92"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Y1F-JW-Av5">
+                                        <rect key="frame" x="8" y="12" width="327" height="68"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="CJC-35-k81">
+                                                <rect key="frame" x="0.0" y="0.0" width="327" height="20.333333333333332"/>
+                                                <subviews>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pin" translatesAutoresizingMaskIntoConstraints="NO" id="6Cb-wn-n39">
+                                                        <rect key="frame" x="0.0" y="0.0" width="16" height="20.333333333333332"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="16" id="um6-8P-cJI"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Cairo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="drj-Uv-duN" customClass="CairoRegular" customModule="Allo_Doctor" customModuleProvider="target">
+                                                        <rect key="frame" x="20" y="0.0" width="307" height="20.333333333333332"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <color key="textColor" name="grey-#6B7280"/>
+                                                        <nil key="highlightedColor"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
+                                                                <real key="value" value="14"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Dxb-kK-Uhe">
+                                                <rect key="frame" x="0.0" y="28.333333333333339" width="327" height="39.666666666666657"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="Pq8-fh-U2g">
+                                                        <rect key="frame" x="0.0" y="0.0" width="190" height="39.666666666666664"/>
+                                                        <subviews>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coins" translatesAutoresizingMaskIntoConstraints="NO" id="jqp-ON-1AJ">
+                                                                <rect key="frame" x="0.0" y="10" width="20" height="20"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="20" id="uat-g0-7qd"/>
+                                                                    <constraint firstAttribute="width" constant="20" id="yMN-mt-1s6"/>
+                                                                </constraints>
+                                                            </imageView>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12,000 EGP" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BAX-kl-k1h" customClass="CairoRegular" customModule="Allo_Doctor" customModuleProvider="target">
+                                                                <rect key="frame" x="24" y="9.6666666666666554" width="166" height="20.333333333333329"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                <color key="textColor" name="grey-#6B7280"/>
+                                                                <nil key="highlightedColor"/>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
+                                                                        <real key="value" value="14"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                </userDefinedRuntimeAttributes>
+                                                            </label>
+                                                        </subviews>
+                                                    </stackView>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QFW-Ni-Iu9" customClass="CustomButton" customModule="Allo_Doctor" customModuleProvider="target">
+                                                        <rect key="frame" x="195" y="0.0" width="132" height="39.666666666666664"/>
+                                                        <color key="backgroundColor" name="blueAppColor"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="132" id="0KF-Ve-rHB"/>
+                                                        </constraints>
+                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <state key="normal" title="Button"/>
+                                                        <buttonConfiguration key="configuration" style="plain" title="Book"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                <real key="value" value="8"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="Y1F-JW-Av5" firstAttribute="leading" secondItem="k97-GD-6p8" secondAttribute="leading" constant="8" id="1QK-Pk-6JG"/>
+                                    <constraint firstAttribute="trailing" secondItem="Y1F-JW-Av5" secondAttribute="trailing" constant="8" id="AXq-bP-hpF"/>
+                                    <constraint firstItem="Y1F-JW-Av5" firstAttribute="top" secondItem="k97-GD-6p8" secondAttribute="top" constant="12" id="kx1-A8-sN5"/>
+                                    <constraint firstAttribute="bottom" secondItem="Y1F-JW-Av5" secondAttribute="bottom" constant="12" id="sKx-Mc-LaL"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="1ny-Lc-yUO" firstAttribute="height" secondItem="xif-FT-s0j" secondAttribute="height" multiplier="0.510638" id="2rF-SO-Acg"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="10"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                <real key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                <color key="value" name="greishWhite#F2F2F2"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </stackView>
+                </subviews>
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstItem="xif-FT-s0j" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="BOX-9s-JOf"/>
+                <constraint firstAttribute="trailing" secondItem="xif-FT-s0j" secondAttribute="trailing" id="dyf-Fp-pLp"/>
+                <constraint firstAttribute="bottom" secondItem="xif-FT-s0j" secondAttribute="bottom" id="sqn-WB-SPH"/>
+                <constraint firstItem="xif-FT-s0j" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="wlY-Zd-soU"/>
+            </constraints>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                    <color key="value" name="lighrGrey-#F2F2F2"/>
+                </userDefinedRuntimeAttribute>
+            </userDefinedRuntimeAttributes>
+            <connections>
+                <outlet property="district" destination="drj-Uv-duN" id="ETQ-BW-68c"/>
+                <outlet property="hospitalBackGround" destination="bic-Js-YEv" id="FHH-O0-DSz"/>
+                <outlet property="hospitalLogo" destination="cGd-GQ-lPy" id="3t8-7B-MLq"/>
+                <outlet property="name" destination="L4r-tc-rGa" id="Tub-Yi-cQq"/>
+                <outlet property="price" destination="BAX-kl-k1h" id="Prn-OW-hXx"/>
+                <outlet property="starRatingView" destination="6vl-fh-aAp" id="AzU-kw-JJ3"/>
+            </connections>
+            <point key="canvasLocation" x="43" y="0.0"/>
         </collectionViewCell>
     </objects>
+    <designables>
+        <designable name="L4r-tc-rGa">
+            <size key="intrinsicContentSize" width="93.666666666666671" height="20.333333333333332"/>
+        </designable>
+    </designables>
+    <resources>
+        <image name="coins" width="20" height="20"/>
+        <image name="hospitalLogo" width="224" height="225"/>
+        <image name="hospitalsBackGround" width="980" height="654"/>
+        <image name="pin" width="17" height="20"/>
+        <namedColor name="blueAppColor">
+            <color red="0.11800000071525574" green="0.49000000953674316" blue="0.75300002098083496" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="greishWhite#F2F2F2">
+            <color red="0.94900000095367432" green="0.94900000095367432" blue="0.94900000095367432" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="grey-#6B7280">
+            <color red="0.41999998688697815" green="0.44699999690055847" blue="0.50199997425079346" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="lighrGrey-#F2F2F2">
+            <color red="0.94900000095367432" green="0.94900000095367432" blue="0.94900000095367432" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

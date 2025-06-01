@@ -12,9 +12,13 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UserAddressViewController" customModule="Allo_Doctor" customModuleProvider="target">
             <connections>
+                <outlet property="addressTextField" destination="Kdc-vB-x17" id="lES-ng-DTd"/>
                 <outlet property="adressView" destination="LQh-pf-YiW" id="DLi-at-i4A"/>
                 <outlet property="apartmentView" destination="RZI-Lu-0ob" id="Glk-13-GwR"/>
+                <outlet property="appartmentTextField" destination="PBp-HE-G8S" id="s97-96-JAg"/>
+                <outlet property="floorTextField" destination="OMl-8p-UfE" id="Xjo-bg-6II"/>
                 <outlet property="floorView" destination="JN8-QW-pJp" id="Gc1-6a-b2T"/>
+                <outlet property="upperView" destination="Qzs-h7-QQ2" id="xOF-oy-8Rx"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -24,10 +28,13 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qzs-h7-QQ2">
-                    <rect key="frame" x="0.0" y="0.0" width="393" height="96"/>
+                    <rect key="frame" x="0.0" y="0.0" width="393" height="106"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T54-A5-MCy" customClass="CustomNavigationBackButton" customModule="Allo_Doctor" customModuleProvider="target">
-                            <rect key="frame" x="16" y="50" width="151" height="30"/>
+                            <rect key="frame" x="16" y="50" width="151" height="32"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="32" id="hT4-Y1-GNH"/>
+                            </constraints>
                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                             <state key="normal" title="Add Address Location">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -40,19 +47,22 @@
                                     <real key="value" value="5"/>
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="navBackAction:" destination="-1" eventType="touchUpInside" id="Zqr-FD-hMh"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" name="blueAppColor"/>
                     <constraints>
-                        <constraint firstAttribute="bottom" secondItem="T54-A5-MCy" secondAttribute="bottom" constant="16" id="LD4-DG-v2R"/>
+                        <constraint firstAttribute="bottom" secondItem="T54-A5-MCy" secondAttribute="bottom" constant="24" id="LD4-DG-v2R"/>
                         <constraint firstItem="T54-A5-MCy" firstAttribute="leading" secondItem="Qzs-h7-QQ2" secondAttribute="leading" constant="16" id="Tk0-eK-qZe"/>
                     </constraints>
                 </view>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="24x-wQ-L9C">
-                    <rect key="frame" x="0.0" y="96" width="393" height="739"/>
+                    <rect key="frame" x="0.0" y="106" width="393" height="729"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vly-CE-mEL">
-                            <rect key="frame" x="0.0" y="0.0" width="393" height="765"/>
+                            <rect key="frame" x="0.0" y="0.0" width="393" height="754.66666666666663"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="JH9-ua-XuN">
                                     <rect key="frame" x="0.0" y="24" width="393" height="260"/>
@@ -66,7 +76,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LQh-pf-YiW">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LQh-pf-YiW" customClass="ShadowView" customModule="Allo_Doctor" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="32" width="361" height="44"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="a8z-0D-AwM">
@@ -78,10 +88,10 @@
                                                                         <constraint firstAttribute="width" constant="20" id="2fr-kZ-DxJ"/>
                                                                     </constraints>
                                                                 </imageView>
-                                                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Kdc-vB-x17">
+                                                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Kdc-vB-x17">
                                                                     <rect key="frame" x="28" y="0.0" width="301" height="20"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                                    <textInputTraits key="textInputTraits"/>
+                                                                    <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES" textContentType="street-address"/>
                                                                     <userDefinedRuntimeAttributes>
                                                                         <userDefinedRuntimeAttribute type="color" keyPath="placeHolderColor">
                                                                             <color key="value" name="grey-#6B7280"/>
@@ -99,6 +109,11 @@
                                                         <constraint firstAttribute="bottom" secondItem="a8z-0D-AwM" secondAttribute="bottom" constant="12" id="ZKH-xh-Fr0"/>
                                                         <constraint firstAttribute="trailing" secondItem="a8z-0D-AwM" secondAttribute="trailing" constant="16" id="j3I-1e-lgU"/>
                                                     </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <real key="value" value="8"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                 </view>
                                             </subviews>
                                         </stackView>
@@ -111,8 +126,8 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RZI-Lu-0ob">
-                                                    <rect key="frame" x="0.0" y="32" width="361" height="44"/>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RZI-Lu-0ob" customClass="ShadowView" customModule="Allo_Doctor" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="31.999999999999943" width="361" height="44"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="uMA-Ta-MV3">
                                                             <rect key="frame" x="16" y="12" width="329" height="20"/>
@@ -123,10 +138,10 @@
                                                                         <constraint firstAttribute="width" constant="20" id="xes-H9-Cf9"/>
                                                                     </constraints>
                                                                 </imageView>
-                                                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Apartment" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PBp-HE-G8S">
+                                                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Apartment" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PBp-HE-G8S">
                                                                     <rect key="frame" x="28" y="0.0" width="301" height="20"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                                    <textInputTraits key="textInputTraits"/>
+                                                                    <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                                     <userDefinedRuntimeAttributes>
                                                                         <userDefinedRuntimeAttribute type="color" keyPath="placeHolderColor">
                                                                             <color key="value" name="grey-#6B7280"/>
@@ -144,11 +159,16 @@
                                                         <constraint firstAttribute="trailing" secondItem="uMA-Ta-MV3" secondAttribute="trailing" constant="16" id="uZM-cJ-PAk"/>
                                                         <constraint firstAttribute="height" constant="44" id="wAC-Cb-pKf"/>
                                                     </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <real key="value" value="8"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                 </view>
                                             </subviews>
                                         </stackView>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="vAF-GU-OIl">
-                                            <rect key="frame" x="16" y="184" width="361" height="76"/>
+                                            <rect key="frame" x="16" y="183.99999999999994" width="361" height="76"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Floor" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Mo-40-QHB">
                                                     <rect key="frame" x="0.0" y="0.0" width="361" height="24"/>
@@ -156,7 +176,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JN8-QW-pJp">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JN8-QW-pJp" customClass="ShadowView" customModule="Allo_Doctor" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="32" width="361" height="44"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="H02-C7-AFV">
@@ -168,10 +188,10 @@
                                                                         <constraint firstAttribute="width" constant="20" id="7xC-AV-9Q2"/>
                                                                     </constraints>
                                                                 </imageView>
-                                                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Floor" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OMl-8p-UfE">
+                                                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Floor" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OMl-8p-UfE">
                                                                     <rect key="frame" x="28" y="0.0" width="301" height="20"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                                    <textInputTraits key="textInputTraits"/>
+                                                                    <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                                                                     <userDefinedRuntimeAttributes>
                                                                         <userDefinedRuntimeAttribute type="color" keyPath="placeHolderColor">
                                                                             <color key="value" name="grey-#6B7280"/>
@@ -189,14 +209,23 @@
                                                         <constraint firstAttribute="height" constant="44" id="tib-7m-cLC"/>
                                                         <constraint firstItem="H02-C7-AFV" firstAttribute="leading" secondItem="JN8-QW-pJp" secondAttribute="leading" constant="16" id="wyX-70-bX2"/>
                                                     </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <real key="value" value="8"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                 </view>
                                             </subviews>
                                         </stackView>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstItem="qtQ-Rl-u4s" firstAttribute="leading" secondItem="JH9-ua-XuN" secondAttribute="leading" constant="16" id="QUA-qb-08B"/>
                                         <constraint firstAttribute="height" constant="260" id="Usz-QB-BD8"/>
+                                        <constraint firstAttribute="trailing" secondItem="vAF-GU-OIl" secondAttribute="trailing" constant="16" id="VVW-6u-3nA"/>
+                                        <constraint firstItem="vAF-GU-OIl" firstAttribute="leading" secondItem="JH9-ua-XuN" secondAttribute="leading" constant="16" id="W6c-A4-h5I"/>
                                         <constraint firstAttribute="trailing" secondItem="ehY-a4-Sep" secondAttribute="trailing" constant="16" id="jMK-sa-Hiu"/>
                                         <constraint firstItem="ehY-a4-Sep" firstAttribute="leading" secondItem="JH9-ua-XuN" secondAttribute="leading" constant="16" id="oax-d7-4do"/>
+                                        <constraint firstAttribute="trailing" secondItem="qtQ-Rl-u4s" secondAttribute="trailing" constant="16" id="phv-vj-gly"/>
                                     </constraints>
                                 </stackView>
                             </subviews>
@@ -226,13 +255,16 @@
                         <constraint firstAttribute="height" constant="56" id="8yf-qQ-4yC"/>
                     </constraints>
                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <state key="normal" title="Button"/>
-                    <buttonConfiguration key="configuration" style="plain" title="Save Address"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" title="Save Address"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                             <real key="value" value="8"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="saveAdressAction:" destination="-1" eventType="touchUpInside" id="Tk6-4l-HyX"/>
+                    </connections>
                 </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>

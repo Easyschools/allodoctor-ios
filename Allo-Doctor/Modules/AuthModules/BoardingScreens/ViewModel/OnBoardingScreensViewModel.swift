@@ -3,56 +3,74 @@
 //  Allo-Doctor
 //
 //  Created by Abdallah ismail on 21/09/2024.
-//
-import Foundation
+// MARK: - OnBoardingScreensViewModel
 import UIKit
-import Combine
-
 class OnBoardingScreensViewModel {
-    // Published properties for binding
-    @Published var currentImageIndex: Int = 0
-    @Published var images: [UIImage] = []
+  
+        @Published var currentImageIndex: Int = 0
+        @Published var images: [UIImage] = []
+        
+        weak var coordinator: HomeCoordinatorContact?
+        
+
+    // MARK: - Models
+    private struct OnboardingContent {
+        let image: UIImage
+        let title: String
+        let description: String
+    }
     
-    // Private properties
-    private let imageARR = [
-        UIImage(named: "offers"),
-        UIImage(named: "offers"),
-        UIImage(named: "offers")
-    ].compactMap { $0 }
+    // MARK: - Private Properties
+    private let onboardingContent: [OnboardingContent]
     
-    private let serviceTitles = ["Discover Doctors", "Book Appointments", "Get Medical Advice"]
-    private let serviceDescriptions = [
-        "Find the best doctors in your area with ease.",
-        "Schedule appointments at your convenience.",
-        "Receive expert medical advice from the comfort of your home."
-    ]
-    
-    // Initialize ViewModel
+    // MARK: - Initialization
     init() {
-        // Assign image array to the published images
-        images = imageARR
+        self.onboardingContent = [
+            OnboardingContent(
+                image: .doctorOnboarding,
+                title: "Pharmacy services",
+                description: "Our Pharmacy Services make managing your medications simple and stress-free. Whether you need to purchase prescriptions, find over-the-counter products, or request delivery, we’ve got you covered."
+            ),
+            OnboardingContent(
+                image: .pharmacyOnboard,
+                title: "Book Appointments",
+                description: "Our Booking & Consultations feature empowers you to connect with healthcare providers in just a few clicks. Whether you need to book an appointment with a doctor, schedule a consultation, or arrange specialized care, we’ve made the process seamless and intuitive."
+            ),
+            OnboardingContent(
+                image: .emergenceyOnboard,
+                title: "Get Medical Advice",
+                description: "Our Emergency Services are designed to provide rapid access to critical medical assistance during urgent situations. With a streamlined process, help is just a few taps away."
+            )
+        ]
+        
+        self.images = onboardingContent.map { $0.image }
     }
     
-    // Method to scroll to the next image
+    // MARK: - Public Methods
+    var isLastScreen: Bool {
+        currentImageIndex == onboardingContent.count - 1
+    }
+    
     func scrollToNextImage() {
-        if currentImageIndex < images.count - 1 {
-            currentImageIndex += 1
-        }
+        guard !isLastScreen else { return }
+        currentImageIndex += 1
     }
     
-    // Check if the last image is reached
-    func isLastImage() -> Bool {
-        return currentImageIndex == images.count - 1
+    func updateCurrentIndex(_ index: Int) {
+        guard index >= 0, index < onboardingContent.count else { return }
+        currentImageIndex = index
     }
     
-    // Get service title for a given index
-    func getServiceTitle(for index: Int) -> String {
-        return serviceTitles[safe: index] ?? ""
+    func getContent(for index: Int) -> (title: String, description: String)? {
+        guard index >= 0, index < onboardingContent.count else { return nil }
+        let content = onboardingContent[index]
+        return (content.title, content.description)
     }
-    
-    // Get service description for a given index
-    func getServiceDescription(for index: Int) -> String {
-        return serviceDescriptions[safe: index] ?? ""
+    func navToNumberScreen(){
+        coordinator?.showPhonenumberScreen()
+    }
+    func navToTabBarAsGuest(){
+        coordinator?.showTabBar()
     }
 }
 

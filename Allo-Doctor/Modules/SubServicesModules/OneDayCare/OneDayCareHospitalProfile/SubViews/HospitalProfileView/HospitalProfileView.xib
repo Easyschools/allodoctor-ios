@@ -1,18 +1,147 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13142" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12042"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HospitalProfileView" customModule="Allo_Doctor" customModuleProvider="target">
+            <connections>
+                <outlet property="aboutHospital" destination="HjH-3H-kq0" id="hRQ-bH-In4"/>
+                <outlet property="dynamicContentHeight" destination="YE5-IH-uVE" id="tYW-ra-mDF"/>
+                <outlet property="hospitalAdress" destination="3H4-XJ-BDW" id="M5b-uc-SCk"/>
+            </connections>
+        </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <rect key="frame" x="0.0" y="0.0" width="393" height="974"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="p7K-Ad-yRD">
+                    <rect key="frame" x="0.0" y="0.0" width="393" height="432"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PmI-66-lio" customClass="ShadowView" customModule="Allo_Doctor" customModuleProvider="target">
+                            <rect key="frame" x="16" y="0.0" width="361" height="256"/>
+                            <subviews>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="CC7-vq-4oS">
+                                    <rect key="frame" x="16" y="16" width="329" height="224"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e5o-o0-X7I">
+                                            <rect key="frame" x="0.0" y="0.0" width="329" height="24"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="24" id="gAO-6M-oDw"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="about the hospital"/>
+                                            </userDefinedRuntimeAttributes>
+                                        </label>
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="HjH-3H-kq0">
+                                            <rect key="frame" x="0.0" y="24" width="329" height="200"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                            <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                            <color key="textColor" systemColor="labelColor"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="."/>
+                                            </userDefinedRuntimeAttributes>
+                                        </textView>
+                                    </subviews>
+                                </stackView>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <constraints>
+                                <constraint firstAttribute="bottom" secondItem="CC7-vq-4oS" secondAttribute="bottom" constant="16" id="8dg-Jb-dZl"/>
+                                <constraint firstItem="CC7-vq-4oS" firstAttribute="leading" secondItem="PmI-66-lio" secondAttribute="leading" constant="16" id="8wf-xh-lAQ"/>
+                                <constraint firstItem="CC7-vq-4oS" firstAttribute="top" secondItem="PmI-66-lio" secondAttribute="top" constant="16" id="MOF-j7-j4E"/>
+                                <constraint firstAttribute="trailing" secondItem="CC7-vq-4oS" secondAttribute="trailing" constant="16" id="Q5i-aC-Ku7"/>
+                                <constraint firstAttribute="height" priority="999" constant="256" id="YE5-IH-uVE"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <real key="value" value="10"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CpQ-rj-NIE" customClass="ShadowView" customModule="Allo_Doctor" customModuleProvider="target">
+                            <rect key="frame" x="16" y="272" width="361" height="160"/>
+                            <subviews>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="UCP-l4-3r9">
+                                    <rect key="frame" x="16" y="16" width="329" height="128"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="addrss" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tsu-HC-qKH">
+                                            <rect key="frame" x="0.0" y="0.0" width="329" height="20.333333333333332"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="Address"/>
+                                            </userDefinedRuntimeAttributes>
+                                        </label>
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3H4-XJ-BDW">
+                                            <rect key="frame" x="0.0" y="20.333333333333321" width="329" height="107.66666666666669"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="107.67" id="sKQ-Ry-7Ge"/>
+                                            </constraints>
+                                            <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                            <color key="textColor" systemColor="labelColor"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="."/>
+                                            </userDefinedRuntimeAttributes>
+                                        </textView>
+                                    </subviews>
+                                </stackView>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <constraints>
+                                <constraint firstItem="UCP-l4-3r9" firstAttribute="top" secondItem="CpQ-rj-NIE" secondAttribute="top" constant="16" id="4C5-BN-qcd"/>
+                                <constraint firstItem="UCP-l4-3r9" firstAttribute="leading" secondItem="CpQ-rj-NIE" secondAttribute="leading" constant="16" id="STM-xM-5mL"/>
+                                <constraint firstAttribute="trailing" secondItem="UCP-l4-3r9" secondAttribute="trailing" constant="16" id="TIn-xd-zlb"/>
+                                <constraint firstAttribute="height" constant="160" id="UKb-1z-eLh"/>
+                                <constraint firstAttribute="bottom" secondItem="UCP-l4-3r9" secondAttribute="bottom" constant="16" id="oSV-U7-Y7v"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <real key="value" value="10"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="PmI-66-lio" secondAttribute="trailing" constant="16" id="C8R-HR-YPg"/>
+                        <constraint firstItem="PmI-66-lio" firstAttribute="leading" secondItem="p7K-Ad-yRD" secondAttribute="leading" constant="16" id="foE-xJ-40m"/>
+                        <constraint firstItem="CpQ-rj-NIE" firstAttribute="leading" secondItem="p7K-Ad-yRD" secondAttribute="leading" constant="16" id="oGi-Bd-X1k"/>
+                        <constraint firstAttribute="trailing" secondItem="CpQ-rj-NIE" secondAttribute="trailing" constant="16" id="teS-2B-BWe"/>
+                    </constraints>
+                </stackView>
+            </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="p7K-Ad-yRD" secondAttribute="trailing" id="IQo-WF-hLy"/>
+                <constraint firstItem="p7K-Ad-yRD" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Mff-bY-Dc3"/>
+                <constraint firstItem="p7K-Ad-yRD" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="tlZ-Gl-ktq"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="136.64122137404578" y="-27.464788732394368"/>
         </view>
     </objects>
+    <resources>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

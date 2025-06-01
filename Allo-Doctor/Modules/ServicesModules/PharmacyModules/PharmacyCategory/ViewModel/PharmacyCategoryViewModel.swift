@@ -13,6 +13,7 @@ class PharmacyCategoryViewModel{
     private var apiClient = APIClient()
     @Published var pharmacyId: Int?
     @Published var pharmacy: Pharmacy?
+    @Published var favData: [FavData]?
     init(coordinator: HomeCoordinatorContact? = nil, apiClient: APIClient = APIClient(),pharmacyId:Int) {
         self.coordinator = coordinator
         self.apiClient = apiClient
@@ -29,6 +30,48 @@ extension PharmacyCategoryViewModel{
      
 
  }
+    func addToFav() {
+        let favRequest = FavouritesModel(favoritable_entity: "pharmacy", favoritable_id: pharmacyId ?? 0
+        )
+        print(favRequest)
+        addToFav(request: favRequest)
+        
+    }
+    func addToFav(request: FavouritesModel) {
+        let router = APIRouter.addToFavoutites
+        apiClient.postData(to: router.url, body: request, as: FavouritesModelResponse.self)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                 
+                    break
+                case .failure(let error):
+                    print("Error: \(error)")
+                    
+                }
+            }, receiveValue: { response in
+                print("Registration Response: \(response)")
+                
+            })
+            .store(in: &cancellables)
+        
+    }
+    func fetchPharmacyFavourite() {
+        let router = APIRouter.isFavourite(entity:"pharmacy", id: pharmacyId ?? 0)
+        apiClient.fetchData(from: router.url, as: DoctorsFav.self)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    self.errorMessage = error.localizedDescription
+                    print(error)
+                }
+            }, receiveValue: { [weak self] doctorResponse in
+                self?.favData = doctorResponse.data
+                
+            }).store(in: &cancellables)
+    }
  private func getPharmacy(id:Int){
     let router = APIRouter.fetchPharmacy(id: id)
     apiClient.fetchData(from: router.url, as: PharmacyResponse.self)
@@ -40,9 +83,7 @@ extension PharmacyCategoryViewModel{
                 print("Error: \(error)")
                 self?.errorMessage = "Failed to fetch Pharamcy: \(error.localizedDescription)"}
         }, receiveValue: { [weak self]  pharmacyResponse in
-            
             self?.pharmacy = pharmacyResponse.data
-            print(self?.pharmacy?.categories.count ?? 0)
             
         }).store(in: &cancellables)
     }
@@ -52,5 +93,17 @@ extension PharmacyCategoryViewModel{
      func navigateToProducts(pharmacyId:Int, categoryId: Int){
        coordinator?.showPharmacyProducts(pharmacyId: pharmacyId, categoryId: categoryId)
    }
+    func  showUploadPrescription() {
+        coordinator?.showUploadPharmacyPrescription()
+    }
+    func navToPharmacyCart() {
+        coordinator?.showPharmacyCart(pharmacyId: pharmacyId ?? 0)
+    }
+    func navToProductsSerarh(){
+        coordinator?.showPharmacyProducts(pharmacyId: pharmacyId ?? 0, categoryId: nil)
+    }
+    func navBack(){
+        coordinator?.navigateBack()
+    }
 }
 

@@ -88,6 +88,96 @@ enum AppLocalizedKeys: String, CaseIterable {
     case fees = "fees"
     case waitingTime
     case ChooseYourAppointment = "Choose your appointment"
+    case quantity
+    case searchForAnyProduct
+    case total
+    case orderList
+    case checkOut = "Check Out"
+    case mintutes = "min"
+    case SearchForAnyOutPatientClinic
+    case WorkingHours
+    case InvalidName
+    case InvalidNumber
+    case nameEmpty
+    case phoneEmpty
+    case NameRejecs
+    case phoneRejecs
+    case ContactUs
+    case Email
+    case inAppMessaging
+    case askAnyQuestionWithUs
+    case bookLabs
+    case featureLabCenter
+    case searchForLabCenter
+    case bookScan
+    case featureScanCenter
+    case searchForScanCenter 
+    case selectSpeciality
+    case searchForSpeciality
+    case writeSymptoms
+    case somethingHappen
+    case error
+    case InvalidAge
+    case InvalidAddress
+    case addressEmpty
+    case ageRejecs
+    case ageEmpty
+    case Jan  =  "month_jan"
+    case feb = "month_feb"
+    case mar = "month_mar"
+    case apr = "month_apr"
+    case may = "month_may"
+    case jun = "month_jun"
+    case jul = "month_jul"
+    case aug = "month_aug"
+    case sep = "month_sep"
+    case oct = "month_oct"
+    case nov = "month_nov"
+    case dec = "month_dec"
+    case searchForTest
+    case branch
+    case homeVisit
+    case Today
+    case deletedSuccessfully
+    case insurancedeletedSuccessfully
+    case AboutHospital
+    case OneDayCareServices
+    case InvalidCoupon
+    case CouponAppliedsuccessfully
+    case zero
+    case cancelled
+    case pending
+    case confirmed
+    case insuranceAdded
+    case insuranceAddedSuccessfully
+    case homeVisitBookings = "HomeVisitBookings"
+    case operationBookings = "OperationBookings"
+    case intensiveCareBooking = "IntensiveCareBooking"
+    case nurseVisit = "NurseVisit"
+    case priceInfo = "You will be informed of the price later."
+    case reservationCancelledSuccessfully
+    case reservestionCancelled
+    case orderCancelledSuccesfully
+    case orderCancelled
+    case medicalInfoUpdated
+    case medicalInfoUpdatedSuccesfully
+    case medicalGuidance
+    case note
+    case resend
+    case selectGender
+    case userUpdated
+    case userUpdatedSuccessfully
+    case pleaseAddInsuranceCardPhoto
+    case addressNotAvailable
+    case notAvailable
+    case feesNotAvailable
+    case availableOn
+    case CustomerService
+    case doctorCustomerService
+    case messagePlaceholder
+
+
+
 }
 
 extension AppLocalizedKeys {

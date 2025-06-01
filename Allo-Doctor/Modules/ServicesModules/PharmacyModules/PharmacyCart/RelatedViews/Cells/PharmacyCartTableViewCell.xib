@@ -23,7 +23,7 @@
                         <rect key="frame" x="16" y="12" width="305" height="104"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="medicine" translatesAutoresizingMaskIntoConstraints="NO" id="98G-zD-ag6">
-                                <rect key="frame" x="0.0" y="0.0" width="96" height="104"/>
+                                <rect key="frame" x="0.0" y="4" width="96" height="96"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="96" id="2sc-do-PFp"/>
                                 </constraints>
@@ -31,9 +31,9 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="jUk-w2-oTx">
                                 <rect key="frame" x="104" y="12" width="161" height="80"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="petcol fresh cough relief candies lemon &amp; honry flavor with vitamin c" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mlg-Pi-MSV">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="petcol fresh cough relief candies lemon &amp; honry flavor with vitamin c" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="mlg-Pi-MSV">
                                         <rect key="frame" x="0.0" y="0.0" width="161" height="48"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -86,12 +86,12 @@
                             </stackView>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="98G-zD-ag6" firstAttribute="top" secondItem="676-1R-K1U" secondAttribute="top" id="8Pd-xP-PAS"/>
                             <constraint firstAttribute="bottom" secondItem="jUk-w2-oTx" secondAttribute="bottom" constant="12" id="XIm-7d-Nls"/>
+                            <constraint firstItem="98G-zD-ag6" firstAttribute="top" secondItem="676-1R-K1U" secondAttribute="top" constant="4" id="bSM-Qh-eww"/>
                             <constraint firstAttribute="bottom" secondItem="hVA-At-hJh" secondAttribute="bottom" id="epf-zB-dWg"/>
                             <constraint firstItem="jUk-w2-oTx" firstAttribute="top" secondItem="676-1R-K1U" secondAttribute="top" constant="12" id="m1Z-40-ngl"/>
                             <constraint firstItem="hVA-At-hJh" firstAttribute="top" secondItem="676-1R-K1U" secondAttribute="top" id="m1e-yy-0ir"/>
-                            <constraint firstAttribute="bottom" secondItem="98G-zD-ag6" secondAttribute="bottom" id="oQf-dv-AWR"/>
+                            <constraint firstAttribute="bottom" secondItem="98G-zD-ag6" secondAttribute="bottom" constant="4" id="qqH-ia-SPk"/>
                         </constraints>
                     </stackView>
                 </subviews>
@@ -113,6 +113,9 @@
                 <outlet property="decrementButton" destination="r3Q-zU-HWc" id="Ewl-8m-H8p"/>
                 <outlet property="incrementButton" destination="DzD-ZM-pUF" id="AJS-Cb-OOb"/>
                 <outlet property="itemQuantityLabel" destination="Vbb-ep-s1Z" id="QS2-pA-aHo"/>
+                <outlet property="productImage" destination="98G-zD-ag6" id="AWB-yD-gz0"/>
+                <outlet property="productName" destination="mlg-Pi-MSV" id="Bjv-lh-buc"/>
+                <outlet property="productPrice" destination="3Y9-Bu-qer" id="RhN-Kn-RAa"/>
             </connections>
             <point key="canvasLocation" x="6.1068702290076331" y="0.0"/>
         </tableViewCell>

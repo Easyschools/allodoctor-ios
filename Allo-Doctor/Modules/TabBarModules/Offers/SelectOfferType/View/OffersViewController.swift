@@ -20,7 +20,9 @@ class OffersViewController: BaseViewController<OffersViewModel> {
     }
 
     @IBAction func pharmacyOffersAction(_ sender: Any) {
+        viewModel.navToOffers(screenType: "pharmacy")
     }
     @IBAction func doctorOffersAction(_ sender: Any) {
+        viewModel.navToOffers(screenType: "doctor")
     }
 }

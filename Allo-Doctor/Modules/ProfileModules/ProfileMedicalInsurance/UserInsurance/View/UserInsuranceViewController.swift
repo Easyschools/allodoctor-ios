@@ -10,7 +10,8 @@ import PhotosUI
 
 class UserInsuranceViewController: BaseViewController<UserInsuranceViewModel>, PHPickerViewControllerDelegate {
     @IBOutlet weak var upperView: UIView!
-    
+
+    @IBOutlet weak var insuranceProviderLabel: UILabel!
     @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var insuranceCard: UIImageView!
     @IBOutlet weak var idNumber: UITextField!
@@ -26,6 +27,10 @@ class UserInsuranceViewController: BaseViewController<UserInsuranceViewModel>, P
     override func viewDidLayoutSubviews() {
         upperView.roundCorners([.bottomLeft,.bottomRight], radius: 25)
     }
+    override func bindViewModel() {
+        bindVM()
+        bindVm()
+    }
 
     @IBAction func navBackAction(_ sender: Any) {
         viewModel.navBack()
@@ -40,10 +45,13 @@ class UserInsuranceViewController: BaseViewController<UserInsuranceViewModel>, P
         openImagePicker()
     }
     @IBAction func deleteButtonAction(_ sender: Any) {
+        viewModel.deleteImage()
         
     }
     @IBAction func selectInsurance(_ sender: Any) {
-        
+        let insuranceVC = InsuranceCompanyTableViewController()
+        insuranceVC.delegate = self
+        viewModel.coordinator?.presentModallyWithRoot(insuranceVC)
     }
 }
 extension UserInsuranceViewController{
@@ -56,7 +64,20 @@ extension UserInsuranceViewController{
             }
             .store(in: &cancellables)
   
-       
+       viewModel.$status
+           .receive(on: DispatchQueue.main)
+           .sink { [weak self] status in
+               LoadingIndicator.shared.hide()
+               guard let status = status else { return }
+               switch status {
+               case .success:
+                 
+                   self?.handleSucessViews()
+               case .failure:
+                   AlertManager.showAlert(on: self!, title:AppLocalizedKeys.error.localized, message: AppLocalizedKeys.somethingHappen.localized)
+               }
+           }
+           .store(in: &cancellables)
     }
     @objc private func openImagePicker() {
            var config = PHPickerConfiguration()
@@ -82,14 +103,15 @@ extension UserInsuranceViewController{
            viewModel.deleteImage()
        }
     func setupValidate() {
-        let isIdNumberValid = idNumber.validateNotEmpty(message: "Id number Field is required", viewController: self)
-        let isAgeValid = ageTextField.validateNotEmpty(message: "Age Field is required", viewController: self) &&
-                         ageTextField.validateNumberInRange(min: 10, max: 99, message: "Age must be between 10 and 99", viewController: self)
+        let isIdNumberValid = idNumber.validateNotEmpty(message: AppLocalizedKeys.phoneEmpty.localized, viewController: self)
+        let isAgeValid = ageTextField.validateNotEmpty(message: AppLocalizedKeys.ageEmpty.localized, viewController: self) &&
+        ageTextField.validateNumberInRange(min: 10, max: 99, message: AppLocalizedKeys.ValidAge.localized, viewController: self)
         if insuranceCard == nil {
-            AlertManager.showInternetAlert(on: self, message: "Please ADD card")
+            AlertManager.showInternetAlert(on: self, message: AppLocalizedKeys.pleaseAddInsuranceCardPhoto.localized)
         }
          
         if isIdNumberValid && isAgeValid && insuranceCard != nil {
+            LoadingIndicator.shared.show()
             viewModel.addInsurance()
         }
     }
@@ -99,22 +121,38 @@ extension UserInsuranceViewController{
     private func bindVm(){
         idNumber.bindText(to: viewModel.idNumber, storeIn: &cancellables)
         ageTextField.bindText(to: viewModel.age, storeIn: &cancellables)
+    }
+}
+extension UserInsuranceViewController:InsuranceCompanyTableViewControllerDelegate {
+    func insuranceCompanyTableViewController(_ controller: InsuranceCompanyTableViewController, didSelectItem item: InsuranceCompany) {
+        insuranceProviderLabel.text = item.name_en
+        viewModel.insuranceId.value = item.id
+        viewModel.coordinator?.dismissPresnetiontabBarNav(self)
         
-        //        daysDropDownView.selectionPublisher
-        //            .sink { [weak self] day in
-        //                self?.viewModel.day.value = day
-        //            }
-        //            .store(in: &cancellables)
-        //        monthDropDownView.selectionPublisher
-        //            .sink { [weak self] month in
-        //                let month = month.monthNumber()
-        //                self?.viewModel.month.value = month?.toString() ?? ""
-        //            }
-        //            .store(in: &cancellables)
-        //        yearsDropDownView.selectionPublisher
-        //            .sink { [weak self] year in
-        //                self?.viewModel.year.value = year
-        //            }
-        //        .store(in: &cancellables)}
+    }
+    
+    func insuranceCompanyTableViewControllerDidTapDismiss(_ controller: InsuranceCompanyTableViewController) {
+        viewModel.coordinator?.dismissPresnetiontabBarNav(self)
+    }
+}
+extension UserInsuranceViewController{
+    private func handleSucessViews(){
+        let confirmationView = ConfirmationView(frame: view.bounds)
+        confirmationView.setupView(message: AppLocalizedKeys.insuranceAdded.localized, description: AppLocalizedKeys.insuranceAddedSuccessfully.localized)
+        confirmationView.proceedActionPublisher
+            .sink { [weak self] _ in
+                self?.viewModel.navBack()
+            }
+            .store(in: &cancellables)
+        // Add it to the view controller's view
+        view.addSubview(confirmationView)
+    }
+    private func validateInputs() -> Bool {
+        // Validate name
+        guard let idNumber = idNumber.text, !idNumber.isEmpty else {
+            AlertManager.showAlert(on: self, title: AppLocalizedKeys.InvalidName.localized, message: AppLocalizedKeys.nameEmpty.localized)
+            return false
+        }
+        return true
     }
 }

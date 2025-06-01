@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -11,6 +12,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PharmaciesCartViewController" customModule="Allo_Doctor" customModuleProvider="target">
             <connections>
+                <outlet property="constraintHeight" destination="Jd7-DM-07K" id="ePB-H9-jBs"/>
+                <outlet property="navigationBackButton" destination="Eaw-et-3mc" id="ZM6-nB-EEM"/>
+                <outlet property="pharmaciesTableView" destination="5lR-Wl-U9D" id="xBh-fM-VUh"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -20,9 +24,14 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eaw-et-3mc" customClass="CustomNavigationBackButton" customModule="Allo_Doctor" customModuleProvider="target">
-                    <rect key="frame" x="16" y="50" width="79" height="30"/>
+                    <rect key="frame" x="16" y="50" width="79" height="32"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="32" id="9Ep-Bw-DNa"/>
+                    </constraints>
                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                    <state key="normal" title="My Baskets"/>
+                    <state key="normal" title="My Baskets">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="labelFontSize">
                             <real key="value" value="20"/>
@@ -30,53 +39,69 @@
                         <userDefinedRuntimeAttribute type="number" keyPath="spacingBetweenImageAndLabel">
                             <real key="value" value="5"/>
                         </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="Basket"/>
                     </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="navBackAction:" destination="-1" eventType="touchUpInside" id="g24-VT-tx0"/>
+                    </connections>
                 </button>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JpL-cn-XP0">
-                    <rect key="frame" x="0.0" y="88" width="375" height="690"/>
+                    <rect key="frame" x="0.0" y="90" width="375" height="688"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F7b-SL-WKZ">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="700.33333333333337"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="698.33333333333337"/>
                             <subviews>
-                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="T4F-m2-fjP">
-                                    <rect key="frame" x="0.0" y="16" width="375" height="472.33333333333331"/>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="T4F-m2-fjP">
+                                    <rect key="frame" x="0.0" y="24" width="375" height="521.33333333333337"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pharmacies order list" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nku-QW-mV7" customClass="CairoSemiBold" customModule="Allo_Doctor" customModuleProvider="target">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pharmacies order list" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nku-QW-mV7" customClass="CairoBold" customModule="Allo_Doctor" customModuleProvider="target">
                                             <rect key="frame" x="16" y="0.0" width="343" height="20.333333333333332"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
-                                                    <real key="value" value="18"/>
+                                                    <real key="value" value="20"/>
                                                 </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="orderList"/>
                                             </userDefinedRuntimeAttributes>
                                         </label>
-                                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="3XY-mP-K7f">
-                                            <rect key="frame" x="16" y="28.333333333333343" width="343" height="444"/>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Mp-4g-rkI">
+                                            <rect key="frame" x="0.0" y="20.333333333333343" width="375" height="1"/>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" priority="999" constant="444" id="FOS-UQ-GKl"/>
+                                                <constraint firstAttribute="height" constant="1" id="sC6-GN-QEB"/>
                                             </constraints>
-                                            <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ujw-gJ-veH">
-                                                <size key="itemSize" width="128" height="128"/>
-                                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                                <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                            </collectionViewFlowLayout>
-                                        </collectionView>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                    <color key="value" name="lighrGrey-#F2F2F2"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                    <real key="value" value="1"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </view>
+                                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="5lR-Wl-U9D">
+                                            <rect key="frame" x="0.0" y="21.333333333333371" width="375" height="500"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" priority="999" constant="500" id="Jd7-DM-07K"/>
+                                            </constraints>
+                                        </tableView>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="5lR-Wl-U9D" secondAttribute="trailing" id="1a2-Ie-9Oi"/>
                                         <constraint firstItem="nku-QW-mV7" firstAttribute="leading" secondItem="T4F-m2-fjP" secondAttribute="leading" constant="16" id="HCq-62-ZXP"/>
-                                        <constraint firstAttribute="trailing" secondItem="3XY-mP-K7f" secondAttribute="trailing" constant="16" id="VFq-QH-rlA"/>
+                                        <constraint firstItem="5lR-Wl-U9D" firstAttribute="leading" secondItem="T4F-m2-fjP" secondAttribute="leading" id="JkA-4N-x8Z"/>
+                                        <constraint firstItem="2Mp-4g-rkI" firstAttribute="leading" secondItem="T4F-m2-fjP" secondAttribute="leading" id="gKv-ym-fnJ"/>
                                         <constraint firstAttribute="trailing" secondItem="nku-QW-mV7" secondAttribute="trailing" constant="16" id="l0T-cE-ddq"/>
-                                        <constraint firstItem="3XY-mP-K7f" firstAttribute="leading" secondItem="T4F-m2-fjP" secondAttribute="leading" constant="16" id="tJw-8Z-hH4"/>
+                                        <constraint firstAttribute="trailing" secondItem="2Mp-4g-rkI" secondAttribute="trailing" id="rAg-te-Hhf"/>
                                     </constraints>
                                 </stackView>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
-                                <constraint firstItem="T4F-m2-fjP" firstAttribute="top" secondItem="F7b-SL-WKZ" secondAttribute="top" constant="16" id="6Br-7p-P14"/>
+                                <constraint firstItem="T4F-m2-fjP" firstAttribute="top" secondItem="F7b-SL-WKZ" secondAttribute="top" constant="24" id="6Br-7p-P14"/>
                                 <constraint firstAttribute="trailing" secondItem="T4F-m2-fjP" secondAttribute="trailing" id="Ae7-vZ-5Kl"/>
                                 <constraint firstItem="T4F-m2-fjP" firstAttribute="leading" secondItem="F7b-SL-WKZ" secondAttribute="leading" id="hQW-Bf-Pst"/>
                             </constraints>
@@ -113,8 +138,14 @@
         <designable name="Eaw-et-3mc">
             <size key="intrinsicContentSize" width="79" height="30"/>
         </designable>
+        <designable name="nku-QW-mV7">
+            <size key="intrinsicContentSize" width="160.33333333333334" height="20.333333333333332"/>
+        </designable>
     </designables>
     <resources>
+        <namedColor name="lighrGrey-#F2F2F2">
+            <color red="0.94900000095367432" green="0.94900000095367432" blue="0.94900000095367432" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

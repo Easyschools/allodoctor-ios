@@ -36,6 +36,7 @@
                                 <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
                                     <real key="value" value="30"/>
                                 </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="offers"/>
                             </userDefinedRuntimeAttributes>
                         </label>
                     </subviews>
@@ -57,6 +58,7 @@
                                 <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
                                     <real key="value" value="27"/>
                                 </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="ChooseYourOfferType"/>
                             </userDefinedRuntimeAttributes>
                         </label>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="IWB-vJ-iqJ">
@@ -87,6 +89,7 @@
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
                                                                     <real key="value" value="18"/>
                                                                 </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="Pharmacies"/>
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Discover exclusive discounts and special deals on a wide range of medications" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i1P-RK-rrT">
@@ -98,6 +101,7 @@
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
                                                                     <real key="value" value="13"/>
                                                                 </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="Discover exclusive discounts and special deals on a wide range of medications"/>
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
                                                     </subviews>
@@ -167,6 +171,7 @@
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
                                                                     <real key="value" value="18"/>
                                                                 </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="doctors"/>
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Take advantage of limited-time offers on consultations and specialized medical services" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nOx-ij-E8a">
@@ -178,6 +183,7 @@
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
                                                                     <real key="value" value="13"/>
                                                                 </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="Take advantage of limited-time offers on consultations and specialized medical services"/>
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
                                                     </subviews>
@@ -255,6 +261,11 @@
             <point key="canvasLocation" x="124" y="-32.512315270935964"/>
         </view>
     </objects>
+    <designables>
+        <designable name="89Y-ez-Fep">
+            <size key="intrinsicContentSize" width="47.666666666666664" height="20.333333333333332"/>
+        </designable>
+    </designables>
     <resources>
         <image name="doctorOfferIcon" width="24" height="24"/>
         <image name="pharmacyOfferIcon" width="24" height="24"/>

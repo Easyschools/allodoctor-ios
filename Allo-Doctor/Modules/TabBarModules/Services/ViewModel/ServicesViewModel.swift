@@ -12,23 +12,21 @@ class ServicesViewModel {
     @Published var images: [UIImage] = []
     @Published var services: [Service] = []
     @Published var errorMessage: String?
-    
-    var coordinator: HomeCoordinatorContact?
+    @Published var banners: [Banner]?
+    private var coordinator: HomeCoordinatorContact?
     private var cancellables = Set<AnyCancellable>()
     private var apiClient = APIClient()
-    private let imageARR = [UIImage(named: "offers"), UIImage(named: "offers"), UIImage(named: "offers")].compactMap { $0 }
     private var timer: AnyCancellable?
     private let autoScrollInterval: TimeInterval = 7
     
     init(coordinator: HomeCoordinatorContact? = nil, apiClient: APIClient = APIClient()) {
         self.coordinator = coordinator
         self.apiClient = apiClient
-        self.images = imageARR
     }
     
     func startAutoScroll() {
         stopAutoScroll() // Ensure any existing timer is cancelled
-        guard imageARR.count > 1 else { return }
+        guard banners?.count ?? 0 > 1 else { return }
         timer = Timer.publish(every: autoScrollInterval, on: .main, in: .common)
             .autoconnect()
             .sink { [weak self] _ in
@@ -42,7 +40,7 @@ class ServicesViewModel {
     }
     
     private func scrollToNextImage() {
-        currentImageIndex = (currentImageIndex + 1) % imageARR.count
+        currentImageIndex = (currentImageIndex + 1) % (banners?.count ?? 0)
     }
     
     func updateCurrentIndex(to index: Int) {
@@ -84,9 +82,41 @@ extension ServicesViewModel{
     func navToLabsAndScanSearchScreen(screenId:String){
        coordinator?.navToLabsAndScanSearchScreen(type: screenId)
     }
- 
+    func navToPharmacyHome(){
+        coordinator?.showPharmacyHome(lat: "", long: "")
+  
+    }
+    func navToHomeVisit(){
+        coordinator?.showHomeVisit()
+    }
+    func navTohomeNursing(){
+        coordinator?.showHomeNursing()
+    }
+    func showEmergency(){
+        coordinator?.showEmergency()
+    }
+    func showChatwithUs(){
+        coordinator?.showSelectChatTypeViewController()
+//        coordinator?.showChatViewController()
+    }
 }
-
+extension ServicesViewModel{
+    func getAllOffers() {
+        let router = APIRouter.fetchBanners
+        apiClient.fetchData(from: router.url, as: BannerResponse.self)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    self.errorMessage = "Failed to fetch Offers: \(error.localizedDescription)"
+                }
+            }, receiveValue: { banners in
+                self.banners = banners.data ?? []
+            })
+            .store(in: &cancellables)
+    }
+}
 
 
 

@@ -13,15 +13,12 @@ class PharmaciesCartViewModel{
     private var apiClient = APIClient()
     @Published var pharmacyId: Int?
     @Published var pharmacies: [Cart]?
-    @Published var categoryId:Int?
     
 //    @Published var productId:Int?
     
-    init(coordinator: HomeCoordinatorContact? = nil, apiClient: APIClient = APIClient(),pharmacyId:Int,categoryId:Int,product:Product) {
+    init(coordinator: HomeCoordinatorContact? = nil, apiClient: APIClient = APIClient()) {
         self.coordinator = coordinator
         self.apiClient = apiClient
-        self.pharmacyId = pharmacyId
-        self.categoryId = categoryId
        
     }}
 extension PharmaciesCartViewModel{
@@ -34,11 +31,20 @@ extension PharmaciesCartViewModel{
                         break
                     case .failure(let error):
                         print("Error: \(error)")
-                        self?.errorMessage = "Failed to fetch Pharamcy: \(error.localizedDescription)"}
+                        self?.errorMessage = "Failed to fetch Pharmacies: \(error.localizedDescription)"}
                 }, receiveValue: { [weak self]  pharmacies in
-                    
+                    self?.pharmacies = pharmacies.data
                 }).store(in: &cancellables)
             
         }
     }
 
+extension PharmaciesCartViewModel{
+    func navBack() {
+        coordinator?.navigateBack()
+    }
+    func navToPharmacyCart(pharmacyId:Int) {
+     
+        coordinator?.showPharmacyCart(pharmacyId: pharmacyId)
+    }
+}

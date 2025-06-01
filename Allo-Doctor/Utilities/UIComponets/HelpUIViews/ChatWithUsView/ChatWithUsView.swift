@@ -8,6 +8,7 @@
 import UIKit
 class ChatWithUsView:UIView{
     @IBOutlet weak var chatwthUsButton: UnderlinedButton!
+    var onChatWithUsButtonTapped: (() -> Void)?
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
@@ -18,6 +19,9 @@ class ChatWithUsView:UIView{
         commonInit()
     }
     
+    @IBAction func chatWithUsAction(_ sender: Any) {
+        onChatWithUsButtonTapped?()
+    }
     private func commonInit() {
         guard let xibView = Bundle.main.loadNibNamed("ChatWithUsView", owner: self, options: nil)?.first as? UIView else {
             return

@@ -25,21 +25,27 @@
                         <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="83z-6A-zoU">
                             <rect key="frame" x="0.0" y="0.0" width="217.66666666666666" height="25"/>
                             <subviews>
-                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="messages" translatesAutoresizingMaskIntoConstraints="NO" id="AXN-NO-XGC">
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="messagesBlack" translatesAutoresizingMaskIntoConstraints="NO" id="AXN-NO-XGC">
                                     <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="25" id="F9j-s5-Lib"/>
                                     </constraints>
                                 </imageView>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Have any medical question?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xg5-I1-oQ9">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" Contact a doctor" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xg5-I1-oQ9" customClass="CairoBold" customModule="Allo_Doctor" customModuleProvider="target">
                                     <rect key="frame" x="35" y="0.0" width="182.66666666666666" height="25"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
+                                            <real key="value" value="14"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="Contact a doctor"/>
+                                    </userDefinedRuntimeAttributes>
                                 </label>
                             </subviews>
                         </stackView>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cGv-yO-nKM" customClass="CustomUnderlinedButton" customModule="Allo_Doctor" customModuleProvider="target">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cGv-yO-nKM" customClass="CustomUnderlinedButton" customModule="Allo_Doctor" customModuleProvider="target">
                             <rect key="frame" x="222.66666666666666" y="0.0" width="71.333333333333343" height="25"/>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -50,6 +56,7 @@
                                 <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
                                     <real key="value" value="11"/>
                                 </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="chatWithUs"/>
                             </userDefinedRuntimeAttributes>
                         </button>
                     </subviews>
@@ -57,13 +64,24 @@
                         <constraint firstItem="83z-6A-zoU" firstAttribute="width" secondItem="yBW-57-Bkk" secondAttribute="width" multiplier="0.74" id="186-JS-JQ0"/>
                     </constraints>
                 </stackView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q5b-UT-ey7">
+                    <rect key="frame" x="0.0" y="0.0" width="339" height="65"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <connections>
+                        <action selector="chatWithUsAction:" destination="-1" eventType="touchUpInside" id="9ND-AV-wwj"/>
+                    </connections>
+                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
+                <constraint firstAttribute="bottom" secondItem="Q5b-UT-ey7" secondAttribute="bottom" id="85f-8F-O6f"/>
                 <constraint firstItem="yBW-57-Bkk" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="25" id="9Te-BT-vMz"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Q5b-UT-ey7" secondAttribute="trailing" id="BZB-iO-6pd"/>
+                <constraint firstItem="Q5b-UT-ey7" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Ulj-Yi-Im8"/>
                 <constraint firstAttribute="bottom" secondItem="yBW-57-Bkk" secondAttribute="bottom" constant="20" id="cdv-qT-AhZ"/>
                 <constraint firstItem="yBW-57-Bkk" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" id="reD-oT-LFa"/>
+                <constraint firstItem="Q5b-UT-ey7" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="wyy-iN-ncz"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="yBW-57-Bkk" secondAttribute="trailing" constant="20" id="xY2-SV-HFG"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
@@ -73,12 +91,15 @@
         </view>
     </objects>
     <designables>
+        <designable name="Xg5-I1-oQ9">
+            <size key="intrinsicContentSize" width="113" height="17"/>
+        </designable>
         <designable name="cGv-yO-nKM">
             <size key="intrinsicContentSize" width="71" height="27"/>
         </designable>
     </designables>
     <resources>
-        <image name="messages" width="24" height="24"/>
+        <image name="messagesBlack" width="24" height="24"/>
         <namedColor name="blueAppColor">
             <color red="0.11800000071525574" green="0.49000000953674316" blue="0.75300002098083496" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

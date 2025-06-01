@@ -7,6 +7,7 @@
 
 
 import Foundation
+import UIKit
 class MyProfileViewModel{
     var coordinator: HomeCoordinatorContact?
     init(coordinator: HomeCoordinatorContact? = nil, apiClient: APIClient = APIClient()) {
@@ -16,8 +17,27 @@ class MyProfileViewModel{
     
 }
 extension MyProfileViewModel{
-   func  navToLogin(){
-       coordinator?.showPhonenumberScreen()
+    func  navToLogin(){
+        coordinator?.showSplashScreen()
+    }
+    func navToProfileEdit(){
+        coordinator?.showProfileEdit()
+    }
+    func navToInsuranceSelect()
+    {
+        coordinator?.showAlluserInsurance()
+    }
+    func navToProfileSettings(){
+        coordinator?.showProfileSettings()
+    }
+    func showMedicalInfo(){
+        coordinator?.showProfileMedical()
+    }
+    func showFavourites(){
+        coordinator?.showProfileFavouritesViewController()
+    }
+    func showProfileSupport(){
+        coordinator?.showProfileSuppotViewController()
     }
 }
 

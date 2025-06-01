@@ -17,16 +17,10 @@ struct SubServiceResponse: Decodable {
 // MARK: - SubService
 struct SubService: Decodable {
     let id: Int
-//    let nameAr: String
-//    let nameEn: String
+    let name_ar: String
+    let name_en: String
     let name: String
-//    let slug: String
-//    let descriptionAr: String?
-//    let description: String?
-//    let descriptionEn: String?
-//    let order: Int
     let image: String?
-//    let service: Service
 }
 struct Links: Decodable {
     let first: String

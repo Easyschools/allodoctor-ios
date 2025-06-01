@@ -7,7 +7,8 @@
 
 import UIKit
 class AppointmentDoctorTimeViewController: BaseViewController<AppointmentDoctorTimeViewModel> {
-// MARK: - @IBOutlets
+    // MARK: - @IBOutlets
+    @IBOutlet weak var upperView: UIView!
     @IBOutlet weak var appoinmentCollectionViewDynamicHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var dateLabel: CairoBold!
     @IBOutlet weak var confirmationButton: CustomButton!
@@ -25,20 +26,21 @@ class AppointmentDoctorTimeViewController: BaseViewController<AppointmentDoctorT
     }
 
     override func bindViewModel() {
-        viewModel.fetchDoctorData()
+        viewModel.fetchDoctorAppointment()
         bindAppointmentData()
     }
     override func viewDidLayoutSubviews() {
         bindCollectionViewHeight()
+        upperView.roundCorners([.bottomLeft,.bottomRight], radius: 25)
     }
 
     @IBAction func confirmationButtonAction(_ sender: Any) {
-//        guard let hours = viewModel.doctorData?.appointments[0].hour[selectedIndexPath?.row ?? 0] else {return}
-//        guard let doctorData = viewModel.doctorData else {return}
-//        if selectedIndexPath != nil{
-////            viewModel.navToDoctorConfirmation(doctorData:doctorData, appointmentDay: doctorData.appointments[0].day.nameEn, appointmentHour: hours)
-//        }
-//        else {return}
+        guard let hours = viewModel.doctorData?[0].appointmentHour?[selectedIndexPath?.row ?? 0] else {return}
+        guard let doctorData = viewModel.doctor else {return}
+        if selectedIndexPath != nil{
+            viewModel.navToBookingScreen(hour:hours, appoimentDayHourId:viewModel.doctorData?[0].id ?? 0 , doctor:doctorData)
+        }
+        else {return}
     }
     @IBAction func navBackButtonAction(_ sender: Any) {
         viewModel.navigationback()
@@ -46,7 +48,12 @@ class AppointmentDoctorTimeViewController: BaseViewController<AppointmentDoctorT
 }
 extension AppointmentDoctorTimeViewController{
    private func setupViewControllerUI(){
-//        dateLabel.text = viewModel.doctorData?.appointments[0].day.nameEn
+       if UserDefaultsManager.sharedInstance.getLanguage() == .ar{
+           dateLabel.text = viewModel.date.prepend(viewModel.day.convertDayToArabic(), separator: " ")
+       }
+       else{
+           dateLabel.text = viewModel.date.prepend(viewModel.day, separator: " ")}
+       
     }
    private func SetupCollectionView(){
        appointmentsCollectionView.dataSource = self
@@ -69,24 +76,51 @@ extension AppointmentDoctorTimeViewController{
 // MARK: - CollectionView Methods
 extension AppointmentDoctorTimeViewController:UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return viewModel.doctorData?.first?.appointmentHour?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeue(indexpath: indexPath) as DoctorAppointmentsCollectionViewCell
-//        cell.appointmentTime.text = viewModel.doctorData?.appointments[0].hour[safe: indexPath.row]?.from.convertTo12HourFormat()
-        if indexPath == selectedIndexPath {
-            cell.backgroundColor = .appColor
-                 cell.appointmentTime.textColor = .white
-                } else {
-                    cell.backgroundColor = .lightGreyD9D9D9
-                    cell.appointmentTime.textColor = .black
-                }
-        return cell
+          
+          // Get the appointment hour
+          let appointmentHour = viewModel.doctorData?[0].appointmentHour?[indexPath.row]
+          
+          // Safely convert the time to 12-hour format
+          let appointmentTimeText = appointmentHour?.from?.convertTo12HourFormat() ?? "--:--"
+          
+          // Check if the appointment has been booked
+          if appointmentHour?.hasBooking == true {
+              cell.isUserInteractionEnabled = false
+              cell.backgroundColor = .lightGray
+              cell.appointmentTime.textColor = .darkGray
+              
+              // Apply strikethrough to the text
+              let attributedText = NSAttributedString(
+                  string: appointmentTimeText,
+                  attributes: [
+                      .strikethroughStyle: NSUnderlineStyle.single.rawValue,
+                      .foregroundColor: UIColor.darkGray
+                  ]
+              )
+              cell.appointmentTime.attributedText = attributedText
+          } else {
+              // Revert styles for selectable cells
+              cell.isUserInteractionEnabled = true
+              cell.backgroundColor = indexPath == selectedIndexPath ? .appColor : .lightGreyD9D9D9
+              cell.appointmentTime.textColor = indexPath == selectedIndexPath ? .white : .black
+              
+              // Ensure no strikethrough for available cells
+              cell.appointmentTime.attributedText = nil
+              cell.appointmentTime.text = appointmentTimeText
+          }
+          
+          return cell
     }
+
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let appoinments = 3
-        if appoinments == 1{
+        let appoinments = viewModel.doctorData?[0].appointmentHour?.count
+        if appoinments == 1 {
             return CGSize(width: collectionView.frame.width, height: 40)}
         else if appoinments == 2 {
             return CGSize(width: collectionView.frame.width*0.45, height: 40)

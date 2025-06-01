@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 // MARK: - PharmacyProductViewModel
 class PharmacyProductViewModel {
     // MARK: - Private Properties
@@ -17,13 +18,27 @@ class PharmacyProductViewModel {
     @Published var products: [Product]?
     @Published var grandTotalData: PharmacyCartData?
     @Published var categoryId: Int?
-
+    @Published var searchText = ""
     // MARK: - Initialization
-    init(coordinator: HomeCoordinatorContact? = nil, apiClient: APIClient = APIClient(), pharmacyId: Int, categoryId: Int) {
+    init(coordinator: HomeCoordinatorContact? = nil,
+         apiClient: APIClient = APIClient(),
+         pharmacyId: Int,
+         categoryId: Int? = nil) {
         self.coordinator = coordinator
         self.apiClient = apiClient
         self.pharmacyId = pharmacyId
         self.categoryId = categoryId
+        setupSearchSubscription()
+    }
+
+    private func setupSearchSubscription() {
+        $searchText
+            .debounce(for: .milliseconds(300), scheduler: DispatchQueue.main)
+            .removeDuplicates()
+            .sink { [weak self] searchText in
+                self?.getProducts(pharmacyId:self?.pharmacyId ?? 1, categoryIds:self?.categoryId ?? 0, search: searchText)
+            }
+            .store(in: &cancellables)
     }
 }
 
@@ -31,13 +46,27 @@ class PharmacyProductViewModel {
 extension PharmacyProductViewModel {
     // MARK: - Public Method
     func getProducts() {
-        getProducts(pharmacyId: pharmacyId ?? 1, categoryId: categoryId ?? 0)
+        if categoryId == nil {
+            getProducts(pharmacyId: pharmacyId ?? 1, categoryIds: categoryId ?? 0, search: "")
+        }
+        else{
+            getProducts(pharmacyId: pharmacyId ?? 1, categoryIds: categoryId ?? 0, search: "")}
     }
 
     // MARK: - Private Method
-    private func getProducts(pharmacyId: Int, categoryId: Int) {
-        let router = APIRouter.fetchProducts(isPaginate: 15, categoryId: categoryId, pharmacyId: pharmacyId)
+    private func getProducts(pharmacyId: Int, categoryIds: Int?, search: String) {
+        let router: APIRouter
+        
+        if let categoryId = categoryId {
+            // Use categoryId if it's not nil
+            router = APIRouter.fetchProducts(isPaginate: 15, categoryId: categoryId, pharmacyId: pharmacyId, search: search)
+        } else {
+            // Fetch all products if categoryId is nil
+            router = APIRouter.fetchAllProducts(isPaginate: 15, pharmacyId: pharmacyId, search: search)
+        }
+        
         print(router.url)
+        
         apiClient.fetchData(from: router.url, as: ProductResponse.self)
             .sink(receiveCompletion: { [weak self] completion in
                 switch completion {
@@ -45,7 +74,7 @@ extension PharmacyProductViewModel {
                     break
                 case .failure(let error):
                     print("Error: \(error)")
-                    self?.errorMessage = "Failed to fetch Pharamcy: \(error.localizedDescription)"
+                    self?.errorMessage = "Failed to fetch Pharmacy: \(error.localizedDescription)"
                 }
             }, receiveValue: { [weak self] products in
                 self?.products = products.data
@@ -53,6 +82,7 @@ extension PharmacyProductViewModel {
             })
             .store(in: &cancellables)
     }
+
 }
 
 // MARK: - Cart Fetching
@@ -65,7 +95,7 @@ extension PharmacyProductViewModel {
 
     // MARK: - Private Method
     private func getGrandTotal(pharmacyId: Int) {
-        let router = APIRouter.fetchPharmacyCart(pharmacyId: pharmacyId)
+        let router = APIRouter.fetchPharmacyCart(pharmacyId: pharmacyId, couponId: "")
         apiClient.fetchData(from: router.url, as: PharmacyCartResponse.self)
             .sink(receiveCompletion: { [weak self] completion in
                 switch completion {
@@ -78,8 +108,8 @@ extension PharmacyProductViewModel {
                     print (error)
                 }
             }, receiveValue: { [weak self] cart in
-                if cart.data.count > 0{
-                    self?.grandTotalData = cart.data[0]}
+                if cart.data?.count ?? 0 > 0{
+                    self?.grandTotalData = cart.data?[0]}
                 else {
                     return
                 }
@@ -91,8 +121,8 @@ extension PharmacyProductViewModel {
 // MARK: - Navigation
 extension PharmacyProductViewModel {
     // MARK: - Public Methods
-    func productDetailsPresent(product: Product) {
-        coordinator?.showProductDetailsViewController(pharmacyId: pharmacyId ?? 0, categoryId: categoryId ?? 0, product: product)
+    func productDetailsPresent(product: Product,viewController:UIViewController) {
+        coordinator?.showProductDetailsViewController(pharmacyId: pharmacyId ?? 0, categoryId: categoryId ?? 0, product: product, viewControllerDelgate: viewController)
     }
 
     func navToPharmacyCart() {
@@ -103,4 +133,8 @@ extension PharmacyProductViewModel {
         }
         coordinator?.showPharmacyCart(pharmacyId: safePharmacyId)
     }
+    func navBack(){
+        coordinator?.navigateBack()
+    }
 }
+

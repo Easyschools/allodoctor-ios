@@ -7,17 +7,42 @@
 
 import UIKit
 class PharmacyCategoryViewController: BaseViewController<PharmacyCategoryViewModel> {
+    @IBOutlet weak var heartButton: UIButton!
     @IBOutlet weak var backButton: CustomNavigationBackButton!
     @IBOutlet weak var uploadPrescriptionView: UIView!
+    @IBOutlet weak var searchView: CustomSearchBar!
     @IBOutlet weak var categoryCollectionView: UICollectionView!
     @IBOutlet weak var categoryCollectionViewDynamicHeightConstraint: NSLayoutConstraint!
     override func viewDidLoad() {
         super.viewDidLoad()
      
     }
+    @IBAction func navBackAction(_ sender: Any) {
+        viewModel.navBack()
+    }
+    @IBAction func navToPharmacyCart(_ sender: Any) {
+        viewModel.navToPharmacyCart()
+    }
+    @IBAction func showUploadPrescriptionAction(_ sender: Any) {
+        viewModel.showUploadPrescription()
+    }
+    @IBAction func heartButtonAction(_ sender: Any) {
+        if heartButton.tag == 0 {
+                  // Switch to filled heart
+            heartButton.setImage(UIImage.heartFilled, for: .normal)
+                  heartButton.tag = 1
+              } else {
+                  // Switch back to unfilled heart
+                  heartButton.setImage(UIImage.heartBlue, for: .normal)
+                  heartButton.tag = 0
+              }
+        viewModel.addToFav()
+    }
     override func bindViewModel() {
         bindPhamracyData()
         viewModel.getPharmacy()
+        bindSearchBarButton()
+        viewModel.fetchPharmacyFavourite()
     }
     override func setupUI() {
         setupCollectionView()
@@ -27,6 +52,7 @@ class PharmacyCategoryViewController: BaseViewController<PharmacyCategoryViewMod
 }
 extension PharmacyCategoryViewController{
     private func setupViewControllerUI() {
+        searchView.searchTextfield.placeholder = AppLocalizedKeys.searchForPharmacyOrProduct.localized
         backButton.tintColor = .black
         backButton.setTitleColor(.black, for: .normal)
         uploadPrescriptionView.applyDropShadow()
@@ -57,7 +83,12 @@ extension PharmacyCategoryViewController:UICollectionViewDelegate,UICollectionVi
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeue(indexpath: indexPath) as CategoryCollectionViewCell
         let data = viewModel.pharmacy?.categories[indexPath.row]
-        cell.setupCell(imageURLString:data?.mainImage ?? "" , name: data?.nameEn ?? "")
+        if UserDefaultsManager.sharedInstance.getLanguage() == .ar{
+            cell.setupCell(imageURLString:data?.mainImage ?? "" , name: data?.nameAr ?? "")
+
+        }
+        else {
+            cell.setupCell(imageURLString:data?.mainImage ?? "" , name: data?.nameEn ?? "")}
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -88,12 +119,32 @@ extension PharmacyCategoryViewController{
             .sink { pharmacies in
                 self.categoryCollectionView.reloadData()
             }.store(in: &cancellables)
+        viewModel.$favData
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] data in
+                guard let self = self else { return }
+                
+                // Safely check if `data` is non-nil and contains at least one element
+                if let firstItem = data?.first, firstItem.id != nil {
+                    self.heartButton.setImage(.heartFilled, for: .normal)
+                } else {
+                    // Optional: Set the button to an unselected state if no valid data is found
+                    self.heartButton.setImage(.heartBlue, for: .normal)
+                }
+            }
+            .store(in: &cancellables)
     }
+    
 }
 
 extension PharmacyCategoryViewController{
-    func didDismissModal() {
-         
+ 
+    private func bindSearchBarButton() {
+        searchView.navButtonTapped
+            .sink { [weak self] in
+                self?.viewModel.navToProductsSerarh()
+            }
+            .store(in: &cancellables)
     }
 }
 

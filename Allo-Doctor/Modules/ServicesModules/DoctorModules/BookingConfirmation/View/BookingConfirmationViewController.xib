@@ -14,10 +14,16 @@
             <connections>
                 <outlet property="adressLabel" destination="biZ-CJ-HsH" id="fgg-uc-yJZ"/>
                 <outlet property="appointmentDayLabel" destination="LDL-Y2-ACQ" id="ilH-Z3-CBF"/>
+                <outlet property="appointmentTime" destination="euC-oe-ciK" id="clB-lT-N0l"/>
+                <outlet property="chooseAnotherPatient" destination="aOm-nt-i4f" id="0z8-pc-rE2"/>
+                <outlet property="doctorImage" destination="QOc-AW-i9U" id="gKn-Pq-VET"/>
                 <outlet property="doctorNameLabel" destination="eB1-QM-gXL" id="Dmw-dM-h07"/>
                 <outlet property="feesLabel" destination="f7c-vi-z7e" id="WVp-zS-Um0"/>
                 <outlet property="fromToLabel" destination="euC-oe-ciK" id="Kiq-mj-GQN"/>
+                <outlet property="nameTextField" destination="dy8-Z4-mlm" id="sGx-En-QVw"/>
+                <outlet property="phoneNumberTextField" destination="4fL-xf-ivd" id="psB-7O-0tR"/>
                 <outlet property="titleLabel" destination="S5T-1f-lxT" id="ZkC-rJ-wev"/>
+                <outlet property="upperView" destination="UPN-El-PoR" id="rjv-G0-IlG"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -41,6 +47,7 @@
                                 <userDefinedRuntimeAttribute type="number" keyPath="spacingBetweenImageAndLabel">
                                     <real key="value" value="5"/>
                                 </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="Confirmation"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="navBackButtonAction:" destination="-1" eventType="touchUpInside" id="c2Y-sd-0fs"/>
@@ -129,9 +136,10 @@
                                                                                         <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
                                                                                             <real key="value" value="14"/>
                                                                                         </userDefinedRuntimeAttribute>
+                                                                                        <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="fullName"/>
                                                                                     </userDefinedRuntimeAttributes>
                                                                                 </label>
-                                                                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Mohamad samy ahmed" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dy8-Z4-mlm">
+                                                                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Your Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dy8-Z4-mlm">
                                                                                     <rect key="frame" x="0.0" y="26" width="310.33333333333331" height="45"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="height" constant="45" id="W2s-8W-HkW"/>
@@ -151,6 +159,7 @@
                                                                                         <userDefinedRuntimeAttribute type="color" keyPath="placeHolderColor">
                                                                                             <color key="value" name="placeHolderGrey#818181"/>
                                                                                         </userDefinedRuntimeAttribute>
+                                                                                        <userDefinedRuntimeAttribute type="string" keyPath="xibLocPlaceholderKey" value="Enter Your Name"/>
                                                                                     </userDefinedRuntimeAttributes>
                                                                                 </textField>
                                                                             </subviews>
@@ -167,6 +176,7 @@
                                                                                         <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
                                                                                             <real key="value" value="14"/>
                                                                                         </userDefinedRuntimeAttribute>
+                                                                                        <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="mobileNumber"/>
                                                                                     </userDefinedRuntimeAttributes>
                                                                                 </label>
                                                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="3Rt-cu-bw4">
@@ -218,7 +228,7 @@
                                                                                                 </userDefinedRuntimeAttribute>
                                                                                             </userDefinedRuntimeAttributes>
                                                                                         </view>
-                                                                                        <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="1010459197" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4fL-xf-ivd">
+                                                                                        <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Your Number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4fL-xf-ivd">
                                                                                             <rect key="frame" x="88.000000000000014" y="0.0" width="222.33333333333337" height="45"/>
                                                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                                             <textInputTraits key="textInputTraits" keyboardType="phonePad" returnKeyType="done"/>
@@ -235,6 +245,7 @@
                                                                                                 <userDefinedRuntimeAttribute type="color" keyPath="placeHolderColor">
                                                                                                     <color key="value" name="placeHolderGrey#818181"/>
                                                                                                 </userDefinedRuntimeAttribute>
+                                                                                                <userDefinedRuntimeAttribute type="string" keyPath="xibLocPlaceholderKey" value="Enter Your Number"/>
                                                                                             </userDefinedRuntimeAttributes>
                                                                                         </textField>
                                                                                     </subviews>
@@ -249,18 +260,14 @@
                                                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="peJ-Br-exk">
                                                                     <rect key="frame" x="0.0" y="172" width="310.33333333333331" height="24"/>
                                                                     <subviews>
-                                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aOm-nt-i4f">
+                                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aOm-nt-i4f" customClass="SelectableButton" customModule="Allo_Doctor" customModuleProvider="target">
                                                                             <rect key="frame" x="0.0" y="0.0" width="24" height="24"/>
                                                                             <color key="backgroundColor" name="lightGrey-#D9D9D9"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" constant="24" id="IKa-jW-0Vb"/>
+                                                                                <constraint firstAttribute="height" constant="24" id="MBQ-4Q-RV1"/>
                                                                             </constraints>
                                                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                                            <userDefinedRuntimeAttributes>
-                                                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                                    <real key="value" value="10"/>
-                                                                                </userDefinedRuntimeAttribute>
-                                                                            </userDefinedRuntimeAttributes>
                                                                         </button>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Make reservation for someone else" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fMh-lf-8WK" customClass="CairoRegular" customModule="Allo_Doctor" customModuleProvider="target">
                                                                             <rect key="frame" x="32" y="3.6666666666666288" width="278.33333333333331" height="17"/>
@@ -271,6 +278,7 @@
                                                                                 <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
                                                                                     <real key="value" value="14"/>
                                                                                 </userDefinedRuntimeAttribute>
+                                                                                <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="Make reservation for someone else"/>
                                                                             </userDefinedRuntimeAttributes>
                                                                         </label>
                                                                     </subviews>
@@ -342,6 +350,7 @@
                                                                                 <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
                                                                                     <real key="value" value="14"/>
                                                                                 </userDefinedRuntimeAttribute>
+                                                                                <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="Confirmation required."/>
                                                                             </userDefinedRuntimeAttributes>
                                                                         </label>
                                                                     </subviews>
@@ -387,6 +396,7 @@
                                                                         <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
                                                                             <real key="value" value="14"/>
                                                                         </userDefinedRuntimeAttribute>
+                                                                        <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="Location"/>
                                                                     </userDefinedRuntimeAttributes>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Maadi square" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="biZ-CJ-HsH" customClass="CairoRegular" customModule="Allo_Doctor" customModuleProvider="target">
@@ -438,6 +448,7 @@
                                                                         <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
                                                                             <real key="value" value="14"/>
                                                                         </userDefinedRuntimeAttribute>
+                                                                        <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="fees"/>
                                                                     </userDefinedRuntimeAttributes>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="500 EGP" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f7c-vi-z7e" customClass="CairoRegular" customModule="Allo_Doctor" customModuleProvider="target">
@@ -492,6 +503,7 @@
                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                             <real key="value" value="10"/>
                                         </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="Confirm"/>
                                     </userDefinedRuntimeAttributes>
                                     <connections>
                                         <action selector="confirmationBookingAction:" destination="-1" eventType="touchUpInside" id="IYj-zg-b3u"/>

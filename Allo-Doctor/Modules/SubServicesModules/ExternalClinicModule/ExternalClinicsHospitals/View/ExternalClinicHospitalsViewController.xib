@@ -1,22 +1,214 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13142" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12042"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ExternalClinicHospitalsViewController" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ExternalClinicHospitalsViewController" customModule="Allo_Doctor" customModuleProvider="target">
             <connections>
+                <outlet property="citiesView" destination="iJg-jv-dqN" id="553-OY-gTK"/>
+                <outlet property="hospitablsCollectionView" destination="Ei9-eL-fKR" id="hpv-rV-6BK"/>
+                <outlet property="navBack" destination="nXU-dU-HHR" id="upl-4a-WVd"/>
+                <outlet property="searchBar" destination="ipC-Tz-pPo" id="y9X-6D-XMX"/>
+                <outlet property="upperView" destination="aOy-xJ-dph" id="6kW-8a-4wz"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aOy-xJ-dph">
+                    <rect key="frame" x="0.0" y="0.0" width="393" height="227"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nXU-dU-HHR" customClass="CustomNavigationBackButton" customModule="Allo_Doctor" customModuleProvider="target">
+                            <rect key="frame" x="16" y="59" width="64" height="32"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="32" id="JyW-Nk-QKy"/>
+                            </constraints>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" title="Hospitals">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="labelFontSize">
+                                    <real key="value" value="20"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="spacingBetweenImageAndLabel">
+                                    <real key="value" value="5"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="navBack:" destination="-1" eventType="touchUpInside" id="vWE-7f-v56"/>
+                            </connections>
+                        </button>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="hsu-9c-R9O">
+                            <rect key="frame" x="16" y="107" width="361" height="90"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iJg-jv-dqN" customClass="CustomDropDownList" customModule="Allo_Doctor" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="361" height="40"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7eV-IG-tgp">
+                                            <rect key="frame" x="0.0" y="0.0" width="361" height="40"/>
+                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                            <connections>
+                                                <action selector="selectAreaAction:" destination="-1" eventType="touchUpInside" id="uYh-6l-xZc"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="7eV-IG-tgp" secondAttribute="bottom" id="7J9-3f-fPt"/>
+                                        <constraint firstAttribute="trailing" secondItem="7eV-IG-tgp" secondAttribute="trailing" id="HPz-qV-tEy"/>
+                                        <constraint firstItem="7eV-IG-tgp" firstAttribute="leading" secondItem="iJg-jv-dqN" secondAttribute="leading" id="Paj-f5-pQb"/>
+                                        <constraint firstItem="7eV-IG-tgp" firstAttribute="top" secondItem="iJg-jv-dqN" secondAttribute="top" id="nhs-LE-dbX"/>
+                                    </constraints>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="10"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                            <color key="value" name="lightGrey-#D9D9D9"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                            <real key="value" value="1"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ipC-Tz-pPo" customClass="SearchView" customModule="Allo_Doctor" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="50" width="361" height="40"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="10"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                            <color key="value" name="lightGrey-#D9D9D9"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                            <real key="value" value="1"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </view>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="90" id="31T-S6-kgF"/>
+                            </constraints>
+                        </stackView>
+                    </subviews>
+                    <color key="backgroundColor" name="blueAppColor"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="hsu-9c-R9O" secondAttribute="bottom" constant="30" id="9dX-y8-rJA"/>
+                        <constraint firstItem="hsu-9c-R9O" firstAttribute="top" secondItem="nXU-dU-HHR" secondAttribute="bottom" constant="16" id="CVq-IU-cjd"/>
+                        <constraint firstAttribute="trailing" secondItem="hsu-9c-R9O" secondAttribute="trailing" constant="16" id="KhL-Cb-eeJ"/>
+                        <constraint firstItem="hsu-9c-R9O" firstAttribute="leading" secondItem="aOy-xJ-dph" secondAttribute="leading" constant="16" id="R1C-le-qCu"/>
+                        <constraint firstItem="nXU-dU-HHR" firstAttribute="leading" secondItem="aOy-xJ-dph" secondAttribute="leading" constant="16" id="Uf9-by-1QJ"/>
+                    </constraints>
+                </view>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="KYz-7M-cr2">
+                    <rect key="frame" x="0.0" y="251" width="393" height="567"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hospitals" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mYD-mN-ufu" customClass="CairoBold" customModule="Allo_Doctor" customModuleProvider="target">
+                            <rect key="frame" x="16" y="0.0" width="361" height="24"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="24" id="oar-Ui-ugy"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
+                                    <real key="value" value="18"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="Hospitals"/>
+                            </userDefinedRuntimeAttributes>
+                        </label>
+                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y3s-zA-m69">
+                            <rect key="frame" x="0.0" y="24" width="393" height="543"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WER-ZC-7Tp">
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="543.66666666666663"/>
+                                    <subviews>
+                                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Ei9-eL-fKR">
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="543.66666666666663"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                            <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="sNy-Vx-ep1">
+                                                <size key="itemSize" width="128" height="128"/>
+                                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                            </collectionViewFlowLayout>
+                                        </collectionView>
+                                    </subviews>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    <constraints>
+                                        <constraint firstItem="Ei9-eL-fKR" firstAttribute="leading" secondItem="WER-ZC-7Tp" secondAttribute="leading" id="Brp-fN-vWT"/>
+                                        <constraint firstAttribute="bottom" secondItem="Ei9-eL-fKR" secondAttribute="bottom" id="EgG-OF-zoN"/>
+                                        <constraint firstAttribute="trailing" secondItem="Ei9-eL-fKR" secondAttribute="trailing" id="thH-0a-C8f"/>
+                                        <constraint firstItem="Ei9-eL-fKR" firstAttribute="top" secondItem="WER-ZC-7Tp" secondAttribute="top" id="zWp-Xv-pnX"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="WER-ZC-7Tp" secondAttribute="trailing" id="6B6-cV-zhF"/>
+                                <constraint firstItem="WER-ZC-7Tp" firstAttribute="leading" secondItem="Y3s-zA-m69" secondAttribute="leading" id="DRF-kF-xxA"/>
+                                <constraint firstItem="WER-ZC-7Tp" firstAttribute="top" secondItem="Y3s-zA-m69" secondAttribute="top" id="fJY-k7-IAq"/>
+                                <constraint firstItem="WER-ZC-7Tp" firstAttribute="height" secondItem="Y3s-zA-m69" secondAttribute="height" multiplier="1.0015" id="jfg-hm-mND"/>
+                                <constraint firstAttribute="bottom" secondItem="WER-ZC-7Tp" secondAttribute="bottom" id="sCu-Vb-zYH"/>
+                                <constraint firstItem="WER-ZC-7Tp" firstAttribute="width" secondItem="Y3s-zA-m69" secondAttribute="width" id="xMP-Dh-Tz9"/>
+                            </constraints>
+                            <viewLayoutGuide key="contentLayoutGuide" id="cUG-No-9Mo"/>
+                            <viewLayoutGuide key="frameLayoutGuide" id="P50-9j-hKU"/>
+                        </scrollView>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="mYD-mN-ufu" firstAttribute="leading" secondItem="KYz-7M-cr2" secondAttribute="leading" constant="16" id="L5P-J1-OFx"/>
+                        <constraint firstAttribute="trailing" secondItem="mYD-mN-ufu" secondAttribute="trailing" constant="16" id="Q23-j8-9IZ"/>
+                        <constraint firstItem="Y3s-zA-m69" firstAttribute="leading" secondItem="KYz-7M-cr2" secondAttribute="leading" id="Uqb-hm-CZ9"/>
+                        <constraint firstAttribute="trailing" secondItem="Y3s-zA-m69" secondAttribute="trailing" id="iQ0-W8-SPu"/>
+                    </constraints>
+                </stackView>
+            </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="KYz-7M-cr2" secondAttribute="trailing" id="Hbt-YW-Oe7"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="top" secondItem="nXU-dU-HHR" secondAttribute="top" id="K2k-bZ-0SH"/>
+                <constraint firstItem="KYz-7M-cr2" firstAttribute="top" secondItem="aOy-xJ-dph" secondAttribute="bottom" constant="24" id="ZfF-ez-Hfz"/>
+                <constraint firstItem="aOy-xJ-dph" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="dhV-BF-iub"/>
+                <constraint firstItem="aOy-xJ-dph" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="eeX-sf-86W"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="aOy-xJ-dph" secondAttribute="trailing" id="qN4-Zb-UdW"/>
+                <constraint firstItem="KYz-7M-cr2" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="qPh-Kq-WdX"/>
+                <constraint firstItem="KYz-7M-cr2" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="ug7-gM-xfR"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="-95.419847328244273" y="-1.4084507042253522"/>
         </view>
     </objects>
+    <designables>
+        <designable name="mYD-mN-ufu">
+            <size key="intrinsicContentSize" width="71.333333333333329" height="20.333333333333332"/>
+        </designable>
+        <designable name="nXU-dU-HHR">
+            <size key="intrinsicContentSize" width="64" height="30"/>
+        </designable>
+    </designables>
+    <resources>
+        <namedColor name="blueAppColor">
+            <color red="0.11800000071525574" green="0.49000000953674316" blue="0.75300002098083496" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="lightGrey-#D9D9D9">
+            <color red="0.85100001096725464" green="0.85100001096725464" blue="0.85100001096725464" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

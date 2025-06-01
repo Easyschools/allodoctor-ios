@@ -43,4 +43,10 @@ extension SubServiceViewModel{
     func showHospitalSearch(){
         coordinator?.showHospitalSearch()
     }
+    func showEmergency(){
+        coordinator?.showEmergency()
+    }
+    func showChat(){
+        coordinator?.showSelectChatTypeViewController()
+    }
 }

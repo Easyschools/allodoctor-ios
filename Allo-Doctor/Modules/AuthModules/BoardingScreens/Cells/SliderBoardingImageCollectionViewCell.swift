@@ -14,6 +14,9 @@ class SliderBoardingImageCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
        
     }
+    override func layoutSubviews() {
+        contentView.roundCorners([.bottomLeft,.bottomRight], radius: 25)
+    }
     func configure(with image: UIImage) {
         onBoardingImage.image = image
        }

@@ -12,33 +12,61 @@ class UserAddressViewModel{
         @Published var errorMessage: String?
         private var apiClient = APIClient()
         @Published var userAddresses : [UserAddress]?
-        
+        @Published var lat : String
+        @Published var long : String
+       var address = CurrentValueSubject<String, Never>("")
+       var floor = CurrentValueSubject<String, Never>("")
+       var appartmentNumber = CurrentValueSubject<String, Never>("")
+  
     //    @Published var productId:Int?
         
-        init(coordinator: HomeCoordinatorContact? = nil, apiClient: APIClient = APIClient()) {
+    init(coordinator: HomeCoordinatorContact? = nil, apiClient: APIClient = APIClient(),lat:String,long:String) {
             self.coordinator = coordinator
             self.apiClient = apiClient
-       
-           
+            self.lat = lat
+            self.long = long
         }}
     extension UserAddressViewModel{
-    func getUserAddresses(){
-            let router = APIRouter.fetchUserAddresses
-                apiClient.fetchData(from: router.url, as: UserAddressResponse.self)
-                    .sink(receiveCompletion: { [weak self] completion in
-                        switch completion {
-                        case .finished:
-                            break
-                        case .failure(let error):
-                            print("Error: \(error)")
-                            self?.errorMessage = "Failed to fetch Pharamcy: \(error.localizedDescription)"}
-                    }, receiveValue: { [weak self]  address in
-                        self?.userAddresses = address.data
-                    }).store(in: &cancellables)
-                
-            }
-        
+    func addUserAdress(){
+       postUserAdress()
         }
+   private  func  postUserAdress(){
+       let addressBody = UserAddressBody(
+               lat: lat,
+               long: long,
+               floor: floor.value,
+               address: address.value,
+               appartment_number: appartmentNumber.value.toInt() ?? 1
+           )
+       print(addressBody)
+         NetworkService.shared.postData(endpoint:"admin/address-user/create", data: addressBody) { result in
+             switch result {
+             case .success(let data):
+                 do {
+                     let decoder = JSONDecoder()
+                     let response = try decoder.decode(UserAddressResponseData.self, from: data)
+              print (response)
+                     self.navToRoot()
+                 } catch {
+                     self.errorMessage = "Failed to parse server response."
+                     print("Decoding error: \(error.localizedDescription)")
+                 }
+                 
+             case .failure(let error):
+                 print(error)
+               return
+             }
+         }
+    }
+        
+}
 
 
-
+extension UserAddressViewModel{
+   func navBack(){
+       coordinator?.navigationBack()
+    }
+    func navToRoot(){
+        coordinator?.navigateToRootFromPresentation()
+    }
+}

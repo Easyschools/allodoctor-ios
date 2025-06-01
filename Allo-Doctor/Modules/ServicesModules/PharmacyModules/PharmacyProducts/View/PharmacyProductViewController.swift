@@ -11,6 +11,7 @@ class PharmacyProductViewController: BaseViewController<PharmacyProductViewModel
 
     @IBOutlet weak var upperView: UIView!
     @IBOutlet weak var proceedToBasketView: UIView!
+    @IBOutlet weak var searchTextfield: SearchView!
     @IBOutlet weak var noOfItems: CairoRegular!
     @IBOutlet weak var productsStackView: UIStackView!
     @IBOutlet weak var totalPrice: CairoBold!
@@ -28,28 +29,31 @@ class PharmacyProductViewController: BaseViewController<PharmacyProductViewModel
         bindProductsData()
         bindGrandTotal()
         grandTotalViewCheck()
-        proceedToBasketView.isHidden = true
-
-       
+        
     }
     override func viewDidLayoutSubviews() {
-        upperView.applyDropShadow()
     }
     override func setupUI() {
         setupViewControllerUI()
         bindProductsData()
+         setupSearchBar()
+     
 
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        viewModel.getGrandTotal()
-//        bindProductsData()
-//        bindGrandTotal()
-    
+        viewModel.getGrandTotal()
+        grandTotalViewCheck()
     }
  
+    @IBAction func navBack(_ sender: Any) {
+        viewModel.navBack()
+    }
     @IBAction func proceedToBasketAction(_ sender: Any) {
+        proceedToBasketView.isHidden = true
+        viewModel.grandTotalData = nil
         viewModel.navToPharmacyCart()
+        
     }
 }
 extension PharmacyProductViewController{
@@ -85,8 +89,10 @@ extension PharmacyProductViewController:UICollectionViewDelegate,UICollectionVie
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
        let cell = collectionView.dequeue(indexpath: indexPath) as ProductsCollectionViewCell
-        let product = viewModel.products?[indexPath.row].medication
-        cell.setup(with: product?.mainImage ?? "", name: product?.nameEn ?? "", price: product?.price ?? "")
+        let product = viewModel.products?[indexPath.row]
+        if UserDefaultsManager.sharedInstance.getLanguage() == .ar{
+            cell.setup(with: product?.mainImage ?? "", name: product?.nameAr ?? "", price: product?.medicationPharmacies?[0].price ?? "")}
+        else {  cell.setup(with: product?.mainImage ?? "", name: product?.nameEn ?? "", price: product?.medicationPharmacies?[0].price ?? "")}
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -96,7 +102,7 @@ extension PharmacyProductViewController:UICollectionViewDelegate,UICollectionVie
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let product = viewModel.products?[indexPath.row] else {return}
         vibrate()
-        viewModel.productDetailsPresent(product:product)
+        viewModel.productDetailsPresent(product:product, viewController: self)
     }
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
@@ -112,6 +118,11 @@ extension PharmacyProductViewController:UICollectionViewDelegate,UICollectionVie
 }
 // MARK: ViewModel Binding phamrmacies Data
 extension PharmacyProductViewController{
+    private func checkGrandTotal(){
+        
+      
+             
+    }
     private func bindProductsData(){
         viewModel.$products
             .receive(on: DispatchQueue.main)
@@ -121,8 +132,15 @@ extension PharmacyProductViewController{
         viewModel.$grandTotalData
             .receive(on: DispatchQueue.main)
             .sink { [self] total in
-                totalPrice.text = total?.totalPrice
-                noOfItems.text = total?.items.count.toString()
+                if total?.totalQuantity == nil {
+                    proceedToBasketView.isHidden = true
+                }
+                else{
+                    proceedToBasketView.isHidden = false
+                    totalPrice.text = (total?.totalPrice ?? "Zero").appendingWithSpace(AppLocalizedKeys.EGP.localized)
+                    noOfItems.text = total?.totalQuantity.toString().prepend(AppLocalizedKeys.quantity.localized, separator: " ")
+                }
+              
             }.store(in: &cancellables)
     }
     func vibrate() {
@@ -139,15 +157,25 @@ extension PharmacyProductViewController{
                     .store(in: &cancellables)
     }
    private  func grandTotalViewCheck(){
-       if viewModel.grandTotalData?.items.count == 0 {
-           proceedToBasketView.isHidden = true
-       }
-       else {
-           proceedToBasketView.isHidden = false
-       }
+       
+       proceedToBasketView.isHidden = (viewModel.grandTotalData?.totalQuantity == nil)
+       
     }
     
+    private func setupSearchBar() {
+        searchTextfield.searchTextfield.placeholder = AppLocalizedKeys.searchForAnyProduct.localized
+        searchTextfield.searchTextfield.textPublisher()
+            .debounce(for: .milliseconds(300), scheduler: DispatchQueue.main)
+            .removeDuplicates()
+            .sink { [weak self] searchText in
+                self?.viewModel.searchText = searchText
+            }
+            .store(in: &cancellables)
+    }
 }
-
-
-
+extension PharmacyProductViewController:addToCartTapped{
+    internal  func didTapButton() {
+        viewModel.getGrandTotal()
+        bindProductsData()
+    }
+}

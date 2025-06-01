@@ -6,3 +6,18 @@
 //
 
 import Foundation
+
+struct IncubtionsAndIntensiveCareModel: Codable {
+    let name: String
+    let district_id:Int?
+    let accept_terms : Int?
+    let phone: String?
+    let birthdate: String?
+
+}
+
+struct IncubtionsAndIntensiveCareModelResponse: Codable {
+    let statusCode: Int?
+    let errorMessage: String?
+    let data: IncubtionsAndIntensiveCareModel?
+}

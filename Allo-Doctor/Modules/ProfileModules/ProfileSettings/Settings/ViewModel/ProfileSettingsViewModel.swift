@@ -6,3 +6,18 @@
 //
 
 import Foundation
+class ProfileSettingsViewModel{
+        var coordinator: HomeCoordinatorContact?
+        var cancellables = Set<AnyCancellable>()
+        private let apiClient: APIClient
+        init(coordinator: HomeCoordinatorContact? = nil,apiClient: APIClient = APIClient()) {
+            self.coordinator = coordinator
+            self.apiClient = apiClient
+        }
+
+    }
+extension ProfileSettingsViewModel{
+    func navBack(){
+        coordinator?.navigateBack()
+    }
+}

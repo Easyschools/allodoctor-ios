@@ -32,7 +32,7 @@ extension PharmacyCartViewModel {
     }
     
     private func getPharmacyCart(pharmacyId: Int) {
-        let router = APIRouter.fetchPharmacyCart(pharmacyId: pharmacyId)
+        let router = APIRouter.fetchPharmacyCart(pharmacyId: pharmacyId, couponId: "")
         apiClient.fetchData(from: router.url, as: PharmacyCartResponse.self)
             .sink(receiveCompletion: { [weak self] completion in
                 switch completion {
@@ -43,16 +43,38 @@ extension PharmacyCartViewModel {
                     self?.errorMessage = "Failed to fetch cart: \(error.localizedDescription)"
                 }
             }, receiveValue: { [weak self] cart in
-                self?.pharmacyCart = cart.data[0]
+                guard let strongSelf = self, let cartData = cart.data, !cartData.isEmpty else {
+                    return
+                }
+                strongSelf.pharmacyCart = cartData[0]
+
             })
             .store(in: &cancellables)
     }
+    func deleteProduct(productId:Int){
+        let router = APIRouter.deleteProductid(id: productId, pharmacyId: pharmacyId ?? 0)
+        print(router.url)
+        apiClient.deleteData(from: router.url, as: DeleteResponse.self)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    
+                    print("Delete request completed successfully.")
+                case .failure(let error):
+       
+                    print("Error during delete request: \(error)")
+                }
+            }, receiveValue: { response in
+                print("Message: \(response.Message)")
+                print("Data: \(response.data)")
+            })
+        .store(in: &cancellables)}
 }
 
 // MARK: - Presentation Logic
 extension PharmacyCartViewModel {
-    internal func productDetailsPresent(product: Product) {
-        coordinator?.showProductDetailsViewController(pharmacyId: pharmacyId ?? 0, categoryId: categoryId ?? 0, product: product)
+    internal func productDetailsPresent(product: Product,uiviewconutoller:UIViewController) {
+        coordinator?.showProductDetailsViewController(pharmacyId: pharmacyId ?? 0, categoryId: categoryId ?? 0, product: product, viewControllerDelgate: uiviewconutoller)
     }
     
     internal func dismissView(viewController: UIViewController) {
@@ -64,30 +86,38 @@ extension PharmacyCartViewModel {
 extension PharmacyCartViewModel {
     func updateItemQuantity(itemId: Int, newQuantity: Int) {
         // Update local data
-        if let itemIndex = pharmacyCart?.items.firstIndex(where: { $0.id == itemId }) {
-            pharmacyCart?.items[itemIndex].quantity = newQuantity
+        if let itemIndex = pharmacyCart?.items?.firstIndex(where: { $0.id == itemId }) {
+            self.pharmacyCart?.items?[itemIndex].quantity = newQuantity
             updateCartItemQuantitiy(newQuaintity: newQuantity, itemIndex: itemIndex)
             recalculateTotalQuantity()
+            recalculateTotalPrice()
         }
     }
     
     private func recalculateTotalQuantity() {
-        let newTotalQuantity = pharmacyCart?.items.reduce(0) { $0 + $1.quantity } ?? 0
+        let newTotalQuantity = pharmacyCart?.items?.reduce(0) { $0 + $1.quantity } ?? 0
         pharmacyCart?.totalQuantity = newTotalQuantity
     }
     
-   private func updateCartItemQuantitiy(newQuaintity:Int,itemIndex:Int) {
-          let product = pharmacyCart?.items[itemIndex]
-          let updateCartRequest = AddProductToCart(
-              pharmacy_id: String(pharmacyCart?.pharmacyId ?? 1),
-              category_id: String(product?.category.id ?? 1),
-              medication_pharmacy_id: String(product?.medicationPharmacy ?? 1),
-              medication_id:String(product?.medication?.id ?? 1), quantity: String(newQuaintity)
-          )
-          updateCartItemQuantitiy(request: updateCartRequest)
-          print(updateCartRequest)
-          
-      }
+    private func recalculateTotalPrice() {
+        let newTotalPrice = pharmacyCart?.items?.reduce(0.0) { total, item in
+            let itemPrice = Double(item.medicationPharmacy?.price ?? "0.0") ?? 0.0
+            return total + (itemPrice * Double(item.quantity))
+        } ?? 0.0
+        pharmacyCart?.totalPrice = String(format: "%.2f", newTotalPrice)
+    }
+    
+    private func updateCartItemQuantitiy(newQuaintity: Int, itemIndex: Int) {
+        let product = pharmacyCart?.items?[itemIndex]
+        let updateCartRequest = AddProductToCart(
+            pharmacy_id: String(pharmacyCart?.pharmacyId ?? 1),
+            category_id: String(product?.category?.id ?? 1),
+            medication_id: String(product?.medication?.id ?? 1),
+            quantity: String(newQuaintity)
+        )
+        updateCartItemQuantitiy(request: updateCartRequest)
+        print(updateCartRequest)
+    }
     
     private func updateCartItemQuantitiy(request: AddProductToCart) {
         let router = APIRouter.addToCart(request)
@@ -105,13 +135,12 @@ extension PharmacyCartViewModel {
             })
             .store(in: &cancellables)
     }
-
 }
 extension PharmacyCartViewModel{
     func dissmissView(viewController: UIViewController) {
         coordinator?.dismissPresnetiontabBarNav(viewController)
     }
     func navToCheckOut(){
-        coordinator?.showOrdersScreens()
+        coordinator?.showOrdersScreens(pharmacyId: pharmacyId ?? 0)
     }
 }

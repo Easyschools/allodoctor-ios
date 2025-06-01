@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChatViewController" customModule="Allo_Doctor" customModuleProvider="target">
+            <connections>
+                <outlet property="buttonConstraint" destination="Wx2-w2-jOK" id="ccF-cW-O7d"/>
+                <outlet property="chatImage" destination="Ruo-gK-QGT" id="xc3-Wu-HpI"/>
+                <outlet property="chatTableView" destination="SmP-Wh-gWk" id="Px0-vu-Ncr"/>
+                <outlet property="chatTypeLabel" destination="FSk-9k-QLY" id="wRy-VM-gxV"/>
+                <outlet property="chatView" destination="JMK-D9-A2j" id="Rju-iR-XuC"/>
+                <outlet property="messageTextField" destination="4HQ-pa-NlX" id="cpY-Cu-pq2"/>
+                <outlet property="upperView" destination="xRb-SQ-9Jx" id="DHF-8e-CrS"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xRb-SQ-9Jx">
+                    <rect key="frame" x="0.0" y="0.0" width="393" height="115"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="xnZ-MN-Ej0">
+                            <rect key="frame" x="16" y="59" width="361" height="32"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RE9-DW-x9h">
+                                    <rect key="frame" x="0.0" y="4" width="24" height="24"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="24" id="c7J-aS-eC1"/>
+                                        <constraint firstAttribute="height" constant="24" id="pA7-Yc-Pka"/>
+                                    </constraints>
+                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" image="navBackIcon"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="labelFontSize">
+                                            <real key="value" value="20"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="spacingBetweenImageAndLabel">
+                                            <real key="value" value="5"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="xibLocImageKey" value="."/>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="navBackAction:" destination="-1" eventType="touchUpInside" id="9qw-5x-sn1"/>
+                                    </connections>
+                                </button>
+                                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ZeY-HV-yH2">
+                                    <rect key="frame" x="28" y="0.0" width="333" height="32"/>
+                                    <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="customerServiceIcon" translatesAutoresizingMaskIntoConstraints="NO" id="Ruo-gK-QGT">
+                                            <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="32" id="waj-KN-rz9"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FSk-9k-QLY">
+                                            <rect key="frame" x="40" y="4.6666666666666643" width="293" height="23"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="CustomerService"/>
+                                            </userDefinedRuntimeAttributes>
+                                        </label>
+                                    </subviews>
+                                </stackView>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="32" id="CPt-67-pvg"/>
+                            </constraints>
+                        </stackView>
+                    </subviews>
+                    <color key="backgroundColor" name="blueAppColor"/>
+                    <constraints>
+                        <constraint firstItem="xnZ-MN-Ej0" firstAttribute="leading" secondItem="xRb-SQ-9Jx" secondAttribute="leading" constant="16" id="AAi-Aw-bYm"/>
+                        <constraint firstAttribute="bottom" secondItem="xnZ-MN-Ej0" secondAttribute="bottom" constant="24" id="LiZ-EQ-jNh"/>
+                        <constraint firstAttribute="trailing" secondItem="xnZ-MN-Ej0" secondAttribute="trailing" constant="16" id="vbV-9h-V9b"/>
+                    </constraints>
+                </view>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="JMK-D9-A2j">
+                    <rect key="frame" x="0.0" y="131" width="393" height="687"/>
+                    <subviews>
+                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="SmP-Wh-gWk">
+                            <rect key="frame" x="16" y="0.0" width="361" height="615"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        </tableView>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XBa-h7-mN0" customClass="ShadowView" customModule="Allo_Doctor" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="615" width="393" height="72"/>
+                            <subviews>
+                                <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="gOK-Nb-SvN">
+                                    <rect key="frame" x="16" y="16" width="361" height="40"/>
+                                    <subviews>
+                                        <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Message...." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4HQ-pa-NlX">
+                                            <rect key="frame" x="0.0" y="0.0" width="317" height="40"/>
+                                            <color key="backgroundColor" name="OffWhite#F9FAFB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="40" id="3E7-xt-Tdi"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                    <color key="value" name="blueAppColor"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                    <real key="value" value="1"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                    <real key="value" value="8"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="xibLocPlaceholderKey" value="messagePlaceholder"/>
+                                            </userDefinedRuntimeAttributes>
+                                        </textField>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="whD-om-LzY">
+                                            <rect key="frame" x="325" y="0.0" width="36" height="36"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="36" id="oxF-ZT-2HC"/>
+                                                <constraint firstAttribute="width" constant="36" id="uPM-Ms-bI0"/>
+                                            </constraints>
+                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                            <state key="normal" image="sendChat"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="xibLocImageKey" value="loc"/>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="sendMessageAction:" destination="-1" eventType="touchUpInside" id="AbX-se-IMb"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="40" id="f6h-T5-YTS"/>
+                                    </constraints>
+                                </stackView>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="bottom" secondItem="gOK-Nb-SvN" secondAttribute="bottom" constant="16" id="ZcB-uZ-s20"/>
+                                <constraint firstAttribute="trailing" secondItem="gOK-Nb-SvN" secondAttribute="trailing" constant="16" id="Zya-Hq-Quh"/>
+                                <constraint firstItem="gOK-Nb-SvN" firstAttribute="leading" secondItem="XBa-h7-mN0" secondAttribute="leading" constant="16" id="mPS-82-7eQ"/>
+                                <constraint firstItem="gOK-Nb-SvN" firstAttribute="top" secondItem="XBa-h7-mN0" secondAttribute="top" constant="16" id="pA3-HF-9yf"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="XBa-h7-mN0" firstAttribute="leading" secondItem="JMK-D9-A2j" secondAttribute="leading" id="1Mo-MF-cxC"/>
+                        <constraint firstAttribute="trailing" secondItem="XBa-h7-mN0" secondAttribute="trailing" id="7ar-kM-Ldg"/>
+                        <constraint firstItem="SmP-Wh-gWk" firstAttribute="leading" secondItem="JMK-D9-A2j" secondAttribute="leading" constant="16" id="RCf-Ue-gqH"/>
+                        <constraint firstAttribute="trailing" secondItem="SmP-Wh-gWk" secondAttribute="trailing" constant="16" id="tqe-eG-D01"/>
+                    </constraints>
+                </stackView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="xRb-SQ-9Jx" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="9xK-4Y-zrO"/>
+                <constraint firstItem="xRb-SQ-9Jx" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="SDr-1F-EvT"/>
+                <constraint firstItem="JMK-D9-A2j" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="SSm-eX-P8C"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="JMK-D9-A2j" secondAttribute="bottom" id="Wx2-w2-jOK"/>
+                <constraint firstItem="xRb-SQ-9Jx" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="e5J-jm-W2d"/>
+                <constraint firstItem="xRb-SQ-9Jx" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="fr2-6U-1gY"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="JMK-D9-A2j" secondAttribute="trailing" id="jio-be-Ufb"/>
+                <constraint firstItem="xnZ-MN-Ej0" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="m6C-A5-DFx"/>
+                <constraint firstItem="JMK-D9-A2j" firstAttribute="top" secondItem="xRb-SQ-9Jx" secondAttribute="bottom" constant="16" id="ymi-o7-m5w"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="136.64122137404578" y="0.0"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="customerServiceIcon" width="33" height="32"/>
+        <image name="navBackIcon" width="24" height="24"/>
+        <image name="sendChat" width="24" height="24"/>
+        <namedColor name="OffWhite#F9FAFB">
+            <color red="0.97600001096725464" green="0.98000001907348633" blue="0.98400002717971802" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="blueAppColor">
+            <color red="0.11800000071525574" green="0.49000000953674316" blue="0.75300002098083496" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ProfileSettingsViewController: UIViewController {
+class ProfileSettingsViewController: BaseViewController<ProfileSettingsViewModel> {
 
     @IBOutlet weak var upperView: UIView!
     @IBOutlet weak var navBackButton: CustomNavigationBackButton!
@@ -15,9 +15,18 @@ class ProfileSettingsViewController: UIViewController {
         super.viewDidLoad()
 
     }
-
-
+    override func viewDidLayoutSubviews() {
+        upperView.roundCorners([.bottomLeft,.bottomRight], radius: 25)
+    }
+    @IBAction func showLangugaeSelect(_ sender: Any) {
+        let contentViewController = ChangeLangugeViewController()
+        let sheetController = FWIPNSheetViewController(controller: contentViewController, sizes: [.fixed(300)])
+        present(sheetController, animated: true, completion: nil)
+    }
+    
     @IBAction func navIgationBackAction(_ sender: Any) {
+        viewModel.navBack()
+    
     }
     
 }

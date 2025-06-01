@@ -30,6 +30,6 @@ class CategoryCollectionViewCell: UICollectionViewCell {
         }
         
         // Set the category name
-        categoryName.text = name
+        categoryName.text = name.uppercased()
     }
 }

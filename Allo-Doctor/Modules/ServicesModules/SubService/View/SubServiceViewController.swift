@@ -9,20 +9,25 @@ import UIKit
 import Kingfisher
 class SubServiceViewController: BaseViewController<SubServiceViewModel> {
     @IBOutlet weak var subServicesCollectionView: UICollectionView!
-    
     @IBOutlet weak var subServiceCollectionViewDynamicHeight: NSLayoutConstraint!
+    @IBOutlet weak var bannerPhoto: UIImageView!
     @IBOutlet weak var dropdownlist: CustomDropDownList!
     @IBOutlet weak var searchBar: CustomSearchBar!
     let dropDown = CustomDropDownList()
     private let loadingScreen = CustomLoadingScreen()
+    @IBOutlet weak var chatWithUsView: ChatWithUsView!
     override func viewDidLoad() {
         super.viewDidLoad()
         loadingScreen.startLoading()
     
     }
     override func setupUI() {
+        searchBar.searchTextfield.placeholder = AppLocalizedKeys.searchForHospital.localized
         SetupCollectionView()
         bindCollectionViewHeight()
+        chatWithUsView.onChatWithUsButtonTapped = { [weak self] in
+            self?.viewModel.showChat()
+                }
        
     }
     override func bindViewModel() {
@@ -35,6 +40,7 @@ class SubServiceViewController: BaseViewController<SubServiceViewModel> {
         loadingScreen.frame = view.bounds
        
     }
+
     
 }
 extension SubServiceViewController:UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout{
@@ -45,7 +51,11 @@ extension SubServiceViewController:UICollectionViewDataSource,UICollectionViewDe
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let subServices = viewModel.subServices[indexPath.row]
         let cell = collectionView.dequeue(indexpath: indexPath) as SubServiceCollectionViewCell
-        cell.subServiceName.text = subServices.name
+        if UserDefaultsManager.sharedInstance.getLanguage() == .ar{
+            cell.subServiceName.text = subServices.name_ar
+        }
+        else{
+            cell.subServiceName.text = subServices.name}
         cell.subServiceImage.kf.setImage(with:URL(string: subServices.image ?? "") )
         return cell
     }
@@ -67,8 +77,17 @@ extension SubServiceViewController:UICollectionViewDataSource,UICollectionViewDe
        else if id == 6 {
             viewModel.coordinator?.showOperationsSearchScreen()
         }
+        else if id == 5 {
+            viewModel.coordinator?.showIntensiveCareUnits()
+        }
+        else if id == 33{
+            viewModel.coordinator?.showIncubations()
+        }
+        else if id == 36 {
+            viewModel.showEmergency()
+        }
         else {
-            viewModel.coordinator?.showHospitalSearch()
+            viewModel.coordinator?.showOneDayCareHospitals()
         }
         
     }
@@ -89,7 +108,7 @@ extension SubServiceViewController{
     private func bindSearchBarButton(){
         searchBar.navButtonTapped
             .sink { [weak self] in
-                self?.viewModel.navToSearchScreen()
+                self?.viewModel.coordinator?.showOneDayCareHospitals()
             }
             .store(in: &cancellables)
     }

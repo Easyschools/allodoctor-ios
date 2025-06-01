@@ -24,7 +24,9 @@ class ProductDetailsViewController: BaseViewController<ProductDetailsViewModel> 
     @IBOutlet private weak var extendButton: UIButton!
     @IBOutlet private weak var productImage: UIImageView!
     @IBOutlet private weak var dismissButton: UIButton!
-    
+    private let addToCartSubject = PassthroughSubject<Product, Never>()
+    private let buttonTapSubject = PassthroughSubject<Void, Never>()
+    weak var delegate: addToCartTapped?
     // MARK: - Properties
     private var isDescriptionExpanded = false {
         didSet {
@@ -32,12 +34,14 @@ class ProductDetailsViewController: BaseViewController<ProductDetailsViewModel> 
         }
     }
     let orderDetailsPublisher = PassthroughSubject<(Int, Double), Never>()
-    var addToCartSubject: PassthroughSubject<(Int, Double), Never>?
+    var buttonTapPublisher: AnyPublisher<Void, Never> {
+           buttonTapSubject.eraseToAnyPublisher()
+       }
     
     // MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.productImage.kf.setImage(with:URL(string: viewModel.product?.medication?.mainImage ?? "") )
+      
        
         
     }
@@ -50,10 +54,22 @@ class ProductDetailsViewController: BaseViewController<ProductDetailsViewModel> 
     }
     
     private func setupProductDescription() {
-        productDescription.text = "hereeee suiiiii Lorem ipsum...hereeee suiiiii Lorem ipsum...hereeee suiiiii Lorem ipsum...hereeee suiiiii Lorem ipsum...hereeee suiiiii Lorem ipsum...hereeee suiiiii Lorem ipsum...hereeee suiiiii Lorem ipsum...hereeee suiiiii Lorem ipsum...hereeee suiiiii Lorem ipsum...hereeee suiiiii Lorem ipsum...hereeee suiiiii Lorem ipsum...hereeee suiiiii Lorem ipsum...hereeee suiiiii Lorem ipsum...hereeee suiiiii Lorem ipsum...hereeee suiiiii Lorem ipsum...hereeee suiiiii Lorem ipsum...hereeee suiiiii Lorem ipsum...hereeee suiiiii Lorem ipsum...hereeee suiiiii Lorem ipsum...hereeee suiiiii Lorem ipsum...hereeee suiiiii Lorem ipsum...hereeee suiiiii Lorem ipsum...hereeee suiiiii Lorem ipsum...hereeee suiiiii Lorem ipsum...hereeee suiiiii Lorem ipsum...hereeee suiiiii Lorem ipsum...hereeee suiiiii Lorem ipsum...hereeee suiiiii Lorem ipsum...hereeee suiiiii Lorem ipsum...hereeee suiiiii Lorem ipsum...hereeee suiiiii Lorem ipsum...hereeee suiiiii Lorem ipsum...hereeee suiiiii Lorem ipsum..."
+        let product = viewModel.product
+       
         productDescription.isScrollEnabled = false
         productDescription.isEditable = false
         productDescDynamicHeightConstraint.constant = self.productDescription.contentSize.height
+        productImage.kf.setImage(with:URL(string: product?.mainImage ?? "") )
+        if UserDefaultsManager.sharedInstance.getLanguage() == .ar{
+            productName.text = product?.nameAr
+            productDescription.text = product?.descriptionAr
+        }
+        else{
+            productName.text = product?.nameEn
+            productDescription.text = product?.descriptionEn
+        }
+        
+        productPrice.text = product?.medicationPharmacies?[0].price?.appendingWithSpace(AppLocalizedKeys.EGP.localized)
     }
     @IBAction func decrementQuantityAction(_ sender: Any) {
         viewModel.quantity += 1
@@ -86,12 +102,12 @@ class ProductDetailsViewController: BaseViewController<ProductDetailsViewModel> 
         UIView.transition(with: extendButton, duration: 0.3, options: .transitionCrossDissolve) {
             self.extendButton.setImage(image, for: .normal)
         }
+     
     }
     
     // MARK: - IBActions
     @IBAction private func addToCartAction(_ sender: Any) {
         viewModel.addTocart()
-        addToCartSubject?.send((viewModel.quantity, viewModel.product?.medication?.price?.toDouble() ?? 0))
         viewModel.coordinator?.dismissPresnetiontabBarNav(self)
         GrandTotalManger.updateOtherViewControllers()
     }

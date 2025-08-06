@@ -252,6 +252,9 @@ extension Float {
     var toString: String {
         return String(self)
     }
+    var toInt: Int {
+        return Int(self)
+    }
 }
 // MARK: - String Extension for Nil Handling
 extension String {
@@ -269,5 +272,15 @@ extension Optional where Wrapped == String {
         case .some(let string):
             return string.isEmpty ? nil : string
         }
+    }
+}
+extension String {
+    /// Returns a new string with the decimal part removed (e.g. "15.99" → "15").
+    var withoutDecimals: String {
+        if let doubleValue = Double(self) {
+            let intValue = Int(doubleValue)
+            return String(intValue)
+        }
+        return self // fallback if conversion fails
     }
 }

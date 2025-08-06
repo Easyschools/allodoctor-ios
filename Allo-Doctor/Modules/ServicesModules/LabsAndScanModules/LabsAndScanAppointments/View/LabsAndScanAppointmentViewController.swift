@@ -95,14 +95,14 @@ extension LabsAndScanAppointmentViewController:UICollectionViewDelegate,UICollec
                 cell.appointmentLabel.textColor = .darkGray
 
                 // Apply strikethrough to the text
-                let attributedText = NSAttributedString(
-                    string: appointmentTimeText,
-                    attributes: [
-                        .strikethroughStyle: NSUnderlineStyle.single.rawValue,
-                        .foregroundColor: UIColor.darkGray
-                    ]
-                )
-                cell.appointmentLabel.attributedText = attributedText
+//                let attributedText = NSAttributedString(
+//                    string: appointmentTimeText,
+//                    attributes: [
+//                        .strikethroughStyle: NSUnderlineStyle.single.rawValue,
+//                        .foregroundColor: UIColor.darkGray
+//                    ]
+//                )
+//                cell.appointmentLabel.attributedText = attributedText
             } else {
                 // Handle available appointments
                 cell.isUserInteractionEnabled = true
@@ -118,7 +118,7 @@ extension LabsAndScanAppointmentViewController:UICollectionViewDelegate,UICollec
             cell.isUserInteractionEnabled = false
             cell.backgroundColor = .lightGray
             cell.appointmentLabel.textColor = .darkGray
-            cell.appointmentLabel.text = "NOT Available Appointments"
+            cell.appointmentLabel.text = AppLocalizedKeys.notAvailable.localized
         }
 
         return cell
@@ -159,7 +159,7 @@ extension LabsAndScanAppointmentViewController{
     private func bindDate(){
         calendarView.dateSelection
                    .sink { [weak self] date in
-                       self?.viewModel.getAppointments(date: date.formattedString, testType: self?.testType ?? "branch", day: self?.viewModel.getDayOfWeekInCairo(from: date.formattedString) ?? "")
+                       self?.viewModel.getAppointments(date: date.formattedString, testType: self?.viewModel.testType ?? "branch", day: self?.viewModel.getDayOfWeekInCairo(from: date.formattedString) ?? "")
                        self?.date = date.formattedString
                        self?.confirmationButtonHandle(appointmentSelected: false)
                    }

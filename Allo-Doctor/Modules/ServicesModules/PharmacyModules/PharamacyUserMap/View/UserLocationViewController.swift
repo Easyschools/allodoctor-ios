@@ -4,6 +4,7 @@
 //
 //  Created by Abdallah ismail on 29/10/2024.
 //
+
 import UIKit
 import GoogleMaps
 import GooglePlaces
@@ -35,21 +36,34 @@ class UserLocationViewController: BaseViewController<UserLocationViewModel> {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupMapView()
-        setupCenterMarker()
         setupSearchView()
         setupResultsTableView()
         setupBindings()
         placesClient = GMSPlacesClient.shared()
         viewModel.startLocationUpdates()
         centerMapOnLocation(egyptCenter, zoom: defaultZoomLevel)
+        
+        // Setup center marker after map is configured
+        DispatchQueue.main.async { [weak self] in
+            self?.setupCenterMarker()
+        }
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        centerMarkerView.center = CGPoint(x: mapView.frame.width / 2, y: mapView.frame.height / 2)
+        // Update center marker position when layout changes
+        updateCenterMarkerPosition()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        // Ensure marker is properly positioned when view appears
+        updateCenterMarkerPosition()
     }
     
     deinit {
+        debounceTimer?.invalidate()
+        centerMarkerView?.removeFromSuperview()
         mapView?.removeFromSuperview()
         mapView?.delegate = nil
         mapView = nil
@@ -77,11 +91,33 @@ class UserLocationViewController: BaseViewController<UserLocationViewModel> {
     }
     
     private func setupCenterMarker() {
-        centerMarkerView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
-        centerMarkerView.image = .pinLocationFill
-        centerMarkerView.center = CGPoint(x: mapView.frame.width / 2, y: mapView.frame.height / 2)
-        centerMarkerView.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin, .flexibleTopMargin, .flexibleBottomMargin]
+        // Remove existing marker if any
+        centerMarkerView?.removeFromSuperview()
+        
+        // Create new marker
+        centerMarkerView = UIImageView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+        centerMarkerView.image = UIImage.pinLocationFill 
+        centerMarkerView.tintColor = .blueApp
+        centerMarkerView.contentMode = .scaleAspectFit
+        centerMarkerView.backgroundColor = .clear
+        
+        // Add to map view
         mapView.addSubview(centerMarkerView)
+        updateCenterMarkerPosition()
+        
+        // Bring to front to ensure visibility
+        mapView.bringSubviewToFront(centerMarkerView)
+    }
+    
+    private func updateCenterMarkerPosition() {
+        guard let centerMarkerView = centerMarkerView else { return }
+        
+        // Position marker at center of map view
+        let centerX = mapView.bounds.width / 2
+        let centerY = mapView.bounds.height / 2
+        
+        // Offset slightly upward to account for pin point being at bottom
+        centerMarkerView.center = CGPoint(x: centerX, y: centerY - 20)
     }
     
     private func setupSearchView() {
@@ -135,12 +171,18 @@ class UserLocationViewController: BaseViewController<UserLocationViewModel> {
     
     // MARK: - Actions
     @IBAction func confirmationButtonAction(_ sender: Any) {
-//        guard let currentMapCenter = currentMapCenter,
-//              isLocationInEgypt(currentMapCenter) else {
-//            showError("Please select a location within Egypt")
-//            return
-//        }
-        viewModel.handleNavigation()
+        // Get the current center coordinate
+        let centerCoordinate = mapView.projection.coordinate(for: mapView.center)
+        
+        guard isLocationInEgypt(centerCoordinate) else {
+            showError("Please select a location within Egypt")
+            return
+        }
+        
+        // Update the current map center
+        currentMapCenter = centerCoordinate
+        viewModel.updateMarkerPosition(centerCoordinate)
+        viewModel.handleNavigation(viewController: self)
     }
     
     @IBAction func dismissMapView(_ sender: Any) {
@@ -150,7 +192,7 @@ class UserLocationViewController: BaseViewController<UserLocationViewModel> {
     private func isLocationInEgypt(_ coordinate: CLLocationCoordinate2D) -> Bool {
         // Define Egypt's bounding box
         let minLat: Double = 22.0  // Southernmost point
-        let maxLat: Double = 31.7  // Northernmost point (approximate, as parts of Egypt extend slightly beyond)
+        let maxLat: Double = 31.7  // Northernmost point
         let minLon: Double = 24.7  // Westernmost point
         let maxLon: Double = 36.0  // Easternmost point
 
@@ -161,26 +203,6 @@ class UserLocationViewController: BaseViewController<UserLocationViewModel> {
                              coordinate.longitude <= maxLon
 
         return isWithinBounds
-    }
-    private func isCoordinate(_ coordinate: CLLocationCoordinate2D, insidePolygon polygon: [CLLocationCoordinate2D]) -> Bool {
-        var isInside = false
-        var j = polygon.count - 1
-        
-        for i in 0..<polygon.count {
-            let xi = polygon[i].latitude
-            let yi = polygon[i].longitude
-            let xj = polygon[j].latitude
-            let yj = polygon[j].longitude
-            
-            let intersect = ((yi > coordinate.longitude) != (yj > coordinate.longitude)) &&
-                            (coordinate.latitude < (xj - xi) * (coordinate.longitude - yi) / (yj - yi) + xi)
-            
-            if intersect {
-                isInside = !isInside
-            }
-            j = i
-        }
-        return isInside
     }
     
     private func updateLocation() {
@@ -211,35 +233,39 @@ class UserLocationViewController: BaseViewController<UserLocationViewModel> {
     }
     
     @objc private func textFieldDidChange(_ textField: UITextField) {
-        guard let query = textField.text, !query.isEmpty else {
-            searchResults = []
-            resultsTableView.isHidden = true
-            return
-        }
+        debounceTimer?.invalidate()
         
-        let filter = GMSAutocompleteFilter()
-        filter.type = .region
-        filter.countries = ["EG"]
-        
-        placesClient.findAutocompletePredictions(
-            fromQuery: query,
-            filter: filter,
-            sessionToken: nil
-        ) { [weak self] (results, error) in
-            guard let self = self else { return }
-            
-            if let error = error {
-                DispatchQueue.main.async {
-                    self.showError(error.localizedDescription)
-                }
+        debounceTimer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false) { [weak self] _ in
+            guard let self = self, let query = textField.text, !query.isEmpty else {
+                self?.searchResults = []
+                self?.resultsTableView.isHidden = true
                 return
             }
             
-            self.searchResults = results ?? []
+            let filter = GMSAutocompleteFilter()
+            filter.type = .region
+            filter.countries = ["EG"]
             
-            DispatchQueue.main.async {
-                self.resultsTableView.isHidden = self.searchResults.isEmpty
-                self.resultsTableView.reloadData()
+            self.placesClient.findAutocompletePredictions(
+                fromQuery: query,
+                filter: filter,
+                sessionToken: nil
+            ) { [weak self] (results, error) in
+                guard let self = self else { return }
+                
+                if let error = error {
+                    DispatchQueue.main.async {
+                        self.showError(error.localizedDescription)
+                    }
+                    return
+                }
+                
+                self.searchResults = results ?? []
+                
+                DispatchQueue.main.async {
+                    self.resultsTableView.isHidden = self.searchResults.isEmpty
+                    self.resultsTableView.reloadData()
+                }
             }
         }
     }
@@ -280,23 +306,25 @@ class UserLocationViewController: BaseViewController<UserLocationViewModel> {
 
 // MARK: - GMSMapViewDelegate
 extension UserLocationViewController: GMSMapViewDelegate {
+    func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
+        // Update marker position when map moves
+        updateCenterMarkerPosition()
+        updateLocationDebounced()
+    }
+    
+    func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
+        // Final update when map stops moving
+        updateCenterMarkerPosition()
+        updateLocationDebounced()
+    }
+    
     private func updateLocationDebounced() {
         debounceTimer?.invalidate()
         
         debounceTimer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false) { [weak self] _ in
-            self?.updateLocation()
-        }
-    }
-    
-    func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
-        DispatchQueue.global(qos: .utility).async { [weak self] in
-            self?.updateLocationDebounced()
-        }
-    }
-    
-    func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
-        DispatchQueue.global(qos: .utility).async { [weak self] in
-            self?.updateLocationDebounced()
+            DispatchQueue.main.async {
+                self?.updateLocation()
+            }
         }
     }
 }

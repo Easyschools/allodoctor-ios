@@ -9,6 +9,9 @@ import UIKit
 
 class MyActivityViewController: BaseViewController<MyActivityViewModel> {
     
+    @IBOutlet weak var noActivityLabel: CairoBold!
+    @IBOutlet weak var noActivityImage: UIImageView!
+    @IBOutlet weak var notAvailableView: UIStackView!
     @IBOutlet weak var actvityTableView: UITableView!
     @IBOutlet weak var customSwitch: CustomToggleSwitch!
     var index : Int?
@@ -34,7 +37,8 @@ class MyActivityViewController: BaseViewController<MyActivityViewModel> {
            }
     
     override func setupUI() {
-       
+        self.notAvailableView.isHidden = true
+
     }
     override func viewWillAppear(_ animated: Bool) {
         viewModel.fetchMyBookings()
@@ -62,7 +66,15 @@ extension MyActivityViewController{
 private func bindAppointments(){
     viewModel.$monthSections
         .receive(on: DispatchQueue.main)
-        .sink { [weak self] _ in
+        .sink { [weak self] booking in
+            if booking.isEmpty == true {
+                self?.noActivityImage.image = .appointmentsPlaceHolder
+                self?.noActivityLabel.text = AppLocalizedKeys.noAppointments.localized
+                self?.notAvailableView.isHidden = false
+            }
+            else{
+                self?.notAvailableView.isHidden = true
+            }
             self?.actvityTableView.reloadData()
             LoadingIndicator.shared.hide()
         }.store(in: &cancellables)
@@ -70,8 +82,17 @@ private func bindAppointments(){
     private func bindOrders(){
         viewModel.$orders
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
+            .sink { [weak self] orders in
                 self?.actvityTableView.reloadData()
+                if orders?.isEmpty == true {
+//                    self?.noActivityImage.image = .noOrdersPlaceHolder
+//                    self?.noActivityLabel.text = AppLocalizedKeys.noOrdersYet.localized
+//                    self?.notAvailableView.isHidden = false
+                }
+                else{
+                    
+                    self?.notAvailableView.isHidden = true
+                }
                 LoadingIndicator.shared.hide()
             }.store(in: &cancellables)
         }
@@ -123,17 +144,17 @@ extension MyActivityViewController: UITableViewDataSource, UITableViewDelegate {
             let booking = viewModel.monthSections[indexPath.section].bookings[indexPath.row]
             if booking.typeOfBooking == "booking" {
                 if UserDefaultsManager.sharedInstance.getLanguage() == .ar { cell.appointmentName.text = booking.doctor?.doctorServiceSpecialty?.doctor?.nameAR?.capitalized
-                    cell.setupCell(name: booking.doctor?.doctorServiceSpecialty?.doctor?.nameAR?.capitalized ?? "" , date: booking.date ?? "No date", appointmentNumber: booking.doctor?.id?.toString().prepend("#") ?? "", image: .doctorOfferIcon, status: booking.status ?? "pending")}
+                    cell.setupCell(name: booking.doctor?.doctorServiceSpecialty?.doctor?.nameAR?.capitalized ?? "" , date: booking.date ?? "No date", appointmentNumber: booking.id.toString().prepend("#"), image: .doctorOfferIcon, status: booking.status ?? "pending")}
                 else{
                     cell.appointmentName.text = booking.doctor?.doctorServiceSpecialty?.doctor?.nameEn?.capitalized
-                    cell.setupCell(name: booking.doctor?.doctorServiceSpecialty?.doctor?.nameEn?.capitalized ?? "" , date: booking.date ?? "No date", appointmentNumber: booking.doctor?.id?.toString().prepend("#") ?? "", image: .doctorOfferIcon, status: booking.status ?? "pending")}
+                    cell.setupCell(name: booking.doctor?.doctorServiceSpecialty?.doctor?.nameEn?.capitalized ?? "" , date: booking.date ?? "No date", appointmentNumber: booking.id.toString().prepend("#"), image: .doctorOfferIcon, status: booking.status ?? "pending")}
             }
             else if booking.typeOfBooking == "labBookings" {
                 if UserDefaultsManager.sharedInstance.getLanguage() == .ar{
-                    cell.setupCell(name: booking.lab?.labDetails?.nameAr ?? "", date: booking.date ?? "No date", appointmentNumber: booking.lab?.id?.toString().prepend("#") ?? "", image: .labLogo, status: booking.status ?? "pending")
+                    cell.setupCell(name: booking.lab?.labDetails?.nameAr ?? "", date: booking.date ?? "No date", appointmentNumber: booking.id.toString().prepend("#"), image: .labLogo, status: booking.status ?? "pending")
                 }
                 else{
-                    cell.setupCell(name: booking.lab?.labDetails?.nameEn ?? "", date: booking.date ?? "No date", appointmentNumber: booking.lab?.id?.toString().prepend("#") ?? "", image: .labLogo, status: booking.status ?? "pending")
+                    cell.setupCell(name: booking.lab?.labDetails?.nameEn ?? "", date: booking.date ?? "No date", appointmentNumber: booking.id.toString().prepend("#"), image: .labLogo, status: booking.status ?? "pending")
                     
                 }}
                 else if booking.typeOfBooking == "homeVisitBooking"{
@@ -152,6 +173,11 @@ extension MyActivityViewController: UITableViewDataSource, UITableViewDelegate {
                 else if booking.typeOfBooking == "intensiveCareBooking"{
                     cell.setupCell(name: AppLocalizedKeys.InstensiveCare.localized, date: booking.createdAt?.fullDateFormatter() ?? "No date", appointmentNumber: booking.id.toString().prepend("#"), image: .intesiveCare, status: booking.status ?? AppLocalizedKeys.pending.localized)
                 }
+            else if booking.typeOfBooking == "emergencyBooking"{
+    
+                cell.setupCell(name: AppLocalizedKeys.Ambulance.localized, date: booking.createdAt?.fullDateFormatter() ?? "No date", appointmentNumber: booking.id.toString().prepend("#"), image: .operation , status: booking.status ?? AppLocalizedKeys.pending.localized)
+            }
+            
             }
             cell.selectionStyle = .none
             return cell

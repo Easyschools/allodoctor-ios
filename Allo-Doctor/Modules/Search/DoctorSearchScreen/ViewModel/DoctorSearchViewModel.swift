@@ -18,11 +18,13 @@ class DoctorSearchViewModel {
     private let externalClinicServiceId : Int?
     @Published var errorMessage: String?
     @Published var cities: [City] = []
-    init(coordinator: HomeCoordinatorContact? = nil, apiClient: APIClient = APIClient(),specialityId:String?,externalClinicServiceId:Int?) {
+    var doctorPlace: DoctorPlace
+    init(coordinator: HomeCoordinatorContact? = nil, apiClient: APIClient = APIClient(),specialityId:String?,externalClinicServiceId:Int?,doctorPlace: DoctorPlace) {
         self.coordinator = coordinator
         self.apiClient = apiClient
         self.specialityId = specialityId
         self.externalClinicServiceId = externalClinicServiceId
+        self.doctorPlace = doctorPlace
         setupSearchSubscription()
     }
     
@@ -39,8 +41,8 @@ class DoctorSearchViewModel {
     func fetchDoctors(searchedText: String,sortBy:String,districtId:Int?,maxPrice:String,medicalInsuranceId:String,gender:String,title:String) {
         let encodedText = searchedText.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
         let district = districtId.map { "\($0)" } ?? ""
-         
-        let urlString = "https://allodoctor-backend.developnetwork.net/api/admin/doctor/all?is_paginate=30&speciality_id=&search=\(encodedText)&web=1&sort_by=\(sortBy)&district_id=\(district)&title_type_en=\(filters?.titleType ?? "")&gender=\(filters?.gender ?? "")&max_price=\(filters?.maxPrice?.toString ?? "")&medical_insurance=\(filters?.medicalInsuranceId?.toString() ?? "")&external_clinic_service_id=\(externalClinicServiceId?.toString() ?? "")"
+        let speciality = specialityId
+        let urlString = "https://allodoctor-backend.developnetwork.net/api/admin/doctor/all?is_paginate=30&speciality_id=\(speciality ?? "")&search=\(encodedText)&web=1&sort_by=\(sortBy)&district_id=\(district)&title_type_en=\(filters?.titleType ?? "")&gender=\(filters?.gender ?? "")&max_price=\(filters?.maxPrice?.toString ?? "")&medical_insurance=\(filters?.medicalInsuranceId?.toString() ?? "")&external_clinic_service_id=\(externalClinicServiceId?.toString() ?? "")"
          print(urlString)
          guard let url = URL(string: urlString) else {
              print("Invalid URL")
@@ -65,7 +67,12 @@ class DoctorSearchViewModel {
             .store(in: &cancellables)
     }
     func navToDoctorProfile(doctorID: String,doctorServiveSpecialityId:Int) {
-        coordinator?.showDoctorProfile(doctorID: doctorID)
+        if doctorPlace == .outpatientClinics {
+            coordinator?.showDoctorProfile(doctorID: doctorID, doctorPlace:.outpatientClinics)
+        }
+        else{
+            coordinator?.showDoctorProfile(doctorID: doctorID, doctorPlace:.doctorClinics)
+        }
     }
     func getAllAreaOfResidence() {
           let router = APIRouter.fetchCities

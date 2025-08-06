@@ -10,9 +10,9 @@ import UIKit
 class HomeNursingViewModel{
     var coordinator: HomeCoordinatorContact?
     private var cancellables = Set<AnyCancellable>()
-    internal var name = CurrentValueSubject<String, Never>("")
+    internal var name = CurrentValueSubject<String, Never>(UserDefaultsManager.sharedInstance.getUserName() ?? "")
     internal var age = CurrentValueSubject<String, Never>("")
-    internal var phone = CurrentValueSubject<String, Never>("")
+    internal var phone = CurrentValueSubject<String, Never>(UserDefaultsManager.sharedInstance.getMobileNumber() ?? "")
     internal var note = CurrentValueSubject<String, Never>("")
     internal var address = CurrentValueSubject<String, Never>("")
     internal var districtId = CurrentValueSubject<Int, Never>(0)

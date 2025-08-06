@@ -111,15 +111,13 @@ extension LabsAndScanProfileViewModel {
             )
         }
     }
+   
     
     func navToUploadPresc() {
-        coordinator?.showLabsAndScanBooking(
-            tests: [],
-            hourId: 1,
-            dayId: 1,
-            date: "",
+        coordinator?.showLabsAndScanBookingAppointments(
             labId: id ?? 0,
-            bookingType: screenType ?? "lab"
+            tests: [],
+            type: screenType ?? "lab"
         )
     }
 }

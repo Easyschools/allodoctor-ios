@@ -23,7 +23,13 @@ class ServicesCollectionViewCell: UICollectionViewCell {
     }
 }
 extension ServicesCollectionViewCell{
-    func setupImage(with image:String){
-        serviceImage.loadImage(from: image)
+    func setupImage(with image:String,chatNowButton:Bool? = nil){
+        serviceImage.kf.setImage(with:URL(string: image))
+        if chatNowButton == true {
+            bookVisitButton.setTitle(AppLocalizedKeys.chatNow.localized, for: .normal)
+        }
+        else{
+            bookVisitButton.setTitle(AppLocalizedKeys.bookVisit.localized, for: .normal)
+        }
     }
 }

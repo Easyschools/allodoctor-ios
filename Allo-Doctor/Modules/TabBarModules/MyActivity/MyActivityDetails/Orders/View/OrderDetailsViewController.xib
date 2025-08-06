@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -94,7 +94,7 @@
                             </constraints>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="8eo-Fe-1LW">
-                            <rect key="frame" x="0.0" y="44" width="393" height="388"/>
+                            <rect key="frame" x="0.0" y="44" width="393" height="444"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DRg-S7-Ork">
                                     <rect key="frame" x="20" y="0.0" width="353" height="1"/>
@@ -112,7 +112,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </view>
                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="DdM-on-olr">
-                                    <rect key="frame" x="0.0" y="1" width="393" height="387"/>
+                                    <rect key="frame" x="0.0" y="1" width="393" height="443"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="vOs-fE-Rkz">
                                         <size key="itemSize" width="128" height="128"/>
@@ -130,13 +130,13 @@
                             </constraints>
                         </stackView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qvI-pv-an0" customClass="ShadowView" customModule="Allo_Doctor" customModuleProvider="target">
-                            <rect key="frame" x="16" y="436" width="361" height="243"/>
+                            <rect key="frame" x="16" y="492" width="361" height="187"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Y7u-NM-XI1">
-                                    <rect key="frame" x="16" y="16" width="329" height="211"/>
+                                    <rect key="frame" x="16" y="16" width="329" height="155"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Order Summary" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="klp-RL-5ah" customClass="CairoMeduim" customModule="Allo_Doctor" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="329" height="19"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="329" height="35"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -145,7 +145,7 @@
                                             </userDefinedRuntimeAttributes>
                                         </label>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="VFH-WP-Fwa">
-                                            <rect key="frame" x="0.0" y="35" width="329" height="104"/>
+                                            <rect key="frame" x="0.0" y="51" width="329" height="104"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="88f-ff-m6A">
                                                     <rect key="frame" x="0.0" y="0.0" width="329" height="24"/>
@@ -221,25 +221,6 @@
                                                 <constraint firstAttribute="height" constant="104" id="sx7-Hr-YVk"/>
                                             </constraints>
                                         </stackView>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lhS-qh-YZI" customClass="CustomButton" customModule="Allo_Doctor" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="155" width="329" height="56"/>
-                                            <color key="backgroundColor" name="blueAppColor"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="56" id="Zfi-Kn-BZL"/>
-                                            </constraints>
-                                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                            <state key="normal" title="Cancel Order"/>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                    <real key="value" value="10"/>
-                                                </userDefinedRuntimeAttribute>
-                                                <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="Cancel Order"/>
-                                            </userDefinedRuntimeAttributes>
-                                            <connections>
-                                                <action selector="addReviewAndCancelButton:" destination="-1" eventType="touchUpInside" id="G35-ci-HnW"/>
-                                            </connections>
-                                        </button>
                                     </subviews>
                                 </stackView>
                             </subviews>
@@ -248,7 +229,7 @@
                                 <constraint firstItem="Y7u-NM-XI1" firstAttribute="leading" secondItem="qvI-pv-an0" secondAttribute="leading" constant="16" id="4jp-aE-adU"/>
                                 <constraint firstItem="Y7u-NM-XI1" firstAttribute="top" secondItem="qvI-pv-an0" secondAttribute="top" constant="16" id="5qU-VR-BJD"/>
                                 <constraint firstAttribute="bottom" secondItem="Y7u-NM-XI1" secondAttribute="bottom" constant="16" id="AJl-8h-KAu"/>
-                                <constraint firstAttribute="height" constant="243" id="ALZ-Mw-yfN"/>
+                                <constraint firstAttribute="height" constant="187" id="ALZ-Mw-yfN"/>
                                 <constraint firstAttribute="trailing" secondItem="Y7u-NM-XI1" secondAttribute="trailing" constant="16" id="N2f-q1-oz6"/>
                             </constraints>
                             <userDefinedRuntimeAttributes>
@@ -284,11 +265,6 @@
             <point key="canvasLocation" x="125.95419847328243" y="-1.4084507042253522"/>
         </view>
     </objects>
-    <designables>
-        <designable name="9vG-3n-pZy">
-            <size key="intrinsicContentSize" width="46" height="30"/>
-        </designable>
-    </designables>
     <resources>
         <image name="seifPhamracyLogo" width="24" height="24"/>
         <namedColor name="blueAppColor">

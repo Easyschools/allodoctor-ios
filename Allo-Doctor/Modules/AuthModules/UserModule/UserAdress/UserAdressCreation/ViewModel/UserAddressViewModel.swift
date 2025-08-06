@@ -6,6 +6,10 @@
 //
 
 import Foundation
+enum OrderScreenType{
+    case uploadPrescription
+    case orderScreen
+}
 class UserAddressViewModel{
         var coordinator: HomeCoordinatorContact?
         private var cancellables = Set<AnyCancellable>()
@@ -14,17 +18,19 @@ class UserAddressViewModel{
         @Published var userAddresses : [UserAddress]?
         @Published var lat : String
         @Published var long : String
+    var screenType:OrderScreenType
        var address = CurrentValueSubject<String, Never>("")
        var floor = CurrentValueSubject<String, Never>("")
        var appartmentNumber = CurrentValueSubject<String, Never>("")
   
     //    @Published var productId:Int?
         
-    init(coordinator: HomeCoordinatorContact? = nil, apiClient: APIClient = APIClient(),lat:String,long:String) {
+    init(coordinator: HomeCoordinatorContact? = nil, apiClient: APIClient = APIClient(),lat:String,long:String,screenType:OrderScreenType) {
             self.coordinator = coordinator
             self.apiClient = apiClient
             self.lat = lat
             self.long = long
+        self.screenType = screenType
         }}
     extension UserAddressViewModel{
     func addUserAdress(){
@@ -64,9 +70,18 @@ class UserAddressViewModel{
 
 extension UserAddressViewModel{
    func navBack(){
-       coordinator?.navigationBack()
+       if screenType == .uploadPrescription{
+           coordinator?.navigateBack()}
+       else {
+           coordinator?.navigationBack()
+       }
     }
     func navToRoot(){
-        coordinator?.navigateToRootFromPresentation()
+        if screenType == .uploadPrescription{
+            coordinator?.navigateBack()}
+        else {
+            coordinator?.navigateToRootFromPresentation()
+        }
+      
     }
 }

@@ -94,7 +94,7 @@ extension PharmacyCategoryViewModel{
        coordinator?.showPharmacyProducts(pharmacyId: pharmacyId, categoryId: categoryId)
    }
     func  showUploadPrescription() {
-        coordinator?.showUploadPharmacyPrescription()
+        coordinator?.showUploadPharmacyPrescription(pharmacyId: pharmacyId ?? 0)
     }
     func navToPharmacyCart() {
         coordinator?.showPharmacyCart(pharmacyId: pharmacyId ?? 0)

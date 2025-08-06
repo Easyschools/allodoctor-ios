@@ -16,6 +16,7 @@ enum NavToServiceId:Int
     case pharmacy = 24
     case homeVisit = 31
     case homeNursing = 34
+    case contactDoctor = 78
 }
 
 class ServicesViewController: BaseViewController<ServicesViewModel> {
@@ -45,10 +46,10 @@ class ServicesViewController: BaseViewController<ServicesViewModel> {
         super.viewDidAppear(animated)
         tabBarController?.tabBar.barTintColor = .darkBlue_295DA8
     }
-    override func viewWillAppear(_ animated: Bool) {
-        viewModel.fetchServices()
-        bindServices()
-    }
+//    override func viewWillAppear(_ animated: Bool) {
+//        viewModel.fetchServices()
+//        bindServices()
+//    }
  
     // MARK: - Setup UI
     override func setupUI() {
@@ -59,7 +60,7 @@ class ServicesViewController: BaseViewController<ServicesViewModel> {
             self?.viewModel.showEmergency()
                 }
         chatWithUsView.onChatWithUsButtonTapped = { [weak self] in
-            self?.viewModel.showChatwithUs()
+            self?.viewModel.showChatwithUs(chatType: .customerServiceType)
                 }
     }
 
@@ -134,8 +135,14 @@ extension ServicesViewController: UICollectionViewDelegate, UICollectionViewData
                 cell.serviceLabel.text = service.nameAr
             }
             else{
-                cell.serviceLabel.text = service.name}
-            cell.serviceImage.kf.setImage(with:URL(string: service.image ?? ""))
+                cell.serviceLabel.text = service.name
+            }
+            if service.id == 78{
+                cell.setupImage(with: service.image ?? "",chatNowButton: true)}
+            else {
+                cell.setupImage(with: service.image ?? "",chatNowButton: false)
+                
+            }
             return cell
         }
     }
@@ -168,6 +175,8 @@ extension ServicesViewController: UICollectionViewDelegate, UICollectionViewData
                     viewModel.navToHomeVisit()
                 case .homeNursing:
                     viewModel.navTohomeNursing()
+                case .contactDoctor:
+                    viewModel.showChatwithUs(chatType: .doctorType)
                 }
             } else {
                 viewModel.navToSearchScreen()

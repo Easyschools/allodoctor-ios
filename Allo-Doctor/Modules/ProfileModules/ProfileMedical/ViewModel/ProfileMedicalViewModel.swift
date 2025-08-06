@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+
 class ProfileMedicalViewModel{
     var coordinator: HomeCoordinatorContact?
     private var cancellables = Set<AnyCancellable>()
@@ -16,31 +17,38 @@ class ProfileMedicalViewModel{
     @Published var bookingStatus: BookingStatus?
     @Published var errorMessage: String?
     @Published var medicalData: MedicalData?
+    @Published var isLoading: Bool = false
     private var apiClient = APIClient()
+    
     init(coordinator: HomeCoordinatorContact? = nil, apiClient: APIClient = APIClient()) {
        self.coordinator = coordinator
        self.apiClient = apiClient
     }
 }
+
 extension ProfileMedicalViewModel{
     func confirmBooking(){
         let confirmOrderRequest = MedicalInfoBody(
-            allergy: allergy.value, medication: medication.value,
+            allergy: allergy.value,
+            medication: medication.value,
             medicalHistory: medicalHistory.value
         )
         
-        confirmBooking(request:confirmOrderRequest)
+        confirmBooking(request: confirmOrderRequest)
     }
+    
     private func confirmBooking(request: MedicalInfoBody) {
+        isLoading = true
         let router = APIRouter.medicalInfoPost
         apiClient.postData(to: router.url, body: request, as: MedicalInfoResponse.self)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
+                self?.isLoading = false
                 switch completion {
                 case .finished:
                     break
                 case .failure(let error):
-                     print(error)
+                    print(error)
                     self?.bookingStatus = .failure
                 }
             } receiveValue: { [weak self] response in
@@ -48,23 +56,35 @@ extension ProfileMedicalViewModel{
                 self?.bookingStatus = .success
             }
             .store(in: &cancellables)
-
     }
+    
     func fetchMedicalData() {
+        isLoading = true
         let router = APIRouter.fetchMedicalData
 
         apiClient.fetchData(from: router.url, as: MedicalDataResponse.self)
-            .sink(receiveCompletion: {  completion in
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { [weak self] completion in
+                self?.isLoading = false
                 switch completion {
                 case .failure(let error):
-                 print(error)
+                    print(error)
+                    self?.errorMessage = error.localizedDescription
                 case .finished:
                     break
                 }
             }, receiveValue: { [weak self] response in
                 self?.medicalData = response.data
+                self?.updateSubjectsWithFetchedData()
             }).store(in: &cancellables)
     }
+    
+    private func updateSubjectsWithFetchedData() {
+        allergy.value = medicalData?.allergy ?? ""
+        medication.value = medicalData?.medication ?? ""
+        medicalHistory.value = medicalData?.medicalHistory ?? ""
+    }
+    
     private func handleError(message: String, errors: [String: [String]]? = nil) {
         var fullMessage = message
         if let errors = errors {
@@ -74,6 +94,30 @@ extension ProfileMedicalViewModel{
         
         // Display the error to the user, e.g., using an alert
         showAlert(title: "Error", message: fullMessage)
+    }
+    
+    func deleteImage(id: Int) {
+        isLoading = true
+        let router = APIRouter.updateMedicalData
+        let request = deleteImageRequest(deletedImageId: id, id: self.medicalData?.id ?? 0)
+        
+        apiClient.postData(to: router.url, body: request, as: MedicalInfoResponse.self)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] completion in
+                self?.isLoading = false
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    print(error)
+                    self?.bookingStatus = .failure
+                }
+            } receiveValue: { [weak self] response in
+                self?.handleResponse(response)
+                // Refresh the medical data after successful deletion
+                self?.fetchMedicalData()
+            }
+            .store(in: &cancellables)
     }
     
     private func handleResponse(_ response: MedicalInfoResponse) {
@@ -98,12 +142,18 @@ extension ProfileMedicalViewModel{
             }
         }
     }
-    }
+}
 
 extension ProfileMedicalViewModel {
+    func showMedicalImagesUpload(){
+        let id = self.medicalData?.id ?? 0
+        coordinator?.showMedicalImagesUpload(id: id)
+    }
+    
     func navToHome(){
         coordinator?.navigateToRoot()
     }
+    
     func navBack(){
         coordinator?.navigateBack()
     }

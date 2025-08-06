@@ -65,11 +65,12 @@ extension OneDayCareHospitalsViewController:UICollectionViewDelegate,UICollectio
        let cell = collectionView.dequeue(indexpath: indexPath) as ExternalClinicHospitalsCollectionViewCell
         cell.cornerRadius = 10
         cell.applyDropShadow()
-        if UserDefaultsManager.sharedInstance.getLanguage() == .ar{
-            cell.setupCell(hospitalName: data?.nameAr, hospitalAddress: data?.address, hospitalImageURL: data?.image)
-        }
-        else{
-            cell.setupCell(hospitalName:  data?.nameEn, hospitalAddress: data?.address, hospitalImageURL: data?.image)}
+           
+        guard let infoServie = viewModel.hospitalsData?[indexPath.row]
+            else { return cell }
+        cell.setupCell(infoService:infoServie)
+        
+     
         return cell
     }
    

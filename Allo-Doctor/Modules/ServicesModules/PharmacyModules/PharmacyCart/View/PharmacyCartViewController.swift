@@ -64,7 +64,7 @@ extension PharmacyCartViewController{
         else{ let pharmacyCartData = viewModel.pharmacyCart
             pharmacyName.text = pharmacyCartData?.nameEn
         }
-        totalPrice.text = (pharmacyCartData?.totalPrice ?? "0").prepend(AppLocalizedKeys.total.localized, separator: ":").appendingWithSpace(AppLocalizedKeys.EGP.localized)
+        totalPrice.text = (pharmacyCartData?.totalAfterDiscount ?? "0").prepend(AppLocalizedKeys.total.localized, separator: ":").appendingWithSpace(AppLocalizedKeys.EGP.localized)
         numberOfItems.text = pharmacyCartData?.totalQuantity.toString().prepend(AppLocalizedKeys.orderList.localized, separator: " ")
     }
     
@@ -137,27 +137,31 @@ extension PharmacyCartViewController {
         // Create the delete action
         let deleteAction = UIContextualAction(style: .destructive, title: AppLocalizedKeys.deletedSuccessfully.localized) { [weak self] (action, view, completion) in
             guard let self = self,
-                  let item = self.viewModel.pharmacyCart?.id else {
+                  let items = self.viewModel.pharmacyCart?.items,
+                  indexPath.row < items.count else {
                 completion(false)
                 return
             }
             
+            // Get the correct item ID
+            let itemToDelete = items[indexPath.row]
+            let itemId = itemToDelete.id ?? 0
+            
             // Call the delete function from view model
-            self.viewModel.deleteProduct(productId: item)
-            
-            // Update the local data
-            self.viewModel.pharmacyCart?.items?.remove(at: indexPath.row)
-            
-            // Delete row with animation
-            tableView.deleteRows(at: [indexPath], with: .fade)
-            
-            // Update the UI after deletion
-            self.setupViewUI()
-            
-            completion(true)
+            self.viewModel.deleteProduct(productId: itemId) { [weak self] success in
+                DispatchQueue.main.async {
+                    if success {
+                        // The UI will be updated automatically through the binding
+                        // No need to manually manipulate the array or delete rows
+                        completion(true)
+                    } else {
+                        // Handle error case
+                        completion(false)
+                        // Optionally show an error message to the user
+                    }
+                }
+            }
         }
-        
-
         
         // Create and return the swipe configuration
         let configuration = UISwipeActionsConfiguration(actions: [deleteAction])

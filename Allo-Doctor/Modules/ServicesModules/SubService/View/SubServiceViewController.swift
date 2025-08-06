@@ -11,6 +11,7 @@ class SubServiceViewController: BaseViewController<SubServiceViewModel> {
     @IBOutlet weak var subServicesCollectionView: UICollectionView!
     @IBOutlet weak var subServiceCollectionViewDynamicHeight: NSLayoutConstraint!
     @IBOutlet weak var bannerPhoto: UIImageView!
+    @IBOutlet weak var backButton: CustomNavigationBackButton!
     @IBOutlet weak var dropdownlist: CustomDropDownList!
     @IBOutlet weak var searchBar: CustomSearchBar!
     let dropDown = CustomDropDownList()
@@ -22,6 +23,9 @@ class SubServiceViewController: BaseViewController<SubServiceViewModel> {
     
     }
     override func setupUI() {
+        backButton.tintColor = .black
+        backButton.setTitleColor(.black, for: .normal)
+        backButton.updateForLanguageChange()
         searchBar.searchTextfield.placeholder = AppLocalizedKeys.searchForHospital.localized
         SetupCollectionView()
         bindCollectionViewHeight()
@@ -40,7 +44,10 @@ class SubServiceViewController: BaseViewController<SubServiceViewModel> {
         loadingScreen.frame = view.bounds
        
     }
-
+    @IBAction func navBackAction(_ sender: Any) {
+        viewModel.navBack()
+    }
+    
     
 }
 extension SubServiceViewController:UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout{

@@ -17,6 +17,7 @@ class UserDefaultsManager: UserDefaultProtocol {
     
     private init() {}
     func resetAllData() {
+        deleteAllFiles()
             let keys = [
                 "User_Name",
                 "IsLoggedIn",
@@ -24,7 +25,8 @@ class UserDefaultsManager: UserDefaultProtocol {
                 "IsVerifiedNumber",
                 "User_Id",
                 "Latitude",
-                "Longitude"
+                "Longitude",
+                "selectedAreaName"
             ]
             
             for key in keys {
@@ -104,7 +106,15 @@ class UserDefaultsManager: UserDefaultProtocol {
         UserDefaults.standard.set(lat, forKey: "Latitude")
         UserDefaults.standard.set(long, forKey: "Longitude")
     }
+   
+   
     
+    func getSavedAreaName() -> String? {
+        return UserDefaults.standard.string(forKey: "selectedAreaName")
+    }
+    func setArea(areaName: String) {
+        UserDefaults.standard.set(areaName, forKey: "selectedAreaName")
+    }
     func getCoordinates() -> (lat: String, long: String)? {
         guard let lat = UserDefaults.standard.value(forKey: "Latitude") as? String,
               let long = UserDefaults.standard.value(forKey: "Longitude") as? String else {
@@ -128,4 +138,36 @@ class UserDefaultsManager: UserDefaultProtocol {
        func isLanguageSet() -> Bool {
            return UserDefaults.standard.string(forKey: "AppLanguage") != nil
        }
+    private func deleteAllFiles() {
+        let fileManager = FileManager.default
+        
+        // Directories to clear
+        let directories: [FileManager.SearchPathDirectory] = [.documentDirectory, .cachesDirectory, .applicationSupportDirectory]
+        
+        for directory in directories {
+            if let dirPath = fileManager.urls(for: directory, in: .userDomainMask).first {
+                do {
+                    let filePaths = try fileManager.contentsOfDirectory(at: dirPath, includingPropertiesForKeys: nil)
+                    for filePath in filePaths {
+                        try fileManager.removeItem(at: filePath)
+                    }
+                } catch {
+                    print("Error deleting files in \(directory): \(error.localizedDescription)")
+                }
+            }
+        }
+        
+        // Clear temp directory separately
+        let tempDirectory = NSTemporaryDirectory()
+        do {
+            let tempFiles = try fileManager.contentsOfDirectory(atPath: tempDirectory)
+            for file in tempFiles {
+                let filePath = (tempDirectory as NSString).appendingPathComponent(file)
+                try fileManager.removeItem(atPath: filePath)
+            }
+        } catch {
+            print("Error deleting temp files: \(error.localizedDescription)")
+        }
+    }
+
 }

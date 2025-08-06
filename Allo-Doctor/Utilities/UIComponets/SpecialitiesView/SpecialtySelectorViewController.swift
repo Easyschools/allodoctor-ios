@@ -103,9 +103,9 @@ class SpecialtySelectorViewController: UIViewController {
         } else {
             filteredSpecialties = allSpecialties.filter { specialty in
                 let searchLowercased = searchText.lowercased()
-                return specialty.nameEn.lowercased().contains(searchLowercased) ||
-                       specialty.nameAr.lowercased().contains(searchLowercased) ||
-                       specialty.name.lowercased().contains(searchLowercased)
+                return specialty.nameEn?.lowercased().contains(searchLowercased) ?? true ||
+                ((specialty.nameAr?.lowercased().contains(searchLowercased)) != nil) ||
+                ((specialty.name?.lowercased().contains(searchLowercased)) != nil)
             }
         }
         tableView.reloadData()

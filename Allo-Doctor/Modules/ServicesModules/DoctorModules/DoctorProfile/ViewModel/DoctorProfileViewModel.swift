@@ -5,7 +5,10 @@
 //  Created by Abdallah ismail on 20/09/2024.
 //
 //
-
+enum DoctorPlace {
+    case outpatientClinics
+    case doctorClinics
+}
 import Foundation
 
 class DoctorProfileViewModel {
@@ -16,7 +19,7 @@ class DoctorProfileViewModel {
     var allAppointments: [DoctorAppointment] = []
     private let calendar = Calendar.current
     private var maxId: Int = 0
-    
+    var doctorPlace: DoctorPlace
     // New pagination properties
     private var appointmentPages: [[DoctorAppointment]] = []
     private var currentPageIndex = 0
@@ -40,10 +43,11 @@ class DoctorProfileViewModel {
     }()
     
     // MARK: - Initialization
-    init(coordinator: HomeCoordinatorContact? = nil, doctorId: String, apiClient: APIClient = APIClient()) {
+    init(coordinator: HomeCoordinatorContact? = nil, doctorId: String, apiClient: APIClient = APIClient(),doctorPlace: DoctorPlace) {
         self.coordinator = coordinator
         self.doctorId = doctorId
         self.apiClient = apiClient
+        self.doctorPlace = doctorPlace
     }
     
     // MARK: - Private Methods
@@ -148,10 +152,15 @@ class DoctorProfileViewModel {
                 let currentWeekday = calendar.component(.weekday, from: nextDate)
                 var daysToAdd = targetWeekday - currentWeekday
 
+                // Fixed logic for single day patterns
                 if daysToAdd < 0 {
                     daysToAdd += 7
-                } else if daysToAdd == 0 && index > 0 {
-                    daysToAdd = 7
+                } else if daysToAdd == 0 {
+                    // If it's the same weekday, we need to move to next week
+                    // unless it's the first appointment of the first week
+                    if weekCount > 0 || index > 0 {
+                        daysToAdd = 7
+                    }
                 }
 
                 nextDate = calendar.date(byAdding: .day, value: daysToAdd, to: nextDate) ?? nextDate

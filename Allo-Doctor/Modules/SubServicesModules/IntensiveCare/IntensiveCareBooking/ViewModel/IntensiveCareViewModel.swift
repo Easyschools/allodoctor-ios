@@ -11,8 +11,8 @@ class IntensiveCareViewModel{
    var coordinator: HomeCoordinatorContact?
    private var cancellables = Set<AnyCancellable>()
    @Published var errorMessage: String?
-   internal var name = CurrentValueSubject<String, Never>("")
-   internal var phone = CurrentValueSubject<String, Never>("")
+    internal var name = CurrentValueSubject<String, Never>(  UserDefaultsManager.sharedInstance.getUserName() ?? "")
+   internal var phone = CurrentValueSubject<String, Never>(  UserDefaultsManager.sharedInstance.getMobileNumber() ?? "")
    internal var address = CurrentValueSubject<String, Never>("")
     @Published var cities: [City] = []
     @Published var bookingStatus: BookingStatus?

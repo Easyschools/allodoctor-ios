@@ -22,7 +22,7 @@ protocol HomeCoordinatorContact: AnyObject {
     func showPhonenumberScreen()
     func showOtpScreen()
     var navigationController: UINavigationController { get }
-    func showDoctorSearch(specialityId:String,externalClinicServiceId:String)
+    func showDoctorSearch(specialityId:String,externalClinicServiceId:String,doctorPlace: DoctorPlace)
     func showClinicProfile(clinicID:String)
     func showClinicsSearch()
     func showProfileEdit()
@@ -32,11 +32,11 @@ protocol HomeCoordinatorContact: AnyObject {
     func presentModally(_ viewController: UIViewController)
     func dismissPresnet(_ viewController: UIViewController)
     func showHospitalSearch()
-    func showDoctorProfile(doctorID:String)
+    func showDoctorProfile(doctorID:String,doctorPlace:DoctorPlace)
     func presentModallyWithRoot(_ viewController: UIViewController)
     func  showDoctorConfirmationScreen (doctorData: DoctorProfile,appointmentDay: String,appoinmentHour: DoctorAppointmentHour,doctorServiceSpecialtyId: Int,date:String)
     func showDoctorAppointmentsScreen(docotor:DoctorProfile,date:String,day:String,doctorServiceSpecialtyId:Int)
-    func showLabsAndScanBooking(tests:[LabTestType],hourId:Int,dayId:Int,date:String,labId:Int,bookingType:String)
+    func showLabsAndScanBooking(tests:[LabTestType],hourId:Int?,dayId:Int?,date:String,labId:Int,bookingType:String?)
     func showOperationsSearchScreen()
     func showPharmacyHome(lat:String,long:String)
     func showLabsAndScanBookingAppointments(labId:Int,tests:[LabTestType],type:String)
@@ -48,7 +48,8 @@ protocol HomeCoordinatorContact: AnyObject {
     func showPharmacyCart(pharmacyId:Int)
     func dissToPharmacyHome (lat:String,long:String)
     func showOrdersScreens(pharmacyId:Int)
-    func showCreateAddress(lat:String,long:String)
+    func showCreateAddress(lat:String,long:String,UIViewController:UIViewController,orderScreenType:OrderScreenType)
+    func dismissToCreateAddress(lat:String,long:String)
     func navigateToRoot()
     func navigateToRootFromPresentation()
     func showExternalClinics()
@@ -58,7 +59,7 @@ protocol HomeCoordinatorContact: AnyObject {
     func showHomeVisit()
     func showIntensiveCare(selectedUnit:String)
     func showIncubations()
-    func showUploadPharmacyPrescription()
+    func showUploadPharmacyPrescription(pharmacyId:Int)
     func showPharmacyGlobalSearch()
     func showHomeNursing()
     func showEmergency()
@@ -83,6 +84,8 @@ protocol HomeCoordinatorContact: AnyObject {
     func showProfileSuppotViewController()
     func showInsuranceDetails(userInsurance:UserInsurance)
     func showSelectChatTypeViewController()
+    func showMedicalImagesUpload(id:Int)
+    func presentReview(reviewType:String,reviewId:Int)
 }
 
 // MARK: - HomeCoordinator
@@ -117,6 +120,33 @@ final class HomeCoordinator: Coordinator {
 // MARK: - HomeCoordinatorContact Implementation
 
 extension HomeCoordinator: HomeCoordinatorContact {
+    func showCreateAddress(lat: String, long: String) {
+        
+    }
+    
+    func dismissToCreateAddress(lat: String, long: String) {
+        
+    }
+    
+   
+
+    
+    func presentReview(reviewType: String, reviewId: Int) {
+        let viewController = ReviewViewController(reviewableEntity: reviewType, reviewableId: reviewId)
+        viewController.modalPresentationStyle = .fullScreen
+        if let navController = (window?.rootViewController as? UITabBarController)?.selectedViewController as? UINavigationController {
+            navController.present(viewController, animated: true)
+        }
+    }
+     
+    func showMedicalImagesUpload(id:Int) {
+        let viewController = ImageUploadViewController(id: id)
+        viewController.modalPresentationStyle = .fullScreen
+        if let navController = (window?.rootViewController as? UITabBarController)?.selectedViewController as? UINavigationController {
+            navController.present(viewController, animated: true)
+        }
+    }
+    
     func showSelectChatTypeViewController() {
         let viewModel =   SelectChatTypeViewModel(coordinator:self)
         let viewController = SelectChatTypeViewController(viewModel: viewModel)

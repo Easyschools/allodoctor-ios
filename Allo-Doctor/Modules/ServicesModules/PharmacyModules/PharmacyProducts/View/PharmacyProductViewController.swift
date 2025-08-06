@@ -91,8 +91,8 @@ extension PharmacyProductViewController:UICollectionViewDelegate,UICollectionVie
        let cell = collectionView.dequeue(indexpath: indexPath) as ProductsCollectionViewCell
         let product = viewModel.products?[indexPath.row]
         if UserDefaultsManager.sharedInstance.getLanguage() == .ar{
-            cell.setup(with: product?.mainImage ?? "", name: product?.nameAr ?? "", price: product?.medicationPharmacies?[0].price ?? "")}
-        else {  cell.setup(with: product?.mainImage ?? "", name: product?.nameEn ?? "", price: product?.medicationPharmacies?[0].price ?? "")}
+            cell.setup(with: product?.mainImage ?? "", name: product?.nameAr ?? "",price: product?.medicationPharmacies?.first?.price ?? "", priceAfterDiscount: product?.medicationPharmacies?.first?.priceAfterDiscount)}
+        else {  cell.setup(with: product?.mainImage ?? "", name: product?.nameEn ?? "", price: product?.medicationPharmacies?.first?.price ?? "", priceAfterDiscount: product?.medicationPharmacies?.first?.priceAfterDiscount)}
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -157,9 +157,7 @@ extension PharmacyProductViewController{
                     .store(in: &cancellables)
     }
    private  func grandTotalViewCheck(){
-       
        proceedToBasketView.isHidden = (viewModel.grandTotalData?.totalQuantity == nil)
-       
     }
     
     private func setupSearchBar() {

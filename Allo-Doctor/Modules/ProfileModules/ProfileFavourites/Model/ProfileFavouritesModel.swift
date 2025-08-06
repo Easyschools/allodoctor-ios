@@ -18,7 +18,7 @@ struct FavouriteData: Codable {
     let id: Int
     let favoritableType: String
     let favoritableID: Int
-    let favoritable: Favoritable
+    let favoritable: Favoritable?
     let favoritableName: String
 
     enum CodingKeys: String, CodingKey {

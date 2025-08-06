@@ -9,14 +9,16 @@
 // MARK: - Pharmacy Navigations
 import UIKit
 extension HomeCoordinator{
-    func showCreateAddress(lat:String,long:String) {
-        let viewModel = UserAddressViewModel(coordinator:self,lat: lat, long: long)
+    func showCreateAddress(lat:String,long:String,UIViewController:UIViewController,orderScreenType:OrderScreenType) {
+        let viewModel = UserAddressViewModel(coordinator:self,lat: lat, long: long, screenType: orderScreenType)
         let viewController = UserAddressViewController(viewModel: viewModel)
         if let presentedNavController = (window?.rootViewController as? UITabBarController)?.selectedViewController?.presentedViewController as? UINavigationController {
             presentedNavController.pushViewController(viewController, animated: true)
+
         }
         else if let selectedViewController = (window?.rootViewController as? UITabBarController)?.selectedViewController as? UINavigationController {
             selectedViewController.pushViewController(viewController, animated: true)
+            UIViewController.dismiss(animated: true)
         }
     }
     func showOrdersScreens(pharmacyId:Int) {
@@ -48,8 +50,8 @@ extension HomeCoordinator{
             }
         }
     }
-    func showUploadPharmacyPrescription(){
-        let viewModel = UploadPrescriptionViewModel(coordinator: self, pharmacyId: 30)
+    func showUploadPharmacyPrescription(pharmacyId:Int){
+        let viewModel = UploadPrescriptionViewModel(coordinator: self, pharmacyId: pharmacyId)
         let viewController = UploadPrescriptionViewController(viewModel: viewModel)
         if let navController = (window?.rootViewController as? UITabBarController)?.selectedViewController as? UINavigationController {
             navController.pushViewController(viewController, animated: true)

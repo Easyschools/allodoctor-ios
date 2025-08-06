@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -14,6 +14,9 @@
             <connections>
                 <outlet property="actvityTableView" destination="TaQ-mU-NzV" id="CSJ-zj-GGd"/>
                 <outlet property="customSwitch" destination="0cp-Br-ABi" id="QIV-d3-WHH"/>
+                <outlet property="noActivityImage" destination="lE0-5n-x5c" id="v6j-zn-myq"/>
+                <outlet property="noActivityLabel" destination="ihj-hM-AVL" id="apf-ZG-216"/>
+                <outlet property="notAvailableView" destination="lri-4O-2Sl" id="KDm-bY-NlZ"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -53,6 +56,25 @@
                     <rect key="frame" x="0.0" y="134" width="375" height="644"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </tableView>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="lri-4O-2Sl">
+                    <rect key="frame" x="47.666666666666657" y="255.99999999999997" width="280" height="300.33333333333326"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="appointmentsPlaceHolder" translatesAutoresizingMaskIntoConstraints="NO" id="lE0-5n-x5c">
+                            <rect key="frame" x="0.0" y="0.0" width="280" height="280"/>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="oops no appointments!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ihj-hM-AVL" customClass="CairoBold" customModule="Allo_Doctor" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="280" width="280" height="20.333333333333314"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
+                                    <real key="value" value="20"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </label>
+                    </subviews>
+                </stackView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -62,6 +84,8 @@
                 <constraint firstItem="TaQ-mU-NzV" firstAttribute="top" secondItem="0cp-Br-ABi" secondAttribute="bottom" constant="8" id="QlY-3G-lC4"/>
                 <constraint firstItem="0cp-Br-ABi" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="11" id="Ucl-Y2-Zg3"/>
                 <constraint firstItem="0cp-Br-ABi" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="24" id="kuO-nz-Mxu"/>
+                <constraint firstItem="lri-4O-2Sl" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="l1e-TT-6pY"/>
+                <constraint firstItem="lri-4O-2Sl" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="mv3-Bz-5sf"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="TaQ-mU-NzV" secondAttribute="trailing" id="nmc-xu-AZs"/>
                 <constraint firstItem="TaQ-mU-NzV" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="vHf-Y5-KB6"/>
             </constraints>
@@ -70,6 +94,7 @@
         </view>
     </objects>
     <resources>
+        <image name="appointmentsPlaceHolder" width="280" height="280"/>
         <namedColor name="blueAppColor">
             <color red="0.11800000071525574" green="0.49000000953674316" blue="0.75300002098083496" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

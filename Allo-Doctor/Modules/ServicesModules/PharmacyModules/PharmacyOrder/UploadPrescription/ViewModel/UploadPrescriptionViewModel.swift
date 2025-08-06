@@ -36,12 +36,12 @@ class UploadPrescriptionViewModel {
 
     func uploadPrescription(){
         let body = ConfirmUploadPrescriptionBody(
-            address_id: 1,
+            address_id: adressId ?? 0,
             pharmacy_id: pharmacyId,
             address_user_id: adressId ?? 1,
             payment_type: "cash"
         )
-   
+     print (body)
       uploadImage(request:body)
     }
 }

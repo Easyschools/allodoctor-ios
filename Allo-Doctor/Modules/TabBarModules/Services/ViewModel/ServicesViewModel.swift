@@ -95,9 +95,12 @@ extension ServicesViewModel{
     func showEmergency(){
         coordinator?.showEmergency()
     }
-    func showChatwithUs(){
-        coordinator?.showSelectChatTypeViewController()
-//        coordinator?.showChatViewController()
+    func showChatwithUs(chatType:chatType){
+        if chatType == .customerServiceType {
+            coordinator?.showChatViewController(chatType:.customerServiceType)}
+        else{
+            coordinator?.showChatViewController(chatType:.doctorType)
+        }
     }
 }
 extension ServicesViewModel{

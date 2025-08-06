@@ -122,10 +122,10 @@ class SearchViewModel {
     }
     
     func navtoDoctorSearch(specialityId:String) {
-        coordinator?.showDoctorSearch(specialityId:specialityId, externalClinicServiceId: "")
+        coordinator?.showDoctorSearch(specialityId:specialityId, externalClinicServiceId: "", doctorPlace: .doctorClinics)
     }
     func navToDoctor(id:String){
-        coordinator?.showDoctorProfile(doctorID: id)
+        coordinator?.showDoctorProfile(doctorID: id, doctorPlace: .doctorClinics)
     }
     func navToClinicProfile (id:String){
         coordinator?.showClinicProfile(clinicID: id)

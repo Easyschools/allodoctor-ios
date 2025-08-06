@@ -47,6 +47,10 @@ extension SubServiceViewModel{
         coordinator?.showEmergency()
     }
     func showChat(){
-        coordinator?.showSelectChatTypeViewController()
+        coordinator?.showChatViewController(chatType: .customerServiceType)
+    }
+    func navBack() {
+        coordinator?.navigateBack()
     }
 }
+

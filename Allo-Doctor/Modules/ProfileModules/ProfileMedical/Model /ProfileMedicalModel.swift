@@ -34,19 +34,30 @@ struct MedicalInfoBody:Codable {
         case medicalHistory = "medical_history"
     }
 }
+struct deleteImageRequest:Codable {
+    let deletedImageId:Int?
+    let id :Int
+    enum CodingKeys: String, CodingKey {
+        case deletedImageId = "delete_image_id"
+        case id
+    }
+}
 struct MedicalData: Decodable {
     let id: Int?
     let allergy: String?
     let medication: String?
     let medicalHistory: String?
-    
+    let images : [Image]
     // Decoding the keys to match the JSON response
     enum CodingKeys: String, CodingKey {
-        case id, allergy, medication
+        case id, allergy, medication,images
         case medicalHistory = "medical_history"
     }
 }
-
+struct Image: Decodable  {
+    let id: Int?
+    let image: String?
+}
 // Define the response wrapper which is optional
 struct MedicalDataResponse: Decodable {
     let data: MedicalData?

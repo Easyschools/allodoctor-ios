@@ -15,12 +15,12 @@ class IncubationsViewModel {
     @Published var cities: [City] = []
     // Reactive properties for form fields
     private var apiClient = APIClient()
-    internal var name = CurrentValueSubject<String, Never>("")
+    internal var name = CurrentValueSubject<String, Never>(  UserDefaultsManager.sharedInstance.getUserName() ?? "")
     internal var districtId = CurrentValueSubject<Int, Never>(0)
     internal var day = CurrentValueSubject<String, Never>("")
     internal var month = CurrentValueSubject<String, Never>("")
     internal var year = CurrentValueSubject<String, Never>("")
-    internal var phone = CurrentValueSubject<String, Never>("")
+    internal var phone = CurrentValueSubject<String, Never>(  UserDefaultsManager.sharedInstance.getMobileNumber() ?? "")
     @Published var status: BookingStatus?
     // Image management
     private let imageFileName = "documentImage.png"

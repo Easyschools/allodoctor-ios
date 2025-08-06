@@ -45,10 +45,19 @@ class MyActivityTableViewCell: UITableViewCell {
             statusColor.backgroundColor = .green4D932C
           statusLabel.text = AppLocalizedKeys.confirmed.localized
         }
-        else if status == "Canceled" {
-            statusColor.backgroundColor = .redD32F2F
-            statusLabel.text = AppLocalizedKeys.cancelled.localized
-        }
+      else if status == "Done"{
+          statusColor.backgroundColor = .green4D932C
+        statusLabel.text = AppLocalizedKeys.done.localized
+      }
+      else if status == "Canceled" || status == "Cancelled" {
+          statusColor.backgroundColor = .redD32F2F
+          statusLabel.text = AppLocalizedKeys.cancelled.localized
+      }
+      else if status == "Failed"  {
+          statusColor.backgroundColor = .grey6B7280
+          statusLabel.text = AppLocalizedKeys.failed.localized
+      }
+
         else {
              statusColor.backgroundColor = .appColor
              statusLabel.text = AppLocalizedKeys.pending.localized

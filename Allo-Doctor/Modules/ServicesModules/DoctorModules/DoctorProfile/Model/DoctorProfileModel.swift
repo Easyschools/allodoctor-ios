@@ -284,7 +284,6 @@ struct DoctorProfile: Decodable {
     let descriptionAr: String?
     let description: String?
     let address: String?
-  
     let rate: Double?
     let waitingTime: Int?
     let price: String?
@@ -303,7 +302,7 @@ struct DoctorProfile: Decodable {
     let externalClinicService: [ExternalClinicService]?
     let avgRating: Double?
     let reviewsCount: Int?
-
+    let medicalInsurance : [MedicalInsurance]?
     enum CodingKeys: String, CodingKey {
         case id, title, description, address, rate, price, experience, images, gender, district
         case nameAr = "name_ar"
@@ -327,6 +326,7 @@ struct DoctorProfile: Decodable {
         case externalClinicService = "externalClinicService"
         case avgRating = "avg_rating"
         case reviewsCount = "reviews_count"
+        case medicalInsurance = "medical_insurance"
     }
 }
 
@@ -400,7 +400,7 @@ struct ExternalClinicService: Decodable {
     let descriptionEn: String?
     let price: String?
     let address: String?
-
+    let infoService: InfoService?
     let serviceId: Int?
     
     enum CodingKeys: String, CodingKey {
@@ -410,6 +410,8 @@ struct ExternalClinicService: Decodable {
         case descriptionAr = "description_ar"
         case descriptionEn = "description_en"
         case serviceId = "service_id"
+        case infoService = "infoService"
+        
     }
 }
 
@@ -527,10 +529,10 @@ struct DoctorDay: Decodable {
 
 // MARK: - Hour
 struct DoctorHour: Decodable {
-    let appointmentDayHourId: Int
-    let id: Int
-    let from: String
-    let to: String
+    let appointmentDayHourId: Int?
+    let id: Int?
+    let from: String?
+    let to: String?
 
     enum CodingKeys: String, CodingKey {
         case appointmentDayHourId = "appointment_day_hour_id"
@@ -545,13 +547,13 @@ struct DoctorAppointmentBooking: Decodable {
 
 // MARK: - Speciality
 struct Speciality: Decodable {
-    let id: Int
-    let nameEn: String
-    let nameAr: String
-    let name: String
-    let descriptionEn: String
-    let descriptionAr: String
-    let description: String
+    let id: Int?
+    let nameEn: String?
+    let nameAr: String?
+    let name: String?
+    let descriptionEn: String?
+    let descriptionAr: String?
+    let description: String?
 
     enum CodingKeys: String, CodingKey {
         case id, name, description

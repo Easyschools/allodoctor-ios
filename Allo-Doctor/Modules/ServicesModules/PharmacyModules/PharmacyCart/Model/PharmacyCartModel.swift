@@ -25,6 +25,7 @@ struct PharmacyCartData: Decodable {
     let totalAfterDiscount: String?
     let deliveryFee:String?
     var items: [PharmacyCartItem]?
+   
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -39,6 +40,7 @@ struct PharmacyCartData: Decodable {
         case discount
         case totalAfterDiscount = "total_after_discount"
         case items
+
     }
 }
 
@@ -91,10 +93,11 @@ struct PharmacyMedicationPharmacy: Decodable {
     let id: Int?
     let price: String?
     let priceAfterDiscount: String?
-    
+    let quantity: Int?
     enum CodingKeys: String, CodingKey {
         case id
         case price
+        case quantity
         case priceAfterDiscount = "price_after_discount"
     }
 }

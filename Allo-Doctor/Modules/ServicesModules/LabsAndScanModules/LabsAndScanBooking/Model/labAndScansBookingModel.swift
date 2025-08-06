@@ -18,11 +18,11 @@ struct LabsAndScanBookingRequest:Codable{
     let name: String
     let phone: String
     let location: String
-    let test_id: [Int]
-    let hourId:Int
-    let dayId:Int
-    let date : String
-    let bookingType:String
+    let test_id: [Int]?
+    let hourId:Int?
+    let dayId:Int?
+    let date : String?
+    let bookingType:String?
     let symptoms:String
     enum CodingKeys: String, CodingKey {
         case labId = "lab_id"
@@ -93,9 +93,9 @@ struct BookingAppointment: Decodable {
 
 // MARK: - AppointmentHour
 struct AppointmentHour: Decodable {
-    let id: Int
-    let from: String
-    let to: String
+    let id: Int?
+    let from: String?
+    let to: String?
 }
 
 // MARK: - AppointmentDay
@@ -103,14 +103,12 @@ struct AppointmentDay: Decodable {
     let id: Int
     let nameEn: String
     let nameAr: String
-    let name: String
     let available: Int
 
     enum CodingKeys: String, CodingKey {
         case id
         case nameEn = "name_en"
         case nameAr = "name_ar"
-        case name
         case available
     }
 }

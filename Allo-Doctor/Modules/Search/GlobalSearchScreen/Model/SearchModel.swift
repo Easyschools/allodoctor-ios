@@ -9,13 +9,13 @@ import Foundation
 
 // Model for each speciality
 struct AllSpeciality: Decodable {
-    let id: Int
-    let nameEn: String
-    let nameAr: String
-    let name: String
-    let descriptionEn: String
-    let descriptionAr: String
-    let description: String
+    let id: Int?
+    let nameEn: String?
+    let nameAr: String?
+    let name: String?
+    let descriptionEn: String?
+    let descriptionAr: String?
+    let description: String?
 
     // Coding keys to map JSON keys to model properties
     private enum CodingKeys: String, CodingKey {

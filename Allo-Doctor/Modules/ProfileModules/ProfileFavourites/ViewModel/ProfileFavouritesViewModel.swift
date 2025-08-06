@@ -68,7 +68,7 @@ class ProfileFavouritesViewModel {
     }
     
     func navToDoctors(doctorID: String) {
-        coordinator?.showDoctorProfile(doctorID: doctorID)
+        coordinator?.showDoctorProfile(doctorID: doctorID, doctorPlace: .doctorClinics)
     }
     
     func navToPhramacy(pharmacyId: Int) {

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -122,11 +122,11 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fza-UM-SXK">
                                 <rect key="frame" x="0.0" y="96" width="343" height="44"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="oPe-Ix-QGy">
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oPe-Ix-QGy">
                                         <rect key="frame" x="8" y="12" width="327" height="20"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="6AK-nq-cFq">
-                                                <rect key="frame" x="0.0" y="0.0" width="163.66666666666666" height="20"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="178.66666666666666" height="20"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pinLocation" translatesAutoresizingMaskIntoConstraints="NO" id="OdD-jE-BHU">
                                                         <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
@@ -135,7 +135,7 @@
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Cairo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vSW-F7-ZPx" customClass="CairoRegular" customModule="Allo_Doctor" customModuleProvider="target">
-                                                        <rect key="frame" x="24" y="0.0" width="139.66666666666666" height="20"/>
+                                                        <rect key="frame" x="24" y="0.0" width="154.66666666666666" height="20"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -148,7 +148,7 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="qcF-l0-BdR">
-                                                <rect key="frame" x="163.66666666666663" y="0.0" width="163.33333333333337" height="20"/>
+                                                <rect key="frame" x="178.66666666666663" y="0.0" width="148.33333333333337" height="20"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="deleviry" translatesAutoresizingMaskIntoConstraints="NO" id="CYW-iq-Id3">
                                                         <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
@@ -156,31 +156,34 @@
                                                             <constraint firstAttribute="width" constant="20" id="qhs-TE-7mI"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="-10" translatesAutoresizingMaskIntoConstraints="NO" id="ZDT-MB-YAr">
-                                                        <rect key="frame" x="26" y="0.0" width="137.33333333333334" height="20"/>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="ZDT-MB-YAr">
+                                                        <rect key="frame" x="25.999999999999993" y="0.0" width="122.33333333333331" height="20"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Delivery Fees :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6lX-o7-TW8" customClass="CairoRegular" customModule="Allo_Doctor" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="0.0" width="90" height="20"/>
+                                                                <rect key="frame" x="0.0" y="3.0000000000000009" width="79" height="14.333333333333336"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="width" constant="90" id="IyN-FB-Imt"/>
+                                                                    <constraint firstAttribute="width" constant="79" id="PH3-Nj-IFD"/>
                                                                 </constraints>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="Delivery Fees :"/>
                                                                 </userDefinedRuntimeAttributes>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="75 Egp" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h50-2H-LK0">
-                                                                <rect key="frame" x="80.000000000000028" y="0.0" width="57.333333333333343" height="20"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="75 Egp" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h50-2H-LK0">
+                                                                <rect key="frame" x="79.000000000000028" y="3.3333333333333295" width="43.333333333333343" height="13.333333333333336"/>
                                                                 <color key="tintColor" name="blueAppColor"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                                 <color key="textColor" name="blueAppColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                         </subviews>
                                                     </stackView>
                                                 </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="148.33000000000001" id="o4V-Xf-bis"/>
+                                                </constraints>
                                             </stackView>
                                         </subviews>
                                     </stackView>
@@ -232,11 +235,6 @@
             <point key="canvasLocation" x="353.43511450381681" y="7.042253521126761"/>
         </collectionViewCell>
     </objects>
-    <designables>
-        <designable name="RP6-XV-kME">
-            <size key="intrinsicContentSize" width="122.66666666666667" height="20.333333333333332"/>
-        </designable>
-    </designables>
     <resources>
         <image name="backGroundPharmacyImage" width="343" height="120"/>
         <image name="clock" width="24" height="24"/>

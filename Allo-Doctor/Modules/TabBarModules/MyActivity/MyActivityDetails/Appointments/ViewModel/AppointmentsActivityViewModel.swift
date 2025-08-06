@@ -17,6 +17,7 @@ class AppointmentsActivityViewModel{
         self.coordinator = coordinator
         self.apiClient = apiClient
         self.bookingData = bookingData
+        print(bookingData)
     }
 }
 extension AppointmentsActivityViewModel{
@@ -36,11 +37,16 @@ extension AppointmentsActivityViewModel{
             }, receiveValue: { response in
                 print("Message: \(response.Message)")
                 print("Data: \(response.data)")
+                print (response)
             })
         .store(in: &cancellables)}
 }
 extension AppointmentsActivityViewModel{
     func navBack(){
         coordinator?.navigateBack()
+    }
+    func navToReview(){
+   
+        coordinator?.presentReview(reviewType: bookingData.typeOfBooking ?? "", reviewId: bookingData.doctor?.doctorServiceSpecialty?.doctor?.id ?? 0)
     }
 }

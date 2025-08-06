@@ -11,8 +11,8 @@ import UIKit
 
 class EmergencyViewModel: ObservableObject {
     var coordinator: HomeCoordinatorContact?
-    var nameSubject = CurrentValueSubject<String, Never>("")
-    var numberSubject = CurrentValueSubject<String, Never>("")
+    var nameSubject = CurrentValueSubject<String, Never>(UserDefaultsManager.sharedInstance.getUserName() ?? "")
+    var numberSubject = CurrentValueSubject<String, Never>(UserDefaultsManager.sharedInstance.getMobileNumber() ?? "")
     var districtId = CurrentValueSubject<Int, Never>(0)
     var cancellables = Set<AnyCancellable>()
     

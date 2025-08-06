@@ -39,7 +39,7 @@ extension OffersBannersViewModel{
 }
 extension OffersBannersViewModel{
     func navToDoctor(id:Int) {
-        coordinator?.showDoctorProfile(doctorID:id.toString())
+        coordinator?.showDoctorProfile(doctorID:id.toString(), doctorPlace: .doctorClinics)
     }
     func navToPharmacy(id:Int){
         coordinator?.showPharmacyCategory(pharmacyId:id)

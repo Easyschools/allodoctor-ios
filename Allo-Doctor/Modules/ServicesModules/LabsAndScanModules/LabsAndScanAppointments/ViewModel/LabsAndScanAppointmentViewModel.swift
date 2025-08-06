@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 class LabsAndScanAppointmentViewModel{
    private var coordinator:HomeCoordinatorContact?
    @Published var tests : [LabTestType]
@@ -79,7 +80,7 @@ extension LabsAndScanAppointmentViewModel{
 }
 extension LabsAndScanAppointmentViewModel{
     func navtoLabBooking(hourId:Int,dayId:Int,date:String){
-        coordinator?.showLabsAndScanBooking(tests: tests, hourId: hourId, dayId: dayId, date:date , labId: labId, bookingType:testType ?? "home")
+        coordinator?.showLabsAndScanBooking(tests: tests, hourId: hourId, dayId: dayId, date:date , labId: labId, bookingType:testType ?? "branch")
     }
     func navback(){
         coordinator?.navigateBack()

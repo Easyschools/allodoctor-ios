@@ -59,10 +59,10 @@ extension PharmacyProductViewModel {
         
         if let categoryId = categoryId {
             // Use categoryId if it's not nil
-            router = APIRouter.fetchProducts(isPaginate: 15, categoryId: categoryId, pharmacyId: pharmacyId, search: search)
+            router = APIRouter.fetchProducts(isPaginate: 100, categoryId: categoryId, pharmacyId: pharmacyId, search: search)
         } else {
             // Fetch all products if categoryId is nil
-            router = APIRouter.fetchAllProducts(isPaginate: 15, pharmacyId: pharmacyId, search: search)
+            router = APIRouter.fetchAllProducts(isPaginate: 100, pharmacyId: pharmacyId, search: search)
         }
         
         print(router.url)

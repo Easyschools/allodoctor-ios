@@ -15,6 +15,7 @@ struct FilterOptions {
 
 
 class DoctorFilterViewController: UIViewController {
+    @IBOutlet weak var maxmuimPriceLabel: CairoRegular!
     let filtersSubject = PassthroughSubject<FilterOptions, Never>()
     @IBOutlet weak var genderSelectionView: GenderSelectionControl!
     @IBOutlet weak var doctorType: DoctorTypeSelectionControl!
@@ -36,15 +37,24 @@ class DoctorFilterViewController: UIViewController {
         setupUi()
         fetchInsuranceCompanies()
     }
-    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        insuranceSelectView.dismissDropdownIfNeeded()
+    }
+
     @IBAction func dismissAction(_ sender: Any) {
+        insuranceSelectView.dismissDropdownIfNeeded()
         self.dismiss(animated: true)
+    }
+    @IBAction func sliderAction(_ sender: Any) {
+        maxPrice.text = priceSlider.value.toInt.toString().appendingWithSpace(AppLocalizedKeys.EGP.localized)
     }
     @IBAction func confirmationButton(_ sender: Any) {
         applyFilters()
         self.dismiss(animated: true)
     }
     private func setupUi() {
+
         // Insurance selection setup
         insuranceSelectView.selectionPublisher
             .sink { selectedItem in

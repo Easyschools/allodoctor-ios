@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -13,6 +13,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PharmacyHomeViewController" customModule="Allo_Doctor" customModuleProvider="target">
             <connections>
                 <outlet property="backButton" destination="Y4Z-Ak-1t3" id="VCl-fZ-qxw"/>
+                <outlet property="locationButton" destination="p7M-sj-QwR" id="UYG-WR-JRc"/>
                 <outlet property="pharmaciesCollectionView" destination="7oa-k6-sJL" id="C4C-Eh-GLU"/>
                 <outlet property="pharmaciesCollectionViewDynamicHeightConstraint" destination="w9R-x7-4wz" id="0rH-lG-hAh"/>
                 <outlet property="searchView" destination="ch5-Fd-3CO" id="Nyf-XC-uoa"/>
@@ -42,18 +43,33 @@
                         <action selector="navBackAction:" destination="-1" eventType="touchUpInside" id="xcy-34-MUz"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c4G-wZ-M2G">
-                    <rect key="frame" x="335" y="53" width="24" height="24"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="24" id="rAT-YC-Qax"/>
-                        <constraint firstAttribute="width" constant="24" id="rxE-pq-qdR"/>
-                    </constraints>
-                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                    <state key="normal" image="basket"/>
-                    <connections>
-                        <action selector="goToBasketAction:" destination="-1" eventType="touchUpInside" id="ilz-b0-j2n"/>
-                    </connections>
-                </button>
+                <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="0qW-LD-Xky">
+                    <rect key="frame" x="209" y="57" width="150" height="24"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p7M-sj-QwR">
+                            <rect key="frame" x="0.0" y="0.0" width="116" height="24"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" title="Change Location">
+                                <color key="titleColor" name="blueAppColor"/>
+                            </state>
+                            <connections>
+                                <action selector="changeLocationAction:" destination="-1" eventType="touchUpInside" id="4QJ-Nm-Fgt"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c4G-wZ-M2G">
+                            <rect key="frame" x="126" y="0.0" width="24" height="24"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="24" id="rAT-YC-Qax"/>
+                                <constraint firstAttribute="width" constant="24" id="rxE-pq-qdR"/>
+                            </constraints>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" image="basket"/>
+                            <connections>
+                                <action selector="goToBasketAction:" destination="-1" eventType="touchUpInside" id="ilz-b0-j2n"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                </stackView>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OwZ-4v-e82">
                     <rect key="frame" x="0.0" y="103.33333333333331" width="375" height="674.66666666666674"/>
                     <subviews>
@@ -147,27 +163,25 @@
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstItem="0qW-LD-Xky" firstAttribute="centerY" secondItem="Y4Z-Ak-1t3" secondAttribute="centerY" constant="4" id="5VC-sC-FWy"/>
                 <constraint firstItem="OwZ-4v-e82" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="MmL-57-mZF"/>
                 <constraint firstAttribute="trailing" secondItem="OwZ-4v-e82" secondAttribute="trailing" id="OEt-Lx-a5f"/>
                 <constraint firstItem="OwZ-4v-e82" firstAttribute="top" secondItem="Y4Z-Ak-1t3" secondAttribute="bottom" constant="23.329999999999998" id="OeQ-lL-0l3"/>
                 <constraint firstItem="Y4Z-Ak-1t3" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="WI6-8N-YcH"/>
                 <constraint firstItem="OwZ-4v-e82" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="gNG-6i-UAT"/>
-                <constraint firstItem="c4G-wZ-M2G" firstAttribute="centerY" secondItem="Y4Z-Ak-1t3" secondAttribute="centerY" id="kkX-bZ-kSh"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="c4G-wZ-M2G" secondAttribute="trailing" constant="16" id="pv2-YI-LgL"/>
+                <constraint firstAttribute="trailing" secondItem="0qW-LD-Xky" secondAttribute="trailing" constant="16" id="nKV-kZ-3ua"/>
                 <constraint firstItem="Y4Z-Ak-1t3" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="vpA-hE-Kza"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="-18.399999999999999" y="-1.4778325123152709"/>
         </view>
     </objects>
-    <designables>
-        <designable name="Y4Z-Ak-1t3">
-            <size key="intrinsicContentSize" width="80" height="30"/>
-        </designable>
-    </designables>
     <resources>
         <image name="basket" width="20" height="20"/>
         <image name="pharmacybanner" width="343" height="145"/>
+        <namedColor name="blueAppColor">
+            <color red="0.11800000071525574" green="0.49000000953674316" blue="0.75300002098083496" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="grey-#A8A8A8">
             <color red="0.6589999794960022" green="0.6589999794960022" blue="0.6589999794960022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

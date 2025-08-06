@@ -28,7 +28,7 @@ class PharmacyCollectionViewCell: UICollectionViewCell {
         // Set text for labels
         self.pharmacyName.text = pharmacyName
         self.pharmacyArea.text = area
-        self.deleviryFees.text = deliveryFees
+        self.deleviryFees.text = deliveryFees.withoutDecimals.appendingWithSpace(AppLocalizedKeys.EGP.localized)
         self.deleviryTime.text = deliveryTime
         
         // Load images using Kingfisher

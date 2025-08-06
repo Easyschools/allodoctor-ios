@@ -47,12 +47,11 @@ struct ExternalClinicDoctor: Decodable {
     let address: String?
     let rate: Double?
     let waitingTime: Int?
-    let price: Double?
-    let priceAfterDiscount: Double?
-    let experience: Int?
+    let price: String?
+    let priceAfterDiscount: String?
     let mainImage: String?
     let districtId: Int?
-
+    
     enum CodingKeys: String, CodingKey {
         case id
         case name
@@ -69,14 +68,13 @@ struct ExternalClinicDoctor: Decodable {
         case waitingTime = "waitng_time"
         case price
         case priceAfterDiscount = "price_after_discount"
-        case experience
         case mainImage = "main_image"
         case districtId = "district_id"
     }
 }
 
 struct InfoServiceWrapper: Decodable {
-    let infoService: InfoService?
+    let infoService: InfoService
     let clinicInfo: ExtternalClinicInfo?
 
     enum CodingKeys: String, CodingKey {

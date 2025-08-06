@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -16,6 +16,7 @@
                 <outlet property="genderSelectionView" destination="5CQ-vg-rMS" id="zfG-Nk-YEn"/>
                 <outlet property="insuranceSelectView" destination="9Ak-52-m7n" id="leR-Bp-hna"/>
                 <outlet property="maxPrice" destination="hkU-eN-CRD" id="aql-co-dMv"/>
+                <outlet property="maxmuimPriceLabel" destination="hkU-eN-CRD" id="J74-Jc-tkQ"/>
                 <outlet property="minPrice" destination="0kq-8Q-Ft5" id="X21-Vs-thS"/>
                 <outlet property="priceSlider" destination="IK4-m0-cTi" id="4sD-cV-wdG"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -280,6 +281,9 @@
                                                     <rect key="frame" x="-2" y="66" width="333" height="81"/>
                                                     <color key="minimumTrackTintColor" name="blueAppColor"/>
                                                     <color key="maximumTrackTintColor" name="grey-#A8A8A8"/>
+                                                    <connections>
+                                                        <action selector="sliderAction:" destination="-1" eventType="valueChanged" id="zDX-4D-ZF6"/>
+                                                    </connections>
                                                 </slider>
                                             </subviews>
                                             <constraints>

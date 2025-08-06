@@ -51,9 +51,9 @@ func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath:
     cell.cornerRadius = 10
     cell.applyDropShadow()
     if UserDefaultsManager.sharedInstance.getLanguage() == .ar{
-        cell.configure(imageUrl:data?.favoritable.mainImage ?? "", title: data?.favoritable.titleAr ?? "", name: data?.favoritable.nameAr ?? "")
+        cell.configure(imageUrl:data?.favoritable?.mainImage ?? "", title: data?.favoritable?.titleAr ?? "", name: data?.favoritable?.nameAr ?? "")
     }
-    else{  cell.configure(imageUrl:data?.favoritable.mainImage ?? "", title: data?.favoritable.titleEn ?? "", name: data?.favoritable.nameEn ?? "")
+    else{  cell.configure(imageUrl:data?.favoritable?.mainImage ?? "", title: data?.favoritable?.titleEn ?? "", name: data?.favoritable?.nameEn ?? "")
          }
     let delete = viewModel.favData?.data?[indexPath.row].favoritableType
     cell.favouriteButtonTapped = { [weak self] in
@@ -65,10 +65,10 @@ func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath:
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let data = viewModel.favData?.data?[indexPath.row]
         if  data?.favoritableType == "Doctor" {
-            viewModel.navToDoctors(doctorID: data?.favoritable.id.toString() ?? "")
+            viewModel.navToDoctors(doctorID: data?.favoritable?.id.toString() ?? "")
         }
         else if data?.favoritableType == "Pharmacy"  {
-            viewModel.navToPhramacy(pharmacyId: data?.favoritable.id ?? 0)
+            viewModel.navToPhramacy(pharmacyId: data?.favoritable?.id ?? 0)
         }
     }
 func collectionView(_ collectionView: UICollectionView,

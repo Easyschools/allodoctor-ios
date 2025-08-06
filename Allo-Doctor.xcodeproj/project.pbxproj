@@ -460,6 +460,7 @@
 		5EA36F332CA0E07000CC9606 /* CircularImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA36F322CA0E07000CC9606 /* CircularImage.swift */; };
 		5EB183112CFDD927004FA735 /* HomeNursingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB183102CFDD927004FA735 /* HomeNursingViewModel.swift */; };
 		5EB183132CFDDB8A004FA735 /* HomeNurseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB183122CFDDB8A004FA735 /* HomeNurseModel.swift */; };
+		5EB53AEB2E2788CD00F6E5DD /* ReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB53AEA2E2788CD00F6E5DD /* ReviewViewController.swift */; };
 		5EB9F2102CF56DD700722DE5 /* ProfileEditViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EB9F20F2CF56DD700722DE5 /* ProfileEditViewController.xib */; };
 		5EB9F2112CF56DD700722DE5 /* ProfileEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB9F20E2CF56DD700722DE5 /* ProfileEditViewController.swift */; };
 		5EBA79FE2D17338000842F8C /* ProfileMedicalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EBA79FC2D17338000842F8C /* ProfileMedicalViewController.swift */; };
@@ -511,6 +512,9 @@
 		5EF44D262CBBC0AB004618B2 /* BookingLabsAndScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF44D232CBBC0AB004618B2 /* BookingLabsAndScanViewController.swift */; };
 		5EFAA49D2CBB25C200C6CE65 /* TestTypeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EFAA49C2CBB25C200C6CE65 /* TestTypeTableViewCell.xib */; };
 		5EFAA49E2CBB25C200C6CE65 /* TestTypeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EFAA49B2CBB25C200C6CE65 /* TestTypeTableViewCell.swift */; };
+		5EFBF7412E0A53CD006B1A61 /* ImageUploadManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EFBF7402E0A53C6006B1A61 /* ImageUploadManger.swift */; };
+		5EFBF7462E0A7426006B1A61 /* MedicalImagesCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EFBF7452E0A7426006B1A61 /* MedicalImagesCollectionViewCell.xib */; };
+		5EFBF7472E0A7426006B1A61 /* MedicalImagesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EFBF7442E0A7426006B1A61 /* MedicalImagesCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -985,6 +989,7 @@
 		5EA36F322CA0E07000CC9606 /* CircularImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularImage.swift; sourceTree = "<group>"; };
 		5EB183102CFDD927004FA735 /* HomeNursingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNursingViewModel.swift; sourceTree = "<group>"; };
 		5EB183122CFDDB8A004FA735 /* HomeNurseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNurseModel.swift; sourceTree = "<group>"; };
+		5EB53AEA2E2788CD00F6E5DD /* ReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewController.swift; sourceTree = "<group>"; };
 		5EB9F20E2CF56DD700722DE5 /* ProfileEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditViewController.swift; sourceTree = "<group>"; };
 		5EB9F20F2CF56DD700722DE5 /* ProfileEditViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileEditViewController.xib; sourceTree = "<group>"; };
 		5EBA79FC2D17338000842F8C /* ProfileMedicalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileMedicalViewController.swift; sourceTree = "<group>"; };
@@ -1035,6 +1040,9 @@
 		5EF44D242CBBC0AB004618B2 /* BookingLabsAndScanViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookingLabsAndScanViewController.xib; sourceTree = "<group>"; };
 		5EFAA49B2CBB25C200C6CE65 /* TestTypeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTypeTableViewCell.swift; sourceTree = "<group>"; };
 		5EFAA49C2CBB25C200C6CE65 /* TestTypeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TestTypeTableViewCell.xib; sourceTree = "<group>"; };
+		5EFBF7402E0A53C6006B1A61 /* ImageUploadManger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploadManger.swift; sourceTree = "<group>"; };
+		5EFBF7442E0A7426006B1A61 /* MedicalImagesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicalImagesCollectionViewCell.swift; sourceTree = "<group>"; };
+		5EFBF7452E0A7426006B1A61 /* MedicalImagesCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MedicalImagesCollectionViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2444,6 +2452,7 @@
 		5E6FEA952CF5C26E00F512C4 /* ProfileMedical */ = {
 			isa = PBXGroup;
 			children = (
+				5EFBF7422E0A73E6006B1A61 /* RelatedViews */,
 				5EBA79F92D1731DB00842F8C /* Model  */,
 				5EBA79FB2D1731EF00842F8C /* View */,
 				5EBA79FA2D1731E300842F8C /* ViewModel */,
@@ -3798,6 +3807,7 @@
 		5E7F39832C92424600D7E24D /* MyActivity */ = {
 			isa = PBXGroup;
 			children = (
+				5EB53AE52E27887600F6E5DD /* Review */,
 				5E6E010E2D27F6D300D66213 /* MyActivityAll */,
 				5E6DB0722D1D9EE50016E770 /* MyActivityDetails */,
 			);
@@ -4506,6 +4516,14 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		5EB53AE52E27887600F6E5DD /* Review */ = {
+			isa = PBXGroup;
+			children = (
+				5EB53AEA2E2788CD00F6E5DD /* ReviewViewController.swift */,
+			);
+			path = Review;
+			sourceTree = "<group>";
+		};
 		5EB9F2082CF4D52700722DE5 /* ProfileModules */ = {
 			isa = PBXGroup;
 			children = (
@@ -5028,6 +5046,32 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		5EFBF73F2E0A53BD006B1A61 /* RelatedVC */ = {
+			isa = PBXGroup;
+			children = (
+				5EFBF7402E0A53C6006B1A61 /* ImageUploadManger.swift */,
+			);
+			path = RelatedVC;
+			sourceTree = "<group>";
+		};
+		5EFBF7422E0A73E6006B1A61 /* RelatedViews */ = {
+			isa = PBXGroup;
+			children = (
+				5EFBF7432E0A73F5006B1A61 /* Cells */,
+				5EFBF73F2E0A53BD006B1A61 /* RelatedVC */,
+			);
+			path = RelatedViews;
+			sourceTree = "<group>";
+		};
+		5EFBF7432E0A73F5006B1A61 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				5EFBF7442E0A7426006B1A61 /* MedicalImagesCollectionViewCell.swift */,
+				5EFBF7452E0A7426006B1A61 /* MedicalImagesCollectionViewCell.xib */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -5272,6 +5316,7 @@
 				5E6A0E802CA1E458002BA369 /* ClinicAboutTableViewCell.xib in Resources */,
 				5E80444F2CB3812B00ABF033 /* AppointmentDoctorTimeViewController.xib in Resources */,
 				5E722AFF2CE9F538004B6A89 /* ExternalClinicHospitalsViewController.xib in Resources */,
+				5EFBF7462E0A7426006B1A61 /* MedicalImagesCollectionViewCell.xib in Resources */,
 				5E70C0FE2D15B9C1003C8311 /* IntensiveCareUnitsTableViewCell.xib in Resources */,
 				5E68F6D22CCFBD2A000E4968 /* PharmaciesCartViewController.xib in Resources */,
 				5E707D3D2CA2415C000DE007 /* LabsCollectionViewCell.xib in Resources */,
@@ -5465,6 +5510,7 @@
 				5E6916FD2CF0B36900E7B082 /* MovableView.swift in Sources */,
 				5ECDA7032D08915E008876A6 /* AlamofireManger.swift in Sources */,
 				5E7511632D11FD6F00F9713B /* OffersBannersViewModel.swift in Sources */,
+				5EB53AEB2E2788CD00F6E5DD /* ReviewViewController.swift in Sources */,
 				5E6EE3682CAA3FC800275056 /* HospitalSearchViewController.swift in Sources */,
 				5E4C43A62C9BC1A300EB8936 /* Cities.swift in Sources */,
 				5E7330612CF100AD004E7F1B /* XIBLocalization.swift in Sources */,
@@ -5495,6 +5541,7 @@
 				5E66B3122D170183006B7553 /* ChangeLangugeViewController.swift in Sources */,
 				5E7977052CDF6EA900F37A39 /* InitialTouchPanGestureRecognizer.swift in Sources */,
 				5E708CD72CEB362F00D3C2D4 /* OperationConfirmedViewController.swift in Sources */,
+				5EFBF7472E0A7426006B1A61 /* MedicalImagesCollectionViewCell.swift in Sources */,
 				5EE6565D2C9F43EB00435772 /* PhoneNumberViewModel.swift in Sources */,
 				5E84CEB82CFB0C0E00D480CA /* PharmacyGlobalSearchViewModel.swift in Sources */,
 				5EE656512C9EFB4200435772 /* ReachabilityManger.swift in Sources */,
@@ -5571,6 +5618,7 @@
 				5E7103BC2CD3915500665294 /* PharmacyCartTableViewCell.swift in Sources */,
 				5E1C52A92D19AAD000F97A97 /* PaymentTaskHandling.swift in Sources */,
 				5E81C6602CF772A8006ECF34 /* PharmacyGlobalSearchViewController.swift in Sources */,
+				5EFBF7412E0A53CD006B1A61 /* ImageUploadManger.swift in Sources */,
 				5EDD8F6C2C8D6F2A0046FE19 /* GenderSelectionControl.swift in Sources */,
 				5E639B252C944A82004AD3AB /* UnderlinedButton.swift in Sources */,
 				5E6BC05C2C97A712009BACEC /* SubServiceCollectionViewCell.swift in Sources */,
@@ -5878,7 +5926,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1.0;
+				CURRENT_PROJECT_VERSION = 1.4;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = P5GJ5H8EL5;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -5898,7 +5946,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.8;
+				MARKETING_VERSION = 2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.DevelopNetwork.AlloDoctor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -5923,7 +5971,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1.0;
+				CURRENT_PROJECT_VERSION = 1.4;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = P5GJ5H8EL5;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -5943,7 +5991,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.8;
+				MARKETING_VERSION = 2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.DevelopNetwork.AlloDoctor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

@@ -24,6 +24,7 @@ struct MyBookings: Decodable {
     let operation_service: OperationService?
     let date:String?
     let status:String?
+  
     enum CodingKeys: String, CodingKey {
         case id
         case createdAt = "created_at"
@@ -32,16 +33,21 @@ struct MyBookings: Decodable {
         case typeOfBooking = "type_of_booking"
         case doctor = "appointment_day_hour"
         case lab = "appointment_lab"
+
         case date , status ,operation_service
     }
     
     struct Doctor: Decodable {
         let id: Int?
         let doctorServiceSpecialty: DoctorServiceSpecialty?
-        
+        let appointmentDay: AppointmentDay
+        let appointmentHour: AppointmentHour
+
         enum CodingKeys: String, CodingKey {
             case id
             case doctorServiceSpecialty = "doctor_service_specialty"
+            case appointmentDay = "appointment_day"
+            case appointmentHour = "appointment_hour"
         }
         
         struct DoctorServiceSpecialty: Decodable {
@@ -72,10 +78,13 @@ struct MyBookings: Decodable {
     struct Lab: Decodable {
         let id: Int?
         let labDetails: LabDetails?
-        
+        let appointment_day:AppointmentDay?
+        let appointment_hour:AppointmentHour?
         enum CodingKeys: String, CodingKey {
             case id
             case labDetails = "lab"
+            case appointment_day
+            case appointment_hour
         }
         
         struct LabDetails: Decodable {
@@ -236,6 +245,7 @@ struct OrderPharmacy: Decodable {
     let from: String?
     let pickup: Int?
     let delivery: Int?
+    let deliveryfees : String?
     let phone: String?
     let url: String?
     let experience: String?
@@ -254,6 +264,7 @@ struct OrderPharmacy: Decodable {
         case distance
         case address
         case cityId = "city_id"
+        case deliveryfees = "delivery_fees"
         case districtId = "district_id"
         case latitude, longitude, to, from, pickup, delivery, phone, url, experience
         case mainImage = "main_image"

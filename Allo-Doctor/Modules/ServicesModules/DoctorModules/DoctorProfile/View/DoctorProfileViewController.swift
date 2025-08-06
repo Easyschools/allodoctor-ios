@@ -7,6 +7,7 @@
 import UIKit
 import Kingfisher
 class DoctorProfileViewController: BaseViewController<DoctorProfileViewModel> {
+    @IBOutlet weak var insuranceStack: UIStackView!
     // MARK: - Outlets
     @IBOutlet weak var ratingCount: CairoRegular!
     @IBOutlet weak var clinicPhotosStackView: UIStackView!
@@ -41,11 +42,24 @@ class DoctorProfileViewController: BaseViewController<DoctorProfileViewModel> {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollectionView()
+        // In viewDidLoad() method, replace the existing placesToggleSwitch.onToggle callback:
+
         placesToggleSwitch.onToggle = { [weak self] index in
             guard let self = self else { return }
             
             // Reset the view model or any relevant state
             viewModel.reset()
+            
+            // Update the address based on the selected index and doctor place
+            let selectedSpecialty = viewModel.doctorData?.doctorServiceSpecialtyIds?[index]
+            
+            if viewModel.doctorPlace == .outpatientClinics {
+                // Use external clinic service address
+                addressLabel.text = selectedSpecialty?.externalClinicService?.address
+            } else {
+                // Use info service address (existing logic)
+                addressLabel.text = selectedSpecialty?.infoService?.address
+            }
             
             // Generate the new data for the collection view
             appointments = viewModel.generateNextThreeDates(
@@ -126,6 +140,7 @@ class DoctorProfileViewController: BaseViewController<DoctorProfileViewModel> {
     }
     
     // MARK: - Data Binding
+    // MARK: - Data Binding
     private func bindDoctorData() {
         viewModel.$doctorData
             .receive(on: DispatchQueue.main)
@@ -134,20 +149,38 @@ class DoctorProfileViewController: BaseViewController<DoctorProfileViewModel> {
                 self?.doctorsData = doctor
                 self?.populateDoctorData()
                 
-                if let doctorServiceSpecialtyIds = self?.viewModel.doctorData?.doctorServiceSpecialtyIds {
-                    
-                    let infoServices = doctorServiceSpecialtyIds.compactMap {
-                        if UserDefaultsManager.sharedInstance.getLanguage() == .ar{ $0.infoService?.nameAr }
-                        else{
-                            $0.infoService?.nameEn }}
-                
-                    self?.placesToggleSwitch.setToggleOptions(infoServices.isEmpty ? ["Not Available"] : infoServices)
+                // Check doctorPlace to determine toggle switch options
+                if self?.viewModel.doctorPlace == .outpatientClinics {
+                    // Use external clinics for outpatient clinics
+                    if let doctorServiceSpecialtyIds = self?.viewModel.doctorData?.doctorServiceSpecialtyIds {
+                        let externalClinicNames = doctorServiceSpecialtyIds.compactMap { specialty in
+                            if UserDefaultsManager.sharedInstance.getLanguage() == .ar {
+                                return specialty.externalClinicService?.infoService?.nameAr
+                            } else {
+                                return specialty.externalClinicService?.infoService?.nameEn
+                            }
+                        }.filter { !$0.isEmpty } // Filter out empty names
+                        
+                        self?.placesToggleSwitch.setToggleOptions(externalClinicNames.isEmpty ? ["Not Available"] : externalClinicNames)
+                    } else {
+                        self?.placesToggleSwitch.setToggleOptions(["Not Available"])
+                    }
                 } else {
-                    self?.placesToggleSwitch.setToggleOptions(["Not Available"])
+                    // Use info services for doctor clinics (existing logic)
+                    if let doctorServiceSpecialtyIds = self?.viewModel.doctorData?.doctorServiceSpecialtyIds {
+                        let infoServices = doctorServiceSpecialtyIds.compactMap { specialty in
+                            if UserDefaultsManager.sharedInstance.getLanguage() == .ar {
+                                return specialty.infoService?.nameAr
+                            } else {
+                                return specialty.infoService?.nameEn
+                            }
+                        }.filter { !$0.isEmpty } // Filter out empty names
+                        
+                        self?.placesToggleSwitch.setToggleOptions(infoServices.isEmpty ? ["Not Available"] : infoServices)
+                    } else {
+                        self?.placesToggleSwitch.setToggleOptions(["Not Available"])
+                    }
                 }
-
-
-
             }.store(in: &cancellables)
     }
     
@@ -183,33 +216,94 @@ class DoctorProfileViewController: BaseViewController<DoctorProfileViewModel> {
         if let imageUrl = URL(string: doctorData?.mainImage ?? "") {
             doctorPhoto.kf.setImage(with: imageUrl)
         }
+        if let insurances = viewModel.doctorData?.medicalInsurance, !insurances.isEmpty {
+            insuranceStack.isHidden = false
+        } else {
+            insuranceStack.isHidden = true
+        }
+
         if doctorData?.images?.count == 0 {
             clinicPhotosStackView.isHidden = true
         }
         ratingView.configure(withRating: doctorData?.avgRating ?? 0)
         ratingCount.text = (doctorData?.reviewsCount?.toString().prepend("(") ?? "0")+")"
-        if UserDefaultsManager.sharedInstance.getLanguage() == .ar{
+        
+        // In populateDoctorData() method, replace the address assignment lines:
+
+        if UserDefaultsManager.sharedInstance.getLanguage() == .ar {
             doctorNameLabel.text = doctorData?.nameAr
             doctorFeesLabel.text = doctorData?.price?.prepend(AppLocalizedKeys.fees.localized, separator: ": ").appendingWithSpace(AppLocalizedKeys.EGP.localized)
-            addressLabel.text = doctorData?.address
+            
+            // Set address based on doctor place
+            if viewModel.doctorPlace == .outpatientClinics {
+                addressLabel.text = doctorData?.doctorServiceSpecialtyIds?.first?.externalClinicService?.address
+            } else {
+                addressLabel.text = doctorData?.doctorServiceSpecialtyIds?.first?.infoService?.address
+            }
+            
             doctorSpecialityLabel.text = doctorData?.descriptionAr
             doctorDetailsLabel.text = doctorData?.titleAr
-            waitingTimeLabel.text = doctorData?.waitingTime?.toString().appendingWithSpace(AppLocalizedKeys.waitingTime.localized) 
-            appointments = viewModel.generateNextThreeDates(from: viewModel.doctorData?.doctorServiceSpecialtyIds?[0].appointments ?? [])}
-        else{
+            waitingTimeLabel.text = doctorData?.waitingTime?.toString().appendingWithSpace(AppLocalizedKeys.waitingTime.localized)
+            
+            // Set medical insurance text in Arabic
+            setupMedicalInsuranceText(isArabic: true)
+            
+            appointments = viewModel.generateNextThreeDates(from: viewModel.doctorData?.doctorServiceSpecialtyIds?[0].appointments ?? [])
+        } else {
             doctorNameLabel.text = doctorData?.nameEn
             doctorFeesLabel.text = doctorData?.price?.prepend(AppLocalizedKeys.fees.localized, separator: ": ").appendingWithSpace(AppLocalizedKeys.EGP.localized)
-            addressLabel.text = doctorData?.address
+            
+            // Set address based on doctor place
+            if viewModel.doctorPlace == .outpatientClinics {
+                addressLabel.text = doctorData?.doctorServiceSpecialtyIds?.first?.externalClinicService?.address
+            } else {
+                addressLabel.text = doctorData?.doctorServiceSpecialtyIds?.first?.infoService?.address
+            }
+            
             doctorSpecialityLabel.text = doctorData?.descriptionEn
             doctorDetailsLabel.text = doctorData?.titleEn
             waitingTimeLabel.text = doctorData?.waitingTime?.toString().appendingWithSpace(AppLocalizedKeys.waitingTime.localized)
-            appointments = viewModel.generateNextThreeDates(from: viewModel.doctorData?.doctorServiceSpecialtyIds?[0].appointments ?? [])}
+            
+            // Set medical insurance text in English
+            setupMedicalInsuranceText(isArabic: false)
+            
+            appointments = viewModel.generateNextThreeDates(from: viewModel.doctorData?.doctorServiceSpecialtyIds?[0].appointments ?? [])
+        }
         ChooseYourAppointmentLabel.text = AppLocalizedKeys.ChooseYourAppointment.localized
         appointmentsCollectionView.reloadData()
         
         view.layoutIfNeeded()
-
     }
+
+
+
+    // MARK: - Medical Insurance Setup (Names Only)
+    private func setupMedicalInsuranceText(isArabic: Bool) {
+        guard let medicalInsurance = viewModel.doctorData?.medicalInsurance,
+              !medicalInsurance.isEmpty else {
+            subSpecialityExtenableView.isHidden = true
+            return
+        }
+        
+        let headerText = isArabic ? "التأمينات المقبولة:" : "Accepted Insurance:"
+        
+        let insuranceNames = medicalInsurance.compactMap { insurance in
+            isArabic ? insurance.nameAr : insurance.nameEn
+        }.filter { !$0.isEmpty } // Filter out empty names
+        
+        guard !insuranceNames.isEmpty else {
+            insuranceStack.isHidden = true
+            return
+        }
+        
+        let insuranceText = headerText + "\n" + insuranceNames.joined(separator: " • ")
+        
+        subSpecialityTextView.text = insuranceText
+        subSpecialityTextView.sizeToFit()
+        doctorSpecialityExtenabaleConstraint.constant = subSpecialityTextView.contentSize.height + 40
+//        subSpecialityExtenableView.isHidden = false
+    }
+
     
     // MARK: - Actions
     @IBAction func loadNextAppoinmentPage(_ sender: Any) {
@@ -252,16 +346,16 @@ extension DoctorProfileViewController: UICollectionViewDelegate, UICollectionVie
                 let date =
                 (appointments?[indexPath.row].day.date?.convertDateFormat() ?? "Not Available" ).prepend(day, separator: " ")
                 cell.appointDate.text = date
-                cell.fromHour.text = (appointments?[indexPath.row].hour[0].from.convertTo12HourFormat() ?? "Not Available").prepend(AppLocalizedKeys.From.localized)
-                cell.ToHour.text = (appointments?[indexPath.row].hour[0].to.convertTo12HourFormat() ?? "Not Available").prepend(AppLocalizedKeys.To.localized)
+                cell.fromHour.text = (appointments?[indexPath.row].hour[0].from?.convertTo12HourFormat() ?? "Not Available").prepend(AppLocalizedKeys.From.localized)
+                cell.ToHour.text = (appointments?[indexPath.row].hour[0].to?.convertTo12HourFormat() ?? "Not Available").prepend(AppLocalizedKeys.To.localized)
             }
             else{
                 let day = appointments?[indexPath.row].day.nameEn ?? ""
                 let date =
                 (appointments?[indexPath.row].day.date?.convertDateFormat() ?? "Not Available" ).prepend(day, separator: " ")
                 cell.appointDate.text = date
-                cell.fromHour.text = (appointments?[indexPath.row].hour[0].from.convertTo12HourFormat() ?? "Not Available").appendingWithSpace(AppLocalizedKeys.From.localized)
-                cell.ToHour.text = (appointments?[indexPath.row].hour[0].to.convertTo12HourFormat() ?? "Not Available").appendingWithSpace(AppLocalizedKeys.To.localized)
+                cell.fromHour.text = (appointments?[indexPath.row].hour[0].from?.convertTo12HourFormat() ?? "Not Available").appendingWithSpace(AppLocalizedKeys.From.localized)
+                cell.ToHour.text = (appointments?[indexPath.row].hour[0].to?.convertTo12HourFormat() ?? "Not Available").appendingWithSpace(AppLocalizedKeys.To.localized)
             }
 //            let date =
 //            (appointments?[indexPath.row].day.date?.convertDateFormat() ?? "Not Available" ).prepend(day, separator: " ")

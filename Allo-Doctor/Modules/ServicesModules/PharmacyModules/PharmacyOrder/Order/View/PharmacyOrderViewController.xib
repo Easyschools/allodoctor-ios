@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -692,14 +692,6 @@
             <point key="canvasLocation" x="122.40000000000001" y="-1.4778325123152709"/>
         </view>
     </objects>
-    <designables>
-        <designable name="2vs-NB-zE2">
-            <size key="intrinsicContentSize" width="73" height="30"/>
-        </designable>
-        <designable name="Xyu-M6-92v">
-            <size key="intrinsicContentSize" width="113.66666666666667" height="20.333333333333332"/>
-        </designable>
-    </designables>
     <resources>
         <image name="arrowDownBlue" width="20" height="20"/>
         <image name="moneyBlue" width="20" height="15"/>

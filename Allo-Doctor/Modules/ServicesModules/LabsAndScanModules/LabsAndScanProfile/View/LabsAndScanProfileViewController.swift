@@ -170,11 +170,11 @@ extension LabsAndScanProfileViewController {
             .sink { [weak self] tests in
                 let tests = Array(tests)
                 let total = tests.reduce(0.0) { $0 + Double((Double(($1.price ?? "0").replacingOccurrences(of: ",", with: "")) ?? 0)) }
-                self?.totalPrice.text = String(format: "EGP %.2f", total)
+                self?.totalPrice.text = String(format: "\(AppLocalizedKeys.EGP.localized) %.2f", total)
                 
                 let testCount = tests.count
-                let testCountText = testCount == 1 ? "1 Test" : "\(testCount) Tests"
-                self?.noOfTestes.text = "Added \(testCountText)"
+                let testCountText = testCount == 1 ? AppLocalizedKeys.oneTest.localized: "\(testCount) \(AppLocalizedKeys.tests.localized)"
+                self?.noOfTestes.text = AppLocalizedKeys.added.localized.appendingWithSpace(testCountText)
                 
                 self?.bookingDetailsView.isHidden = testCount == 0
             }.store(in: &cancellables)

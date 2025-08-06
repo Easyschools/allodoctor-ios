@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="MedicalImagesCollectionViewCell" customModule="Allo_Doctor" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="147" height="173"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="147" height="173"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="JPJ-B4-6mN">
+                        <rect key="frame" x="8" y="8" width="131" height="157"/>
+                    </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mU9-YC-Wcf">
+                        <rect key="frame" x="127" y="0.0" width="20" height="22"/>
+                        <color key="tintColor" name="red#D32F2F"/>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                        <state key="normal" image="xmark.circle.fill" catalog="system"/>
+                        <connections>
+                            <action selector="deleteButton:" destination="gTV-IL-0wX" eventType="touchUpInside" id="B1P-rW-02b"/>
+                        </connections>
+                    </button>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="JPJ-B4-6mN" secondAttribute="trailing" constant="8" id="2Iv-0Y-8Ss"/>
+                <constraint firstItem="JPJ-B4-6mN" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="4cG-UD-Fhp"/>
+                <constraint firstAttribute="bottom" secondItem="JPJ-B4-6mN" secondAttribute="bottom" constant="8" id="O4Y-rb-zTf"/>
+                <constraint firstItem="mU9-YC-Wcf" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="PkH-Iy-e6f"/>
+                <constraint firstAttribute="trailing" secondItem="mU9-YC-Wcf" secondAttribute="trailing" id="SaW-jo-jfa"/>
+                <constraint firstItem="JPJ-B4-6mN" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="8" id="v7g-kt-tBs"/>
+            </constraints>
+            <size key="customSize" width="147" height="173"/>
+            <connections>
+                <outlet property="medicalImage" destination="JPJ-B4-6mN" id="7VO-0y-8Ao"/>
+            </connections>
+            <point key="canvasLocation" x="23.664122137404579" y="41.197183098591552"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="xmark.circle.fill" catalog="system" width="128" height="123"/>
+        <namedColor name="red#D32F2F">
+            <color red="0.82700002193450928" green="0.18400000035762787" blue="0.18400000035762787" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

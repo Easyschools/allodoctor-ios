@@ -14,8 +14,8 @@ class OperationBookingViewModel {
     private var apiClient: APIClient
     @Published var errorMessage: String?
     @Published var isLoading: Bool = false
-    var nameSubject = CurrentValueSubject<String, Never>("")
-    var phoneSubject = CurrentValueSubject<String, Never>("")
+    var nameSubject = CurrentValueSubject<String, Never>(  UserDefaultsManager.sharedInstance.getUserName() ?? "")
+    var phoneSubject = CurrentValueSubject<String, Never>(  UserDefaultsManager.sharedInstance.getMobileNumber() ?? "")
     @Published var status: BookingStatus?
     @Published var operationResponse: ConfirmOperationResponse?
     private var operationServiceId: Int?

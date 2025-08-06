@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -16,6 +16,7 @@
                 <outlet property="addToCartView" destination="gPg-gN-jP1" id="OxH-e9-a5t"/>
                 <outlet property="dismissButton" destination="7b0-Wo-AKD" id="SCT-Cw-8yY"/>
                 <outlet property="extendButton" destination="a5p-x6-Sga" id="sql-ce-5OX"/>
+                <outlet property="priceAfterDiscount" destination="I2e-b7-tCS" id="a39-Yh-Yiq"/>
                 <outlet property="productDescDynamicHeightConstraint" destination="qWw-ct-mJ9" id="GjN-GL-yCu"/>
                 <outlet property="productDescription" destination="uCe-CI-38d" id="NUM-To-Im1"/>
                 <outlet property="productDescriptionView" destination="u4e-34-cnA" id="XpG-93-pNg"/>
@@ -96,12 +97,23 @@
                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="3TK-pD-PVM">
                                             <rect key="frame" x="0.0" y="285.33333333333331" width="344.33333333333331" height="44"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="120 EGP" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qjk-cY-dR3">
+                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="-12" translatesAutoresizingMaskIntoConstraints="NO" id="kdL-3i-mlu">
                                                     <rect key="frame" x="0.0" y="0.0" width="180.66666666666666" height="44"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" name="blueAppColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="120 EGP" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qjk-cY-dR3">
+                                                            <rect key="frame" x="0.0" y="0.0" width="96.333333333333329" height="44"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                            <color key="textColor" name="blueAppColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="120 EGP" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I2e-b7-tCS">
+                                                            <rect key="frame" x="84.333333333333343" y="0.0" width="96.333333333333343" height="44"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                            <color key="textColor" name="blueAppColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t4z-WV-QMi">
                                                     <rect key="frame" x="185.66666666666669" y="0.0" width="158.66666666666669" height="44"/>
                                                     <subviews>
@@ -116,7 +128,7 @@
                                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                     <state key="normal" image="minuisItem"/>
                                                                     <connections>
-                                                                        <action selector="incrementQuantityAction:" destination="-1" eventType="touchUpInside" id="n6d-FE-lFx"/>
+                                                                        <action selector="decrementQuantityAction:" destination="-1" eventType="touchUpInside" id="vtj-CM-8Q2"/>
                                                                     </connections>
                                                                 </button>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KhL-Ga-GdB">
@@ -133,7 +145,7 @@
                                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                     <state key="normal" image="plusItem"/>
                                                                     <connections>
-                                                                        <action selector="decrementQuantityAction:" destination="-1" eventType="touchUpInside" id="LWx-T4-2sb"/>
+                                                                        <action selector="incrementQuantityAction:" destination="-1" eventType="touchUpInside" id="58I-bf-hO0"/>
                                                                     </connections>
                                                                 </button>
                                                             </subviews>

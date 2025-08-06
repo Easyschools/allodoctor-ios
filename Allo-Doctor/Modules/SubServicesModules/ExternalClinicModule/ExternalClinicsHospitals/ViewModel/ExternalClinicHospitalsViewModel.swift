@@ -9,7 +9,7 @@ import Foundation
 class ExternalClinicHospitalsViewModel{  
     // MARK: - Proprties
     @Published var cities: [City] = []
-     var coordinator: HomeCoordinatorContact?
+    var coordinator: HomeCoordinatorContact?
     private var cancellables = Set<AnyCancellable>()
     @Published var errorMessage: String?
     private var apiClient = APIClient()
@@ -51,7 +51,7 @@ extension ExternalClinicHospitalsViewModel{
         coordinator?.navigateBack()
     }
     func navToDoctors(){
-        coordinator?.showDoctorSearch(specialityId:"", externalClinicServiceId: externalClinicData?.infoServices?[0].clinicInfo?.externalClinicServicesId?.toString() ?? "")
+        coordinator?.showDoctorSearch(specialityId:"", externalClinicServiceId: externalClinicData?.infoServices?[0].clinicInfo?.externalClinicServicesId?.toString() ?? "", doctorPlace: .outpatientClinics)
     }
 }
 extension ExternalClinicHospitalsViewModel{

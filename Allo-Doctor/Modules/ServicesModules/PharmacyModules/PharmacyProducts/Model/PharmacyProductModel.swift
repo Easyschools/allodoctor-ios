@@ -21,10 +21,10 @@ struct Product: Decodable {
     let updatedAt: String?
     let descriptionEn: String?
     let descriptionAr: String?
-    let priceAfterDiscount: String?
+
     let type: MedicationType?
     let medicationPharmacies: [MedicationPharmacy]?
-    
+ 
     enum CodingKeys: String, CodingKey {
         case id
         case nameEn = "name_en"
@@ -37,8 +37,9 @@ struct Product: Decodable {
         case updatedAt = "updated_at"
         case descriptionEn = "description_en"
         case descriptionAr = "description_ar"
-        case priceAfterDiscount = "price_after_discount"
+
         case type
+
         case medicationPharmacies = "medication_pharmacies"
     }
 }

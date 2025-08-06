@@ -12,6 +12,7 @@ class CustomToggleSwitch: UIView {
     // Properties
     private var buttons: [UIButton] = []
     private let stackView = UIStackView()
+    private let scrollView = UIScrollView()
     
     @IBInspectable var selectedBackgroundColor: UIColor = UIColor(red: 0.941, green: 0.965, blue: 1.0, alpha: 1.0) // Light blue
     @IBInspectable var defaultBackgroundColor: UIColor = .white
@@ -26,6 +27,8 @@ class CustomToggleSwitch: UIView {
             updateUI()
         }
     }
+    
+    private var stackViewWidthConstraint: NSLayoutConstraint?
 
     // Callback for button taps
     var onToggle: ((Int) -> Void)?
@@ -57,8 +60,48 @@ class CustomToggleSwitch: UIView {
             stackView.addArrangedSubview(button)
             buttons.append(button)
         }
-
+        
+        configureLayoutForOptionCount(optionsArray.count)
         updateUI()
+    }
+    
+    private func configureLayoutForOptionCount(_ count: Int) {
+        // Remove existing width constraint
+        if let widthConstraint = stackViewWidthConstraint {
+            widthConstraint.isActive = false
+        }
+        
+        if count <= 2 {
+            // For 1-2 options: fill equally, no scrolling
+            stackView.distribution = .fillEqually
+            scrollView.isScrollEnabled = false
+            
+            // Make stack view fill the scroll view width
+            stackViewWidthConstraint = stackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
+            stackViewWidthConstraint?.isActive = true
+            
+        } else {
+            // For 3+ options: natural sizing, enable scrolling
+            stackView.distribution = .fill
+            scrollView.isScrollEnabled = true
+            
+            // Let stack view size itself based on content
+            stackViewWidthConstraint = stackView.widthAnchor.constraint(greaterThanOrEqualTo: scrollView.widthAnchor)
+            stackViewWidthConstraint?.isActive = true
+            
+            // Ensure buttons size to their content
+            for button in buttons {
+                button.setContentHuggingPriority(.required, for: .horizontal)
+                button.setContentCompressionResistancePriority(.required, for: .horizontal)
+            }
+        }
+        
+        // Layout immediately and scroll if needed
+        layoutIfNeeded()
+        
+        if count > 2 {
+            scrollToSelectedButton()
+        }
     }
 
     private func commonInit() {
@@ -67,19 +110,38 @@ class CustomToggleSwitch: UIView {
         layer.borderColor = CustomborderColor.cgColor
         layer.masksToBounds = true
         
+        // Configure scroll view
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.bounces = true
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        
+        // Configure stack view
         stackView.axis = .horizontal
         stackView.spacing = 0
-        stackView.distribution = .fillEqually
         stackView.alignment = .fill
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
-        addSubview(stackView)
+        // Add scroll view to main view
+        addSubview(scrollView)
         
+        // Add stack view to scroll view
+        scrollView.addSubview(stackView)
+        
+        // Set up constraints
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: topAnchor),
-            stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            stackView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            // Scroll view constraints
+            scrollView.topAnchor.constraint(equalTo: topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            
+            // Stack view constraints (width will be set dynamically)
+            stackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            stackView.heightAnchor.constraint(equalTo: scrollView.heightAnchor)
         ])
         
         backgroundColor = defaultBackgroundColor
@@ -98,6 +160,11 @@ class CustomToggleSwitch: UIView {
     @objc private func toggleTapped(_ sender: UIButton) {
         setSelectedIndex(sender.tag)
         onToggle?(sender.tag)
+        
+        // Only scroll if we have 3+ options
+        if buttons.count > 2 {
+            scrollToSelectedButton()
+        }
     }
 
     private func updateUI() {
@@ -112,6 +179,29 @@ class CustomToggleSwitch: UIView {
                     button.setTitleColor(self.defaultTextColor, for: .normal)
                     button.titleLabel?.font = UIFont(name: "Cairo-Regular", size: 14) ?? UIFont.systemFont(ofSize: 14)
                 }
+            }
+        }
+    }
+    
+    // Scroll to the selected button to keep it visible
+    private func scrollToSelectedButton() {
+        guard selectedIndex < buttons.count, buttons.count > 2 else { return }
+        
+        DispatchQueue.main.async {
+            let selectedButton = self.buttons[self.selectedIndex]
+            let buttonFrame = selectedButton.frame
+            
+            // Calculate the ideal scroll position to center the button
+            let scrollViewWidth = self.scrollView.frame.width
+            let buttonCenter = buttonFrame.midX
+            let idealScrollX = buttonCenter - (scrollViewWidth / 2)
+            
+            // Ensure we don't scroll beyond the content bounds
+            let maxScrollX = max(0, self.stackView.frame.width - scrollViewWidth)
+            let scrollX = max(0, min(idealScrollX, maxScrollX))
+            
+            UIView.animate(withDuration: 0.3) {
+                self.scrollView.contentOffset = CGPoint(x: scrollX, y: 0)
             }
         }
     }

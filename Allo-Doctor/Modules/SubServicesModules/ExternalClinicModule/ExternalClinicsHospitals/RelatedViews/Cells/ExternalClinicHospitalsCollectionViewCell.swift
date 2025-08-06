@@ -24,16 +24,51 @@ class ExternalClinicHospitalsCollectionViewCell: UICollectionViewCell {
     }
     
     /// Sets up the cell with raw data
-    func setupCell(hospitalName: String?, hospitalAddress: String?, hospitalImageURL: String?) {
+    func setupCell(infoService:InfoService) {
         hospitablBackGroundImage.addOverlay(color: .black)
         // Configure the hospital name
-        self.hospitalName.text = hospitalName ?? "Unknown Hospital"
+        if UserDefaultsManager.sharedInstance.getLanguage() == .ar {
+            self.hospitalName.text = infoService.nameAr ?? AppLocalizedKeys.notAvailable.localized
+        }
+        else {
+            self.hospitalName.text = infoService.nameEn ?? AppLocalizedKeys.notAvailable.localized
+        }
+       
         
         // Configure the hospital address
-        self.hospitalAdress.text = hospitalAddress ?? "Address not available"
-        
+        self.hospitalAdress.text =  infoService.address ?? AppLocalizedKeys.notAvailable.localized
         // Configure the hospital image using Kingfisher
-        if let imageURL = hospitalImageURL, let url = URL(string: imageURL) {
+        if let imageURL = infoService.image, let url = URL(string: imageURL) {
+            self.hospitalImage.kf.setImage(
+                with: url,
+                placeholder: UIImage(named: "placeholder"), // Placeholder image name
+                options: [
+                    .transition(.fade(0.2)), // Smooth transition
+                    .cacheOriginalImage       // Cache the original image
+                ]
+            )
+        } else {
+            self.hospitalImage.image = UIImage(named: "placeholder") // Fallback image
+        }
+    }
+}
+extension ExternalClinicHospitalsCollectionViewCell
+{
+    func setupCell(infoService:OneDayCarHosptalsData) {
+        hospitablBackGroundImage.addOverlay(color: .black)
+        // Configure the hospital name
+        if UserDefaultsManager.sharedInstance.getLanguage() == .ar {
+            self.hospitalName.text = infoService.nameAr ?? AppLocalizedKeys.notAvailable.localized
+        }
+        else {
+            self.hospitalName.text = infoService.nameEn ?? AppLocalizedKeys.notAvailable.localized
+        }
+       
+        
+        // Configure the hospital address
+        self.hospitalAdress.text =  infoService.address ?? AppLocalizedKeys.notAvailable.localized
+        // Configure the hospital image using Kingfisher
+        if let imageURL = infoService.image, let url = URL(string: imageURL) {
             self.hospitalImage.kf.setImage(
                 with: url,
                 placeholder: UIImage(named: "placeholder"), // Placeholder image name

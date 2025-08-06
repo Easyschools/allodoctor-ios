@@ -65,6 +65,7 @@ enum APIRouter {
     case deletePharmacyCart(pharmacyId:Int)
     case cancelReservation(id:Int,type:String)
     case getUser(userId:Int)
+    case updateMedicalData
     // Construct the full path and query for each case
     private var path: String {
         switch self {
@@ -183,6 +184,8 @@ enum APIRouter {
             return "/admin/my-bookings/delete?id=\(id)&type=\(type)"
         case .getUser(userId: let userId):
             return "/admin/user/get?id=\(userId)"
+        case .updateMedicalData:
+            return "/admin/medical-info/update"
         }
     }
     // Define the base URL for all requests

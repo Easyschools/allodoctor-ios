@@ -9,6 +9,7 @@ import UIKit
 import GoogleMaps
 class PharmacyHomeViewController: BaseViewController<PharmacyHomeViewModel> {
     // MARK: - IBOutlets
+    @IBOutlet weak var locationButton: UIButton!
     @IBOutlet weak var searchView: CustomSearchBar!
     @IBOutlet weak var pharmaciesCollectionViewDynamicHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var pharmaciesCollectionView: UICollectionView!
@@ -25,7 +26,7 @@ class PharmacyHomeViewController: BaseViewController<PharmacyHomeViewModel> {
         bindSearchBarButton()
     }
     override func setupUI() {
-        searchView.searchTextfield.placeholder = AppLocalizedKeys.searchForPharmacyOrProduct.localized
+        searchView.searchTextfield.placeholder = AppLocalizedKeys.searchForAnyPharmacy.localized
         setupViewControllerUI()
         bindCollectionViewHeight()
         setupCollectionView()
@@ -38,7 +39,14 @@ class PharmacyHomeViewController: BaseViewController<PharmacyHomeViewModel> {
         else {
           
         }
-
+        if let location = UserDefaultsManager.sharedInstance.getSavedAreaName(), !location.isEmpty {
+            locationButton.setTitle(location, for: .normal)
+        } else {
+            locationButton.setTitle(AppLocalizedKeys.selectArea.localized, for: .normal)
+        }
+    }
+    @IBAction func changeLocationAction(_ sender: Any) {
+        viewModel.showSelectLocationMap()
     }
     @IBAction func navBackAction(_ sender: Any) {
         viewModel.navigationBack()
@@ -53,6 +61,12 @@ extension PharmacyHomeViewController{
         backButton.setTitleColor(.black, for: .normal)
         backButton.updateForLanguageChange()
         backButton.setTitle("Pharmacies".localized)
+        if let location = UserDefaultsManager.sharedInstance.getSavedAreaName(), !location.isEmpty {
+            locationButton.setTitle(location, for: .normal)
+        } else {
+            locationButton.setTitle(AppLocalizedKeys.selectArea.localized, for: .normal)
+        }
+
     }
     private func setupCollectionView(){
         pharmaciesCollectionView.registerCell(cellClass: PharmacyCollectionViewCell.self)
@@ -83,9 +97,9 @@ extension PharmacyHomeViewController:UICollectionViewDelegate,UICollectionViewDa
         cell.cornerRadius = 10
         cell.applyDropShadow()
         if UserDefaultsManager.sharedInstance.getLanguage() == .ar{
-            cell.setupCell(pharmacyName: pharmacyData?.nameAr ?? "", area: pharmacyData?.addressAr ?? "", deliveryFees: pharmacyData?.delivery.toString() ?? "",deliveryTime: pharmacyData?.deliveryTime?.appendingWithSpace(AppLocalizedKeys.mintutes.localized) ?? "", logoUrl: pharmacyData?.mainImage, backgroundImageUrl: pharmacyData?.backgroundImage)
+            cell.setupCell(pharmacyName: pharmacyData?.nameAr ?? "", area: pharmacyData?.addressAr ?? "", deliveryFees: pharmacyData?.delivery ?? "",deliveryTime: pharmacyData?.deliveryTime?.appendingWithSpace(AppLocalizedKeys.mintutes.localized) ?? "", logoUrl: pharmacyData?.mainImage, backgroundImageUrl: pharmacyData?.backgroundImage)
         }else{
-            cell.setupCell(pharmacyName: pharmacyData?.nameEn ?? "", area: pharmacyData?.addressEn ?? "", deliveryFees: pharmacyData?.delivery.toString() ?? "", deliveryTime: pharmacyData?.deliveryTime?.appendingWithSpace(AppLocalizedKeys.mintutes.localized) ?? "", logoUrl: pharmacyData?.mainImage, backgroundImageUrl: pharmacyData?.backgroundImage)}
+            cell.setupCell(pharmacyName: pharmacyData?.nameEn ?? "", area: pharmacyData?.addressEn ?? "", deliveryFees: pharmacyData?.delivery ?? "", deliveryTime: pharmacyData?.deliveryTime?.appendingWithSpace(AppLocalizedKeys.mintutes.localized) ?? "", logoUrl: pharmacyData?.mainImage, backgroundImageUrl: pharmacyData?.backgroundImage)}
         return cell
     }
    

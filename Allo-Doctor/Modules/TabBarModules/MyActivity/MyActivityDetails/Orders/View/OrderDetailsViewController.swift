@@ -24,6 +24,7 @@ class OrderDetailsViewController: BaseViewController<OrderDetailsViewModel> {
     }
     override func setupUI() {
        setupCollectionView()
+        setupViewUI()
     }
     override func viewDidLayoutSubviews() {
         upperView.roundCorners([.bottomLeft,.bottomRight], radius: 25)
@@ -33,7 +34,6 @@ class OrderDetailsViewController: BaseViewController<OrderDetailsViewModel> {
         viewModel.navBack()
     }
     override func bindViewModel() {
-        bindProductsData()
         bindProductsData()
         
     }
@@ -68,16 +68,16 @@ extension OrderDetailsViewController{
             
         }
         orderQuantity.text = pharmacyCartData?.cartItems?.count.toString()
-        if pharmacyCartData?.pharmacy?.delivery == 0 {
+        if pharmacyCartData?.pharmacy?.deliveryfees?.toInt() == 0 {
             deleviryFees.text = AppLocalizedKeys.zero.localized
         }
         else {
-            deleviryFees.text = pharmacyCartData?.pharmacy?.delivery?.toString().appendingWithSpace(AppLocalizedKeys.EGP.localized)
+            deleviryFees.text = pharmacyCartData?.pharmacy?.deliveryfees?.appendingWithSpace(AppLocalizedKeys.EGP.localized)
         }
         totalPrice.text = pharmacyCartData?.total?.appendingWithSpace(AppLocalizedKeys.EGP.localized)
 //        totalPrice.text = (
 //            pharmacyCartData?.total ?? "0").prepend(AppLocalizedKeys.total.localized, separator: ":").appendingWithSpace(AppLocalizedKeys.EGP.localized)
-//        numberOfItems.text = pharmacyCartData?.totalQuantity.toString().prepend(AppLocalizedKeys.orderList.localized, separator: " ")
+        orderQuantity.text = pharmacyCartData?.cartItems?.first?.quantity?.toString()
     }
     
 }
@@ -108,11 +108,19 @@ extension OrderDetailsViewController:UICollectionViewDelegate,UICollectionViewDa
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let ordersData = viewModel.order?.cartItems?[indexPath.row]
        let cell = collectionView.dequeue(indexpath: indexPath) as OrderProductsCollectionViewCell
-        if UserDefaultsManager.sharedInstance.getLanguage() == .ar{
-            cell.configureCell(name: ordersData?.medication?.nameAr ?? "", price: ordersData?.medicationPharmacy?.price ?? "", quantity: ordersData?.medicationPharmacy?.quantity?.toString() ?? "", imageUrl: ordersData?.medication?.mainImage ?? "")
-        }
-        else{
-            cell.configureCell(name: ordersData?.medication?.nameEn ?? "", price: ordersData?.medicationPharmacy?.price ?? "", quantity: ordersData?.medicationPharmacy?.quantity?.toString() ?? "", imageUrl: ordersData?.medication?.mainImage ?? "")}
+        let isArabic = UserDefaultsManager.sharedInstance.getLanguage() == .ar
+        let medication = ordersData?.medication
+        let pharmacy = ordersData?.medicationPharmacy
+
+        let name = isArabic ? (medication?.nameAr ?? "") : (medication?.nameEn ?? "")
+        let imageUrl = medication?.mainImage ?? ""
+        let quantity = ordersData?.quantity?.toString() ?? ""
+            
+        // Check if price after discount exists
+        let price = pharmacy?.priceAfterDiscount ?? pharmacy?.price ?? ""
+
+        cell.configureCell(name: name, price: price, quantity: quantity, imageUrl: imageUrl)
+
         cell.applyDropShadow()
         return cell
     }

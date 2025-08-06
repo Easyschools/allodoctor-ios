@@ -94,18 +94,7 @@ extension PharmacyCartViewModel {
         }
     }
     
-    private func recalculateTotalQuantity() {
-        let newTotalQuantity = pharmacyCart?.items?.reduce(0) { $0 + $1.quantity } ?? 0
-        pharmacyCart?.totalQuantity = newTotalQuantity
-    }
-    
-    private func recalculateTotalPrice() {
-        let newTotalPrice = pharmacyCart?.items?.reduce(0.0) { total, item in
-            let itemPrice = Double(item.medicationPharmacy?.price ?? "0.0") ?? 0.0
-            return total + (itemPrice * Double(item.quantity))
-        } ?? 0.0
-        pharmacyCart?.totalPrice = String(format: "%.2f", newTotalPrice)
-    }
+
     
     private func updateCartItemQuantitiy(newQuaintity: Int, itemIndex: Int) {
         let product = pharmacyCart?.items?[itemIndex]
@@ -142,5 +131,53 @@ extension PharmacyCartViewModel{
     }
     func navToCheckOut(){
         coordinator?.showOrdersScreens(pharmacyId: pharmacyId ?? 0)
+    }
+}
+extension PharmacyCartViewModel {
+    func deleteProduct(productId: Int, completion: @escaping (Bool) -> Void) {
+        let router = APIRouter.deleteProductid(id: productId, pharmacyId: pharmacyId ?? 0)
+        print("Delete URL: \(router.url)")
+        
+        apiClient.deleteData(from: router.url, as: DeleteResponse.self)
+            .sink(receiveCompletion: { [weak self] networkCompletion in
+                switch networkCompletion {
+                case .finished:
+                    print("Delete request completed successfully.")
+                case .failure(let error):
+                    print("Error during delete request: \(error)")
+                    completion(false)
+                }
+            }, receiveValue: { [weak self] response in
+                print("Delete Response - Message: \(response.Message)")
+                print("Delete Response - Data: \(response.data)")
+                
+                // Remove the item from local data
+                self?.removeItemFromCart(productId: productId)
+                
+                // Recalculate totals
+                self?.recalculateTotalQuantity()
+                self?.recalculateTotalPrice()
+                
+                completion(true)
+            })
+            .store(in: &cancellables)
+    }
+    
+    private func removeItemFromCart(productId: Int) {
+        pharmacyCart?.items?.removeAll { $0.id == productId }
+    }
+    
+    // Make sure these methods are accessible (remove private if needed)
+    func recalculateTotalQuantity() {
+        let newTotalQuantity = pharmacyCart?.items?.reduce(0) { $0 + $1.quantity } ?? 0
+        pharmacyCart?.totalQuantity = newTotalQuantity
+    }
+    
+    func recalculateTotalPrice() {
+        let newTotalPrice = pharmacyCart?.items?.reduce(0.0) { total, item in
+            let itemPrice = Double(item.medicationPharmacy?.price ?? "0.0") ?? 0.0
+            return total + (itemPrice * Double(item.quantity))
+        } ?? 0.0
+        pharmacyCart?.totalPrice = String(format: "%.2f", newTotalPrice)
     }
 }

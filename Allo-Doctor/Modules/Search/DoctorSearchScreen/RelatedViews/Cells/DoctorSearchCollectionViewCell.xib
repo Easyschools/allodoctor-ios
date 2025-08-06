@@ -124,10 +124,10 @@ Member of The Royal Surgeons Collage -Edinburgh</string>
                                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ycN-lw-g29">
                                                         <rect key="frame" x="25" y="2.6666666666666714" width="266" height="20.333333333333332"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NewCairo:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cYZ-gF-Om6">
-                                                                <rect key="frame" x="0.0" y="0.0" width="60" height="20.333333333333332"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cYZ-gF-Om6">
+                                                                <rect key="frame" x="0.0" y="0.0" width="50" height="20.333333333333332"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="width" priority="999" constant="60" id="M6X-7d-1Ua"/>
+                                                                    <constraint firstAttribute="width" constant="50" id="M6X-7d-1Ua"/>
                                                                 </constraints>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                 <nil key="textColor"/>
@@ -136,10 +136,11 @@ Member of The Royal Surgeons Collage -Edinburgh</string>
                                                                     <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
                                                                         <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="Address:"/>
                                                                 </userDefinedRuntimeAttributes>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="paK-xi-sIe" customClass="CairoBold" customModule="Allo_Doctor" customModuleProvider="target">
-                                                                <rect key="frame" x="60" y="0.0" width="206" height="20.333333333333332"/>
+                                                                <rect key="frame" x="50" y="0.0" width="216" height="20.333333333333332"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <nil key="highlightedColor"/>
                                                                 <userDefinedRuntimeAttributes>
@@ -166,9 +167,9 @@ Member of The Royal Surgeons Collage -Edinburgh</string>
                                                         <rect key="frame" x="25" y="2.6666666666666572" width="266" height="20.333333333333332"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fees:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iiM-eA-Wyz">
-                                                                <rect key="frame" x="0.0" y="0.0" width="35" height="20.333333333333332"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="32" height="20.333333333333332"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="width" priority="999" constant="35" id="RD1-Ky-PIn"/>
+                                                                    <constraint firstAttribute="width" constant="32" id="RD1-Ky-PIn"/>
                                                                 </constraints>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -178,7 +179,7 @@ Member of The Royal Surgeons Collage -Edinburgh</string>
                                                                 </userDefinedRuntimeAttributes>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YBf-aw-zDe" customClass="CairoBold" customModule="Allo_Doctor" customModuleProvider="target">
-                                                                <rect key="frame" x="35" y="0.0" width="231" height="20.333333333333332"/>
+                                                                <rect key="frame" x="32" y="0.0" width="234" height="20.333333333333332"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>

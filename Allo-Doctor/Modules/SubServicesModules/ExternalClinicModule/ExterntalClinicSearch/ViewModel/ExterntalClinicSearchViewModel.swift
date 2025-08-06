@@ -38,9 +38,9 @@ class ExterntalClinicSearchViewModel{
         guard !isLoading else { return }
         isLoading = true
         
-        let router = APIRouter.fetchExternalClinics(isPaginate: 10, search: searchedText)
+        let router = APIRouter.fetchExternalClinics(isPaginate: 100, search: searchedText)
         currentPageURL = router.url
-        
+        print(router.url)
         apiClient.fetchData(from: router.url, as: ExternalClinicResponse.self)
             .sink(receiveCompletion: { [weak self] completion in
                 self?.isLoading = false

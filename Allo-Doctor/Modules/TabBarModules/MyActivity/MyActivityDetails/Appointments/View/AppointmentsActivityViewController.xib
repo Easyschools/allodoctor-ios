@@ -13,12 +13,14 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AppointmentsActivityViewController" customModule="Allo_Doctor" customModuleProvider="target">
             <connections>
                 <outlet property="adressLabel" destination="Luh-Uk-V5u" id="aLp-QT-m2O"/>
+                <outlet property="bookingDate" destination="SvF-fw-p2o" id="8Op-RQ-akP"/>
                 <outlet property="bookingTypeImage" destination="jLz-1x-UY3" id="0ab-VC-kbU"/>
                 <outlet property="bookingTypeName" destination="4dz-sM-9Da" id="JwH-GW-xHd"/>
                 <outlet property="cancelView" destination="5ht-ku-WrQ" id="R0I-ar-Oqq"/>
                 <outlet property="date" destination="HX0-Dx-nK3" id="TLg-Kr-dCZ"/>
                 <outlet property="nameOfAppointment" destination="yMn-Tx-nyJ" id="WHf-yo-sHb"/>
                 <outlet property="price" destination="mBE-Bf-Aje" id="jTn-Q3-Pua"/>
+                <outlet property="priceStack" destination="fmb-fu-7AE" id="Nvg-NU-4Ch"/>
                 <outlet property="reviewView" destination="KkS-ts-Tdf" id="CsV-UK-WZX"/>
                 <outlet property="upperView" destination="e0o-tu-G46" id="GcR-6v-wLt"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -331,10 +333,6 @@
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h8U-jd-Qjf" customClass="ShadowView" customModule="Allo_Doctor" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="28.333333333333314" width="361" height="48"/>
                                                             <subviews>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kbc-78-23e">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="361" height="48"/>
-                                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                                </button>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="zeU-lV-caO">
                                                                     <rect key="frame" x="16" y="12" width="331" height="24"/>
                                                                     <subviews>
@@ -361,6 +359,13 @@
                                                                         </stackView>
                                                                     </subviews>
                                                                 </stackView>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kbc-78-23e">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="361" height="48"/>
+                                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                    <connections>
+                                                                        <action selector="addReviewAction:" destination="-1" eventType="touchUpInside" id="7Ws-K8-rN3"/>
+                                                                    </connections>
+                                                                </button>
                                                             </subviews>
                                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                             <constraints>

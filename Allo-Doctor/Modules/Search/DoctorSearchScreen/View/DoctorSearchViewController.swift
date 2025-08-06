@@ -81,6 +81,7 @@ extension DoctorSearchViewController: UICollectionViewDelegate, UICollectionView
         doctorsCollectionView.delegate = self
         doctorsCollectionView.dataSource = self
         doctorsCollectionView.registerCell(cellClass: DoctorSearchCollectionViewCell.self)
+        doctorsCollectionView.contentInset = UIEdgeInsets(top: 6, left: 0, bottom: 12, right: 0)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -91,20 +92,48 @@ extension DoctorSearchViewController: UICollectionViewDelegate, UICollectionView
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DoctorSearchCollectionViewCell", for: indexPath) as? DoctorSearchCollectionViewCell else {
             fatalError("Unable to dequeue DoctorSearchCollectionViewCell")
         }
-        let doctor = viewModel.doctors[safe: indexPath.row]
-        if UserDefaultsManager.sharedInstance.getLanguage() == .ar{
-            cell.doctorName.text = doctor?.nameAr ?? "Unknown Doctor"
+        
+        guard let doctor = viewModel.doctors[safe: indexPath.row] else {
+            return cell
         }
-        else {
-            cell.doctorName.text = doctor?.nameEn ?? "Unknown Doctor"
+        
+        // Set doctor name based on language
+        if UserDefaultsManager.sharedInstance.getLanguage() == .ar {
+            cell.doctorName.text = doctor.nameAr ?? "Unknown Doctor"
+        } else {
+            cell.doctorName.text = doctor.nameEn ?? "Unknown Doctor"
+        }
+        
+        // Set address based on doctor place type
+        // Get localized service name from any available external clinic service
+        if let serviceSpecialties = doctor.doctorServiceSpecialtyIds,
+           let matchingSpecialty = serviceSpecialties.first(where: { $0.externalClinicService?.infoService != nil }),
+           let infoService = matchingSpecialty.externalClinicService?.infoService {
 
+            let lang = UserDefaultsManager.sharedInstance.getLanguage()
+
+            let localizedName: String?
+            if lang == .ar {
+                localizedName = infoService.nameAr ?? infoService.name
+            } else {
+                localizedName = infoService.nameEn ?? infoService.name
+            }
+
+            cell.AdressLabel.text = localizedName
+
+        } else {
+            // fallback if no service info found
+            cell.AdressLabel.text = doctor.address ?? " not available"
         }
-       
-        cell.AdressLabel.text = doctor?.address ?? "Address not available"
-        cell.feesLabel.text = doctor?.price ?? "Fees not available"
-        if let doctor = viewModel.doctors[safe: indexPath.row] {
-              cell.setupCell(with: doctor)
-          }
+
+
+        // Set fees
+        cell.feesLabel.text = doctor.price ?? "Fees not available"
+        
+        // Setup cell with doctor data
+        let doctorPlace = viewModel.doctorPlace
+        cell.setupCell(with: doctor, doctorPlace: doctorPlace)
+        
         return cell
     }
 

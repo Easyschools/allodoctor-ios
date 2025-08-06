@@ -58,16 +58,12 @@ class PhoneNumberViewController: BaseViewController<PhoneNumberViewModel> {
 extension String {
     // Validate if the string is a valid Egyptian mobile number
     var isValidEgyptianNumber: Bool {
-        // Convert Arabic numerals to Western numerals
         let westernizedString = self.convertArabicNumeralsToWestern()
-        
-        // Define the regex for a valid Egyptian mobile number
-        let regex = "^01[0-2,5]{1}[0-9]{8}$"
+        let regex = "^0?1[0125][0-9]{7,8}$"
         let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
-        
-        // Evaluate the predicate with the westernized string
         return predicate.evaluate(with: westernizedString)
     }
+
     
     // Helper function to convert Arabic numerals to Western numerals
     private func convertArabicNumeralsToWestern() -> String {

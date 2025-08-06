@@ -132,6 +132,18 @@ class PharmacyOrderViewController: BaseViewController<PharmacyOrderViewModel> {
               present(paymentVCsheetController, animated: true, completion: nil)
     }
     @IBAction func confirmOrderAction(_ sender: Any) {
+        if viewModel.adressId == nil {
+              print("Please select an address")
+            AlertManager.showAlert(on: self, title: AppLocalizedKeys.pleaseSelectAddress.localized, message: "")
+              return
+          }
+          
+          // Validate payment type selection
+          if viewModel.paymentType == nil || viewModel.paymentType?.isEmpty == true {
+              print("Please select a payment method")
+              AlertManager.showAlert(on: self, title: AppLocalizedKeys.pleaseSelectPayment.localized, message: "")
+              return
+          }
 //        viewModel.coordinator?.dismissPresnetiontabBarNav(self)
         viewModel.createOrder()
         let confirmationView = ConfirmationView(frame: view.bounds)
@@ -201,7 +213,7 @@ extension PharmacyOrderViewController:PaymentTaskHandling{
     }
     func handleSucessTransaction(){
         let confirmationView = ConfirmationView(frame: view.bounds)
-        confirmationView.setupView(message: AppLocalizedKeys.orderCancelled.localized, description: "Order Placed Susccesfully")
+        confirmationView.setupView(message: AppLocalizedKeys.orderPlacedSuccessfully.localized, description:AppLocalizedKeys.orderPlacedSuccessfully.localized)
         confirmationView.proceedActionPublisher
             .sink { [weak self] _ in
                 

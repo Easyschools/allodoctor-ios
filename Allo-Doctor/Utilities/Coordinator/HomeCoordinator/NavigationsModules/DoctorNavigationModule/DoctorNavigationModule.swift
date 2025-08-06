@@ -8,15 +8,15 @@
 // MARK: - Doctor Modules Navigations
 import UIKit
 extension HomeCoordinator{
-    func showDoctorProfile(doctorID:String) {
-        let viewModel = DoctorProfileViewModel(coordinator: self, doctorId: doctorID)
+    func showDoctorProfile(doctorID:String,doctorPlace:DoctorPlace) {
+        let viewModel = DoctorProfileViewModel(coordinator: self, doctorId: doctorID, doctorPlace: doctorPlace)
         let viewController = DoctorProfileViewController(viewModel: viewModel)
         if let navController = (window?.rootViewController as? UITabBarController)?.selectedViewController as? UINavigationController {
               navController.pushViewController(viewController, animated: true)
           }
     }
-    func showDoctorSearch(specialityId:String,externalClinicServiceId:String) {
-        let viewModel = DoctorSearchViewModel(coordinator: self, specialityId: specialityId, externalClinicServiceId: externalClinicServiceId.toInt())
+    func showDoctorSearch(specialityId:String,externalClinicServiceId:String,doctorPlace: DoctorPlace) {
+        let viewModel = DoctorSearchViewModel(coordinator: self, specialityId: specialityId, externalClinicServiceId: externalClinicServiceId.toInt(), doctorPlace: doctorPlace)
         let viewController = DoctorSearchViewController(viewModel: viewModel)
         if let navController = (window?.rootViewController as? UITabBarController)?.selectedViewController as? UINavigationController {
               navController.pushViewController(viewController, animated: true)
@@ -65,7 +65,7 @@ extension HomeCoordinator{
     }
    
    
-    func showLabsAndScanBooking(tests:[LabTestType],hourId:Int,dayId:Int,date:String,labId:Int,bookingType:String){
+    func showLabsAndScanBooking(tests:[LabTestType],hourId:Int?,dayId:Int?,date:String,labId:Int,bookingType:String?){
         let viewModel = BookingLabsAndScanViewModel(coordinator:self,tests:tests, hourId: hourId, dayId: dayId, date: date, labId:labId,bookingType:bookingType)
        let viewController = BookingLabsAndScanViewController(viewModel: viewModel)
        if let navController = (window?.rootViewController as? UITabBarController)?.selectedViewController as? UINavigationController {

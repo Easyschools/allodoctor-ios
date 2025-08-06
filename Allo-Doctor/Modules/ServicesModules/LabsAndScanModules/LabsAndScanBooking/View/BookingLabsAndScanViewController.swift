@@ -10,6 +10,7 @@ import PhotosUI
 
 class BookingLabsAndScanViewController: BaseViewController<BookingLabsAndScanViewModel> {
     // MARK: - Outlets
+    @IBOutlet weak var locationStack: UIStackView!
     @IBOutlet weak var typeOfNavBackButton: CustomNavigationBackButton!
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var deleteImageButton: UIButton!
@@ -44,7 +45,13 @@ class BookingLabsAndScanViewController: BaseViewController<BookingLabsAndScanVie
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(reportImageTapped))
         reportImage.addGestureRecognizer(tapGesture)
         reportImage.isUserInteractionEnabled = true
-   
+        locationStack.isHidden = true
+        if viewModel.bookingType == "home" {
+            locationStack.isHidden = false
+        }
+        else {
+            locationStack.isHidden = true
+        }
     }
     
     
@@ -83,7 +90,7 @@ class BookingLabsAndScanViewController: BaseViewController<BookingLabsAndScanVie
     }
     
     @IBAction func navBackAction(_ sender: Any) {
-        viewModel.coordinator?.navigateBack()
+        viewModel.navBack()
     }
     
     @IBAction func deleteButtonAction(_ sender: Any) {
@@ -232,17 +239,19 @@ extension BookingLabsAndScanViewController{
             AlertManager.showAlert(on: self, title: AppLocalizedKeys.InvalidNumber.localized, message: AppLocalizedKeys.phoneRejecs.localized)
             return false
         }
-       
+        if viewModel.bookingType == "home" {
+            guard let address = adressTextfield.text, !address.isEmpty else {
+                AlertManager.showAlert(on: self, title: AppLocalizedKeys.InvalidAddress.localized, message: AppLocalizedKeys.addressEmpty.localized)
+                return false
+            }
+        }
+        else {
+           
+        }
         // Validate area selection
-        guard let address = adressTextfield.text, !address.isEmpty else {
-            AlertManager.showAlert(on: self, title: AppLocalizedKeys.InvalidAddress.localized, message: AppLocalizedKeys.addressEmpty.localized)
-            return false
-        }
+       
       
-        guard reportImage.image != nil else {
-            AlertManager.showAlert(on: self, title: "Error", message: "Please Upload Report.")
-            return false
-        }
+       
         
         return true
     }

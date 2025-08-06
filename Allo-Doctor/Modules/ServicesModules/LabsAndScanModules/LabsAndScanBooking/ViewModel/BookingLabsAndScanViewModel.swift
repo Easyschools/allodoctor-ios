@@ -25,22 +25,22 @@ class BookingLabsAndScanViewModel {
     private var cancellables = Set<AnyCancellable>()
     private var apiClient: APIClient
     private var labId: Int
-    private var hourId: Int
-    private var dayId: Int
+    private var hourId: Int?
+    private var dayId: Int?
     private var date: String
-    private var bookingType: String
-    internal var name = CurrentValueSubject<String, Never>("")
-    internal var phone = CurrentValueSubject<String, Never>("")
+    var bookingType: String?
+    internal var name = CurrentValueSubject<String, Never>(  UserDefaultsManager.sharedInstance.getUserName() ?? "")
+    internal var phone = CurrentValueSubject<String, Never>(  UserDefaultsManager.sharedInstance.getMobileNumber() ?? "")
     internal var address = CurrentValueSubject<String, Never>("")
     // MARK: - Initialization
     init(coordinator: HomeCoordinatorContact? = nil,
          tests: [LabTestType],
          apiClient: APIClient = APIClient(),
-         hourId: Int,
-         dayId: Int,
+         hourId: Int?,
+         dayId: Int?,
          date: String,
          labId: Int,
-         bookingType: String) {
+         bookingType: String?) {
         self.coordinator = coordinator
         self.apiClient = apiClient
         self.tests = tests
@@ -233,10 +233,14 @@ extension BookingLabsAndScanViewModel {
     }
 
     func navBack() {
+        clearForm()
         coordinator?.navigateBack()
     }
-    func navToHome(){
+
+    func navToHome() {
+        clearForm()
         coordinator?.navigateToRoot()
     }
+
    
 }

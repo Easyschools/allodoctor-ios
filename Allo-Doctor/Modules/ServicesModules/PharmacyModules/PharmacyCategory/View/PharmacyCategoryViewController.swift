@@ -52,7 +52,7 @@ class PharmacyCategoryViewController: BaseViewController<PharmacyCategoryViewMod
 }
 extension PharmacyCategoryViewController{
     private func setupViewControllerUI() {
-        searchView.searchTextfield.placeholder = AppLocalizedKeys.searchForPharmacyOrProduct.localized
+        searchView.searchTextfield.placeholder = AppLocalizedKeys.searchForAnyProduct.localized
         backButton.tintColor = .black
         backButton.setTitleColor(.black, for: .normal)
         uploadPrescriptionView.applyDropShadow()

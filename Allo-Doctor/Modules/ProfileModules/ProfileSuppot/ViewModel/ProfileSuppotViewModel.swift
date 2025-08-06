@@ -22,7 +22,7 @@ class ProfileSuppotViewModel{
 }
 extension ProfileSuppotViewModel {
     func showChat(){
-        coordinator?.showSelectChatTypeViewController()
+        coordinator?.showChatViewController(chatType:.customerServiceType)
     }
     func navBack(){
         coordinator?.navigateBack()

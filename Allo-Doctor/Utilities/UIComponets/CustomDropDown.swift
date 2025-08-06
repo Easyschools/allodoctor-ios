@@ -426,4 +426,14 @@ extension DropDownWithImage: UITableViewDelegate {
         toggleDropdown()
         tableView.deselectRow(at: indexPath, animated: true)
     }
+    func dismissDropdownIfNeeded() {
+        if isOpen {
+            isOpen = false
+            UIView.animate(withDuration: 0.3) {
+                self.tableView.isHidden = true
+                self.arrowButton.transform = .identity
+            }
+        }
+    }
+
 }

@@ -175,7 +175,39 @@ enum AppLocalizedKeys: String, CaseIterable {
     case CustomerService
     case doctorCustomerService
     case messagePlaceholder
-
+    case noAppointments
+    case noOrdersYet
+    case uploadingAllPhotos
+    case uploadPhotos
+    case maximumPhotosAdded
+    case addPhotos
+    case photoLibrary
+    case camera
+    case selectPhotos
+    case maximumPhotosReached
+    case uploadLimitWarning
+    case pleaseUploadMedical
+    case images
+    case medicalImages
+    case chatNow
+    case oneTest
+    case tests
+    case added
+    case done
+    case Ambulance
+    case pleaseSelectRating
+    case reviewCreatedSuccessfully
+    case submitReview
+    case addCommentOptional
+    case howWouldYouRateThis
+    case rateAndReview
+    case writeReview
+    case orderPlacedSuccessfully
+    case maximumQuantityReached
+    case pleaseSelectAddress
+    case pleaseSelectPayment
+    case searchForAnyPharmacy
+    case failed
 
 
 }

@@ -68,6 +68,8 @@ extension ExternalClinicHospitalsViewController:UICollectionViewDelegate,UIColle
        let cell = collectionView.dequeue(indexpath: indexPath) as ExternalClinicHospitalsCollectionViewCell
         cell.cornerRadius = 10
         cell.applyDropShadow()
+        guard let infoServie = viewModel.externalClinicData?.infoServices?[indexPath.row].infoService else { return cell }
+        cell.setupCell(infoService:infoServie)
         return cell
     }
    

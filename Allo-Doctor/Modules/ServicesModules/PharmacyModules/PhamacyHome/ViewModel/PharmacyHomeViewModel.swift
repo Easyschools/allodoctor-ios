@@ -30,7 +30,7 @@ extension PharmacyHomeViewModel{
         getPharmacies(lat: lat ?? "", long: long ?? "")
     }
     func getPharmacies(lat:String,long:String){
-    let router = APIRouter.fetchPharmacies(isPaginate: 3,lat:lat ,long:long, search: "")
+    let router = APIRouter.fetchPharmacies(isPaginate: 8,lat:lat ,long:long, search: "")
         print (router.url)
     apiClient.fetchData(from: router.url, as: PharmaciesResponse.self)
         .sink(receiveCompletion: { [weak self] completion in
@@ -60,6 +60,9 @@ extension PharmacyHomeViewModel {
     }
     func navToSearchScreen(){
         coordinator?.showPharmacyGlobalSearch()
+    }
+    func showSelectLocationMap(){
+        coordinator?.showMapView(screenType: .pharmacyHome)
     }
     func  navToshowPharmaciesCartViewController() {
         coordinator?.showPharmaciesCartViewController()

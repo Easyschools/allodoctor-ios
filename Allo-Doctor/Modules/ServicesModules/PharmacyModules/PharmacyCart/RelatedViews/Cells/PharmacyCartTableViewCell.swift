@@ -18,6 +18,7 @@ class PharmacyCartTableViewCell: UITableViewCell {
     
     var cancellables = Set<AnyCancellable>()
     var quantityUpdateCallback: ((Int) -> Void)?
+    var currentProduct: PharmacyCartItem?
     
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -27,11 +28,19 @@ class PharmacyCartTableViewCell: UITableViewCell {
     
     /// Configure the cell with product details
     func configureCell(with product: PharmacyCartItem) {
+        // Store reference to current product
+        currentProduct = product
+        
         if UserDefaultsManager.sharedInstance.getLanguage() == .ar {
-            productName.text = product.medication?.nameAr}
-       else {
-            productName.text = product.medication?.name}
-        productPrice.text = product.medicationPharmacy?.price?.appendingWithSpace(AppLocalizedKeys.EGP.localized)
+            productName.text = product.medication?.nameAr
+        } else {
+            productName.text = product.medication?.name
+        }
+        
+        // Use priceAfterDiscount if available, otherwise use normal price
+        let priceToDisplay = product.medicationPharmacy?.priceAfterDiscount ?? product.medicationPharmacy?.price
+        productPrice.text = priceToDisplay?.appendingWithSpace(AppLocalizedKeys.EGP.localized)
+        
         itemQuantityLabel.text = "\(String(describing: product.quantity))"
         
         if let imageUrl = URL(string: product.medication?.image ?? "") {
@@ -45,12 +54,28 @@ class PharmacyCartTableViewCell: UITableViewCell {
         } else {
             productImage.image = UIImage(named: "placeholder") // Fallback placeholder
         }
+        
+        // Update button state based on availability
+        updateIncrementButtonState()
     }
     
     @IBAction func incrementButtonTapped(_ sender: Any) {
-        if let currentQuantity = Int(itemQuantityLabel.text ?? "0") {
-            let newQuantity = currentQuantity + 1
+        guard let product = currentProduct,
+              let currentQuantity = Int(itemQuantityLabel.text ?? "0") else { return }
+        
+        let newQuantity = currentQuantity + 1
+        let availableStock = product.medicationPharmacy?.quantity ?? 0
+        
+        if newQuantity <= availableStock {
             quantityUpdateCallback?(newQuantity)
+            // Update button state after quantity change
+            DispatchQueue.main.async {
+                self.updateIncrementButtonState()
+            }
+        } else {
+            // Optional: Show alert or provide visual feedback
+            print("Cannot exceed available stock of \(availableStock)")
+            // You could show an alert here or provide visual feedback
         }
     }
     
@@ -60,5 +85,18 @@ class PharmacyCartTableViewCell: UITableViewCell {
             let newQuantity = currentQuantity - 1
             quantityUpdateCallback?(newQuantity)
         }
+    }
+    
+    // MARK: - Helper Methods
+    
+    /// Update increment button state based on current quantity and available stock
+    func updateIncrementButtonState() {
+        guard let product = currentProduct else { return }
+        
+        let currentQuantity = Int(itemQuantityLabel.text ?? "0") ?? 0
+        let availableStock = product.medicationPharmacy?.quantity ?? 0
+        
+        incrementButton.isEnabled = currentQuantity < availableStock
+        incrementButton.alpha = incrementButton.isEnabled ? 1.0 : 0.5
     }
 }

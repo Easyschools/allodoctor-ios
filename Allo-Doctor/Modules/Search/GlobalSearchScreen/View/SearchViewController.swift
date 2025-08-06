@@ -132,7 +132,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if viewModel.searchText.isEmpty {
-            viewModel.navtoDoctorSearch(specialityId: viewModel.specialties[indexPath.row].id.toString())
+            viewModel.navtoDoctorSearch(specialityId: viewModel.specialties[indexPath.row].id?.toString() ?? "")
         } else {
             if let type = Type(rawValue: viewModel.searchResult[indexPath.row].type ?? "") {
                 switch type {
@@ -144,7 +144,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
                     viewModel.navToClinicProfile(id: String(clinicId))
                 }
             } else {
-                viewModel.navtoDoctorSearch(specialityId: viewModel.specialties[indexPath.row].id.toString())
+                viewModel.navtoDoctorSearch(specialityId: viewModel.specialties[indexPath.row].id?.toString() ?? "")
             }
         }
     }

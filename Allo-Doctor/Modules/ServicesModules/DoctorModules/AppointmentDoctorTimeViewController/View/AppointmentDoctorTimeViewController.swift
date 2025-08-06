@@ -86,7 +86,7 @@ extension AppointmentDoctorTimeViewController:UICollectionViewDelegate,UICollect
           let appointmentHour = viewModel.doctorData?[0].appointmentHour?[indexPath.row]
           
           // Safely convert the time to 12-hour format
-          let appointmentTimeText = appointmentHour?.from?.convertTo12HourFormat() ?? "--:--"
+        let appointmentTimeText = appointmentHour?.from?.convertTo12HourFormat().appendingWithSpace("-").appendingWithSpace(appointmentHour?.to?.convertTo12HourFormat() ?? "--") ?? "--:--"
           
           // Check if the appointment has been booked
           if appointmentHour?.hasBooking == true {
@@ -122,12 +122,12 @@ extension AppointmentDoctorTimeViewController:UICollectionViewDelegate,UICollect
         let appoinments = viewModel.doctorData?[0].appointmentHour?.count
         if appoinments == 1 {
             return CGSize(width: collectionView.frame.width, height: 40)}
-        else if appoinments == 2 {
+        else {
             return CGSize(width: collectionView.frame.width*0.45, height: 40)
         }
-    else {
-        return CGSize(width: collectionView.frame.width * 0.315, height: 40)}
-            
+//    else {
+//        return CGSize(width: collectionView.frame.width * 0.315, height: 40)}
+//            
         }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedIndexPath = indexPath

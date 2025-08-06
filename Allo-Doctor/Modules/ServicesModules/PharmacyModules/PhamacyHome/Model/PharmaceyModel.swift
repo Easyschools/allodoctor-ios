@@ -36,7 +36,7 @@ struct Pharmacy: Decodable {
     let from: String?
     let pickup: Int
     let deliveryTime:String?
-    let delivery: Int
+    let delivery: String?
     let phone: String?
     let url: String?
     let experience: String?
@@ -49,7 +49,7 @@ struct Pharmacy: Decodable {
 
     
     enum CodingKeys: String, CodingKey {
-        case id, latitude, longitude, to, from, pickup, delivery, phone, url, experience
+        case id, latitude, longitude, to, from, pickup, phone, url, experience
         case nameEn = "name_en"
         case nameAr = "name_ar"
         case titleEn = "title_en"
@@ -59,6 +59,7 @@ struct Pharmacy: Decodable {
         case addressEn = "address_en"
         case addressAr = "address_ar"
         case distance
+        case delivery = "delivery_fees"
         case cityId = "city_id"
         case districtId = "district_id"
         case districtName = "district_name"

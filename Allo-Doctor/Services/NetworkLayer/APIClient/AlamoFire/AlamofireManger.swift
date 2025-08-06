@@ -214,4 +214,68 @@ final class NetworkService {
         }
     }
 }
-
+// MARK: - NetworkService Extension for Multiple Image Upload
+extension NetworkService {
+    func uploadMultipleImages(
+        endpoint: String,
+        images: [UIImage],
+        imageParameterName: String = "images",
+        parameters: [String: Any]? = nil,
+        completion: @escaping (Result<Data, NetworkError>) -> Void
+    ) {
+        guard let token = AuthManager.shared.getAuthorizationHeader() else {
+            completion(.failure(.unauthorized))
+            return
+        }
+        
+        guard !images.isEmpty else {
+            completion(.failure(.invalidData))
+            return
+        }
+        
+        let headers: HTTPHeaders = [
+            "Authorization": token,
+            "Content-Type": "multipart/form-data",
+            "Accept": "application/json"
+        ]
+        
+        let url = "\(baseURL)/\(endpoint)"
+        
+        AF.upload(
+            multipartFormData: { multipartFormData in
+                // Add multiple images as array - images[0], images[1], images[2]
+                for (index, image) in images.enumerated() {
+                    if let imageData = image.jpegData(compressionQuality: 0.8) {
+                        multipartFormData.append(
+                            imageData,
+                            withName: "\(imageParameterName)[\(index)]", // Format: images[0], images[1], images[2]
+                            fileName: "doctorCall.jpg", // Use consistent filename
+                            mimeType: "image/jpeg"
+                        )
+                    }
+                }
+                
+                // Add additional parameters if provided
+                parameters?.forEach { key, value in
+                    if let data = "\(value)".data(using: .utf8) {
+                        multipartFormData.append(data, withName: key)
+                    }
+                }
+            },
+            to: url,
+            headers: headers
+        )
+        .uploadProgress { progress in
+            print("Multiple Upload Progress: \(progress.fractionCompleted)")
+        }
+        .validate()
+        .responseData { response in
+            switch response.result {
+            case .success(let data):
+                completion(.success(data))
+            case .failure:
+                self.handleError(response: response, completion: completion)
+            }
+        }
+    }
+}

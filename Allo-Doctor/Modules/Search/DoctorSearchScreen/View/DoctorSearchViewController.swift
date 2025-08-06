@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import FittedSheets
 
 class DoctorSearchViewController: BaseViewController<DoctorSearchViewModel> {
     @IBOutlet weak private var lowerStackView: UIStackView!

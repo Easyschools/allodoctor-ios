@@ -303,21 +303,6 @@
 		5E795EB32CC7EDF5005C0999 /* ProductsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E795EB02CC7EDF5005C0999 /* ProductsCollectionViewCell.swift */; };
 		5E795EBC2CC9381E005C0999 /* ProductDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E795EBB2CC9381E005C0999 /* ProductDetailsViewController.xib */; };
 		5E795EBD2CC9381E005C0999 /* ProductDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E795EBA2CC9381E005C0999 /* ProductDetailsViewController.swift */; };
-		5E7976F72CDF6EA900F37A39 /* FWIPNSheetLocalize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7976E12CDF6EA900F37A39 /* FWIPNSheetLocalize.swift */; };
-		5E7976FA2CDF6EA900F37A39 /* FittedSheetsSetupFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7976E72CDF6EA900F37A39 /* FittedSheetsSetupFunction.swift */; };
-		5E7976FB2CDF6EA900F37A39 /* FWIPNCompatible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7976E82CDF6EA900F37A39 /* FWIPNCompatible.swift */; };
-		5E7976FC2CDF6EA900F37A39 /* FWIPNSheetContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7976EA2CDF6EA900F37A39 /* FWIPNSheetContentViewController.swift */; };
-		5E7976FD2CDF6EA900F37A39 /* FWIPNSheetContentViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7976EB2CDF6EA900F37A39 /* FWIPNSheetContentViewDelegate.swift */; };
-		5E7976FE2CDF6EA900F37A39 /* FWIPNSheetOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7976EC2CDF6EA900F37A39 /* FWIPNSheetOptions.swift */; };
-		5E7976FF2CDF6EA900F37A39 /* FWIPNSheetSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7976ED2CDF6EA900F37A39 /* FWIPNSheetSize.swift */; };
-		5E7977002CDF6EA900F37A39 /* FWIPNSheetTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7976EE2CDF6EA900F37A39 /* FWIPNSheetTransition.swift */; };
-		5E7977012CDF6EA900F37A39 /* FWIPNSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7976EF2CDF6EA900F37A39 /* FWIPNSheetView.swift */; };
-		5E7977022CDF6EA900F37A39 /* FWIPNSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7976F02CDF6EA900F37A39 /* FWIPNSheetViewController.swift */; };
-		5E7977032CDF6EA900F37A39 /* FWIPNSheetViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7976F12CDF6EA900F37A39 /* FWIPNSheetViewDelegate.swift */; };
-		5E7977042CDF6EA900F37A39 /* FWIPNUIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7976F22CDF6EA900F37A39 /* FWIPNUIViewControllerExtension.swift */; };
-		5E7977052CDF6EA900F37A39 /* InitialTouchPanGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7976F32CDF6EA900F37A39 /* InitialTouchPanGestureRecognizer.swift */; };
-		5E7977062CDF6EA900F37A39 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7976F42CDF6EA900F37A39 /* UIColorExtension.swift */; };
-		5E7977072CDF6EA900F37A39 /* Yalta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7976F52CDF6EA900F37A39 /* Yalta.swift */; };
 		5E79770D2CDF925B00F37A39 /* UserAddressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E79770C2CDF925B00F37A39 /* UserAddressViewController.xib */; };
 		5E79770E2CDF925B00F37A39 /* UserAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E79770B2CDF925B00F37A39 /* UserAddressViewController.swift */; };
 		5E7977162CDF94E600F37A39 /* UserAddressViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7977152CDF94E600F37A39 /* UserAddressViewModel.swift */; };
@@ -506,6 +491,20 @@
 		5EE8A0892D1D38FA0083844B /* OneDayCareHospitalsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE8A0882D1D38FA0083844B /* OneDayCareHospitalsModel.swift */; };
 		5EE8A0902D1D48BC0083844B /* OneDayCareProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EE8A08F2D1D48BC0083844B /* OneDayCareProfileViewController.xib */; };
 		5EE8A0912D1D48BC0083844B /* OneDayCareProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE8A08E2D1D48BC0083844B /* OneDayCareProfileViewController.swift */; };
+		5EF0A3132E44090E00023A04 /* FittedSheets in Frameworks */ = {isa = PBXBuildFile; productRef = 5EF0A3122E44090E00023A04 /* FittedSheets */; };
+		5EF0A32B2E4409EE00023A04 /* FWIPNSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF0A3222E4409ED00023A04 /* FWIPNSheetViewController.swift */; };
+		5EF0A32D2E4409EE00023A04 /* FWIPNSheetContentViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF0A31D2E4409ED00023A04 /* FWIPNSheetContentViewDelegate.swift */; };
+		5EF0A32E2E4409EE00023A04 /* FWIPNSheetOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF0A31E2E4409ED00023A04 /* FWIPNSheetOptions.swift */; };
+		5EF0A32F2E4409EE00023A04 /* FWIPNSheetSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF0A31F2E4409ED00023A04 /* FWIPNSheetSize.swift */; };
+		5EF0A3302E4409EE00023A04 /* FWIPNSheetTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF0A3202E4409ED00023A04 /* FWIPNSheetTransition.swift */; };
+		5EF0A3312E4409EE00023A04 /* FWIPNSheetViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF0A3232E4409ED00023A04 /* FWIPNSheetViewDelegate.swift */; };
+		5EF0A3322E4409EE00023A04 /* FWIPNUIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF0A3242E4409ED00023A04 /* FWIPNUIViewControllerExtension.swift */; };
+		5EF0A3332E4409EE00023A04 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF0A3262E4409ED00023A04 /* UIColorExtension.swift */; };
+		5EF0A3342E4409EE00023A04 /* InitialTouchPanGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF0A3252E4409ED00023A04 /* InitialTouchPanGestureRecognizer.swift */; };
+		5EF0A3352E4409EE00023A04 /* FWIPNSheetContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF0A31C2E4409ED00023A04 /* FWIPNSheetContentViewController.swift */; };
+		5EF0A3362E4409EE00023A04 /* FWIPNCompatible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF0A31A2E4409ED00023A04 /* FWIPNCompatible.swift */; };
+		5EF0A3372E4409EE00023A04 /* FWIPNSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF0A3212E4409ED00023A04 /* FWIPNSheetView.swift */; };
+		5EF0A3382E4409EE00023A04 /* Yalta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF0A3272E4409ED00023A04 /* Yalta.swift */; };
 		5EF44D1B2CBB49FA004618B2 /* LabsAndScanProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF44D1A2CBB49FA004618B2 /* LabsAndScanProfileViewModel.swift */; };
 		5EF44D1E2CBB56BA004618B2 /* LabsAndScanTestTypeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF44D1D2CBB56BA004618B2 /* LabsAndScanTestTypeModel.swift */; };
 		5EF44D252CBBC0AB004618B2 /* BookingLabsAndScanViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EF44D242CBBC0AB004618B2 /* BookingLabsAndScanViewController.xib */; };
@@ -848,23 +847,6 @@
 		5E795EB12CC7EDF5005C0999 /* ProductsCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductsCollectionViewCell.xib; sourceTree = "<group>"; };
 		5E795EBA2CC9381E005C0999 /* ProductDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsViewController.swift; sourceTree = "<group>"; };
 		5E795EBB2CC9381E005C0999 /* ProductDetailsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductDetailsViewController.xib; sourceTree = "<group>"; };
-		5E7976E12CDF6EA900F37A39 /* FWIPNSheetLocalize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FWIPNSheetLocalize.swift; sourceTree = "<group>"; };
-		5E7976E42CDF6EA900F37A39 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/SheetLocalizable.strings; sourceTree = "<group>"; };
-		5E7976E72CDF6EA900F37A39 /* FittedSheetsSetupFunction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FittedSheetsSetupFunction.swift; sourceTree = "<group>"; };
-		5E7976E82CDF6EA900F37A39 /* FWIPNCompatible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FWIPNCompatible.swift; sourceTree = "<group>"; };
-		5E7976E92CDF6EA900F37A39 /* FWIPNFittedSheetsPod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FWIPNFittedSheetsPod.h; sourceTree = "<group>"; };
-		5E7976EA2CDF6EA900F37A39 /* FWIPNSheetContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FWIPNSheetContentViewController.swift; sourceTree = "<group>"; };
-		5E7976EB2CDF6EA900F37A39 /* FWIPNSheetContentViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FWIPNSheetContentViewDelegate.swift; sourceTree = "<group>"; };
-		5E7976EC2CDF6EA900F37A39 /* FWIPNSheetOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FWIPNSheetOptions.swift; sourceTree = "<group>"; };
-		5E7976ED2CDF6EA900F37A39 /* FWIPNSheetSize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FWIPNSheetSize.swift; sourceTree = "<group>"; };
-		5E7976EE2CDF6EA900F37A39 /* FWIPNSheetTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FWIPNSheetTransition.swift; sourceTree = "<group>"; };
-		5E7976EF2CDF6EA900F37A39 /* FWIPNSheetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FWIPNSheetView.swift; sourceTree = "<group>"; };
-		5E7976F02CDF6EA900F37A39 /* FWIPNSheetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FWIPNSheetViewController.swift; sourceTree = "<group>"; };
-		5E7976F12CDF6EA900F37A39 /* FWIPNSheetViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FWIPNSheetViewDelegate.swift; sourceTree = "<group>"; };
-		5E7976F22CDF6EA900F37A39 /* FWIPNUIViewControllerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FWIPNUIViewControllerExtension.swift; sourceTree = "<group>"; };
-		5E7976F32CDF6EA900F37A39 /* InitialTouchPanGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialTouchPanGestureRecognizer.swift; sourceTree = "<group>"; };
-		5E7976F42CDF6EA900F37A39 /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
-		5E7976F52CDF6EA900F37A39 /* Yalta.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Yalta.swift; sourceTree = "<group>"; };
 		5E79770B2CDF925B00F37A39 /* UserAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAddressViewController.swift; sourceTree = "<group>"; };
 		5E79770C2CDF925B00F37A39 /* UserAddressViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserAddressViewController.xib; sourceTree = "<group>"; };
 		5E7977152CDF94E600F37A39 /* UserAddressViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAddressViewModel.swift; sourceTree = "<group>"; };
@@ -964,7 +946,6 @@
 		5E85DCB12D0D71FA000FA3C1 /* PharmaciesListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PharmaciesListTableViewCell.xib; sourceTree = "<group>"; };
 		5E87168D2C9A2516006E8E66 /* SearchView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchView.xib; sourceTree = "<group>"; };
 		5E87168F2C9A2CE1006E8E66 /* CustomDropDownList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDropDownList.swift; sourceTree = "<group>"; };
-		5E87D90C2CF1352F00B2D717 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		5E99CC282D337B1900DB7D74 /* DeleteResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteResponse.swift; sourceTree = "<group>"; };
 		5E9A6D772CABB3B200F09450 /* DoctorClinicPhotosCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorClinicPhotosCollectionViewCell.swift; sourceTree = "<group>"; };
 		5E9A6D782CABB3B200F09450 /* DoctorClinicPhotosCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DoctorClinicPhotosCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -1034,6 +1015,20 @@
 		5EE8A0882D1D38FA0083844B /* OneDayCareHospitalsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneDayCareHospitalsModel.swift; sourceTree = "<group>"; };
 		5EE8A08E2D1D48BC0083844B /* OneDayCareProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneDayCareProfileViewController.swift; sourceTree = "<group>"; };
 		5EE8A08F2D1D48BC0083844B /* OneDayCareProfileViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OneDayCareProfileViewController.xib; sourceTree = "<group>"; };
+		5EF0A31A2E4409ED00023A04 /* FWIPNCompatible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FWIPNCompatible.swift; sourceTree = "<group>"; };
+		5EF0A31B2E4409ED00023A04 /* FWIPNFittedSheetsPod.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FWIPNFittedSheetsPod.h; sourceTree = "<group>"; };
+		5EF0A31C2E4409ED00023A04 /* FWIPNSheetContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FWIPNSheetContentViewController.swift; sourceTree = "<group>"; };
+		5EF0A31D2E4409ED00023A04 /* FWIPNSheetContentViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FWIPNSheetContentViewDelegate.swift; sourceTree = "<group>"; };
+		5EF0A31E2E4409ED00023A04 /* FWIPNSheetOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FWIPNSheetOptions.swift; sourceTree = "<group>"; };
+		5EF0A31F2E4409ED00023A04 /* FWIPNSheetSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FWIPNSheetSize.swift; sourceTree = "<group>"; };
+		5EF0A3202E4409ED00023A04 /* FWIPNSheetTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FWIPNSheetTransition.swift; sourceTree = "<group>"; };
+		5EF0A3212E4409ED00023A04 /* FWIPNSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FWIPNSheetView.swift; sourceTree = "<group>"; };
+		5EF0A3222E4409ED00023A04 /* FWIPNSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FWIPNSheetViewController.swift; sourceTree = "<group>"; };
+		5EF0A3232E4409ED00023A04 /* FWIPNSheetViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FWIPNSheetViewDelegate.swift; sourceTree = "<group>"; };
+		5EF0A3242E4409ED00023A04 /* FWIPNUIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FWIPNUIViewControllerExtension.swift; sourceTree = "<group>"; };
+		5EF0A3252E4409ED00023A04 /* InitialTouchPanGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialTouchPanGestureRecognizer.swift; sourceTree = "<group>"; };
+		5EF0A3262E4409ED00023A04 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
+		5EF0A3272E4409ED00023A04 /* Yalta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Yalta.swift; sourceTree = "<group>"; };
 		5EF44D1A2CBB49FA004618B2 /* LabsAndScanProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabsAndScanProfileViewModel.swift; sourceTree = "<group>"; };
 		5EF44D1D2CBB56BA004618B2 /* LabsAndScanTestTypeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabsAndScanTestTypeModel.swift; sourceTree = "<group>"; };
 		5EF44D232CBBC0AB004618B2 /* BookingLabsAndScanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingLabsAndScanViewController.swift; sourceTree = "<group>"; };
@@ -1066,6 +1061,7 @@
 				5EA31ECF2D260D3600A57A35 /* FirebaseInAppMessaging-Beta in Frameworks */,
 				5EA31EC12D260D3600A57A35 /* FirebaseAuthCombine-Community in Frameworks */,
 				5EA31EC32D260D3600A57A35 /* FirebaseCore in Frameworks */,
+				5EF0A3132E44090E00023A04 /* FittedSheets in Frameworks */,
 				5EA31EC92D260D3600A57A35 /* FirebaseDynamicLinks in Frameworks */,
 				5EA31EBF2D260D3600A57A35 /* FirebaseAuth in Frameworks */,
 				5EA31EBD2D260D3600A57A35 /* FirebaseAppDistribution-Beta in Frameworks */,
@@ -3506,40 +3502,6 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		5E7976E62CDF6EA900F37A39 /* Localization */ = {
-			isa = PBXGroup;
-			children = (
-				5E7976E12CDF6EA900F37A39 /* FWIPNSheetLocalize.swift */,
-				5E87D90C2CF1352F00B2D717 /* Localizable.strings */,
-				5E7976E52CDF6EA900F37A39 /* SheetLocalizable.strings */,
-			);
-			path = Localization;
-			sourceTree = "<group>";
-		};
-		5E7976F62CDF6EA900F37A39 /* FittedSheets */ = {
-			isa = PBXGroup;
-			children = (
-				5E7976E62CDF6EA900F37A39 /* Localization */,
-				5E7976E72CDF6EA900F37A39 /* FittedSheetsSetupFunction.swift */,
-				5E7976E82CDF6EA900F37A39 /* FWIPNCompatible.swift */,
-				5E7976E92CDF6EA900F37A39 /* FWIPNFittedSheetsPod.h */,
-				5E7976EA2CDF6EA900F37A39 /* FWIPNSheetContentViewController.swift */,
-				5E7976EB2CDF6EA900F37A39 /* FWIPNSheetContentViewDelegate.swift */,
-				5E7976EC2CDF6EA900F37A39 /* FWIPNSheetOptions.swift */,
-				5E7976ED2CDF6EA900F37A39 /* FWIPNSheetSize.swift */,
-				5E7976EE2CDF6EA900F37A39 /* FWIPNSheetTransition.swift */,
-				5E7976EF2CDF6EA900F37A39 /* FWIPNSheetView.swift */,
-				5E7976F02CDF6EA900F37A39 /* FWIPNSheetViewController.swift */,
-				5E7976F12CDF6EA900F37A39 /* FWIPNSheetViewDelegate.swift */,
-				5E7976F22CDF6EA900F37A39 /* FWIPNUIViewControllerExtension.swift */,
-				5E7976F32CDF6EA900F37A39 /* InitialTouchPanGestureRecognizer.swift */,
-				5E7976F42CDF6EA900F37A39 /* UIColorExtension.swift */,
-				5E7976F52CDF6EA900F37A39 /* Yalta.swift */,
-			);
-			name = FittedSheets;
-			path = "../../../../../../../Downloads/Weather-App-main-3/Weather-App/Helper/FittedSheets";
-			sourceTree = "<group>";
-		};
 		5E7977082CDF911A00F37A39 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -3657,11 +3619,11 @@
 		5E7ABEAC2C90F3B3007A0BA1 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				5EF0A3282E4409ED00023A04 /* FittedSheet */,
 				5E6A89222D2EAB290009D0BA /* Helper */,
 				5E70C0EE2D136A24003C8311 /* LoadingIndicator */,
 				5E6D72172CE1DF010026D91C /* DateGenration */,
 				5EDCB4F42CE08ED20036B6DC /* MapsManger */,
-				5E7976F62CDF6EA900F37A39 /* FittedSheets */,
 				5E01A2AA2CA9FEEE00678C0D /* CustomLoadingScreen */,
 				5EE656522C9EFD0000435772 /* AlertManger */,
 				5E7ABEB42C90F3F1007A0BA1 /* publisherHelpers */,
@@ -4976,6 +4938,27 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		5EF0A3282E4409ED00023A04 /* FittedSheet */ = {
+			isa = PBXGroup;
+			children = (
+				5EF0A31A2E4409ED00023A04 /* FWIPNCompatible.swift */,
+				5EF0A31B2E4409ED00023A04 /* FWIPNFittedSheetsPod.h */,
+				5EF0A31C2E4409ED00023A04 /* FWIPNSheetContentViewController.swift */,
+				5EF0A31D2E4409ED00023A04 /* FWIPNSheetContentViewDelegate.swift */,
+				5EF0A31E2E4409ED00023A04 /* FWIPNSheetOptions.swift */,
+				5EF0A31F2E4409ED00023A04 /* FWIPNSheetSize.swift */,
+				5EF0A3202E4409ED00023A04 /* FWIPNSheetTransition.swift */,
+				5EF0A3212E4409ED00023A04 /* FWIPNSheetView.swift */,
+				5EF0A3222E4409ED00023A04 /* FWIPNSheetViewController.swift */,
+				5EF0A3232E4409ED00023A04 /* FWIPNSheetViewDelegate.swift */,
+				5EF0A3242E4409ED00023A04 /* FWIPNUIViewControllerExtension.swift */,
+				5EF0A3252E4409ED00023A04 /* InitialTouchPanGestureRecognizer.swift */,
+				5EF0A3262E4409ED00023A04 /* UIColorExtension.swift */,
+				5EF0A3272E4409ED00023A04 /* Yalta.swift */,
+			);
+			path = FittedSheet;
+			sourceTree = "<group>";
+		};
 		5EF44D1C2CBB569B004618B2 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -5113,6 +5096,7 @@
 				5EA31ED22D260D3600A57A35 /* FirebaseMessaging */,
 				5EA31ED42D260D3600A57A35 /* FirebaseStorage */,
 				5EA31ED62D260D3600A57A35 /* FirebaseStorageCombine-Community */,
+				5EF0A3122E44090E00023A04 /* FittedSheets */,
 			);
 			productName = "Allo-Doctor";
 			productReference = 5E167E9E2C85B8E6008864F6 /* Allo-Doctor.app */;
@@ -5195,6 +5179,7 @@
 				5E70C4892CDA112F00926EFF /* XCRemoteSwiftPackageReference "BulletinBoard" */,
 				5ECDA7062D08955E008876A6 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				5EA31EB32D260D3600A57A35 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				5EF0A3112E44090E00023A04 /* XCRemoteSwiftPackageReference "FittedSheets" */,
 			);
 			productRefGroup = 5E167E9F2C85B8E6008864F6 /* Products */;
 			projectDirPath = "";
@@ -5382,7 +5367,6 @@
 				5EA31E6D2D23D9FD00A57A35 /* InsuranceCollectionViewCell.swift in Sources */,
 				5E5EF70C2D1AB53500118269 /* OperationConfirmedViewModel.swift in Sources */,
 				5E85DCA62D0AD31F000FA3C1 /* UserInsuranceViewController.swift in Sources */,
-				5E7976FB2CDF6EA900F37A39 /* FWIPNCompatible.swift in Sources */,
 				5E82D86E2CBD0DFF00B5DC50 /* PharmacyHomeViewModel.swift in Sources */,
 				5E82CBDB2CB5E8D300C4E11E /* DoctorAppointmentsCollectionViewCell.swift in Sources */,
 				5EB9F2112CF56DD700722DE5 /* ProfileEditViewController.swift in Sources */,
@@ -5391,11 +5375,8 @@
 				5E6F97652D08418E00485992 /* UploadPrescriptionViewModel.swift in Sources */,
 				5E639B272C9499DC004AD3AB /* UICollectionView+Extentions.swift in Sources */,
 				5E723A7F2CEB77C800F58BCE /* OperationHospitalsModel.swift in Sources */,
-				5E7977012CDF6EA900F37A39 /* FWIPNSheetView.swift in Sources */,
 				5E7F9B042D2D18E900D0EF37 /* InsuranceDeleteViewModel.swift in Sources */,
-				5E7976FE2CDF6EA900F37A39 /* FWIPNSheetOptions.swift in Sources */,
 				5E82D8762CBD1D0D00B5DC50 /* LabsAndScanAppointmentViewController.swift in Sources */,
-				5E7977032CDF6EA900F37A39 /* FWIPNSheetViewDelegate.swift in Sources */,
 				5E6A891E2D2E9CC40009D0BA /* ProfileSuppotViewController.swift in Sources */,
 				5E1FA0602C8D0CD700F7314E /* RegisterViewController.swift in Sources */,
 				5E2CCF912CCE894100498BF7 /* AuthManger.swift in Sources */,
@@ -5415,14 +5396,12 @@
 				5E4C439F2C9BA12100EB8936 /* SearchModel.swift in Sources */,
 				5EBA7A012D174C0700842F8C /* ProfileMedicalViewModel.swift in Sources */,
 				5E6A538A2CD2686B00441CEF /* PharmacyCartModel.swift in Sources */,
-				5E7976F72CDF6EA900F37A39 /* FWIPNSheetLocalize.swift in Sources */,
 				5E7F397E2C92345B00D7E24D /* HomeCoordinator.swift in Sources */,
 				5E7ABEB92C90F3F1007A0BA1 /* UISlider+Publisher.swift in Sources */,
 				5E7097C32CD1831B00F9636C /* PharmaciesCartViewModel.swift in Sources */,
 				5E6C483A2CEF48790004E3C4 /* IncubationsViewModel.swift in Sources */,
 				5E5EF7102D1AD2B600118269 /* OperationProcdureModel.swift in Sources */,
 				5E7330622CF100AD004E7F1B /* LocalizationManager.swift in Sources */,
-				5E7977072CDF6EA900F37A39 /* Yalta.swift in Sources */,
 				5E7F397B2C9233BA00D7E24D /* AppCoordinator.swift in Sources */,
 				5E7F399E2C92441800D7E24D /* OffersViewController.swift in Sources */,
 				5E72D7B22CEA266C002A843C /* OperationHospitalsViewModel.swift in Sources */,
@@ -5531,7 +5510,6 @@
 				5EE8A0892D1D38FA0083844B /* OneDayCareHospitalsModel.swift in Sources */,
 				5EBC2D012C93CD7F00FC233F /* ServicesCollectionViewCell.swift in Sources */,
 				5E5ECA372CE4D3E100AA9E45 /* ExterntalClinicSearchViewModel.swift in Sources */,
-				5E7977042CDF6EA900F37A39 /* FWIPNUIViewControllerExtension.swift in Sources */,
 				5E70C0ED2D12142B003C8311 /* OffersBannersModel.swift in Sources */,
 				5E6A805B2C886420007C14CE /* UIViewController+Extentions.swift in Sources */,
 				5E7ABEBB2C90F3F1007A0BA1 /* UITextField+Publisher.swift in Sources */,
@@ -5539,7 +5517,19 @@
 				5E707D3F2CA2506F000DE007 /* LabsServiceModel.swift in Sources */,
 				5E82CBD02CB5CCBA00C4E11E /* AppointmentDoctorTimeModel.swift in Sources */,
 				5E66B3122D170183006B7553 /* ChangeLangugeViewController.swift in Sources */,
-				5E7977052CDF6EA900F37A39 /* InitialTouchPanGestureRecognizer.swift in Sources */,
+				5EF0A32B2E4409EE00023A04 /* FWIPNSheetViewController.swift in Sources */,
+				5EF0A32D2E4409EE00023A04 /* FWIPNSheetContentViewDelegate.swift in Sources */,
+				5EF0A32E2E4409EE00023A04 /* FWIPNSheetOptions.swift in Sources */,
+				5EF0A32F2E4409EE00023A04 /* FWIPNSheetSize.swift in Sources */,
+				5EF0A3302E4409EE00023A04 /* FWIPNSheetTransition.swift in Sources */,
+				5EF0A3312E4409EE00023A04 /* FWIPNSheetViewDelegate.swift in Sources */,
+				5EF0A3322E4409EE00023A04 /* FWIPNUIViewControllerExtension.swift in Sources */,
+				5EF0A3332E4409EE00023A04 /* UIColorExtension.swift in Sources */,
+				5EF0A3342E4409EE00023A04 /* InitialTouchPanGestureRecognizer.swift in Sources */,
+				5EF0A3352E4409EE00023A04 /* FWIPNSheetContentViewController.swift in Sources */,
+				5EF0A3362E4409EE00023A04 /* FWIPNCompatible.swift in Sources */,
+				5EF0A3372E4409EE00023A04 /* FWIPNSheetView.swift in Sources */,
+				5EF0A3382E4409EE00023A04 /* Yalta.swift in Sources */,
 				5E708CD72CEB362F00D3C2D4 /* OperationConfirmedViewController.swift in Sources */,
 				5EFBF7472E0A7426006B1A61 /* MedicalImagesCollectionViewCell.swift in Sources */,
 				5EE6565D2C9F43EB00435772 /* PhoneNumberViewModel.swift in Sources */,
@@ -5548,7 +5538,6 @@
 				5E1FA0592C8C77DF00F7314E /* UserDefaultsManager.swift in Sources */,
 				5E4C43A32C9BB72B00EB8936 /* SearchView.swift in Sources */,
 				5E16D81E2D21627600598553 /* Favourites.swift in Sources */,
-				5E7976FD2CDF6EA900F37A39 /* FWIPNSheetContentViewDelegate.swift in Sources */,
 				5E0796522CA39FCF000C4E83 /* LabsAndScanProfileViewController.swift in Sources */,
 				5E6AFB0C2C9B5DEB00252EA9 /* CustomBackNavigationButton.swift in Sources */,
 				5E7DBB332CA230F40016751F /* Labs&ScansSearchScreenViewController.swift in Sources */,
@@ -5570,7 +5559,6 @@
 				5EA36F272CA0C38900CC9606 /* DoctorSearchViewModel.swift in Sources */,
 				5E707D3C2CA2415C000DE007 /* LabsCollectionViewCell.swift in Sources */,
 				5EA36F302CA0C5AD00CC9606 /* DoctorSearchCollectionViewCell.swift in Sources */,
-				5E7977062CDF6EA900F37A39 /* UIColorExtension.swift in Sources */,
 				5E389AA32C8BBF45002FA5F0 /* UITextField+Extentions.swift in Sources */,
 				5EBA7A032D17586000842F8C /* ProfileMedicalModel.swift in Sources */,
 				5E7593192D09C748006C2B6F /* ProfileEditViewModel.swift in Sources */,
@@ -5580,7 +5568,6 @@
 				5E82D8792CBD1D2300B5DC50 /* LabsAndScanAppointmentViewModel.swift in Sources */,
 				5E6F97582D073E9600485992 /* BookingConfirmationModel.swift in Sources */,
 				5E6C86E02CA6D43300D9C12B /* UserMobileNumber.swift in Sources */,
-				5E7976FA2CDF6EA900F37A39 /* FittedSheetsSetupFunction.swift in Sources */,
 				5EB183112CFDD927004FA735 /* HomeNursingViewModel.swift in Sources */,
 				5E8044552CB38DED00ABF033 /* BookingConfirmationViewController.swift in Sources */,
 				5E7DBB282CA229C20016751F /* ClinicSearchScreenViewController.swift in Sources */,
@@ -5631,7 +5618,6 @@
 				5E707D412CA271ED000DE007 /* CustomPaddingbutton.swift in Sources */,
 				5E641A3C2CE38C92001C0F18 /* ConfirmationView.swift in Sources */,
 				5E6A0E772CA1DA48002BA369 /* AboutClinicView.swift in Sources */,
-				5E7976FC2CDF6EA900F37A39 /* FWIPNSheetContentViewController.swift in Sources */,
 				5E68F6D12CCFBD2A000E4968 /* PharmaciesCartViewController.swift in Sources */,
 				5E70153B2CAE8ADB0072DC21 /* DoctorProfileViewController.swift in Sources */,
 				5E7ABEB72C90F3F1007A0BA1 /* UIKeyboard publisher.swift in Sources */,
@@ -5648,7 +5634,6 @@
 				5EE6565A2C9F247600435772 /* OnBoardingScreensViewModel.swift in Sources */,
 				5E16D8242D219B6600598553 /* FavouritesCollectionViewCell.swift in Sources */,
 				5E6DB0712D1D872E0016E770 /* OneDayCareProfileModel.swift in Sources */,
-				5E7977002CDF6EA900F37A39 /* FWIPNSheetTransition.swift in Sources */,
 				5E7ABEBA2C90F3F1007A0BA1 /* UISwitch+Publisher.swift in Sources */,
 				5E6A80502C8848F1007C14CE /* Coordinator.swift in Sources */,
 				5E6707F32CFDAC4F0004465F /* NonAuthUserViewModel.swift in Sources */,
@@ -5671,7 +5656,6 @@
 				5E73A1AB2D2045E900914494 /* OneDayCareBookingViewModel.swift in Sources */,
 				5E70C0F02D136A43003C8311 /* LoadingIndicator.swift in Sources */,
 				5E70C0EA2D1205B1003C8311 /* OffersBannersCollectionViewCell.swift in Sources */,
-				5E7977022CDF6EA900F37A39 /* FWIPNSheetViewController.swift in Sources */,
 				5E80444E2CB3812B00ABF033 /* AppointmentDoctorTimeViewController.swift in Sources */,
 				5EBA79FE2D17338000842F8C /* ProfileMedicalViewController.swift in Sources */,
 				5EA07BF82CA40B5600514E4D /* CustomUnderlinebutton.swift in Sources */,
@@ -5708,7 +5692,6 @@
 				5E6A80612C8879F3007C14CE /* Constants.swift in Sources */,
 				5E7F9B062D2D308500D0EF37 /* AppointmentsActivityViewModel.swift in Sources */,
 				5E7F399B2C9243FE00D7E24D /* MyActivityViewModel.swift in Sources */,
-				5E7976FF2CDF6EA900F37A39 /* FWIPNSheetSize.swift in Sources */,
 				5E7F9B0A2D2D5D9B00D0EF37 /* OrderDetailsViewController.swift in Sources */,
 				5E07964A2CA37F8A000C4E83 /* CustomToolBarItem.swift in Sources */,
 				5EE8A0912D1D48BC0083844B /* OneDayCareProfileViewController.swift in Sources */,
@@ -5773,14 +5756,6 @@
 			name = "Cairo-Medium.ttf";
 			sourceTree = "<group>";
 			usesTabs = 0;
-		};
-		5E7976E52CDF6EA900F37A39 /* SheetLocalizable.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				5E7976E42CDF6EA900F37A39 /* Base */,
-			);
-			name = SheetLocalizable.strings;
-			sourceTree = "<group>";
 		};
 		5E7F39AD2C9351C500D7E24D /* Cairo-SemiBold.ttf */ = {
 			isa = PBXVariantGroup;
@@ -6196,6 +6171,14 @@
 				minimumVersion = 5.10.2;
 			};
 		};
+		5EF0A3112E44090E00023A04 /* XCRemoteSwiftPackageReference "FittedSheets" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/gordontucker/FittedSheets";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.7.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -6313,6 +6296,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5ECDA7062D08955E008876A6 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		5EF0A3122E44090E00023A04 /* FittedSheets */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5EF0A3112E44090E00023A04 /* XCRemoteSwiftPackageReference "FittedSheets" */;
+			productName = FittedSheets;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

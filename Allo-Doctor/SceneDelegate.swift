@@ -8,6 +8,7 @@
 import UIKit
 import GoogleMaps
 @_exported import Combine
+@_exported import FittedSheets
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate, LocalizationDelegate {
 

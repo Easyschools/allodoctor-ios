@@ -27,6 +27,9 @@ class ChatViewModel {
     private var currentChatId: String?
     private var messageListener: DatabaseHandle?
     private var isFirstMessage: Bool = true
+    private var isFirstAttachment: Bool = true
+
+    private var photoUrl = ""
     private let currentUserId = Auth.auth().currentUser?.uid ?? "162"
     
     // MARK: - Initialization
@@ -40,11 +43,11 @@ class ChatViewModel {
     func listenToChatMessages(chatId: String) {
         // Remove existing listener if any
         removeMessageListener()
-        
+
         currentChatId = chatId
         isLoading = true
-        print("sui chat id\(chatId)")
-        
+        print("sui chat id listen------\(chatId)")
+
         // Create a reference to the chat messages
         let chatRef = database.child("chats").child(chatId).child("messages")
         
@@ -61,11 +64,13 @@ class ChatViewModel {
                 let jsonData = try JSONSerialization.data(withJSONObject: messageData)
                 // Decode the message
                 let message = try JSONDecoder().decode(ChatResponses.self, from: jsonData)
-                
+                print(message,self.messages.last?.chatId ?? "non chat id")
                 DispatchQueue.main.async {
                     self.messages.append(message)
                     self.isLoading = false
                     print(self.messages.count)
+
+                 //   print("load image::::::::: \(message.attachmentUrl ?? "no attachment ")")
                 }
             } catch {
                 print("Error decoding message: \(error)")
@@ -95,7 +100,19 @@ class ChatViewModel {
             sendMessageToFirebase(message)
         }
     }
-    
+
+    func sendAttachment(_ data: Data) {
+        if isFirstAttachment {
+            // Send first message via API
+            sendFirstAttachment(data)
+        } else {
+            // Send subsequent messages to Firebase
+            sendAttachmentToFirebase(photoUrl)
+        }
+    }
+
+
+
     private func sendFirstMessage(_ message: String) {
         let receiverId = UserDefaultsManager.sharedInstance.getUserId() ?? 0
         let request = FirstMessage(
@@ -106,7 +123,21 @@ class ChatViewModel {
         
         postFirstMessage(request: request)
     }
-    
+
+    private func sendFirstAttachment(_ data: Data) {
+        let receiverId = UserDefaultsManager.sharedInstance.getUserId() ?? 0
+        
+        let request = FirstAttachment(
+            receiver_id: receiverId,
+            attachment: data,
+            support_type: self.chatType.rawValue
+        )
+
+        postFirstAttachment(request: request)
+    }
+
+
+
     private func sendMessageToFirebase(_ message: String) {
         guard let chatId = currentChatId else { return }
         
@@ -139,7 +170,43 @@ class ChatViewModel {
             print("Error encoding message: \(error)")
         }
     }
-    
+
+
+    private func sendAttachmentToFirebase(_ attachmentUrl: String) {
+        guard let chatId = currentChatId else { return }
+
+        let messageRef = database.child("chats").child(chatId).child("messages").childByAutoId()
+
+        let newMessage = ChatMessage(
+            id: messageRef.key ?? UUID().uuidString,
+            senderId: currentUserId,
+            senderName: Auth.auth().currentUser?.displayName ?? "",
+            attachmentUrl: attachmentUrl,
+            timestamp: String(Date().timeIntervalSince1970)
+        )
+
+        do {
+            // Convert message to dictionary
+            let messageData = try JSONEncoder().encode(newMessage)
+            guard let dictionary = try JSONSerialization.jsonObject(with: messageData) as? [String: Any] else {
+                throw NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Failed to create message dictionary"])
+            }
+
+            // Save message to Firebase
+            messageRef.setValue(dictionary) { [weak self] error, _ in
+                if let error = error {
+                    self?.error = error
+                    print("Error sending message: \(error)")
+                }
+            }
+        } catch {
+            self.error = error
+            print("Error encoding message: \(error)")
+        }
+    }
+
+
+
     func removeMessageListener() {
         if let listener = messageListener,
            let chatId = currentChatId {
@@ -174,7 +241,42 @@ class ChatViewModel {
             })
             .store(in: &cancellables)
     }
-    
+
+    func postFirstAttachment(request: FirstAttachment) {
+        isLoading = true
+
+        let router = APIRouter.postMessage
+
+        apiClient.postData(to:router.url, body: request, as: ChatResponse.self, imageKey: "attachment", imageData: request.attachment, fileName: "photo.png")
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { [weak self] completion in
+                self?.isLoading = false
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    self?.error = error
+                    print("Error: \(error)")
+                }
+            }, receiveValue: { [weak self] response in
+
+               // print(response)
+                // Update chat ID from response and start listening
+                if let chatId = response.chatID {
+                    self?.currentChatId = chatId
+                    self?.isFirstMessage = false
+
+                    self?.photoUrl = response.attachmentUrl ?? ""
+                    self?.sendAttachmentToFirebase(self?.photoUrl ?? "")
+                    print("the image is : \(self?.photoUrl)")
+                    self?.listenToChatMessages(chatId: chatId)
+                }
+
+            })
+            .store(in: &cancellables)
+    }
+
+
     // MARK: - Helper Methods
     func isCurrentUserMessage(_ message: ChatResponses) -> Bool {
         // Debug logging to see what's happening
@@ -190,8 +292,11 @@ class ChatViewModel {
         // Check if it's the current user's ID
         if senderId == currentUserId {
             return true
+
         }
-        
+
+        print("\nchat id is \(senderId) equal? \(currentUserId)")
+
         // Check against UserDefaults ID (convert to string for comparison)
         let userIdFromDefaults = String(UserDefaultsManager.sharedInstance.getUserId() ?? 0)
         if senderId == userIdFromDefaults {

@@ -7,6 +7,7 @@
 
 import Foundation
 import Alamofire
+import UIKit
 
 protocol PaginatedResponse: Decodable {
     associatedtype Item: Decodable
@@ -108,7 +109,7 @@ class APIClient {
                     to: url,
                     headers: headers
                 )
-                .validate()
+                //.validate()
                 .responseDecodable(of: T.self) { response in
                     switch response.result {
                     case .success(let result):
@@ -121,6 +122,65 @@ class APIClient {
             .eraseToAnyPublisher()
         }
  
+
+
+    func sendImageAttachment(
+        image: UIImage,
+        url: URL,
+        receiverId: Int,
+        supportType: String,
+        completion: @escaping (Result<String, Error>) -> Void
+    ) {
+        guard let imageData = image.jpegData(compressionQuality: 0.8) else {
+            completion(.failure(NSError(domain: "Invalid image", code: -1)))
+            return
+        }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+
+        let boundary = "Boundary-\(UUID().uuidString)"
+        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+
+        var body = Data()
+
+        // Add receiver_id
+        body.append("--\(boundary)\r\n".data(using: .utf8)!)
+        body.append("Content-Disposition: form-data; name=\"receiver_id\"\r\n\r\n".data(using: .utf8)!)
+        body.append("\(receiverId)\r\n".data(using: .utf8)!)
+
+        // Add support_type
+        body.append("--\(boundary)\r\n".data(using: .utf8)!)
+        body.append("Content-Disposition: form-data; name=\"support_type\"\r\n\r\n".data(using: .utf8)!)
+        body.append("\(supportType)\r\n".data(using: .utf8)!)
+
+        // Add image file
+        body.append("--\(boundary)\r\n".data(using: .utf8)!)
+        body.append("Content-Disposition: form-data; name=\"attachment\"; filename=\"photo.jpg\"\r\n".data(using: .utf8)!)
+        body.append("Content-Type: image/jpeg\r\n\r\n".data(using: .utf8)!)
+        body.append(imageData)
+        body.append("\r\n".data(using: .utf8)!)
+
+        body.append("--\(boundary)--\r\n".data(using: .utf8)!)
+
+        request.httpBody = body
+
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+
+            guard let data = data else {
+                completion(.failure(NSError(domain: "No data", code: -2)))
+                return
+            }
+
+            let responseString = String(data: data, encoding: .utf8) ?? ""
+            completion(.success(responseString))
+
+        }.resume()
+    }
 
 
 

@@ -18,6 +18,7 @@ class ChatViewController: BaseViewController<ChatViewModel> {
     @IBOutlet weak var chatTableView: UITableView!
     @IBOutlet weak var messageTextField: UITextField!
     
+    @IBOutlet weak var AttachmentButton: UIButton!
     @IBOutlet weak var buttonConstraint: NSLayoutConstraint!
     // MARK: - Properties
     private let db = Firestore.firestore()
@@ -127,9 +128,19 @@ class ChatViewController: BaseViewController<ChatViewModel> {
     @IBAction func sendMessageAction(_ sender: Any) {
         guard let message = messageTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines),
               !message.isEmpty else { return }
+
         viewModel.sendMessage(message)
         messageTextField.text = ""
         textFieldDidChangeSelection(messageTextField)
+    }
+
+
+    @IBAction func sendAttachmentAction(_ sender: Any) {
+        print("helloo")
+        openImagePicker()
+
+        //let image = UIImage(named: "add-dependency.png")
+
     }
     
     @IBAction func navBackAction(_ sender: Any) {
@@ -177,7 +188,7 @@ class ChatViewController: BaseViewController<ChatViewModel> {
             animations: {
                 // Move the chat input area up by the keyboard height
                 self.buttonConstraint.constant = self.originalButtonConstraintConstant + keyboardHeight
-                
+
                 // Adjust table view content inset to account for keyboard
                 let bottomInset = keyboardHeight + 20 // 20 is the original bottom padding
                 self.chatTableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: bottomInset, right: 0)
@@ -240,7 +251,8 @@ extension ChatViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         // Setup cell with message and type
-        cell.setupCell(message: message.message ?? "", messageType: messageType)
+
+        cell.setupCell(message: message.message ?? "", dataUrl: message.attachmentUrl ?? "", messageType: messageType, chadId: message.chatId ?? "\n chat not found")
         cell.selectionStyle = .none
         
         return cell
@@ -287,3 +299,26 @@ extension ChatViewController{
         }
     }
 }
+
+extension ChatViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func openImagePicker() {
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.sourceType = .photoLibrary
+        present(picker, animated: true)
+    }
+
+    func imagePickerController(_ picker: UIImagePickerController,
+                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let image = info[.originalImage] as? UIImage,
+           let imageData = image.jpegData(compressionQuality: 0.1 ){
+
+            // 👉 Upload to your backend
+            viewModel.sendAttachment(imageData)
+
+            print("image uploaded")
+        }
+        picker.dismiss(animated: true)
+    }
+}
+

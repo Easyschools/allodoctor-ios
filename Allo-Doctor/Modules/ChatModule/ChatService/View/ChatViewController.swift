@@ -252,7 +252,10 @@ extension ChatViewController: UITableViewDelegate, UITableViewDataSource {
         
         // Setup cell with message and type
 
-        cell.setupCell(message: message.message ?? "", dataUrl: message.attachmentUrl ?? "", messageType: messageType, chadId: message.chatId ?? "\n chat not found")
+        print("the response will show\n")
+        dump(message)
+        cell.setupCell(message: message.message , attachment: message.attachment, messageType: messageType)
+       // cell.setupCell(message: message.message ?? "", dataUrl: message.attachmentUrl ?? "", messageType: messageType, chadId: message.chatId ?? "\n chat not found")
         cell.selectionStyle = .none
         
         return cell
@@ -314,7 +317,7 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
            let imageData = image.jpegData(compressionQuality: 0.1 ){
 
             // 👉 Upload to your backend
-            viewModel.sendAttachment(imageData)
+          //  viewModel.sendAttachment(imageData)
 
             print("image uploaded")
         }

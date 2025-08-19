@@ -35,18 +35,32 @@ class MessageTableViewCell: UITableViewCell {
 
 }
 extension MessageTableViewCell{
-    func setupCell(message:String,dataUrl: String,messageType:messageType,chadId: String){
+//    func setupCell(message:String,messageType:messageType){
+//            self.message.text = message
+//            if messageType == .reciver {
+//                self.message.textAlignment = .right
+//                self.contentView.backgroundColor = .greishWhiteF2F2F2
+//                self.message.textColor = .black
+//            }
+//            else {
+//                self.message.textAlignment = .left
+//                self.contentView.backgroundColor =  .appColor
+//                self.message.textColor = .white
+//            }
+//        }
+    
+    func setupCell(message:String?,attachment: String?,messageType:messageType){
         self.message.text = message
 
-        print("dataUrl isssssss: \(dataUrl),  chadId: \(chadId)")
+        print("dataUrl isssssss: \(attachment ?? "not found photo")")
 
-        if message != "" {
+        if message != nil {
             contentView.isHidden = false
 
             imagView.isHidden = true
             self.message.isHidden = false
         }
-        else if let url = URL(string: dataUrl) {
+        else if let url = URL(string: attachment ?? "https://allodoctor-backend.developnetwork.net/storage/attachments/HgZPKyl3BnmllMBJ6YuexjBqXUahwH13dWsY9Nj0.png" ) {
             // self.message.isEnabled = false
             contentView.isHidden = false
 
@@ -64,6 +78,10 @@ extension MessageTableViewCell{
         }
 
         if messageType == .reciver {
+            if let url = URL(string: attachment ?? "https://allodoctor-backend.developnetwork.net/storage/attachments/HgZPKyl3BnmllMBJ6YuexjBqXUahwH13dWsY9Nj0.png") {
+                // self.message.isEnabled = false
+                imagView.kf.setImage(with: url)
+            }
 
             // text
             self.message.textAlignment = .right
@@ -71,7 +89,7 @@ extension MessageTableViewCell{
             self.message.textColor = .black
         }
         else {
-            if let url = URL(string: dataUrl) {
+            if let url = URL(string: attachment ?? "https://allodoctor-backend.developnetwork.net/storage/attachments/HgZPKyl3BnmllMBJ6YuexjBqXUahwH13dWsY9Nj0.png") {
                 // self.message.isEnabled = false
                 imagView.kf.setImage(with: url)
             }

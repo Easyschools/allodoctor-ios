@@ -51,6 +51,7 @@ extension MessageTableViewCell{
     
     func setupCell(message:String?,attachment: String?,messageType:messageType){
         self.message.text = message
+        let notFound = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3Acdw0IWPRMwkDOFu78_Lf-ltHq2TsFhV8A&s"
 
         print("dataUrl isssssss: \(attachment ?? "not found photo")")
 
@@ -60,7 +61,7 @@ extension MessageTableViewCell{
             imagView.isHidden = true
             self.message.isHidden = false
         }
-        else if let url = URL(string: attachment ?? "https://allodoctor-backend.developnetwork.net/storage/attachments/HgZPKyl3BnmllMBJ6YuexjBqXUahwH13dWsY9Nj0.png" ) {
+        else if let url = URL(string: attachment ?? notFound) {
             // self.message.isEnabled = false
             contentView.isHidden = false
 
@@ -78,7 +79,7 @@ extension MessageTableViewCell{
         }
 
         if messageType == .reciver {
-            if let url = URL(string: attachment ?? "https://allodoctor-backend.developnetwork.net/storage/attachments/HgZPKyl3BnmllMBJ6YuexjBqXUahwH13dWsY9Nj0.png") {
+            if let url = URL(string: attachment ?? notFound) {
                 // self.message.isEnabled = false
                 imagView.kf.setImage(with: url)
             }
@@ -89,7 +90,7 @@ extension MessageTableViewCell{
             self.message.textColor = .black
         }
         else {
-            if let url = URL(string: attachment ?? "https://allodoctor-backend.developnetwork.net/storage/attachments/HgZPKyl3BnmllMBJ6YuexjBqXUahwH13dWsY9Nj0.png") {
+            if let url = URL(string: attachment ?? notFound) {
                 // self.message.isEnabled = false
                 imagView.kf.setImage(with: url)
             }

@@ -129,7 +129,7 @@ class ChatViewController: BaseViewController<ChatViewModel> {
         guard let message = messageTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines),
               !message.isEmpty else { return }
 
-        viewModel.sendMessage(message)
+        viewModel.sendMessage(message: message, attachment: nil)
         messageTextField.text = ""
         textFieldDidChangeSelection(messageTextField)
     }
@@ -317,7 +317,7 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
            let imageData = image.jpegData(compressionQuality: 0.1 ){
 
             // 👉 Upload to your backend
-          //  viewModel.sendAttachment(imageData)
+            viewModel.sendMessage(message: nil, attachment: imageData)
 
             print("image uploaded")
         }

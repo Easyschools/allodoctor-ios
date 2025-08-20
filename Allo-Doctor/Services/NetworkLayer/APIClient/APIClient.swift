@@ -105,6 +105,8 @@ class APIClient {
                                 formData.append(data, withName: key)
                             }
                         }
+                        print("the body of upload image: \n")
+                        dump(formData)
                     },
                     to: url,
                     headers: headers
@@ -185,6 +187,130 @@ class APIClient {
 
 
     // MARK: - Main Function
+
+    // MARK: - Multipart helpers
+    private func createFormFieldPostData(named name: String, value: String, boundary: String) -> Data {
+        var fieldData = Data()
+        fieldData.append("--\(boundary)\r\n".data(using: .utf8)!)
+        fieldData.append("Content-Disposition: form-data; name=\"\(name)\"\r\n\r\n".data(using: .utf8)!)
+        fieldData.append("\(value)\r\n".data(using: .utf8)!)
+        return fieldData
+    }
+
+    private func createFileDataPostData(fieldName: String, fileName: String, mimeType: String, fileData: Data, boundary: String) -> Data {
+        var data = Data()
+        data.append("--\(boundary)\r\n".data(using: .utf8)!)
+        data.append("Content-Disposition: form-data; name=\"\(fieldName)\"; filename=\"\(fileName)\"\r\n".data(using: .utf8)!)
+        data.append("Content-Type: \(mimeType)\r\n\r\n".data(using: .utf8)!)
+        data.append(fileData)
+        data.append("\r\n".data(using: .utf8)!)
+        return data
+    }
+
+    // MARK: - Modified postData
+    func postData<T: Decodable, U: Encodable>(
+        to url: URL,
+        body: U,
+        as type: T.Type,
+        imageKey: String? = nil,
+        imageData: Data? = nil,
+        fileName: String? = nil
+    ) -> AnyPublisher<T, Error> {
+        let boundary = "Boundary-\(UUID().uuidString)"
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+
+        // Authorization header if exists
+        if let authorizationHeader = AuthManager.shared.getAuthorizationHeader() {
+            print("Authorization Header: \(authorizationHeader)")
+            request.setValue(authorizationHeader, forHTTPHeaderField: "Authorization")
+        }
+
+        // Multipart (image) branch
+        if let imageData = imageData, let imageKey = imageKey, let fileName = fileName {
+            request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+            var data = Data()
+
+            // Convert Encodable body -> JSON -> [String: Any] and append each key as its own form field
+            let encoder = JSONEncoder()
+            // Use snake_case if your models require it:
+            // encoder.keyEncodingStrategy = .convertToSnakeCase
+            if let jsonData = try? encoder.encode(body),
+               let jsonObject = try? JSONSerialization.jsonObject(with: jsonData, options: []),
+               let dict = jsonObject as? [String: Any] {
+
+                // Append fields in deterministic order (optional)
+                for (key, value) in dict {
+                    let valueString: String
+
+                    // If nested array/dict -> serialize to compact JSON string
+                    if JSONSerialization.isValidJSONObject(value) {
+                        if let nestedData = try? JSONSerialization.data(withJSONObject: value, options: []),
+                           let nestedString = String(data: nestedData, encoding: .utf8) {
+                            valueString = nestedString
+                        } else {
+                            valueString = "\(value)"
+                        }
+                    } else {
+                        // Primitive types (String, Number, Bool) -> string representation
+                        valueString = "\(value)"
+                    }
+
+                    // Append the form field. Key names must match server expected parameter names.
+                    data.append(createFormFieldPostData(named: key, value: valueString, boundary: boundary))
+                }
+            } else {
+                // Fallback: send entire JSON as single "data" field (not ideal)
+                if let jsonData = try? encoder.encode(body),
+                   let jsonString = String(data: jsonData, encoding: .utf8) {
+                    data.append(createFormFieldPostData(named: "data", value: jsonString, boundary: boundary))
+                }
+            }
+
+            // Append file
+            // Try to detect mime type from file extension if possible (simple heuristic)
+            let mimeType: String
+            if fileName.lowercased().hasSuffix(".png") {
+                mimeType = "image/png"
+            } else if fileName.lowercased().hasSuffix(".jpg") || fileName.lowercased().hasSuffix(".jpeg") {
+                mimeType = "image/jpeg"
+            } else {
+                mimeType = "application/octet-stream"
+            }
+
+            data.append(createFileDataPostData(fieldName: imageKey, fileName: fileName, mimeType: mimeType, fileData: imageData, boundary: boundary))
+
+            // Closing boundary
+            data.append("--\(boundary)--\r\n".data(using: .utf8)!)
+            request.httpBody = data
+
+        } else {
+            // JSON branch
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            let encoder = JSONEncoder()
+            // encoder.keyEncodingStrategy = .convertToSnakeCase // uncomment if server expects snake_case keys
+            request.httpBody = try? encoder.encode(body)
+        }
+
+        print("request send postData :\n ")
+        dump(request)
+
+        return URLSession.shared.dataTaskPublisher(for: request)
+            .tryMap { result -> Data in
+                if let responseString = String(data: result.data, encoding: .utf8) {
+                    print("Server Response: \(responseString)")
+                }
+                guard let httpResponse = result.response as? HTTPURLResponse,
+                      (200...299).contains(httpResponse.statusCode) else {
+                    throw URLError(.badServerResponse)
+                }
+                return result.data
+            }
+            .decode(type: T.self, decoder: JSONDecoder())
+            .eraseToAnyPublisher()
+    }
+
+/*
     func postData<T: Decodable, U: Encodable>(
         to url: URL,
         body: U,
@@ -239,6 +365,9 @@ class APIClient {
             request.httpBody = try? encoder.encode(body)
         }
 
+        print("request send postData :\n ")
+        dump(request)
+        
         // Make the network request
         return URLSession.shared.dataTaskPublisher(for: request)
             .tryMap { result -> Data in
@@ -257,6 +386,8 @@ class APIClient {
             .decode(type: T.self, decoder: JSONDecoder())
             .eraseToAnyPublisher()
     }
+ */
+
     func deleteData<T: Decodable>(from url: URL, as type: T.Type) -> AnyPublisher<T, Error> {
         // Create a URLRequest with DELETE method
         var request = URLRequest(url: url)

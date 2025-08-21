@@ -19,22 +19,24 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="SUY-gJ-eiC">
-                        <rect key="frame" x="5" y="5" width="422" height="255"/>
+                        <rect key="frame" x="5" y="5" width="422" height="381.66666666666669"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="cdc" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eaL-9f-KQF">
-                                <rect key="frame" x="0.0" y="0.0" width="422" height="68"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="cdc" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eaL-9f-KQF">
+                                <rect key="frame" x="0.0" y="0.0" width="422" height="21.666666666666668"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XuQ-Df-eiR">
-                                <rect key="frame" x="0.0" y="68" width="422" height="187"/>
+                                <rect key="frame" x="0.0" y="21.666666666666657" width="422" height="360"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="XuQ-Df-eiR" secondAttribute="height" multiplier="422:187" id="JjH-xs-46B"/>
-                                    <constraint firstAttribute="height" constant="187" id="PCE-41-9tL"/>
+                                    <constraint firstAttribute="height" constant="360" id="PCE-41-9tL"/>
                                 </constraints>
                             </imageView>
                         </subviews>
+                        <constraints>
+                            <constraint firstItem="eaL-9f-KQF" firstAttribute="top" secondItem="SUY-gJ-eiC" secondAttribute="top" id="dkP-9L-iTk"/>
+                        </constraints>
                     </stackView>
                 </subviews>
                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

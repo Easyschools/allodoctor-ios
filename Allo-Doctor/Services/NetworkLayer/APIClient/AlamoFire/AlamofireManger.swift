@@ -84,7 +84,7 @@ enum NetworkError: Error {
     case networkError(String)
     case invalidResponse
     case invalidImage
-    case serverError(String) // For Laravel-like error messages
+    case serverError(String)
 }
 
 final class NetworkService {

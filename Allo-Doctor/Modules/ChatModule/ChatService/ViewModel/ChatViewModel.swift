@@ -5,16 +5,20 @@
 //  Created by Abdallah ismail on 30/12/2024.
 //
 
-import Foundation
 import Combine
-import FirebaseDatabase
 import FirebaseAuth
+import FirebaseDatabase
+import Foundation
+
+// MARK: - ChatViewModel
 
 class ChatViewModel {
     // MARK: - Properties
+
     var coordinator: HomeCoordinatorContact?
     private let apiClient: APIClient
-    private var cancellables = Set<AnyCancellable>()
+    private var cancellables: Set<AnyCancellable> = .init()
+    private var sendMessageTask: Task<Void, Never>?
     private let database = Database.database().reference()
 
     // Published Properties
@@ -30,6 +34,7 @@ class ChatViewModel {
     private let currentUserId = Auth.auth().currentUser?.uid ?? "162"
 
     // MARK: - Initialization
+
     init(coordinator: HomeCoordinatorContact? = nil, apiClient: APIClient = APIClient(), chatType: chatType) {
         self.coordinator = coordinator
         self.apiClient = apiClient
@@ -37,6 +42,7 @@ class ChatViewModel {
     }
 
     // MARK: - Firebase Chat Methods
+
     func listenToChatMessages(chatId: String) {
         // Remove existing listener if any
         removeMessageListener()
@@ -79,7 +85,7 @@ class ChatViewModel {
         }
 
         // Handle cancellation and error callbacks
-        chatRef.observe(.value) { [weak self] snapshot in
+        chatRef.observe(.value) { [weak self] _ in
             self?.isLoading = false
         } withCancel: { [weak self] error in
             self?.isLoading = false
@@ -89,18 +95,7 @@ class ChatViewModel {
     }
 
     func sendMessage(message: String?, attachment: Data?) {
-        if isFirstMessage {
-            // Send first message via API
-            if let message = message{
-                print("first message of testing")
-                sendFirstMessage(message)
-            }
-        }
-        else {
-            // Send subsequent messages to Firebase
-            //sendMessageToFirebase(message)
-            sendMessageToServer(message: message, attachment: attachment)
-        }
+        sendMessageToServer(message: message, attachment: attachment)
     }
 
     private func sendFirstMessage(_ message: String) {
@@ -108,92 +103,85 @@ class ChatViewModel {
         let request = FirstMessage(
             receiver_id: receiverId,
             message: message,
-            support_type: self.chatType.rawValue
+            support_type: chatType.rawValue
         )
         postFirstMessage(request: request)
     }
 
-//    private func sendMessageToFirebase(_ message: String) {
-//        guard let chatId = currentChatId else { return }
-//
-//        let messageRef = database.child("chats").child(chatId).child("messages").childByAutoId()
-//
-//        let newMessage = ChatMessage(
-//            id: messageRef.key ?? UUID().uuidString,
-//            senderId: currentUserId,
-//            senderName: Auth.auth().currentUser?.displayName ?? "no there user name ",
-//            message: message,
-//            timestamp: String(Date().timeIntervalSince1970)
-//        )
-//
-//        do {
-//            // Convert message to dictionary
-//            let messageData = try JSONEncoder().encode(newMessage)
-//            guard let dictionary = try JSONSerialization.jsonObject(with: messageData) as? [String: Any] else {
-//                throw NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Failed to create message dictionary"])
-//            }
-//
-//            // Save message to Firebase
-//            messageRef.setValue(dictionary) { [weak self] error, _ in
-//                if let error = error {
-//                    self?.error = error
-//                    print("Error sending message: \(error)")
-//                }
-//            }
-//        } catch {
-//            self.error = error
-//            print("Error encoding message: \(error)")
-//        }
-//    }
+    private func sendMessageToServer(message: String?, attachment: Data?) {
+        // cancel any previously running send task
+        sendMessageTask?.cancel()
 
+        // start a new send task
+        sendMessageTask = Task { [weak self] in
+            guard let self = self else { return }
 
-    private func sendMessageToServer(message: String?,attachment: Data?) {
-        guard let chatId = currentChatId else { return }
+            let receiverId = UserDefaultsManager.sharedInstance.getUserId() ?? 0
 
-        let newMessage = ChatMessage(
-            sender_id: currentUserId,
-            sender_name: Auth.auth().currentUser?.displayName ?? "no there user name ",
-            chat_id: chatId,
-            message: message,
-            support_type: self.chatType.rawValue,
-        )
-        isLoading = true
-        var imageKey : String?
-        var fileName : String?
-        if  attachment != nil {
-            imageKey = "attachment"
-            fileName = "photo.png"
-        }
+            let newMessage = ChatMessage(
+                receiver_id: receiverId,
+                sender_id: self.currentUserId,
+                sender_name: Auth.auth().currentUser?.displayName ?? "no there user name ",
+                chat_id: self.currentChatId,
+                message: message,
+                support_type: self.chatType.rawValue
+            )
 
-        print("new chat of request \n")
-        dump(newMessage)
+            // mark loading on main actor
+            await MainActor.run { self.isLoading = true }
 
-        let router = APIRouter.postMessage
-        apiClient.postData(to: router.url, body: newMessage, as: ChatResponse.self,imageKey: imageKey, imageData: attachment, fileName: fileName)
-            .receive(on: DispatchQueue.main)
-            .print()
-            .sink(receiveCompletion: { [weak self] completion in
-                self?.isLoading = false
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    self?.error = error
-                    print("Error: \(error)")
+            var imageKey: String? = nil
+            var fileName: String? = nil
+            if attachment != nil {
+                imageKey = "attachment"
+                fileName = "photo.png"
+            }
+
+            print("new chat of request \n")
+            dump(newMessage)
+
+            let router = APIRouter.postMessage
+
+            do {
+                // call async version (will use multipart when imageData is non-nil)
+                let response: ChatResponse = try await self.apiClient.postDataAsync(
+                    to: router.url,
+                    body: newMessage,
+                    as: ChatResponse.self,
+                    imageKey: imageKey,
+                    imageData: attachment,
+                    fileName: fileName
+                )
+
+                // handle success on main actor
+                await MainActor.run {
+                    self.isLoading = false
+                    print("response of send to server is\n")
+                    dump(response)
+
+                    if let chatId = response.chatID, self.currentChatId == nil {
+                        self.currentChatId = chatId
+                        self.isFirstMessage = false
+                        self.listenToChatMessages(chatId: chatId)
+                    }
                 }
-            }, receiveValue: { [weak self] response in
-                // Update chat ID from response and start listening
-                print("response of send to server is\n")
-                dump(response)
+            } catch is CancellationError {
+                // task was cancelled — stop loading but don't treat as error
+                await MainActor.run {
+                    self.isLoading = false
+                }
+                print("sendMessageToServer: cancelled")
+            } catch {
+                // network or decoding error
+                await MainActor.run {
+                    self.isLoading = false
+                    self.error = error
+                }
+                print("sendMessageToServer error:", error)
+            }
+        }
+    }
 
-            })
-            .store(in: &cancellables)
-
-
-
-
-
-}
 
     func removeMessageListener() {
         if let listener = messageListener,
@@ -204,6 +192,7 @@ class ChatViewModel {
     }
 
     // MARK: - API Methods
+
     func postFirstMessage(request: FirstMessage) {
         isLoading = true
 
@@ -231,6 +220,7 @@ class ChatViewModel {
     }
 
     // MARK: - Helper Methods
+
     func isCurrentUserMessage(_ message: ChatResponses) -> Bool {
         // Debug logging to see what's happening
         print("🔍 Debug - Current User ID: \(currentUserId)")
@@ -257,6 +247,7 @@ class ChatViewModel {
     }
 
     // MARK: - Cleanup
+
     func cleanup() {
         removeMessageListener()
         cancellables.removeAll()
@@ -268,9 +259,12 @@ class ChatViewModel {
 }
 
 // MARK: - Helper Methods
+
 extension ChatViewModel {
     func markMessageAsRead(_ messageId: String) {
-        guard let chatId = currentChatId else { return }
+        guard let chatId = currentChatId else {
+            return
+        }
 
         let messageRef = database.child("chats").child(chatId).child("messages").child(messageId)
         messageRef.updateChildValues(["read": true]) { [weak self] error, _ in

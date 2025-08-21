@@ -6,40 +6,30 @@
 //
 
 import Foundation
+
+// MARK: - FirstMessage
+
 struct FirstMessage: Codable {
     var receiver_id: Int
     var message: String
-    var support_type:String
+    var support_type: String
 }
+
+// MARK: - ChatMessage
+
 struct ChatMessage: Codable {
-    //var id: String
+    var receiver_id : Int
     var sender_id: String
     var sender_name: String
-    var chat_id: String
+    var chat_id: String?
     var message: String?
-   var support_type: String
-    //var timestamp: String
+    var support_type: String
 }
 
+// MARK: - ChatResponse
+
 struct ChatResponse: Codable {
-//    let status: String
-    let message: String?
-    let chatID: String?
-    let messageID: String?
-    let senderID: Int?
-    let receiverID: Int?
-    let attachmentUrl: String?
-
-    enum CodingKeys: String, CodingKey {
-//        case status
-        case message
-        case chatID = "chat_id"
-        case messageID = "message_id"
-        case senderID = "sender_id"
-        case receiverID = "receiver_id"
-        case attachmentUrl = "attachment_url"
-    }
-
+    // MARK: Lifecycle
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -57,34 +47,32 @@ struct ChatResponse: Codable {
         }
     }
 
-}
-
-
-
-//struct ChatResponses: Codable {
-//    let senderId: String? // Make it optional
-//    let content: String?
-//    let message: String?
-//    let timestamp: String?
-//    let attachment: String?
-//}
-
-struct ChatResponses: Codable {
-    let senderId: String?
-    let content: String?
-    let message: String?
-    let timestamp: String?
-    let attachment: String?
+    // MARK: Internal
 
     enum CodingKeys: String, CodingKey {
-        case senderId = "sender_id"   // primary expected key
-        case content
+//        case status
         case message
-        case timestamp
-        case attachment
+        case chatID = "chat_id"
+        case messageID = "message_id"
+        case senderID = "sender_id"
+        case receiverID = "receiver_id"
+        case attachmentUrl = "attachment_url"
     }
 
-    // Flexible init: accept String or Int for senderId, also handles when key is absent
+//    let status: String
+    let message: String?
+    let chatID: String?
+    let messageID: String?
+    let senderID: Int?
+    let receiverID: Int?
+    let attachmentUrl: String?
+}
+
+// MARK: - ChatResponses
+
+struct ChatResponses: Codable {
+    // MARK: Lifecycle
+
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         // Try decode senderId as String
@@ -95,7 +83,6 @@ struct ChatResponses: Codable {
         else if let intVal = try? container.decode(Int.self, forKey: .senderId) {
             senderId = String(intVal)
         } else {
-            // If key missing, try to decode from alternative key names via raw JSON fallback (handled by listening code too)
             senderId = nil
         }
 
@@ -104,11 +91,27 @@ struct ChatResponses: Codable {
         timestamp = try? container.decode(String.self, forKey: .timestamp)
         attachment = try? container.decode(String.self, forKey: .attachment)
     }
+
+    // MARK: Internal
+
+    enum CodingKeys: String, CodingKey {
+        case senderId = "sender_id" 
+        case content
+        case message
+        case timestamp
+        case attachment
+    }
+
+    let senderId: String?
+    let content: String?
+    let message: String?
+    let timestamp: String?
+    let attachment: String?
 }
 
+// MARK: - chatType
 
-enum chatType:String {
+enum chatType: String {
     case doctorType = "doctor_customer_service"
     case customerServiceType = "customer_service"
 }
-

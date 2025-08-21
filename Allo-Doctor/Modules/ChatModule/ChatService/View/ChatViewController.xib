@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChatViewController" customModule="Allo_Doctor" customModuleProvider="target">
             <connections>
+                <outlet property="AttachmentButton" destination="whD-om-LzY" id="q9G-k8-iyV"/>
                 <outlet property="buttonConstraint" destination="Wx2-w2-jOK" id="ccF-cW-O7d"/>
                 <outlet property="chatImage" destination="Ruo-gK-QGT" id="xc3-Wu-HpI"/>
                 <outlet property="chatTableView" destination="SmP-Wh-gWk" id="Px0-vu-Ncr"/>
@@ -28,10 +29,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xRb-SQ-9Jx">
-                    <rect key="frame" x="0.0" y="0.0" width="393" height="115"/>
+                    <rect key="frame" x="0.0" y="0.0" width="393" height="174"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="xnZ-MN-Ej0">
-                            <rect key="frame" x="16" y="59" width="361" height="32"/>
+                            <rect key="frame" x="16" y="118" width="361" height="32"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RE9-DW-x9h">
                                     <rect key="frame" x="0.0" y="4" width="24" height="24"/>
@@ -65,7 +66,7 @@
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FSk-9k-QLY">
-                                            <rect key="frame" x="40" y="4.6666666666666643" width="293" height="23"/>
+                                            <rect key="frame" x="40" y="4.6666666666666714" width="293" height="23"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
@@ -89,20 +90,20 @@
                     </constraints>
                 </view>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="JMK-D9-A2j">
-                    <rect key="frame" x="0.0" y="131" width="393" height="687"/>
+                    <rect key="frame" x="0.0" y="190" width="393" height="594"/>
                     <subviews>
                         <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="SmP-Wh-gWk">
-                            <rect key="frame" x="16" y="0.0" width="361" height="615"/>
+                            <rect key="frame" x="16" y="0.0" width="361" height="522"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         </tableView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XBa-h7-mN0" customClass="ShadowView" customModule="Allo_Doctor" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="615" width="393" height="72"/>
+                            <rect key="frame" x="0.0" y="522" width="393" height="72"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="gOK-Nb-SvN">
                                     <rect key="frame" x="16" y="16" width="361" height="40"/>
                                     <subviews>
                                         <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Message...." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4HQ-pa-NlX">
-                                            <rect key="frame" x="0.0" y="0.0" width="317" height="40"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="273" height="40"/>
                                             <color key="backgroundColor" name="OffWhite#F9FAFB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="3E7-xt-Tdi"/>
@@ -123,10 +124,25 @@
                                             </userDefinedRuntimeAttributes>
                                         </textField>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="whD-om-LzY">
-                                            <rect key="frame" x="325" y="0.0" width="36" height="36"/>
+                                            <rect key="frame" x="281" y="0.0" width="36" height="36"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="36" id="oxF-ZT-2HC"/>
                                                 <constraint firstAttribute="width" constant="36" id="uPM-Ms-bI0"/>
+                                            </constraints>
+                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                            <state key="normal" image="pharmacyOfferIcon"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="xibLocImageKey" value="loc"/>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="sendAttachmentAction:" destination="-1" eventType="touchUpInside" id="e7f-TG-jtm"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Og-Ys-Tvq">
+                                            <rect key="frame" x="325" y="0.0" width="36" height="36"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="36" id="MLb-W3-OLY"/>
+                                                <constraint firstAttribute="height" constant="36" id="qHC-NT-cXZ"/>
                                             </constraints>
                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                             <state key="normal" image="sendChat"/>
@@ -134,7 +150,7 @@
                                                 <userDefinedRuntimeAttribute type="string" keyPath="xibLocImageKey" value="loc"/>
                                             </userDefinedRuntimeAttributes>
                                             <connections>
-                                                <action selector="sendMessageAction:" destination="-1" eventType="touchUpInside" id="AbX-se-IMb"/>
+                                                <action selector="sendMessageAction:" destination="-1" eventType="touchUpInside" id="IqG-oV-zCm"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -180,6 +196,7 @@
     <resources>
         <image name="customerServiceIcon" width="33" height="32"/>
         <image name="navBackIcon" width="24" height="24"/>
+        <image name="pharmacyOfferIcon" width="24" height="24"/>
         <image name="sendChat" width="24" height="24"/>
         <namedColor name="OffWhite#F9FAFB">
             <color red="0.97600001096725464" green="0.98000001907348633" blue="0.98400002717971802" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

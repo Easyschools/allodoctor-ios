@@ -69,7 +69,7 @@ class SearchViewModel {
         let encodedText = searchedText.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
         
         // Build URL string conditionally based on districtId value
-        let baseURL = "https://allodoctor-backend.developnetwork.net/api/admin/filter/home-filter?is_paginate=10&search=\(encodedText)"
+        let baseURL = "https://Backend.allo-doctor.com/api/admin/filter/home-filter?is_paginate=10&search=\(encodedText)"
         let urlString: String
         
         if districtId.value == 0 {

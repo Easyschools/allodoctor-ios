@@ -8,7 +8,10 @@
 import Foundation
 
 final class APIConstants {
-    static var basedURL: String = "https://allodoctor-backend.developnetwork.net/api"
+//    static var basedURL: String = "https://Backend.allo-doctor.com/api"
+    static var basedURL: String = "https://backend.allo-doctor.com/api"
+
+
 }
 
 enum HTTPHeaderField: String {

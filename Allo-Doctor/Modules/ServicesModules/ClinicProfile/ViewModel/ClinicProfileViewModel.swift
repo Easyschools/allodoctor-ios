@@ -21,7 +21,7 @@ class ClinicProfileViewModel{
 }
 extension ClinicProfileViewModel{
     private func fetchClinicData(clinicID:String){
-        let url = URL(string: "https://allodoctor-backend.developnetwork.net/api/admin/info-service/get?id=\(clinicID)")!
+        let url = URL(string: "https://Backend.allo-doctor.com/api/admin/info-service/get?id=\(clinicID)")!
         apiClient.fetchData(from:url, as: ClinicResponse.self)
             .sink(receiveCompletion: {completion in
                 switch completion {

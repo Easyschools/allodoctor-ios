@@ -2,18 +2,14 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CLIENT_ID</key>
-	<string>936525366271-i3uuc1k5v706tov3gefbvju71rkhs6fl.apps.googleusercontent.com</string>
-	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.936525366271-i3uuc1k5v706tov3gefbvju71rkhs6fl</string>
 	<key>API_KEY</key>
-	<string>AIzaSyAFkV8xFsqkVW-pfcNa269PP4wlDVzNQ2k</string>
+	<string>AIzaSyAP68R2vg1onI4WqTnfMESTuzW_YmAnfFI</string>
 	<key>GCM_SENDER_ID</key>
 	<string>936525366271</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.DevelopNetwork.AlloDoctor</string>
+	<string>com.mohammedjamelmedical.allodoctor</string>
 	<key>PROJECT_ID</key>
 	<string>allodoctor-d4515</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,7 +25,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:936525366271:ios:921d4236ea40a9fff41dca</string>
+	<string>1:936525366271:ios:5fd0d2fdcf0f725af41dca</string>
 	<key>DATABASE_URL</key>
 	<string>https://allodoctor-d4515-default-rtdb.firebaseio.com</string>
 </dict>

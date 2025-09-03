@@ -367,7 +367,6 @@
 		5E8044562CB38DED00ABF033 /* BookingConfirmationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E8044542CB38DED00ABF033 /* BookingConfirmationViewController.xib */; };
 		5E817F5E2D2B5AC6005D5436 /* AppointmentsActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E817F5C2D2B5AC6005D5436 /* AppointmentsActivityViewController.swift */; };
 		5E817F5F2D2B5AC6005D5436 /* AppointmentsActivityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E817F5D2D2B5AC6005D5436 /* AppointmentsActivityViewController.xib */; };
-		5E817F632D2BD2C6005D5436 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5E817F622D2BD2C5005D5436 /* GoogleService-Info.plist */; };
 		5E817F662D2BD536005D5436 /* FcmTokenManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E817F652D2BD536005D5436 /* FcmTokenManger.swift */; };
 		5E81C6602CF772A8006ECF34 /* PharmacyGlobalSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E81C65E2CF772A8006ECF34 /* PharmacyGlobalSearchViewController.swift */; };
 		5E81C6612CF772A8006ECF34 /* PharmacyGlobalSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E81C65F2CF772A8006ECF34 /* PharmacyGlobalSearchViewController.xib */; };
@@ -514,6 +513,7 @@
 		5EFBF7412E0A53CD006B1A61 /* ImageUploadManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EFBF7402E0A53C6006B1A61 /* ImageUploadManger.swift */; };
 		5EFBF7462E0A7426006B1A61 /* MedicalImagesCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EFBF7452E0A7426006B1A61 /* MedicalImagesCollectionViewCell.xib */; };
 		5EFBF7472E0A7426006B1A61 /* MedicalImagesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EFBF7442E0A7426006B1A61 /* MedicalImagesCollectionViewCell.swift */; };
+		CE65D3F02E63005400D01D4C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CE65D3EF2E63005400D01D4C /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -909,7 +909,6 @@
 		5E8044542CB38DED00ABF033 /* BookingConfirmationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookingConfirmationViewController.xib; sourceTree = "<group>"; };
 		5E817F5C2D2B5AC6005D5436 /* AppointmentsActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppointmentsActivityViewController.swift; sourceTree = "<group>"; };
 		5E817F5D2D2B5AC6005D5436 /* AppointmentsActivityViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AppointmentsActivityViewController.xib; sourceTree = "<group>"; };
-		5E817F622D2BD2C5005D5436 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5E817F652D2BD536005D5436 /* FcmTokenManger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FcmTokenManger.swift; sourceTree = "<group>"; };
 		5E817F672D2BD92D005D5436 /* Allo-Doctor.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Allo-Doctor.entitlements"; sourceTree = "<group>"; };
 		5E81C65E2CF772A8006ECF34 /* PharmacyGlobalSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PharmacyGlobalSearchViewController.swift; sourceTree = "<group>"; };
@@ -1038,6 +1037,7 @@
 		5EFBF7402E0A53C6006B1A61 /* ImageUploadManger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploadManger.swift; sourceTree = "<group>"; };
 		5EFBF7442E0A7426006B1A61 /* MedicalImagesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicalImagesCollectionViewCell.swift; sourceTree = "<group>"; };
 		5EFBF7452E0A7426006B1A61 /* MedicalImagesCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MedicalImagesCollectionViewCell.xib; sourceTree = "<group>"; };
+		CE65D3EF2E63005400D01D4C /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1166,7 +1166,7 @@
 				5E167EA12C85B8E6008864F6 /* AppDelegate.swift */,
 				5E167EA32C85B8E6008864F6 /* SceneDelegate.swift */,
 				5E167EAF2C85B8E8008864F6 /* Info.plist */,
-				5E817F622D2BD2C5005D5436 /* GoogleService-Info.plist */,
+				CE65D3EF2E63005400D01D4C /* GoogleService-Info.plist */,
 			);
 			path = "Allo-Doctor";
 			sourceTree = "<group>";
@@ -5220,6 +5220,7 @@
 				5E66B3112D170183006B7553 /* ChangeLangugeViewController.xib in Resources */,
 				5E763C592CC7ACA200B064B8 /* CategoryCollectionViewCell.xib in Resources */,
 				5E7593242D09E98A006C2B6F /* InsuranceSelectViewController.xib in Resources */,
+				CE65D3F02E63005400D01D4C /* GoogleService-Info.plist in Resources */,
 				5EE8A0902D1D48BC0083844B /* OneDayCareProfileViewController.xib in Resources */,
 				5E52A97A2D2E6F3400A6022D /* OrderProductsCollectionViewCell.xib in Resources */,
 				5E641A362CE353C5001C0F18 /* UserAddressTableViewCell.xib in Resources */,
@@ -5258,7 +5259,6 @@
 				5EBC2D062C93CDB800FC233F /* OffersCollectionViewCell.xib in Resources */,
 				5E7F39932C92432000D7E24D /* ServicesViewController.xib in Resources */,
 				5E7511512D1032A500F9713B /* IntensiveCareViewController.xib in Resources */,
-				5E817F632D2BD2C6005D5436 /* GoogleService-Info.plist in Resources */,
 				5EE8A0842D1D32440083844B /* OneDayCareHospitalsViewController.xib in Resources */,
 				5E6FEA9D2CF5C7F200F512C4 /* ProfileFavouritesViewController.xib in Resources */,
 				5E7F39B02C93521700D7E24D /* Cairo-SemiBold.ttf in Resources */,
@@ -5899,16 +5899,17 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = "Allo-Doctor/Allo-Doctor.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1.4;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = P5GJ5H8EL5;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1.1;
+				DEVELOPMENT_TEAM = YCR27B67XA;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Allo-Doctor/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Allo Doctor";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
+				INFOPLIST_KEY_NSCameraUsageDescription = "This app needs camera access to take photos for medical documentation.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Allow \"Allo Doctor\" to use your location?";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "This app needs access to save photos to your photo library.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app needs photo library access to select medical images.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
@@ -5921,11 +5922,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.DevelopNetwork.AlloDoctor;
+				MARKETING_VERSION = 1.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mohammedjamelmedical.allodoctor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "AlloDoctor Development Profile";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -5944,16 +5944,17 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = "Allo-Doctor/Allo-Doctor.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1.4;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = P5GJ5H8EL5;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1.1;
+				DEVELOPMENT_TEAM = YCR27B67XA;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Allo-Doctor/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Allo Doctor";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
+				INFOPLIST_KEY_NSCameraUsageDescription = "This app needs camera access to take photos for medical documentation.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Allow \"Allo Doctor\" to use your location?";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "This app needs access to save photos to your photo library.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app needs photo library access to select medical images.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
@@ -5966,11 +5967,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.DevelopNetwork.AlloDoctor;
+				MARKETING_VERSION = 1.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mohammedjamelmedical.allodoctor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "AlloDoctor Development Profile";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;

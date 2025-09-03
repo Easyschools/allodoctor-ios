@@ -101,7 +101,7 @@ class DoctorFilterViewController: UIViewController {
 
 extension DoctorFilterViewController {
     private func fetchInsuranceCompanies() {
-        guard let url = URL(string: "https://allodoctor-backend.developnetwork.net/api/admin/medical-insurance/all") else {
+        guard let url = URL(string: "https://Backend.allo-doctor.com/api/admin/medical-insurance/all") else {
             print("Invalid URL")
             return
         }

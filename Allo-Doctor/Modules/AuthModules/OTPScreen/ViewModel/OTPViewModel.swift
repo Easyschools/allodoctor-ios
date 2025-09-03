@@ -67,7 +67,7 @@ extension OTPViewModel {
 
 extension OTPViewModel {
     func sendOTP(otpResponseRequest: OtpVerifyResponse) {
-        let url = URL(string: "https://allodoctor-backend.developnetwork.net/api/auth/verify-otp")!
+        let url = URL(string: "https://Backend.allo-doctor.com/api/auth/verify-otp")!
         apiClient.postData(to: url, body: otpResponseRequest, as: OtpMessageResponse.self)
             .sink(receiveCompletion: { completion in
                 switch completion {

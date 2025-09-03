@@ -92,7 +92,7 @@ final class NetworkService {
     private let baseURL: String
     
     private init() {
-        self.baseURL = "https://allodoctor-backend.developnetwork.net/api" // Replace with your actual base URL
+        self.baseURL = "https://Backend.allo-doctor.com/api" // Replace with your actual base URL
     }
     
     // MARK: - Post Data Function

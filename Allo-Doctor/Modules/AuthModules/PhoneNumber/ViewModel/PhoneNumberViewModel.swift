@@ -46,7 +46,7 @@ extension PhoneNumberViewModel{
 // MARK: - PostPhoneNumber for Verification
 extension PhoneNumberViewModel{
     private func postPhoneNumber(userPhone:PhoneNumberRequest){
-        let url = URL(string: "https://allodoctor-backend.developnetwork.net/api/auth/otp")!
+        let url = URL(string: "https://Backend.allo-doctor.com/api/auth/otp")!
         apiClient.postData(to: url , body:userPhone, as: responseMessage.self)
             .sink ( receiveCompletion: { completion in
                 switch completion {

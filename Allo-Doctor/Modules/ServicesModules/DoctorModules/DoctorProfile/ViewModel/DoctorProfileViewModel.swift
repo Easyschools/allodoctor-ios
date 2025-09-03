@@ -58,7 +58,7 @@ class DoctorProfileViewModel {
     
     // MARK: - API Methods
     func fetchDoctorData() {
-        let url = URL(string: "https://allodoctor-backend.developnetwork.net/api/admin/doctor/get?id=\(doctorId)&web=1")!
+        let url = URL(string: "https://Backend.allo-doctor.com/api/admin/doctor/get?id=\(doctorId)&web=1")!
         apiClient.fetchData(from: url, as: DoctorProfileResponse.self)
             .sink(receiveCompletion: { completion in
                 switch completion {

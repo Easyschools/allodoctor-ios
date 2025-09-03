@@ -19,7 +19,7 @@ class HospitalSearchViewModel{
 }
 extension HospitalSearchViewModel{
     func fetchHospitals(){
-        let url = URL(string:"https://allodoctor-backend.developnetwork.net/api/admin/info-service/get?id=1)") ?? URL(string: "")!
+        let url = URL(string:"https://Backend.allo-doctor.com/api/admin/info-service/get?id=1)") ?? URL(string: "")!
         apiClient?.fetchData(from:url, as: HospitalData.self)
             .sink(receiveCompletion: { completion in
                 switch completion {

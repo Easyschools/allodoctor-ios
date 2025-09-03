@@ -2,63 +2,55 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>CFBundleIconName</key>
-    <string>AppIcon</string>
-    <key>CFBundleURLTypes</key>
-    <array>
-        <dict>
-            <key>CFBundleTypeRole</key>
-            <string>Editor</string>
-            <key>CFBundleURLSchemes</key>
-            <array>
-                <string>com.googleusercontent.apps.936525366271-i3uuc1k5v706tov3gefbvju71rkhs6fl</string>
-            </array>
-        </dict>
-    </array>
-    <key>GMSApiKey</key>
-    <string>AIzaSyDJkVY_BdzPGHKPRV1zvVNoqiw2sbOszXg</string>
-    <key>UIAppFonts</key>
-    <array>
-        <string>Cairo-Medium.ttf</string>
-        <string>Cairo-Regular.ttf</string>
-        <string>Cairo-SemiBold.ttf</string>
-        <string>Cairo-Bold.ttf</string>
-    </array>
-    <key>UIApplicationSceneManifest</key>
-    <dict>
-        <key>UIApplicationSupportsMultipleScenes</key>
-        <false/>
-        <key>UISceneConfigurations</key>
-        <dict>
-            <key>UIWindowSceneSessionRoleApplication</key>
-            <array>
-                <dict>
-                    <key>UISceneConfigurationName</key>
-                    <string>Default Configuration</string>
-                    <key>UISceneDelegateClassName</key>
-                    <string>$(PRODUCT_MODULE_NAME).SceneDelegate</string>
-                </dict>
-            </array>
-        </dict>
-    </dict>
-    <key>UIBackgroundModes</key>
-    <array>
-        <string>fetch</string>
-        <string>processing</string>
-        <string>remote-notification</string>
-    </array>
-    <key>BGTaskSchedulerPermittedIdentifiers</key>
-    <array>
-        <string>com.example.app.refresh</string>
-        <string>com.example.app.cleanup</string>
-    </array>
-    
-    <!-- Camera and Photo Library Permissions -->
-    <key>NSCameraUsageDescription</key>
-    <string>This app needs camera access to take photos for medical documentation.</string>
-    <key>NSPhotoLibraryUsageDescription</key>
-    <string>This app needs photo library access to select medical images.</string>
-    <key>NSPhotoLibraryAddUsageDescription</key>
-    <string>This app needs access to save photos to your photo library.</string>
+	<key>BGTaskSchedulerPermittedIdentifiers</key>
+	<array>
+		<string>com.example.app.refresh</string>
+		<string>com.example.app.cleanup</string>
+	</array>
+	<key>CFBundleIconName</key>
+	<string>AppIcon</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.936525366271-i3uuc1k5v706tov3gefbvju71rkhs6fl</string>
+			</array>
+		</dict>
+	</array>
+	<key>GMSApiKey</key>
+	<string>AIzaSyDJkVY_BdzPGHKPRV1zvVNoqiw2sbOszXg</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Cairo-Medium.ttf</string>
+		<string>Cairo-Regular.ttf</string>
+		<string>Cairo-SemiBold.ttf</string>
+		<string>Cairo-Bold.ttf</string>
+	</array>
+	<key>UIApplicationSceneManifest</key>
+	<dict>
+		<key>UIApplicationSupportsMultipleScenes</key>
+		<false/>
+		<key>UISceneConfigurations</key>
+		<dict>
+			<key>UIWindowSceneSessionRoleApplication</key>
+			<array>
+				<dict>
+					<key>UISceneConfigurationName</key>
+					<string>Default Configuration</string>
+					<key>UISceneDelegateClassName</key>
+					<string>$(PRODUCT_MODULE_NAME).SceneDelegate</string>
+				</dict>
+			</array>
+		</dict>
+	</dict>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>processing</string>
+		<string>remote-notification</string>
+	</array>
 </dict>
 </plist>

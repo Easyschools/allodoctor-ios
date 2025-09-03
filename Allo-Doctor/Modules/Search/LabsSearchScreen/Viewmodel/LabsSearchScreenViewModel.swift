@@ -42,7 +42,7 @@ class LabsSearchScreenViewModel {
     }
     
     private func performSearch(_ searchText: String) {
-        let baseURL = "https://allodoctor-backend.developnetwork.net/api/admin/lab/all"
+        let baseURL = "https://Backend.allo-doctor.com/api/admin/lab/all"
         var urlComponents = URLComponents(string: baseURL)
         
         // Create query parameters
@@ -82,7 +82,7 @@ class LabsSearchScreenViewModel {
     
     // Existing functions
     func fetchLabsAndScans(search: String, medicalInsuranceId: Int?) {
-        var urlComponents = URLComponents(string: "https://allodoctor-backend.developnetwork.net/api/admin/lab/all")
+        var urlComponents = URLComponents(string: "https://Backend.allo-doctor.com/api/admin/lab/all")
         
         var queryItems = [
             URLQueryItem(name: "is_paginate", value: "15"),

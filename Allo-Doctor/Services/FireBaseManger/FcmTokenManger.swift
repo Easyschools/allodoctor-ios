@@ -14,7 +14,7 @@ class FCMTokenManager {
     private let phoneKey = "userPhone"
     
     // API endpoint
-    private let apiURL = "https://allodoctor-backend.developnetwork.net/api/auth/save-fcm-token"
+    private let apiURL = "https://Backend.allo-doctor.com/api/auth/save-fcm-token"
     
     // Get the stored token and phone
     private var storedToken: String? {

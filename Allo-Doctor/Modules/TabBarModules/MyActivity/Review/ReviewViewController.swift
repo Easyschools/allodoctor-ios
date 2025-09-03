@@ -108,7 +108,7 @@ class ReviewViewController: UIViewController {
     private var cancellables = Set<AnyCancellable>()
     private let reviewableEntity: String
     private let reviewableId: Int
-    private let apiURL = "https://allodoctor-backend.developnetwork.net/api/admin/review/create"
+    private let apiURL = "https://Backend.allo-doctor.com/api/admin/review/create"
     
     // MARK: - Initialization
     init(reviewableEntity: String, reviewableId: Int) {

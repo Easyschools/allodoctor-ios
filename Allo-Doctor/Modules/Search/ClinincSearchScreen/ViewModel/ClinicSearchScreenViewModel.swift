@@ -20,7 +20,7 @@ class ClinicSearchScreenViewModel{
 extension ClinicSearchScreenViewModel{
     func fetchClincs(){
     
-        apiClient?.fetchData(from: URL(string:"https://allodoctor-backend.developnetwork.net/api/admin/service/with-relations?id=2")!,as: ClinicResponseData.self)
+        apiClient?.fetchData(from: URL(string:"https://Backend.allo-doctor.com/api/admin/service/with-relations?id=2")!,as: ClinicResponseData.self)
             .sink(receiveCompletion: { completion in
                 switch completion {
                 case .finished:

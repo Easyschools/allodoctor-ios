@@ -38,7 +38,7 @@ class NetworkManagerAlamofire {
     static let shared = NetworkManagerAlamofire()
     private init() {}
     
-    private let baseURL = "https://allodoctor-backend.developnetwork.net/api"
+    private let baseURL = "https://Backend.allo-doctor.com/api"
     
     // MARK: - Single Image Upload
     func uploadImage<T: Decodable, P: Encodable>(

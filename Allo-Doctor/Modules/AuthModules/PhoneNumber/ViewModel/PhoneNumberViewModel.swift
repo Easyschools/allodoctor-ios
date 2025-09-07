@@ -12,6 +12,7 @@ enum isVerified:String{
     case noData = "Data is empty."
     case dataExists = "Data already exists."
 }
+
 class PhoneNumberViewModel{
 // MARK: - Private Vars
     private var coordinator: HomeCoordinatorContact?
@@ -30,6 +31,12 @@ class PhoneNumberViewModel{
 // MARK: - UserDefault PhoneNumber SET
 extension PhoneNumberViewModel{
     func postMobileNumber (){
+        print(mobileSubject.value)
+        if mobileSubject.value.first != "0"{
+            mobileSubject.value = "0" + mobileSubject.value
+        }
+        print(mobileSubject.value)
+
        let phoneNumberRequest = PhoneNumberRequest(phone: mobileSubject.value)
        userDefaultsManager.setMobileNumber(mobileNumber: mobileSubject.value)
        postPhoneNumber(userPhone: phoneNumberRequest)
@@ -46,6 +53,7 @@ extension PhoneNumberViewModel{
 // MARK: - PostPhoneNumber for Verification
 extension PhoneNumberViewModel{
     private func postPhoneNumber(userPhone:PhoneNumberRequest){
+        print("phone number send",userPhone)
         let url = URL(string: "https://Backend.allo-doctor.com/api/auth/otp")!
         apiClient.postData(to: url , body:userPhone, as: responseMessage.self)
             .sink ( receiveCompletion: { completion in
@@ -56,6 +64,7 @@ extension PhoneNumberViewModel{
                     print("Error: \(error)")
                 }
             },receiveValue: { [ weak self ] response in
+                dump(response)
                 self?.handleResponse(response)
                 
             })

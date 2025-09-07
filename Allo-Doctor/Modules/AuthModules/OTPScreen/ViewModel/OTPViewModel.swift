@@ -60,6 +60,7 @@ extension OTPViewModel {
     func checkOtp() {
         let otp = self.otpInput.reduce("") { $0 + $1 }
         let phone = UserDefaultsManager.sharedInstance.getMobileNumber() ?? ""
+        print(phone)
         let otpResponseRequest = OtpVerifyResponse(otp: otp, phone: phone)
         sendOTP(otpResponseRequest: otpResponseRequest)
     }
@@ -84,7 +85,7 @@ extension OTPViewModel {
 
     func handleResponseMessageOutput(response: OtpMessageResponse) {
         print(OtpMessageResponse.self)
-        if response.message == "OTP verified successfully." {
+        if response.message == "OTP verified successfully" {
             DispatchQueue.main.async {
                 if self.userdefault?.isVerifiedNumber() == true {
                     self.login()

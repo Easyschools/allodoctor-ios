@@ -14,10 +14,22 @@ protocol PaginatedResponse: Decodable {
     var data: [Item]? { get }
     var nextPageURL: URL? { get }
 }
-struct ErrorResponse: Decodable {
-   let message: String
-   let errors: [String: [String]]
+//struct ErrorResponse: Decodable {
+//   let message: String
+//   let errors: [String: [String]]
+//}
+
+// MARK: - Error Response
+struct ErrorResponse: Codable {
+    let message: String
+    let errors: [String: [String]]?
+
+    enum CodingKeys: String, CodingKey {
+        case message
+        case errors
+    }
 }
+
 class APIClient {
     private let session: URLSession
     
@@ -214,14 +226,15 @@ class APIClient {
         as type: T.Type,
         imageKey: String? = nil,
         imageData: Data? = nil,
-        fileName: String? = nil
+        fileName: String? = nil,
+        requiresAuth: Bool = true  // New parameter to control authorization
     ) -> AnyPublisher<T, Error> {
         let boundary = "Boundary-\(UUID().uuidString)"
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
 
-        // Authorization header if exists
-        if let authorizationHeader = AuthManager.shared.getAuthorizationHeader() {
+        // Authorization header if exists and required
+        if requiresAuth, let authorizationHeader = AuthManager.shared.getAuthorizationHeader() {
             print("Authorization Header: \(authorizationHeader)")
             request.setValue(authorizationHeader, forHTTPHeaderField: "Authorization")
         }
@@ -233,8 +246,6 @@ class APIClient {
 
             // Convert Encodable body -> JSON -> [String: Any] and append each key as its own form field
             let encoder = JSONEncoder()
-            // Use snake_case if your models require it:
-            // encoder.keyEncodingStrategy = .convertToSnakeCase
             if let jsonData = try? encoder.encode(body),
                let jsonObject = try? JSONSerialization.jsonObject(with: jsonData, options: []),
                let dict = jsonObject as? [String: Any] {
@@ -268,7 +279,6 @@ class APIClient {
             }
 
             // Append file
-            // Try to detect mime type from file extension if possible (simple heuristic)
             let mimeType: String
             if fileName.lowercased().hasSuffix(".png") {
                 mimeType = "image/png"
@@ -288,20 +298,38 @@ class APIClient {
             // JSON branch
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             let encoder = JSONEncoder()
-            // encoder.keyEncodingStrategy = .convertToSnakeCase // uncomment if server expects snake_case keys
             request.httpBody = try? encoder.encode(body)
         }
 
-        print("request send postData :\n ")
+        print("request send postData:")
         dump(request)
 
         return URLSession.shared.dataTaskPublisher(for: request)
             .tryMap { result -> Data in
+                // Log the response
                 if let responseString = String(data: result.data, encoding: .utf8) {
-                    print("Server Response: \(responseString)")
+                    print("Response: \(responseString)")
                 }
-                guard let httpResponse = result.response as? HTTPURLResponse,
-                      (200...299).contains(httpResponse.statusCode) else {
+
+                guard let httpResponse = result.response as? HTTPURLResponse else {
+                    throw URLError(.badServerResponse)
+                }
+
+                // Check if status code is in success range
+                guard (200...299).contains(httpResponse.statusCode) else {
+                    // Try to extract error message from response
+                    if let errorResponse = try? JSONDecoder().decode(ErrorResponse.self, from: result.data) {
+                        throw NSError(domain: "APIError",
+                                    code: httpResponse.statusCode,
+                                    userInfo: [NSLocalizedDescriptionKey: errorResponse.message])
+                    } else if let responseString = String(data: result.data, encoding: .utf8),
+                              let jsonData = responseString.data(using: .utf8),
+                              let json = try? JSONSerialization.jsonObject(with: jsonData) as? [String: Any],
+                              let message = json["message"] as? String {
+                        throw NSError(domain: "APIError",
+                                    code: httpResponse.statusCode,
+                                    userInfo: [NSLocalizedDescriptionKey: message])
+                    }
                     throw URLError(.badServerResponse)
                 }
                 return result.data

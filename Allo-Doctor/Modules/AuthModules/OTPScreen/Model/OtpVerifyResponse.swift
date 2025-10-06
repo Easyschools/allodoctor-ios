@@ -12,7 +12,8 @@ struct OtpVerifyResponse:Codable{
 }
 struct OtpMessageResponse: Decodable {
     let message: String
- 
+    let user: LoginResponse?
+
 }
 
 struct PhoneLoginRequest: Codable {

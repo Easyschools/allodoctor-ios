@@ -309,6 +309,7 @@ extension OTPViewModel {
                 // Log response
                 if let responseString = String(data: output.data, encoding: .utf8) {
                     print("OTP Verification Response: \(responseString)")
+                    self?.handleResponseMessageOutput(response: OtpMessageResponse(message: responseString, user: nil))
                 }
 
                 if let httpResponse = output.response as? HTTPURLResponse,
@@ -335,29 +336,68 @@ extension OTPViewModel {
             .store(in: &cancellables)
     }
 
+//    func handleResponseMessageOutput(response: OtpMessageResponse) {
+//        print("Response message: \(response.message)")
+//        if response.message == "OTP verified successfully" {
+//
+//            if response.user?.name != nil {
+//                self.userdefault?.setVerifiedNumber(isVerified: true)
+//                self.login()
+//            }
+//                //else {
+////                self.userdefault?.setVerifiedNumber(isVerified: false)
+////                self.coordinator?.showRegisterScreen()
+////            }
+//
+////            if self.userdefault?.isVerifiedNumber() == true {
+////                self.login()
+////            } else {
+////                self.coordinator?.showRegisterScreen()
+////            }
+//        }else if response.message == "User not found"{
+//            self.userdefault?.setVerifiedNumber(isVerified: false)
+//            self.coordinator?.showRegisterScreen()
+//        }
+//        else {
+//            //"User not found"
+//            self.userdefault?.setVerifiedNumber(isVerified: false)
+//            errorMessage = response.message
+//            print("Cannot verify OTP: \(response.message)")
+//        }
+//    }
+
     func handleResponseMessageOutput(response: OtpMessageResponse) {
         print("Response message: \(response.message)")
-        if response.message == "OTP verified successfully" {
 
-            if response.user?.name != nil {
+        // Parse the nested JSON message
+        let actualMessage = parseNestedMessage(response.message)
+        print("Parsed message: \(actualMessage)")
+
+        if actualMessage == "OTP verified successfully" {
+//            if response.user?.name != nil {
+            errorMessage = nil
                 self.userdefault?.setVerifiedNumber(isVerified: true)
                 self.login()
-            } else {
-                self.userdefault?.setVerifiedNumber(isVerified: false)
-                self.coordinator?.showRegisterScreen()
-            }
-
-//            if self.userdefault?.isVerifiedNumber() == true {
-//                self.login()
-//            } else {
-//                self.coordinator?.showRegisterScreen()
 //            }
+        } else if actualMessage == "User not found" {
+            self.userdefault?.setVerifiedNumber(isVerified: false)
+            self.coordinator?.showRegisterScreen()
         } else {
-            errorMessage = response.message
-            print("Cannot verify OTP: \(response.message)")
+            self.userdefault?.setVerifiedNumber(isVerified: false)
+            errorMessage = actualMessage
+            print("Cannot verify OTP: \(actualMessage)")
         }
     }
 
+    // Helper function to parse nested JSON
+    private func parseNestedMessage(_ jsonString: String) -> String {
+        guard let data = jsonString.data(using: .utf8),
+              let json = try? JSONSerialization.jsonObject(with: data) as? [String: String],
+              let message = json["message"] else {
+            return jsonString // Return original if parsing fails
+        }
+        return message
+    }
     // MARK: - Resend OTP
     func resendOTP() {
         guard let phone = UserDefaultsManager.sharedInstance.getMobileNumber() else {

@@ -5900,7 +5900,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Allo-Doctor/Allo-Doctor.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.1;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = YCR27B67XA;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Allo-Doctor/Info.plist";
@@ -5922,7 +5922,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mohammedjamelmedical.allodoctor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -5945,7 +5945,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Allo-Doctor/Allo-Doctor.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.1;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = YCR27B67XA;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Allo-Doctor/Info.plist";
@@ -5967,7 +5967,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mohammedjamelmedical.allodoctor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

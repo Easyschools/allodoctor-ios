@@ -92,9 +92,14 @@ import Combine
 
 enum isVerified: String {
     case yes = "Phone already exists."
-    case no = "OTP sent via SMS"
+    case no = "OTP sent successfully."
     case noData = "Data is empty."
     case dataExists = "Data already exists."
+
+//    case yes = "Phone already exists."
+//    case no = "OTP sent via SMS"
+//    case noData = "Data is empty."
+//    case dataExists = "Data already exists."
 }
 
 class PhoneNumberViewModel {
@@ -171,16 +176,29 @@ extension PhoneNumberViewModel {
     }
 
     private func handleResponse(_ response: responseMessage) {
+//        if response.message == isVerified.yes.rawValue && response.data == isVerified.dataExists.rawValue {
+//            userDefaultsManager.setVerifiedNumber(isVerified: true)
+//            coordinator?.showOtpScreen()
+//        } else if response.message == isVerified.no.rawValue {
+//            userDefaultsManager.setVerifiedNumber(isVerified: false)
+//            coordinator?.showOtpScreen()
+//        } else {
+//            userDefaultsManager.setVerifiedNumber(isVerified: false)
+//            errorMessage = response.message
+//        }
+
         if response.message == isVerified.yes.rawValue && response.data == isVerified.dataExists.rawValue {
-            userDefaultsManager.setVerifiedNumber(isVerified: true)
+                    userDefaultsManager.setVerifiedNumber(isVerified: true )
             coordinator?.showOtpScreen()
-        } else if response.message == isVerified.no.rawValue {
-            userDefaultsManager.setVerifiedNumber(isVerified: false)
-            coordinator?.showOtpScreen()
-        } else {
-            userDefaultsManager.setVerifiedNumber(isVerified: false)
-            errorMessage = response.message
-        }
+                }
+        else if response.message == isVerified.no.rawValue || (response.message == isVerified.yes.rawValue && response.data == isVerified.noData.rawValue){
+                    userDefaultsManager.setVerifiedNumber(isVerified: false )
+                   coordinator?.showOtpScreen()
+                }
+               else {
+                    userDefaultsManager.setVerifiedNumber(isVerified: false )
+                   errorMessage = response.message
+                }
     }
 
     // MARK: - Resend OTP

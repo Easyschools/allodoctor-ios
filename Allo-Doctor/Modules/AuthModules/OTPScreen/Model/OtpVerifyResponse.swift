@@ -13,6 +13,7 @@ struct OtpVerifyResponse:Codable{
 struct OtpMessageResponse: Codable {
     let message: String
     let user: LoginResponse?
+    let token: String? 
 
 }
 

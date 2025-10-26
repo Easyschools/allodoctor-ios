@@ -377,3 +377,45 @@
 "Floor" = "Floor";
 
 
+
+// MARK: - Hospital-First Flow
+"Search hospitals..." = "Search hospitals...";
+"Filter Hospitals" = "Filter Hospitals";
+"Sort By" = "Sort By";
+"Filter" = "Filter";
+"Sort" = "Sort";
+"Apply Filters" = "Apply Filters";
+"Clear All" = "Clear All";
+"All Services" = "All Services";
+"One Day Care" = "One Day Care";
+"External Clinic" = "External Clinic";
+"Intensive Care" = "Intensive Care";
+"Incubation" = "Incubation";
+"Emergency" = "Emergency";
+"General" = "General";
+"Name (A-Z)" = "Name (A-Z)";
+"Highest Rating" = "Highest Rating";
+"Nearest" = "Nearest";
+"Most Reviewed" = "Most Reviewed";
+"No rating" = "No rating";
+"Specialties" = "Specialties";
+"Hospital Profile" = "Hospital Profile";
+"Available Specialties" = "Available Specialties";
+"Reviews" = "Reviews";
+"Accepted Insurance" = "Accepted Insurance";
+"Call" = "Call";
+"Location" = "Location";
+"Specialty Details" = "Specialty Details";
+"Doctor" = "Doctor";
+"Experience" = "Experience";
+"Wait:" = "Wait:";
+"min" = "min";
+"Contact for price" = "Contact for price";
+"Anonymous" = "Anonymous";
+"No hospitals found" = "No hospitals found";
+"No specialties available" = "No specialties available";
+"No doctors available" = "No doctors available";
+"Select District" = "Select District";
+"Select Specialty" = "Select Specialty";
+"Minimum Rating" = "Minimum Rating";
+"All" = "All";

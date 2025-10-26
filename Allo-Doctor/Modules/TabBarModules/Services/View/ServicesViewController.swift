@@ -162,9 +162,11 @@ extension ServicesViewController: UICollectionViewDelegate, UICollectionViewData
             if let navServiceId = NavToServiceId(rawValue: serviceid) {
                 switch navServiceId {
                 case .hospital:
-                    viewModel.navToSubServiceScreen()
+                    // Hospital-First Flow: Show hospital selection for all hospital services
+                    viewModel.navToAllHospitals(serviceType: nil)
                 case .clinics:
-                    viewModel.navToSearchScreen()
+                    // Hospital-First Flow: Show hospital selection, then clinics within selected hospital
+                    viewModel.navToAllHospitals(serviceType: nil)
                 case .labs:
                     viewModel.navToLabsAndScanSearchScreen(screenId:String(serviceid))
                 case .scans:
@@ -181,8 +183,8 @@ extension ServicesViewController: UICollectionViewDelegate, UICollectionViewData
             } else {
                 viewModel.navToSearchScreen()
             }
-            
-            
+
+
         }
     }}
 

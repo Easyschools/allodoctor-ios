@@ -86,6 +86,11 @@ protocol HomeCoordinatorContact: AnyObject {
     func showSelectChatTypeViewController()
     func showMedicalImagesUpload(id:Int)
     func presentReview(reviewType:String,reviewId:Int)
+
+    // MARK: - Hospital-First Flow Navigation
+    func showAllHospitals(serviceType: HospitalServiceType?)
+    func showHospitalProfileNew(hospitalId: Int)
+    func showHospitalSpecialty(hospitalId: Int, specialtyId: Int)
 }
 
 // MARK: - HomeCoordinator
@@ -524,7 +529,51 @@ extension HomeCoordinator{
         if let navController = (window?.rootViewController as? UITabBarController)?.selectedViewController as? UINavigationController {
             navController.pushViewController(viewController, animated: true)
         }
-        
+
     }
-    
+
+}
+
+// MARK: - Hospital-First Flow Navigation
+extension HomeCoordinator {
+
+    /// Shows hospital selection screen with optional service type filter
+    func showAllHospitals(serviceType: HospitalServiceType? = nil) {
+        let viewModel = HospitalSelectionViewModel(
+            coordinator: self,
+            serviceType: serviceType
+        )
+        let viewController = HospitalSelectionViewController(viewModel: viewModel)
+
+        if let navController = (window?.rootViewController as? UITabBarController)?.selectedViewController as? UINavigationController {
+            navController.pushViewController(viewController, animated: true)
+        }
+    }
+
+    /// Shows hospital profile with specialties list
+    func showHospitalProfileNew(hospitalId: Int) {
+        let viewModel = HospitalProfileViewModel(
+            coordinator: self,
+            hospitalId: hospitalId
+        )
+        let viewController = HospitalProfileViewController(viewModel: viewModel)
+
+        if let navController = (window?.rootViewController as? UITabBarController)?.selectedViewController as? UINavigationController {
+            navController.pushViewController(viewController, animated: true)
+        }
+    }
+
+    /// Shows specialty detail within a hospital (doctors and services)
+    func showHospitalSpecialty(hospitalId: Int, specialtyId: Int) {
+        let viewModel = HospitalSpecialtyViewModel(
+            coordinator: self,
+            hospitalId: hospitalId,
+            specialtyId: specialtyId
+        )
+        let viewController = HospitalSpecialtyViewController(viewModel: viewModel)
+
+        if let navController = (window?.rootViewController as? UITabBarController)?.selectedViewController as? UINavigationController {
+            navController.pushViewController(viewController, animated: true)
+        }
+    }
 }

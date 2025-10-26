@@ -93,7 +93,7 @@ enum AppLocalizedKeys: String, CaseIterable {
     case total
     case orderList
     case checkOut = "Check Out"
-    case mintutes = "min"
+    case minutes = "min"
     case SearchForAnyOutPatientClinic
     case WorkingHours
     case InvalidName
@@ -208,6 +208,48 @@ enum AppLocalizedKeys: String, CaseIterable {
     case pleaseSelectPayment
     case searchForAnyPharmacy
     case failed
+
+    // MARK: - Hospital-First Flow
+    case searchHospitals = "Search hospitals..."
+    case filterHospitals = "Filter Hospitals"
+    case sortBy = "Sort By"
+    case filter = "Filter"
+    case sort = "Sort"
+    case applyFilters = "Apply Filters"
+    case clearAll = "Clear All"
+    case allServices = "All Services"
+    case oneDayCare = "One Day Care"
+    case externalClinic = "External Clinic"
+    case intensiveCare = "Intensive Care"
+    case incubation = "Incubation"
+    case emergency = "Emergency"
+    case general = "General"
+    case nameAZ = "Name (A-Z)"
+    case highestRating = "Highest Rating"
+    case nearest = "Nearest"
+    case mostReviewed = "Most Reviewed"
+    case noRating = "No rating"
+    case specialties = "Specialties"
+    case hospitalProfile = "Hospital Profile"
+    case availableSpecialties = "Available Specialties"
+    case reviews = "Reviews"
+    case acceptedInsurance = "Accepted Insurance"
+    case call = "Call"
+    case location = "Location"
+    case specialtyDetails = "Specialty Details"
+    case doctor = "Doctor"
+    case experience = "Experience"
+    case wait = "Wait:"
+    case min = "minutes"
+    case contactForPrice = "Contact for price"
+    case anonymous = "Anonymous"
+    case noHospitalsFound = "No hospitals found"
+    case noSpecialtiesAvailable = "No specialties available"
+    case noDoctorsAvailable = "No doctors available"
+    case selectDistrict = "Select District"
+    case selectSpecialty = "Select Specialty"
+    case minimumRating = "Minimum Rating"
+    case all = "All"
 
 
 }

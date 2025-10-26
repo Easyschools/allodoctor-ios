@@ -102,6 +102,11 @@ extension ServicesViewModel{
             coordinator?.showChatViewController(chatType:.doctorType)
         }
     }
+
+    // Hospital-First Flow Navigation
+    func navToAllHospitals(serviceType: HospitalServiceType?) {
+        coordinator?.showAllHospitals(serviceType: serviceType)
+    }
 }
 extension ServicesViewModel{
     func getAllOffers() {

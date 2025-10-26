@@ -78,25 +78,35 @@ extension SubServiceViewController:UICollectionViewDataSource,UICollectionViewDe
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
        let  id =  viewModel.subServices[indexPath.row].id
+
+        // Hospital-First Flow: Route all sub-services through hospital selection
+        let serviceType = HospitalServiceType.from(subServiceId: id)
+
         if  id == 4 || id == 22 {
-            viewModel.coordinator?.showExternalClinics()
+            // External Clinics → Hospital selection with external clinic filter
+            viewModel.coordinator?.showAllHospitals(serviceType: .externalClinic)
         }
        else if id == 6 {
-            viewModel.coordinator?.showOperationsSearchScreen()
+            // Operations → Hospital selection with operations filter
+            viewModel.coordinator?.showAllHospitals(serviceType: .operations)
         }
         else if id == 5 {
-            viewModel.coordinator?.showIntensiveCareUnits()
+            // Intensive Care Units → Hospital selection with ICU filter
+            viewModel.coordinator?.showAllHospitals(serviceType: .intensiveCare)
         }
         else if id == 33{
-            viewModel.coordinator?.showIncubations()
+            // Incubations → Hospital selection with incubation filter
+            viewModel.coordinator?.showAllHospitals(serviceType: .incubation)
         }
         else if id == 36 {
-            viewModel.showEmergency()
+            // Emergency → Hospital selection with emergency filter
+            viewModel.coordinator?.showAllHospitals(serviceType: .emergency)
         }
         else {
-            viewModel.coordinator?.showOneDayCareHospitals()
+            // One Day Care (default) → Hospital selection with one day care filter
+            viewModel.coordinator?.showAllHospitals(serviceType: .oneDayCare)
         }
-        
+
     }
 }
 extension SubServiceViewController{
@@ -115,7 +125,8 @@ extension SubServiceViewController{
     private func bindSearchBarButton(){
         searchBar.navButtonTapped
             .sink { [weak self] in
-                self?.viewModel.coordinator?.showOneDayCareHospitals()
+                // Hospital-First Flow: Search button goes to hospital selection
+                self?.viewModel.coordinator?.showAllHospitals(serviceType: nil)
             }
             .store(in: &cancellables)
     }

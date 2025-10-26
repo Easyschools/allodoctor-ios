@@ -66,6 +66,15 @@ enum APIRouter {
     case cancelReservation(id:Int,type:String)
     case getUser(userId:Int)
     case updateMedicalData
+
+    // MARK: - Unified Hospital Endpoints (Hospital-First Flow)
+    case fetchAllHospitals(search: String, districtIds: String, specialtyIds: String, serviceType: String, sortBy: String, minRating: String, maxDistance: String)
+    case fetchHospitalProfile(hospitalId: Int)
+    case fetchHospitalSpecialties(hospitalId: Int)
+    case fetchHospitalSpecialtyDetail(hospitalId: Int, specialtyId: Int)
+    case fetchDistricts(isPaginate: Int)
+    case fetchSpecialtiesForFilter(isPaginate: Int)
+
     // Construct the full path and query for each case
     private var path: String {
         switch self {
@@ -186,6 +195,47 @@ enum APIRouter {
             return "/admin/user/get?id=\(userId)"
         case .updateMedicalData:
             return "/admin/medical-info/update"
+
+        // MARK: - Unified Hospital Endpoints Paths
+        case .fetchAllHospitals(let search, let districtIds, let specialtyIds, let serviceType, let sortBy, let minRating, let maxDistance):
+            var path = "/admin/hospital/all?is_paginate=15"
+            if !search.isEmpty {
+                path += "&search=\(search)"
+            }
+            if !districtIds.isEmpty {
+                path += "&district_ids=\(districtIds)"
+            }
+            if !specialtyIds.isEmpty {
+                path += "&specialty_ids=\(specialtyIds)"
+            }
+            if !serviceType.isEmpty {
+                path += "&service_type=\(serviceType)"
+            }
+            if !sortBy.isEmpty {
+                path += "&sort_by=\(sortBy)"
+            }
+            if !minRating.isEmpty {
+                path += "&min_rating=\(minRating)"
+            }
+            if !maxDistance.isEmpty {
+                path += "&max_distance=\(maxDistance)"
+            }
+            return path
+
+        case .fetchHospitalProfile(let hospitalId):
+            return "/admin/hospital/get?id=\(hospitalId)"
+
+        case .fetchHospitalSpecialties(let hospitalId):
+            return "/admin/hospital/specialties?hospital_id=\(hospitalId)"
+
+        case .fetchHospitalSpecialtyDetail(let hospitalId, let specialtyId):
+            return "/admin/hospital/specialty-detail?hospital_id=\(hospitalId)&specialty_id=\(specialtyId)"
+
+        case .fetchDistricts(let isPaginate):
+            return "/admin/district/all?is_paginate=\(isPaginate)"
+
+        case .fetchSpecialtiesForFilter(let isPaginate):
+            return "/admin/speciality/all?is_paginate=\(isPaginate)"
         }
     }
     // Define the base URL for all requests

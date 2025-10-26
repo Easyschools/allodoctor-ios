@@ -1,0 +1,85 @@
+═══════════════════════════════════════════════════════════
+   QUICK FIX CHECKLIST - Add Files to Xcode (5 min)
+═══════════════════════════════════════════════════════════
+
+Step 1: Models (2 files)
+═══════════════════════════════════════════════════════════
+□ Open Xcode
+□ Navigate to: Allo-Doctor → Common → Models
+□ Right-click → "Add Files to 'Allo-Doctor'..."
+□ Select:
+  □ UnifiedHospital.swift
+  □ HospitalFilter.swift
+□ Uncheck "Copy items if needed"
+□ Select "Create groups"
+□ Check "Allo-Doctor" target
+□ Click "Add"
+
+Step 2: Extensions (3 files)
+═══════════════════════════════════════════════════════════
+□ Navigate to: Allo-Doctor → Utilities → Extentions
+□ Right-click → "Add Files to 'Allo-Doctor'..."
+□ Select:
+  □ Array+Extensions.swift
+  □ Int+Extensions.swift
+  □ Double+Extensions.swift
+□ Same settings: uncheck copy, create groups, check target
+□ Click "Add"
+
+Step 3: HospitalSelection Module (5 files)
+═══════════════════════════════════════════════════════════
+□ Navigate to: Allo-Doctor → Modules → Search
+□ Create new group: "HospitalSelection"
+□ Inside it, create: View, ViewModel, RelatedViews groups
+□ Add to View:
+  □ HospitalSelectionViewController.swift
+□ Add to ViewModel:
+  □ HospitalSelectionViewModel.swift
+□ Add to RelatedViews (all 3):
+  □ HospitalSelectionTableViewCell.swift
+  □ HospitalFilterViewController.swift
+  □ HospitalSortViewController.swift
+
+Step 4: HospitalProfile Module (5 files)
+═══════════════════════════════════════════════════════════
+□ Navigate to: Allo-Doctor → Modules → ServicesModules
+□ Create new group: "HospitalProfile"
+□ Inside it, create: View, ViewModel, RelatedViews groups
+□ Add to View:
+  □ HospitalProfileViewController.swift
+□ Add to ViewModel:
+  □ HospitalProfileViewModel.swift
+□ Add to RelatedViews (all 3):
+  □ HospitalSpecialtyTableViewCell.swift
+  □ ReviewCollectionViewCell.swift
+  □ InsuranceCollectionViewCell.swift
+
+Step 5: HospitalSpecialty Module (2 files)
+═══════════════════════════════════════════════════════════
+□ Navigate to: Allo-Doctor → Modules → ServicesModules
+□ Create new group: "HospitalSpecialty"
+□ Inside it, create: View, ViewModel groups
+□ Add to View:
+  □ HospitalSpecialtyViewController.swift
+□ Add to ViewModel:
+  □ HospitalSpecialtyViewModel.swift
+
+Step 6: Clean and Build
+═══════════════════════════════════════════════════════════
+□ Product → Clean Build Folder (⌘⇧K)
+□ Close Xcode
+□ Reopen Xcode
+□ Product → Build (⌘B)
+□ ✅ ALL ERRORS SHOULD BE GONE!
+
+═══════════════════════════════════════════════════════════
+Total: 17 files to add
+Time: 5-10 minutes
+═══════════════════════════════════════════════════════════
+
+IMPORTANT SETTINGS when adding files:
+  ❌ Uncheck "Copy items if needed"
+  ✅ Select "Create groups"
+  ✅ Check "Allo-Doctor" target
+
+Need help? See: FIX_XCODE_ERRORS.md

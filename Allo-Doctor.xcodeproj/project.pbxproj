@@ -514,6 +514,25 @@
 		5EFBF7462E0A7426006B1A61 /* MedicalImagesCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EFBF7452E0A7426006B1A61 /* MedicalImagesCollectionViewCell.xib */; };
 		5EFBF7472E0A7426006B1A61 /* MedicalImagesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EFBF7442E0A7426006B1A61 /* MedicalImagesCollectionViewCell.swift */; };
 		CE65D3F02E63005400D01D4C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CE65D3EF2E63005400D01D4C /* GoogleService-Info.plist */; };
+		CEA9C0D92EAE4C1300A98F1D /* HospitalFilter 2.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA9C0D72EAE4C1200A98F1D /* HospitalFilter 2.swift */; };
+		CEA9C0DA2EAE4C1300A98F1D /* UnifiedHospital 2.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA9C0D82EAE4C1200A98F1D /* UnifiedHospital 2.swift */; };
+		CEA9C0E02EAE4C6700A98F1D /* Cities.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA9C0DB2EAE4C6700A98F1D /* Cities.swift */; };
+		CEA9C0E12EAE4C6700A98F1D /* Favourites.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA9C0DD2EAE4C6700A98F1D /* Favourites.swift */; };
+		CEA9C0E22EAE4C6700A98F1D /* DeleteResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA9C0DC2EAE4C6700A98F1D /* DeleteResponse.swift */; };
+		CEA9C0E32EAE4C6700A98F1D /* HospitalFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA9C0DE2EAE4C6700A98F1D /* HospitalFilter.swift */; };
+		CEA9C0E42EAE4C6700A98F1D /* UnifiedHospital.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA9C0DF2EAE4C6700A98F1D /* UnifiedHospital.swift */; };
+		CEA9C1052EAE4E7300A98F1D /* HospitalSpecialtyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA9C1022EAE4E7300A98F1D /* HospitalSpecialtyViewModel.swift */; };
+		CEA9C1062EAE4E7300A98F1D /* InsuranceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA9C0F82EAE4E7300A98F1D /* InsuranceCollectionViewCell.swift */; };
+		CEA9C1072EAE4E7300A98F1D /* HospitalSpecialtyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA9C1002EAE4E7300A98F1D /* HospitalSpecialtyViewController.swift */; };
+		CEA9C1082EAE4E7300A98F1D /* HospitalProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA9C0FD2EAE4E7300A98F1D /* HospitalProfileViewModel.swift */; };
+		CEA9C1092EAE4E7300A98F1D /* HospitalSpecialtyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA9C0F72EAE4E7300A98F1D /* HospitalSpecialtyTableViewCell.swift */; };
+		CEA9C10A2EAE4E7300A98F1D /* ReviewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA9C0F92EAE4E7300A98F1D /* ReviewCollectionViewCell.swift */; };
+		CEA9C10B2EAE4E7300A98F1D /* HospitalProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA9C0FB2EAE4E7300A98F1D /* HospitalProfileViewController.swift */; };
+		CEA9C1162EAE4F2600A98F1D /* HospitalSelectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA9C10E2EAE4F2600A98F1D /* HospitalSelectionTableViewCell.swift */; };
+		CEA9C1172EAE4F2600A98F1D /* HospitalSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA9C1112EAE4F2600A98F1D /* HospitalSelectionViewController.swift */; };
+		CEA9C1182EAE4F2600A98F1D /* HospitalSortViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA9C10F2EAE4F2600A98F1D /* HospitalSortViewController.swift */; };
+		CEA9C1192EAE4F2600A98F1D /* HospitalFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA9C10D2EAE4F2600A98F1D /* HospitalFilterViewController.swift */; };
+		CEA9C11A2EAE4F2600A98F1D /* HospitalSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA9C1132EAE4F2600A98F1D /* HospitalSelectionViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1038,6 +1057,25 @@
 		5EFBF7442E0A7426006B1A61 /* MedicalImagesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicalImagesCollectionViewCell.swift; sourceTree = "<group>"; };
 		5EFBF7452E0A7426006B1A61 /* MedicalImagesCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MedicalImagesCollectionViewCell.xib; sourceTree = "<group>"; };
 		CE65D3EF2E63005400D01D4C /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		CEA9C0D72EAE4C1200A98F1D /* HospitalFilter 2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HospitalFilter 2.swift"; sourceTree = "<group>"; };
+		CEA9C0D82EAE4C1200A98F1D /* UnifiedHospital 2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UnifiedHospital 2.swift"; sourceTree = "<group>"; };
+		CEA9C0DB2EAE4C6700A98F1D /* Cities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cities.swift; sourceTree = "<group>"; };
+		CEA9C0DC2EAE4C6700A98F1D /* DeleteResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteResponse.swift; sourceTree = "<group>"; };
+		CEA9C0DD2EAE4C6700A98F1D /* Favourites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favourites.swift; sourceTree = "<group>"; };
+		CEA9C0DE2EAE4C6700A98F1D /* HospitalFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HospitalFilter.swift; sourceTree = "<group>"; };
+		CEA9C0DF2EAE4C6700A98F1D /* UnifiedHospital.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnifiedHospital.swift; sourceTree = "<group>"; };
+		CEA9C0F72EAE4E7300A98F1D /* HospitalSpecialtyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HospitalSpecialtyTableViewCell.swift; sourceTree = "<group>"; };
+		CEA9C0F82EAE4E7300A98F1D /* InsuranceCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsuranceCollectionViewCell.swift; sourceTree = "<group>"; };
+		CEA9C0F92EAE4E7300A98F1D /* ReviewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCollectionViewCell.swift; sourceTree = "<group>"; };
+		CEA9C0FB2EAE4E7300A98F1D /* HospitalProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HospitalProfileViewController.swift; sourceTree = "<group>"; };
+		CEA9C0FD2EAE4E7300A98F1D /* HospitalProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HospitalProfileViewModel.swift; sourceTree = "<group>"; };
+		CEA9C1002EAE4E7300A98F1D /* HospitalSpecialtyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HospitalSpecialtyViewController.swift; sourceTree = "<group>"; };
+		CEA9C1022EAE4E7300A98F1D /* HospitalSpecialtyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HospitalSpecialtyViewModel.swift; sourceTree = "<group>"; };
+		CEA9C10D2EAE4F2600A98F1D /* HospitalFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HospitalFilterViewController.swift; sourceTree = "<group>"; };
+		CEA9C10E2EAE4F2600A98F1D /* HospitalSelectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HospitalSelectionTableViewCell.swift; sourceTree = "<group>"; };
+		CEA9C10F2EAE4F2600A98F1D /* HospitalSortViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HospitalSortViewController.swift; sourceTree = "<group>"; };
+		CEA9C1112EAE4F2600A98F1D /* HospitalSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HospitalSelectionViewController.swift; sourceTree = "<group>"; };
+		CEA9C1132EAE4F2600A98F1D /* HospitalSelectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HospitalSelectionViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1412,6 +1450,8 @@
 		5E4C43A42C9BC19000EB8936 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				CEA9C0D72EAE4C1200A98F1D /* HospitalFilter 2.swift */,
+				CEA9C0D82EAE4C1200A98F1D /* UnifiedHospital 2.swift */,
 				5E4C43A52C9BC1A300EB8936 /* Cities.swift */,
 				5E16D81D2D21627600598553 /* Favourites.swift */,
 				5E99CC282D337B1900DB7D74 /* DeleteResponse.swift */,
@@ -2030,6 +2070,11 @@
 		5E6A80592C88609F007C14CE /* Extentions */ = {
 			isa = PBXGroup;
 			children = (
+				CEA9C0DB2EAE4C6700A98F1D /* Cities.swift */,
+				CEA9C0DC2EAE4C6700A98F1D /* DeleteResponse.swift */,
+				CEA9C0DD2EAE4C6700A98F1D /* Favourites.swift */,
+				CEA9C0DE2EAE4C6700A98F1D /* HospitalFilter.swift */,
+				CEA9C0DF2EAE4C6700A98F1D /* UnifiedHospital.swift */,
 				5E6A805A2C886420007C14CE /* UIViewController+Extentions.swift */,
 				5E6A80632C88849F007C14CE /* UIColor+Extention.swift */,
 				5E389AA02C8BBD02002FA5F0 /* UIView+Extentions.swift */,
@@ -3396,6 +3441,8 @@
 				5E82D8642CBD0C6500B5DC50 /* PharmacyModules */,
 				5E7A3A112C9CFA1B00B9EDD3 /* DoctorModules */,
 				5EFAA4962CB9903100C6CE65 /* LabsAndScanModules */,
+				CEA9C0FF2EAE4E7300A98F1D /* HospitalProfile 2 */,
+				CEA9C1042EAE4E7300A98F1D /* HospitalSpecialty 2 */,
 			);
 			path = ServicesModules;
 			sourceTree = "<group>";
@@ -4814,6 +4861,7 @@
 		5EE8318E2C96529800671BD7 /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				CEA9C1152EAE4F2600A98F1D /* HospitalSelection 2 */,
 				5E6EE35E2CAA3E9E00275056 /* HospitalSearch */,
 				5E7DBB2D2CA230980016751F /* LabsSearchScreen */,
 				5E7DBB222CA223040016751F /* ClinincSearchScreen */,
@@ -5053,6 +5101,103 @@
 				5EFBF7452E0A7426006B1A61 /* MedicalImagesCollectionViewCell.xib */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		CEA9C0FA2EAE4E7300A98F1D /* RelatedViews */ = {
+			isa = PBXGroup;
+			children = (
+				CEA9C0F72EAE4E7300A98F1D /* HospitalSpecialtyTableViewCell.swift */,
+				CEA9C0F82EAE4E7300A98F1D /* InsuranceCollectionViewCell.swift */,
+				CEA9C0F92EAE4E7300A98F1D /* ReviewCollectionViewCell.swift */,
+			);
+			path = RelatedViews;
+			sourceTree = "<group>";
+		};
+		CEA9C0FC2EAE4E7300A98F1D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CEA9C0FB2EAE4E7300A98F1D /* HospitalProfileViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		CEA9C0FE2EAE4E7300A98F1D /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				CEA9C0FD2EAE4E7300A98F1D /* HospitalProfileViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		CEA9C0FF2EAE4E7300A98F1D /* HospitalProfile 2 */ = {
+			isa = PBXGroup;
+			children = (
+				CEA9C0FA2EAE4E7300A98F1D /* RelatedViews */,
+				CEA9C0FC2EAE4E7300A98F1D /* View */,
+				CEA9C0FE2EAE4E7300A98F1D /* ViewModel */,
+			);
+			path = "HospitalProfile 2";
+			sourceTree = "<group>";
+		};
+		CEA9C1012EAE4E7300A98F1D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CEA9C1002EAE4E7300A98F1D /* HospitalSpecialtyViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		CEA9C1032EAE4E7300A98F1D /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				CEA9C1022EAE4E7300A98F1D /* HospitalSpecialtyViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		CEA9C1042EAE4E7300A98F1D /* HospitalSpecialty 2 */ = {
+			isa = PBXGroup;
+			children = (
+				CEA9C1012EAE4E7300A98F1D /* View */,
+				CEA9C1032EAE4E7300A98F1D /* ViewModel */,
+			);
+			path = "HospitalSpecialty 2";
+			sourceTree = "<group>";
+		};
+		CEA9C1102EAE4F2600A98F1D /* RelatedViews */ = {
+			isa = PBXGroup;
+			children = (
+				CEA9C10D2EAE4F2600A98F1D /* HospitalFilterViewController.swift */,
+				CEA9C10E2EAE4F2600A98F1D /* HospitalSelectionTableViewCell.swift */,
+				CEA9C10F2EAE4F2600A98F1D /* HospitalSortViewController.swift */,
+			);
+			path = RelatedViews;
+			sourceTree = "<group>";
+		};
+		CEA9C1122EAE4F2600A98F1D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CEA9C1112EAE4F2600A98F1D /* HospitalSelectionViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		CEA9C1142EAE4F2600A98F1D /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				CEA9C1132EAE4F2600A98F1D /* HospitalSelectionViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		CEA9C1152EAE4F2600A98F1D /* HospitalSelection 2 */ = {
+			isa = PBXGroup;
+			children = (
+				CEA9C1102EAE4F2600A98F1D /* RelatedViews */,
+				CEA9C1122EAE4F2600A98F1D /* View */,
+				CEA9C1142EAE4F2600A98F1D /* ViewModel */,
+			);
+			path = "HospitalSelection 2";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -5551,8 +5696,17 @@
 				5E639B292C94F78C004AD3AB /* ServiceModel.swift in Sources */,
 				5EF44D262CBBC0AB004618B2 /* BookingLabsAndScanViewController.swift in Sources */,
 				5E6A80682C88A0C9007C14CE /* OnBoardingScreensViewController.swift in Sources */,
+				CEA9C1052EAE4E7300A98F1D /* HospitalSpecialtyViewModel.swift in Sources */,
+				CEA9C1062EAE4E7300A98F1D /* InsuranceCollectionViewCell.swift in Sources */,
+				CEA9C1072EAE4E7300A98F1D /* HospitalSpecialtyViewController.swift in Sources */,
+				CEA9C1082EAE4E7300A98F1D /* HospitalProfileViewModel.swift in Sources */,
+				CEA9C1092EAE4E7300A98F1D /* HospitalSpecialtyTableViewCell.swift in Sources */,
+				CEA9C10A2EAE4E7300A98F1D /* ReviewCollectionViewCell.swift in Sources */,
+				CEA9C10B2EAE4E7300A98F1D /* HospitalProfileViewController.swift in Sources */,
 				5E7429A22D044F2B00A53D50 /* SectionSeachableTableViewController.swift in Sources */,
 				5E6707F12CFCB6F30004465F /* NonAuthUserViewController.swift in Sources */,
+				CEA9C0D92EAE4C1300A98F1D /* HospitalFilter 2.swift in Sources */,
+				CEA9C0DA2EAE4C1300A98F1D /* UnifiedHospital 2.swift in Sources */,
 				5E5D54AD2DE49030007A56E8 /* SelectChatTypeViewModel.swift in Sources */,
 				5E6C482E2CEE13990004E3C4 /* CustomDropShadowView.swift in Sources */,
 				5E7593252D09E98A006C2B6F /* InsuranceSelectViewController.swift in Sources */,
@@ -5581,6 +5735,11 @@
 				5E6DB07E2D1EEB840016E770 /* OneDayCareAppointmentsModel.swift in Sources */,
 				5E723A7D2CEB71FD00F58BCE /* ExternalClinicsHospitalsModel.swift in Sources */,
 				5E6A892F2D301A5D0009D0BA /* AuthNavigationModule.swift in Sources */,
+				CEA9C1162EAE4F2600A98F1D /* HospitalSelectionTableViewCell.swift in Sources */,
+				CEA9C1172EAE4F2600A98F1D /* HospitalSelectionViewController.swift in Sources */,
+				CEA9C1182EAE4F2600A98F1D /* HospitalSortViewController.swift in Sources */,
+				CEA9C1192EAE4F2600A98F1D /* HospitalFilterViewController.swift in Sources */,
+				CEA9C11A2EAE4F2600A98F1D /* HospitalSelectionViewModel.swift in Sources */,
 				5EE831832C961F3400671BD7 /* GifLoader.swift in Sources */,
 				5E6D33C22CF3D67700A8F6F7 /* CalendarDropDownView.swift in Sources */,
 				5E722AF82CE9F4A9004B6A89 /* OperationHospitalsViewController.swift in Sources */,
@@ -5667,6 +5826,11 @@
 				5E6FEAA42CF5CB9B00F512C4 /* ProfileFavouritesCollectionViewCell.swift in Sources */,
 				5E7511552D10C8D300F9713B /* InsuranceCompaniesViewController.swift in Sources */,
 				5E6A537C2CD265D600441CEF /* PharmaciesCart.swift in Sources */,
+				CEA9C0E02EAE4C6700A98F1D /* Cities.swift in Sources */,
+				CEA9C0E12EAE4C6700A98F1D /* Favourites.swift in Sources */,
+				CEA9C0E22EAE4C6700A98F1D /* DeleteResponse.swift in Sources */,
+				CEA9C0E32EAE4C6700A98F1D /* HospitalFilter.swift in Sources */,
+				CEA9C0E42EAE4C6700A98F1D /* UnifiedHospital.swift in Sources */,
 				5E68CD932CAE4F0200B5023F /* BulletPointsTableViewCell.swift in Sources */,
 				5E6DB0682D1D61690016E770 /* OneDayCareServiceCollectionViewCell.swift in Sources */,
 				5E6D33C42CF4561E00A8F6F7 /* labAppointment.swift in Sources */,

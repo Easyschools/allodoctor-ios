@@ -16,15 +16,17 @@ class DoctorSearchViewModel {
     private var cancellables = Set<AnyCancellable>()
     private var specialityId:String?
     private let externalClinicServiceId : Int?
+    private let infoServiceId: Int?
     @Published var errorMessage: String?
     @Published var cities: [City] = []
     var doctorPlace: DoctorPlace
-    init(coordinator: HomeCoordinatorContact? = nil, apiClient: APIClient = APIClient(),specialityId:String?,externalClinicServiceId:Int?,doctorPlace: DoctorPlace) {
+    init(coordinator: HomeCoordinatorContact? = nil, apiClient: APIClient = APIClient(),specialityId:String?,externalClinicServiceId:Int?,doctorPlace: DoctorPlace, infoServiceId: Int? = nil) {
         self.coordinator = coordinator
         self.apiClient = apiClient
         self.specialityId = specialityId
         self.externalClinicServiceId = externalClinicServiceId
         self.doctorPlace = doctorPlace
+        self.infoServiceId = infoServiceId
         setupSearchSubscription()
     }
     
@@ -42,7 +44,8 @@ class DoctorSearchViewModel {
         let encodedText = searchedText.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
         let district = districtId.map { "\($0)" } ?? ""
         let speciality = specialityId
-        let urlString = "https://Backend.allo-doctor.com/api/admin/doctor/all?is_paginate=30&speciality_id=\(speciality ?? "")&search=\(encodedText)&web=1&sort_by=\(sortBy)&district_id=\(district)&title_type_en=\(filters?.titleType ?? "")&gender=\(filters?.gender ?? "")&max_price=\(filters?.maxPrice?.toString ?? "")&medical_insurance=\(filters?.medicalInsuranceId?.toString() ?? "")&external_clinic_service_id=\(externalClinicServiceId?.toString() ?? "")"
+        let infoService = infoServiceId.map { "\($0)" } ?? ""
+        let urlString = "https://Backend.allo-doctor.com/api/admin/doctor/all?is_paginate=30&speciality_id=\(speciality ?? "")&search=\(encodedText)&web=1&sort_by=\(sortBy)&district_id=\(district)&title_type_en=\(filters?.titleType ?? "")&gender=\(filters?.gender ?? "")&max_price=\(filters?.maxPrice?.toString ?? "")&medical_insurance=\(filters?.medicalInsuranceId?.toString() ?? "")&external_clinic_service_id=\(externalClinicServiceId?.toString() ?? "")&info_service_id=\(infoService)"
          print(urlString)
          guard let url = URL(string: urlString) else {
              print("Invalid URL")

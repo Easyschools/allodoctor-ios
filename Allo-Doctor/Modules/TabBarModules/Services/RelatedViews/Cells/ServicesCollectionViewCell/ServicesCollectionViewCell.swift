@@ -32,4 +32,21 @@ extension ServicesCollectionViewCell{
             bookVisitButton.setTitle(AppLocalizedKeys.bookVisit.localized, for: .normal)
         }
     }
+
+    // Support for Specialty (from HospitalModules)
+    func setupCell(specialty: Specialty) {
+        // Set specialty name based on language
+        if UserDefaultsManager.sharedInstance.getLanguage() == .ar {
+            serviceLabel.text = specialty.nameAr ?? specialty.name
+        } else {
+            serviceLabel.text = specialty.nameEn ?? specialty.name
+        }
+
+        // Use a default medical icon for specialty
+        serviceImage.image = UIImage(systemName: "stethoscope")
+        serviceImage.tintColor = .darkBlue_295DA8
+
+        // Hide book button for specialties
+        bookVisitButton.isHidden = true
+    }
 }

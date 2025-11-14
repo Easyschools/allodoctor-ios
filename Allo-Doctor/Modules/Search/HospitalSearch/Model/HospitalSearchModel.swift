@@ -8,12 +8,12 @@
 import Foundation
 
 // MARK: - Main Data Model
-struct HospitalData: Decodable {
+struct HospitalData: Codable {
     let data: Hospital
 }
 
 // MARK: - Hospital
-struct Hospital: Decodable {
+struct Hospital: Codable {
     let id: Int
     let nameAr: String
     let nameEn: String
@@ -40,7 +40,7 @@ struct Hospital: Decodable {
 }
 
 // MARK: - Specialty
-struct Specialty: Decodable {
+struct Specialty: Codable {
     let id: Int
     let nameEn: String
     let nameAr: String
@@ -60,7 +60,7 @@ struct Specialty: Decodable {
 }
 
 // MARK: - Doctor
-struct Doctor: Decodable {
+struct Doctor: Codable {
     let id: Int
     let name: String
     let titleEn: String?

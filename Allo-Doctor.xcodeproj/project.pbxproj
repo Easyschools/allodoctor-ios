@@ -514,6 +514,9 @@
 		5EFBF7462E0A7426006B1A61 /* MedicalImagesCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EFBF7452E0A7426006B1A61 /* MedicalImagesCollectionViewCell.xib */; };
 		5EFBF7472E0A7426006B1A61 /* MedicalImagesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EFBF7442E0A7426006B1A61 /* MedicalImagesCollectionViewCell.swift */; };
 		CE65D3F02E63005400D01D4C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CE65D3EF2E63005400D01D4C /* GoogleService-Info.plist */; };
+		CED7C40A2EC7888C0010A7C8 /* HospitalsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED7C3FD2EC7888C0010A7C8 /* HospitalsListViewModel.swift */; };
+		CED7C40C2EC7888C0010A7C8 /* HospitalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED7C3F62EC7888C0010A7C8 /* HospitalModel.swift */; };
+		CED7C40D2EC7888C0010A7C8 /* HospitalsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED7C3FB2EC7888C0010A7C8 /* HospitalsListViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1038,6 +1041,9 @@
 		5EFBF7442E0A7426006B1A61 /* MedicalImagesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicalImagesCollectionViewCell.swift; sourceTree = "<group>"; };
 		5EFBF7452E0A7426006B1A61 /* MedicalImagesCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MedicalImagesCollectionViewCell.xib; sourceTree = "<group>"; };
 		CE65D3EF2E63005400D01D4C /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		CED7C3F62EC7888C0010A7C8 /* HospitalModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HospitalModel.swift; sourceTree = "<group>"; };
+		CED7C3FB2EC7888C0010A7C8 /* HospitalsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HospitalsListViewController.swift; sourceTree = "<group>"; };
+		CED7C3FD2EC7888C0010A7C8 /* HospitalsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HospitalsListViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1191,6 +1197,7 @@
 		5E167ED22C85BEF1008864F6 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				CED7C4082EC7888C0010A7C8 /* HospitalModules 2 */,
 				5EB9F2082CF4D52700722DE5 /* ProfileModules */,
 				5EA31E5E2D22FCCD00A57A35 /* ChatModule */,
 				5E5ECA1F2CE4CE6E00AA9E45 /* SubServicesModules */,
@@ -5055,6 +5062,64 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		CED7C3F72EC7888C0010A7C8 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				CED7C3F62EC7888C0010A7C8 /* HospitalModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		CED7C3F92EC7888C0010A7C8 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		CED7C3FA2EC7888C0010A7C8 /* RelatedViews */ = {
+			isa = PBXGroup;
+			children = (
+				CED7C3F92EC7888C0010A7C8 /* Cells */,
+			);
+			path = RelatedViews;
+			sourceTree = "<group>";
+		};
+		CED7C3FC2EC7888C0010A7C8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CED7C3FB2EC7888C0010A7C8 /* HospitalsListViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		CED7C3FE2EC7888C0010A7C8 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				CED7C3FD2EC7888C0010A7C8 /* HospitalsListViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		CED7C3FF2EC7888C0010A7C8 /* HospitalsList */ = {
+			isa = PBXGroup;
+			children = (
+				CED7C3F72EC7888C0010A7C8 /* Model */,
+				CED7C3FA2EC7888C0010A7C8 /* RelatedViews */,
+				CED7C3FC2EC7888C0010A7C8 /* View */,
+				CED7C3FE2EC7888C0010A7C8 /* ViewModel */,
+			);
+			path = HospitalsList;
+			sourceTree = "<group>";
+		};
+		CED7C4082EC7888C0010A7C8 /* HospitalModules 2 */ = {
+			isa = PBXGroup;
+			children = (
+				CED7C3FF2EC7888C0010A7C8 /* HospitalsList */,
+			);
+			path = "HospitalModules 2";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -5637,6 +5702,9 @@
 				5E7ABEBA2C90F3F1007A0BA1 /* UISwitch+Publisher.swift in Sources */,
 				5E6A80502C8848F1007C14CE /* Coordinator.swift in Sources */,
 				5E6707F32CFDAC4F0004465F /* NonAuthUserViewModel.swift in Sources */,
+				CED7C40A2EC7888C0010A7C8 /* HospitalsListViewModel.swift in Sources */,
+				CED7C40C2EC7888C0010A7C8 /* HospitalModel.swift in Sources */,
+				CED7C40D2EC7888C0010A7C8 /* HospitalsListViewController.swift in Sources */,
 				5E8716902C9A2CE1006E8E66 /* CustomDropDownList.swift in Sources */,
 				5E64311A2CDA763D0020CBD6 /* UserAdressSelectModel.swift in Sources */,
 				5E723A792CEB497200F58BCE /* OperationProcedureViewController.swift in Sources */,

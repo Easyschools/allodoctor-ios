@@ -25,7 +25,7 @@ struct DoctorData: Decodable {
     let waitngTime: String?
     let price: String?
     let priceAfterDiscount: String?
-    let experience: String?
+    let experience: Int?
     let mainImage: String?
     let images: [DoctorImage]?
     let serviceSpecialtyIds: Int?

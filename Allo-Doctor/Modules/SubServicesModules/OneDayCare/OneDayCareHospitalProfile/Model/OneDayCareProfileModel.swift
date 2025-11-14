@@ -1,7 +1,7 @@
 import Foundation
 
 // MARK: - OneDayCareHospitalsResponse
-struct OneDayCareHospitalsResponse: Decodable {
+struct OneDayCareHospitalsResponse: Codable {
     let data: OneDayCareHospitals?
     
     enum CodingKeys: String, CodingKey {
@@ -10,7 +10,7 @@ struct OneDayCareHospitalsResponse: Decodable {
 }
 
 // MARK: - Data
-struct OneDayCareHospitals: Decodable {
+struct OneDayCareHospitals: Codable {
     let id: Int?
     let name: String?
     let nameAr: String?
@@ -37,7 +37,7 @@ struct OneDayCareHospitals: Decodable {
 }
 
 // MARK: - DistrictId
-struct DistrictId: Decodable {
+struct DistrictId: Codable {
     let id: Int?
     let cityId: Int?
     let name: String?
@@ -53,7 +53,7 @@ struct DistrictId: Decodable {
 
 
 // MARK: - ExternalClinic
-struct ExternalClinic: Decodable {
+struct ExternalClinic: Codable {
     let id: Int?
     let nameAr: String?
     let nameEn: String?
@@ -65,7 +65,7 @@ struct ExternalClinic: Decodable {
 }
 
 // MARK: - ExternalClinicServiceId
-struct ExternalClinicServiceId: Decodable {
+struct ExternalClinicServiceId: Codable {
     let id: Int?
     let nameAr: String?
     let nameEn: String?
@@ -78,7 +78,7 @@ struct ExternalClinicServiceId: Decodable {
 
 
 // MARK: - OneDayService
-struct OneDayService: Decodable {
+struct OneDayService: Codable {
     let id: Int?
     let price: String?
     let from: String?
@@ -93,7 +93,7 @@ struct OneDayService: Decodable {
 // MARK: - InfoService
 
 // MARK: - DayService
-struct DayService: Decodable {
+struct DayService: Codable {
     let id: Int?
     let nameEn: String?
     let nameAr: String?

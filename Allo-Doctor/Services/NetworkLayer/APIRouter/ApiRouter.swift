@@ -66,6 +66,9 @@ enum APIRouter {
     case cancelReservation(id:Int,type:String)
     case getUser(userId:Int)
     case updateMedicalData
+    case fetchHospitals(isPaginate: Int, serviceId: Int)
+    case fetchHospitalById(hospitalId: Int)
+    case fetchDoctorsByHospitalAndSpecialty(isPaginate: Int, hospitalId: Int, specialtyId: Int)
     // Construct the full path and query for each case
     private var path: String {
         switch self {
@@ -186,6 +189,12 @@ enum APIRouter {
             return "/admin/user/get?id=\(userId)"
         case .updateMedicalData:
             return "/admin/medical-info/update"
+        case .fetchHospitals(isPaginate: let isPaginate, serviceId: let serviceId):
+            return "/admin/info-service/all?service_id=\(serviceId)&is_paginate=\(isPaginate)"
+        case .fetchHospitalById(hospitalId: let hospitalId):
+            return "/admin/info-service/get?id=\(hospitalId)"
+        case .fetchDoctorsByHospitalAndSpecialty(isPaginate: let isPaginate, hospitalId: let hospitalId, specialtyId: let specialtyId):
+            return "/admin/doctor/all?is_paginate=\(isPaginate)&web=1&info_service_id=\(hospitalId)&speciality_id=\(specialtyId)"
         }
     }
     // Define the base URL for all requests

@@ -6,7 +6,7 @@
 //
 
 import Foundation
-struct LaravelResponse: Decodable {
+struct LaravelResponse: Codable {
     let data: MedicalInsurance?
     let message: String?
 }
@@ -15,7 +15,7 @@ struct UserInsuranceModel:Codable{
     let id_number: String
     let age : String
 }
-struct InsuranceResponseData: Decodable {
+struct InsuranceResponseData: Codable {
     let medicalInsurance: MedicalInsurance?
     let user: User?
     let pivot: Pivot?
@@ -28,7 +28,7 @@ struct InsuranceResponseData: Decodable {
 }
 
 // Medical Insurance
-struct MedicalInsurance: Decodable {
+struct MedicalInsurance: Codable {
     let id: Int?
     let nameEn: String?
     let nameAr: String?
@@ -53,14 +53,14 @@ struct MedicalInsurance: Decodable {
 }
 
 // User
-struct User: Decodable {
+struct User: Codable {
     let id: Int?
     let name: String?
     let email: String?
 }
 
 // Pivot
-struct Pivot: Decodable {
+struct Pivot: Codable {
     let id: Int?
     let age: String?
     let idNumber: String?

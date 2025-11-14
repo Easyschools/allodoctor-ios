@@ -162,7 +162,7 @@ extension ServicesViewController: UICollectionViewDelegate, UICollectionViewData
             if let navServiceId = NavToServiceId(rawValue: serviceid) {
                 switch navServiceId {
                 case .hospital:
-                    viewModel.navToSubServiceScreen()
+                    viewModel.navToHospitalsListScreen()
                 case .clinics:
                     viewModel.navToSearchScreen()
                 case .labs:

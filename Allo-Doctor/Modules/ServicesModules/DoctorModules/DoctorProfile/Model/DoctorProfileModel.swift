@@ -288,7 +288,7 @@ struct DoctorProfile: Decodable {
     let waitingTime: Int?
     let price: String?
     let priceAfterDiscount: String?
-    let experience: String?
+    let experience: Int?
     let mainImage: String?
     let district: DoctorDistrict?
     let districtId: Int?
@@ -464,7 +464,7 @@ struct InfoService: Decodable {
     let nameEn: String?
     let descriptionAr: String?
     let descriptionEn: String?
-    let districtId: District? 
+    let districtId: Int?
     let serviceIdOriginal: Int?
     let image: String?
     let isActive: Int?

@@ -76,7 +76,7 @@ extension OperationHospitalsViewController:UICollectionViewDelegate,UICollection
         // Get district name from cities array based on districtId
         let districtName = getDistrictName(for: hospital?.infoService?.districtId)
         
-        cell.setupCell(price:hospital?.price ?? "0", hospitalLogoURL: hospital?.infoService?.image , name: hospital?.infoService?.nameEn ?? "", district: districtName, rating: hospital?.infoService?.avgRating ?? 0)
+        cell.setupCell(price:hospital?.price ?? "0", hospitalLogoURL: hospital?.infoService?.image, backgroundImageURL: hospital?.infoService?.image , name: hospital?.infoService?.nameEn ?? "", district: districtName, rating: hospital?.infoService?.avgRating ?? 0)
         cell.cornerRadius = 10
         cell.applyDropShadow()
         

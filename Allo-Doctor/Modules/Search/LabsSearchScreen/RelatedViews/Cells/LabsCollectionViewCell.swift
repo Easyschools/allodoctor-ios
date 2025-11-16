@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class LabsCollectionViewCell: UICollectionViewCell {
 
@@ -34,6 +35,20 @@ class LabsCollectionViewCell: UICollectionViewCell {
 // MARK: - Hospital Support Extension
 extension LabsCollectionViewCell {
     func configure(hospital: HospitalInfoService) {
+        // Load background image
+        if let backgroundURL = hospital.backgroundImage, let url = URL(string: backgroundURL) {
+            labsBackGroundImage.kf.setImage(
+                with: url,
+                placeholder: UIImage(named: "hospitalsBackGround"),
+                options: [
+                    .transition(.fade(0.2)),
+                    .cacheOriginalImage
+                ]
+            )
+        } else {
+            labsBackGroundImage.image = UIImage(named: "hospitalsBackGround")
+        }
+
         // Set hospital name based on language
         if UserDefaultsManager.sharedInstance.getLanguage() == .ar {
             labName.text = hospital.nameAr ?? hospital.name ?? "Unknown"

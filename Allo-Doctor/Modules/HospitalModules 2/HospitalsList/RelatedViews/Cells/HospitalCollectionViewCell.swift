@@ -132,11 +132,18 @@ class HospitalCollectionViewCell: UICollectionViewCell {
             specialtiesCountLabel.text = "\(count) Specialties"
         }
 
-        // Set image
-        if let imageURLString = hospital.image, let imageURL = URL(string: imageURLString) {
-            hospitalImageView.kf.setImage(with: imageURL, placeholder: UIImage(named: "hospital_placeholder"))
+        // Set background image
+        if let backgroundURLString = hospital.backgroundImage, let backgroundURL = URL(string: backgroundURLString) {
+            hospitalImageView.kf.setImage(
+                with: backgroundURL,
+                placeholder: UIImage(named: "hospitalsBackGround"),
+                options: [
+                    .transition(.fade(0.2)),
+                    .cacheOriginalImage
+                ]
+            )
         } else {
-            hospitalImageView.image = UIImage(named: "hospital_placeholder")
+            hospitalImageView.image = UIImage(named: "hospitalsBackGround")
         }
     }
 

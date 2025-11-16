@@ -517,6 +517,8 @@
 		CED7C40A2EC7888C0010A7C8 /* HospitalsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED7C3FD2EC7888C0010A7C8 /* HospitalsListViewModel.swift */; };
 		CED7C40C2EC7888C0010A7C8 /* HospitalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED7C3F62EC7888C0010A7C8 /* HospitalModel.swift */; };
 		CED7C40D2EC7888C0010A7C8 /* HospitalsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED7C3FB2EC7888C0010A7C8 /* HospitalsListViewController.swift */; };
+		CEFA502E2EC9183F00D114C2 /* HospitalSpecialtiesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFA502C2EC9183F00D114C2 /* HospitalSpecialtiesViewModel.swift */; };
+		CEFA502F2EC9183F00D114C2 /* HospitalSpecialtiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFA502A2EC9183F00D114C2 /* HospitalSpecialtiesViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1044,6 +1046,8 @@
 		CED7C3F62EC7888C0010A7C8 /* HospitalModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HospitalModel.swift; sourceTree = "<group>"; };
 		CED7C3FB2EC7888C0010A7C8 /* HospitalsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HospitalsListViewController.swift; sourceTree = "<group>"; };
 		CED7C3FD2EC7888C0010A7C8 /* HospitalsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HospitalsListViewModel.swift; sourceTree = "<group>"; };
+		CEFA502A2EC9183F00D114C2 /* HospitalSpecialtiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HospitalSpecialtiesViewController.swift; sourceTree = "<group>"; };
+		CEFA502C2EC9183F00D114C2 /* HospitalSpecialtiesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HospitalSpecialtiesViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -5115,9 +5119,51 @@
 		CED7C4082EC7888C0010A7C8 /* HospitalModules 2 */ = {
 			isa = PBXGroup;
 			children = (
+				CEFA50272EC9172800D114C2 /* HospitalSpecialties */,
 				CED7C3FF2EC7888C0010A7C8 /* HospitalsList */,
 			);
 			path = "HospitalModules 2";
+			sourceTree = "<group>";
+		};
+		CEFA50272EC9172800D114C2 /* HospitalSpecialties */ = {
+			isa = PBXGroup;
+			children = (
+				CEFA50292EC9183F00D114C2 /* RelatedViews */,
+				CEFA502B2EC9183F00D114C2 /* View */,
+				CEFA502D2EC9183F00D114C2 /* ViewModel */,
+			);
+			path = HospitalSpecialties;
+			sourceTree = "<group>";
+		};
+		CEFA50282EC9183F00D114C2 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		CEFA50292EC9183F00D114C2 /* RelatedViews */ = {
+			isa = PBXGroup;
+			children = (
+				CEFA50282EC9183F00D114C2 /* Cells */,
+			);
+			path = RelatedViews;
+			sourceTree = "<group>";
+		};
+		CEFA502B2EC9183F00D114C2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CEFA502A2EC9183F00D114C2 /* HospitalSpecialtiesViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		CEFA502D2EC9183F00D114C2 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				CEFA502C2EC9183F00D114C2 /* HospitalSpecialtiesViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -5616,6 +5662,8 @@
 				5E639B292C94F78C004AD3AB /* ServiceModel.swift in Sources */,
 				5EF44D262CBBC0AB004618B2 /* BookingLabsAndScanViewController.swift in Sources */,
 				5E6A80682C88A0C9007C14CE /* OnBoardingScreensViewController.swift in Sources */,
+				CEFA502E2EC9183F00D114C2 /* HospitalSpecialtiesViewModel.swift in Sources */,
+				CEFA502F2EC9183F00D114C2 /* HospitalSpecialtiesViewController.swift in Sources */,
 				5E7429A22D044F2B00A53D50 /* SectionSeachableTableViewController.swift in Sources */,
 				5E6707F12CFCB6F30004465F /* NonAuthUserViewController.swift in Sources */,
 				5E5D54AD2DE49030007A56E8 /* SelectChatTypeViewModel.swift in Sources */,
@@ -5681,6 +5729,7 @@
 				5E1C529C2D19720700F97A97 /* PaymentViewController.swift in Sources */,
 				5E6A0E6E2CA1CCD1002BA369 /* ClinicProfileViewController.swift in Sources */,
 				5E707D412CA271ED000DE007 /* CustomPaddingbutton.swift in Sources */,
+				CECBB9B42EC92359008DC94D /* SpecialtyCollectionViewCell 2.swift in Sources */,
 				5E641A3C2CE38C92001C0F18 /* ConfirmationView.swift in Sources */,
 				5E6A0E772CA1DA48002BA369 /* AboutClinicView.swift in Sources */,
 				5E68F6D12CCFBD2A000E4968 /* PharmaciesCartViewController.swift in Sources */,

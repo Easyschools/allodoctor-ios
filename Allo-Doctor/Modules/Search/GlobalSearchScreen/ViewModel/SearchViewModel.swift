@@ -5,26 +5,46 @@
 //  Created by Abdallah ismail on 18/09/2024.
 //
 import Foundation
+
+enum SearchDisplayMode {
+    case globalSearch  // Display all specialties from API
+    case hospitalSpecialties(hospitalId: Int, specialties: [Specialty])  // Display hospital's specialties
+}
+
 class SearchViewModel {
     // MARK: - Published properties
     @Published var specialties: [AllSpeciality] = []
+    @Published var hospitalSpecialties: [Specialty] = []
+    @Published var filteredHospitalSpecialties: [Specialty] = []
     @Published var cities: [City] = []
     @Published var errorMessage: String?
     @Published var searchText = ""
     @Published var searchResult: [SearchResult] = []
 
-    
+
     // MARK: - Private properties
     private var cancellables = Set<AnyCancellable>()
     private var apiClient: APIClient
     var districtId = CurrentValueSubject<Int, Never>(0)
+
     // MARK: - Public properties
     var coordinator: HomeCoordinatorContact?
-    
+    var displayMode: SearchDisplayMode
+    private var hospitalId: Int?
+
     // MARK: - Initialization
-    init(coordinator: HomeCoordinatorContact? = nil, apiClient: APIClient = APIClient()) {
+    init(coordinator: HomeCoordinatorContact? = nil, apiClient: APIClient = APIClient(), mode: SearchDisplayMode = .globalSearch) {
         self.coordinator = coordinator
         self.apiClient = apiClient
+        self.displayMode = mode
+
+        // If hospital specialties mode, setup specialties
+        if case .hospitalSpecialties(let hospitalId, let specialties) = mode {
+            self.hospitalId = hospitalId
+            self.hospitalSpecialties = specialties
+            self.filteredHospitalSpecialties = specialties
+        }
+
         setupSearchSubscription()
     }
     
@@ -33,11 +53,30 @@ class SearchViewModel {
         $searchText
             .debounce(for: .milliseconds(300), scheduler: DispatchQueue.main)
             .removeDuplicates()
-            .filter { !$0.isEmpty }
             .sink { [weak self] searchText in
-                self?.fetchsearchResults(searchedText: searchText)
+                guard let self = self else { return }
+                switch self.displayMode {
+                case .globalSearch:
+                    if !searchText.isEmpty {
+                        self.fetchsearchResults(searchedText: searchText)
+                    }
+                case .hospitalSpecialties:
+                    self.filterHospitalSpecialties(with: searchText)
+                }
             }
             .store(in: &cancellables)
+    }
+
+    private func filterHospitalSpecialties(with searchText: String) {
+        if searchText.isEmpty {
+            filteredHospitalSpecialties = hospitalSpecialties
+        } else {
+            let language = UserDefaultsManager.sharedInstance.getLanguage()
+            filteredHospitalSpecialties = hospitalSpecialties.filter { specialty in
+                let name = language == .ar ? (specialty.nameAr ?? specialty.name ?? "") : (specialty.nameEn ?? specialty.name ?? "")
+                return name.localizedCaseInsensitiveContains(searchText)
+            }
+        }
     }
     
     func clearSearchResults() {
@@ -124,6 +163,12 @@ class SearchViewModel {
     func navtoDoctorSearch(specialityId:String) {
         coordinator?.showDoctorSearch(specialityId:specialityId, externalClinicServiceId: "", doctorPlace: .doctorClinics)
     }
+
+    func navToHospitalDoctorSearch(specialtyId: Int) {
+        guard let hospitalId = hospitalId else { return }
+        coordinator?.showDoctorsForHospital(hospitalId: hospitalId, specialtyId: specialtyId)
+    }
+
     func navToDoctor(id:String){
         coordinator?.showDoctorProfile(doctorID: id, doctorPlace: .doctorClinics)
     }

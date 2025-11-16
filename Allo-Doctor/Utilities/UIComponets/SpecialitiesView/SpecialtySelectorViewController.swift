@@ -6,6 +6,12 @@
 //
 
 import UIKit
+import Combine
+
+enum SpecialtySelectorMode {
+    case allSpecialties // Fetch all specialties from API
+    case hospitalSpecialties(hospitalId: Int, specialties: [Specialty], coordinator: HomeCoordinatorContact) // Display specific hospital's specialties
+}
 
 protocol SpecialtySelectorDelegate: AnyObject {
     func specialtySelectorDidSelect(_ specialty: AllSpeciality)
@@ -19,6 +25,11 @@ class SpecialtySelectorViewController: UIViewController {
     private var allSpecialties: [AllSpeciality] = []
     private var filteredSpecialties: [AllSpeciality] = []
     weak var delegate: SpecialtySelectorDelegate?
+
+    // Hospital-specific properties
+    private var displayMode: SpecialtySelectorMode = .allSpecialties
+    private var hospitalSpecialties: [Specialty] = []
+    private var filteredHospitalSpecialties: [Specialty] = []
     
     // MARK: - UI Components
     private lazy var searchBar: UISearchBar = {
@@ -39,11 +50,30 @@ class SpecialtySelectorViewController: UIViewController {
         return table
     }()
     
+    // MARK: - Initializers
+    convenience init(mode: SpecialtySelectorMode) {
+        self.init(nibName: nil, bundle: nil)
+        self.displayMode = mode
+
+        // If hospital mode, extract specialties
+        if case .hospitalSpecialties(_, let specialties, _) = mode {
+            self.hospitalSpecialties = specialties
+            self.filteredHospitalSpecialties = specialties
+        }
+    }
+
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        fetchSpecialties()
+
+        // Fetch specialties only in all specialties mode
+        switch displayMode {
+        case .allSpecialties:
+            fetchSpecialties()
+        case .hospitalSpecialties:
+            tableView.reloadData()
+        }
     }
     
     // MARK: - Setup
@@ -98,14 +128,29 @@ class SpecialtySelectorViewController: UIViewController {
     }
     
     private func filterSpecialties(_ searchText: String) {
-        if searchText.isEmpty {
-            filteredSpecialties = allSpecialties
-        } else {
-            filteredSpecialties = allSpecialties.filter { specialty in
-                let searchLowercased = searchText.lowercased()
-                return specialty.nameEn?.lowercased().contains(searchLowercased) ?? true ||
-                ((specialty.nameAr?.lowercased().contains(searchLowercased)) != nil) ||
-                ((specialty.name?.lowercased().contains(searchLowercased)) != nil)
+        switch displayMode {
+        case .allSpecialties:
+            if searchText.isEmpty {
+                filteredSpecialties = allSpecialties
+            } else {
+                filteredSpecialties = allSpecialties.filter { specialty in
+                    let searchLowercased = searchText.lowercased()
+                    return specialty.nameEn?.lowercased().contains(searchLowercased) ?? true ||
+                    ((specialty.nameAr?.lowercased().contains(searchLowercased)) != nil) ||
+                    ((specialty.name?.lowercased().contains(searchLowercased)) != nil)
+                }
+            }
+
+        case .hospitalSpecialties:
+            if searchText.isEmpty {
+                filteredHospitalSpecialties = hospitalSpecialties
+            } else {
+                filteredHospitalSpecialties = hospitalSpecialties.filter { specialty in
+                    let searchLowercased = searchText.lowercased()
+                    let language = UserDefaultsManager.sharedInstance.getLanguage()
+                    let name = language == .ar ? (specialty.nameAr ?? specialty.name ?? "") : (specialty.nameEn ?? specialty.name ?? "")
+                    return name.lowercased().contains(searchLowercased)
+                }
             }
         }
         tableView.reloadData()
@@ -121,27 +166,48 @@ class SpecialtySelectorViewController: UIViewController {
 // MARK: - UITableViewDelegate & DataSource
 extension SpecialtySelectorViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return filteredSpecialties.count
+        switch displayMode {
+        case .allSpecialties:
+            return filteredSpecialties.count
+        case .hospitalSpecialties:
+            return filteredHospitalSpecialties.count
+        }
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SpecialtyCell", for: indexPath)
-        let specialty = filteredSpecialties[indexPath.row]
-        
-        // Configure cell based on language
-        if UserDefaultsManager.sharedInstance.getLanguage() == .ar {
-            cell.textLabel?.text = specialty.nameAr
-        } else {
-            cell.textLabel?.text = specialty.nameEn
+
+        // Configure cell based on language and mode
+        let language = UserDefaultsManager.sharedInstance.getLanguage()
+
+        switch displayMode {
+        case .allSpecialties:
+            let specialty = filteredSpecialties[indexPath.row]
+            cell.textLabel?.text = language == .ar ? specialty.nameAr : specialty.nameEn
+
+        case .hospitalSpecialties:
+            let specialty = filteredHospitalSpecialties[indexPath.row]
+            cell.textLabel?.text = language == .ar ? (specialty.nameAr ?? specialty.name) : (specialty.nameEn ?? specialty.name)
         }
-        
+
+        cell.accessoryType = .disclosureIndicator
         return cell
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedSpecialty = filteredSpecialties[indexPath.row]
-        delegate?.specialtySelectorDidSelect(selectedSpecialty)
-        dismiss(animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
+
+        switch displayMode {
+        case .allSpecialties:
+            let selectedSpecialty = filteredSpecialties[indexPath.row]
+            delegate?.specialtySelectorDidSelect(selectedSpecialty)
+            dismiss(animated: true)
+
+        case .hospitalSpecialties(let hospitalId, _, let coordinator):
+            let selectedSpecialty = filteredHospitalSpecialties[indexPath.row]
+            // Navigate to doctors for this hospital and specialty
+            coordinator.showDoctorsForHospital(hospitalId: hospitalId, specialtyId: selectedSpecialty.id)
+        }
     }
 }
 

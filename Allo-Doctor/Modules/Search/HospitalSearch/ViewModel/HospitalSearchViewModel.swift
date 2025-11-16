@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 enum HospitalDisplayMode {
     case hospitals  // Display list of hospitals
@@ -14,6 +15,8 @@ enum HospitalDisplayMode {
 
 class HospitalSearchViewModel{
     @Published var hospitals: HospitalData?
+    @Published var hospitalsList: [HospitalInfoService] = []
+    @Published var filteredHospitals: [HospitalInfoService] = []
     @Published var specialties: [Specialty] = []
     @Published var filteredSpecialties: [Specialty] = []
     @Published var searchText: String = ""
@@ -31,12 +34,14 @@ class HospitalSearchViewModel{
         self.apiClient = apiClient
         self.displayMode = mode
 
+        // Setup search subscription for both modes
+        setupSearchSubscription()
+
         // If displaying specialties, extract them from hospital
         if case .specialties(let hospital) = mode {
             self.selectedHospital = hospital
             self.specialties = hospital.specialties
             self.filteredSpecialties = hospital.specialties
-            setupSearchSubscription()
         }
     }
 
@@ -45,9 +50,27 @@ class HospitalSearchViewModel{
             .debounce(for: .milliseconds(300), scheduler: DispatchQueue.main)
             .removeDuplicates()
             .sink { [weak self] searchText in
-                self?.filterSpecialties(with: searchText)
+                guard let self = self else { return }
+                switch self.displayMode {
+                case .hospitals:
+                    self.filterHospitals(with: searchText)
+                case .specialties:
+                    self.filterSpecialties(with: searchText)
+                }
             }
             .store(in: &cancellables)
+    }
+
+    private func filterHospitals(with searchText: String) {
+        if searchText.isEmpty {
+            filteredHospitals = hospitalsList
+        } else {
+            let language = UserDefaultsManager.sharedInstance.getLanguage()
+            filteredHospitals = hospitalsList.filter { hospital in
+                let name = language == .ar ? (hospital.nameAr ?? hospital.name ?? "") : (hospital.nameEn ?? hospital.name ?? "")
+                return name.localizedCaseInsensitiveContains(searchText)
+            }
+        }
     }
 
     private func filterSpecialties(with searchText: String) {
@@ -64,36 +87,35 @@ class HospitalSearchViewModel{
 }
 extension HospitalSearchViewModel{
     func fetchHospitals(){
-        let url = URL(string:"https://Backend.allo-doctor.com/api/admin/info-service/get?id=1)") ?? URL(string: "")!
-        apiClient?.fetchData(from:url, as: HospitalData.self)
-            .sink(receiveCompletion: { completion in
+        // Fetch hospitals using the APIRouter
+        let router = APIRouter.fetchHospitals(isPaginate: 50, serviceId: 1)
+        apiClient?.fetchData(from: router.url, as: HospitalResponse.self)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { [weak self] completion in
                 switch completion {
                 case .finished:
                    break
                 case .failure(let error):
-                  self.errorMessage = "Failed to fetch Labs: \(error.localizedDescription)"
+                  self?.errorMessage = "Failed to fetch hospitals: \(error.localizedDescription)"
+                  print("Error fetching hospitals: \(error)")
                 }
-            }, receiveValue: { hospitalResponse in
-
-                self.hospitals = hospitalResponse
+            }, receiveValue: { [weak self] hospitalResponse in
+                self?.hospitalsList = hospitalResponse.data
+                self?.filteredHospitals = hospitalResponse.data
+                print("Fetched \(hospitalResponse.data.count) hospitals")
             })
             .store(in: &cancellables)
     }
 
-    func navToDoctorsSearch() {
-        coordinator?.showDoctorSearch(specialityId: "1", externalClinicServiceId: "", doctorPlace: .outpatientClinics)
+    func navigateToHospitalFromList(hospital: HospitalInfoService) {
+        // Navigate to hospital specialties when a hospital is selected
+        coordinator?.showHospitalSpecialties(hospital: hospital)
     }
 
     // Navigation for specialties mode
     func navigateToSpecialty(specialty: Specialty) {
         guard let hospital = selectedHospital else { return }
         coordinator?.showDoctorsForHospital(hospitalId: hospital.id, specialtyId: specialty.id)
-    }
-
-    func navigateToHospitalSpecialties(hospital: Hospital) {
-        // Convert Hospital to HospitalInfoService format if needed
-        // For now, navigate to doctor search with hospital context
-        coordinator?.showDoctorSearch(specialityId: "", externalClinicServiceId: "", doctorPlace: .outpatientClinics)
     }
 
     func navigateBack() {

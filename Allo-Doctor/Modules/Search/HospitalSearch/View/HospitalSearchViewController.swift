@@ -40,46 +40,60 @@ class HospitalSearchViewController: BaseViewController<HospitalSearchViewModel> 
         func setupCollectionView() {
             hospitalsCollectionVIew.delegate = self
             hospitalsCollectionVIew.dataSource = self
+            // Register cell for hospitals (full-width cards with background image)
+            hospitalsCollectionVIew.registerCell(cellClass: ExternalClinicHospitalsCollectionViewCell.self)
+            // Register cell for specialties (2-column grid)
             hospitalsCollectionVIew.registerCell(cellClass: LabsCollectionViewCell.self)
         }
 
         func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
             switch viewModel.displayMode {
             case .hospitals:
-                return 2  // Hardcoded for now, should be viewModel.hospitals?.data.count ?? 0
+                return viewModel.filteredHospitals.count
             case .specialties:
                 return viewModel.filteredSpecialties.count
             }
         }
 
         func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "LabsCollectionViewCell", for: indexPath) as? LabsCollectionViewCell else {
-                fatalError("Unable to dequeue LabsCollectionViewCell")
-            }
-
             switch viewModel.displayMode {
             case .hospitals:
-                // Display hospital (original behavior)
-                // let data = viewModel.hospitals?.data
-                // cell.configure(hospital: data)
-                break
+                // Display hospital with full-width card
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ExternalClinicHospitalsCollectionViewCell", for: indexPath) as? ExternalClinicHospitalsCollectionViewCell else {
+                    fatalError("Unable to dequeue ExternalClinicHospitalsCollectionViewCell")
+                }
+                let hospital = viewModel.filteredHospitals[indexPath.row]
+                cell.setupCell(hospital: hospital)
+                return cell
+
             case .specialties:
-                // Display specialty
+                // Display specialty with 2-column grid
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "LabsCollectionViewCell", for: indexPath) as? LabsCollectionViewCell else {
+                    fatalError("Unable to dequeue LabsCollectionViewCell")
+                }
                 let specialty = viewModel.filteredSpecialties[indexPath.row]
                 cell.configure(specialty: specialty)
+                return cell
             }
-
-            return cell
         }
 
         func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-            return CGSize(width: collectionView.frame.width*0.48, height: 100)
+            switch viewModel.displayMode {
+            case .hospitals:
+                // Full-width vertical cards for hospitals
+                let width = collectionView.bounds.width - 32 // 16pt padding on each side
+                return CGSize(width: width, height: 140)
+            case .specialties:
+                // 2-column grid for specialties
+                return CGSize(width: collectionView.frame.width*0.48, height: 100)
+            }
         }
 
         func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
             switch viewModel.displayMode {
             case .hospitals:
-                viewModel.navToDoctorsSearch()
+                let hospital = viewModel.filteredHospitals[indexPath.row]
+                viewModel.navigateToHospitalFromList(hospital: hospital)
             case .specialties:
                 let specialty = viewModel.filteredSpecialties[indexPath.row]
                 viewModel.navigateToSpecialty(specialty: specialty)
@@ -88,8 +102,8 @@ class HospitalSearchViewController: BaseViewController<HospitalSearchViewModel> 
     }
     extension HospitalSearchViewController{
         private func bindCollectionView() {
-            // Bind hospitals data
-            viewModel.$hospitals
+            // Bind filtered hospitals data (for hospitals mode)
+            viewModel.$filteredHospitals
                 .receive(on: DispatchQueue.main)
                 .sink { [weak self] hospitals in
                     self?.hospitalsCollectionVIew.reloadData()

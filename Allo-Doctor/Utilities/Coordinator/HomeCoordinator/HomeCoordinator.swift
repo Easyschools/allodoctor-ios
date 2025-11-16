@@ -503,17 +503,22 @@ extension HomeCoordinator: HomeCoordinatorContact {
 // MARK: - Hospital Modules Navigations
 extension HomeCoordinator {
     func showHospitalsList() {
-        let viewModel = HospitalsListViewModel(coordinator: self)
-        let viewController = HospitalsListViewController(viewModel: viewModel)
+        // Reuse HospitalSearchViewController in hospitals mode
+        let viewModel = HospitalSearchViewModel(coordinator: self, mode: .hospitals)
+        let viewController = HospitalSearchViewController(viewModel: viewModel)
         if let navController = (window?.rootViewController as? UITabBarController)?.selectedViewController as? UINavigationController {
             navController.pushViewController(viewController, animated: true)
         }
     }
 
     func showHospitalSpecialties(hospital: HospitalInfoService) {
-        // Reuse HospitalSearchViewController in specialties mode
-        let viewModel = HospitalSearchViewModel(coordinator: self, mode: .specialties(hospital: hospital))
-        let viewController = HospitalSearchViewController(viewModel: viewModel)
+        // Reuse SearchViewController in hospital specialties mode
+        let mode = SearchDisplayMode.hospitalSpecialties(
+            hospitalId: hospital.id,
+            specialties: hospital.specialties
+        )
+        let viewModel = SearchViewModel(coordinator: self, mode: mode)
+        let viewController = SearchViewController(viewModel: viewModel)
         if let navController = (window?.rootViewController as? UITabBarController)?.selectedViewController as? UINavigationController {
             navController.pushViewController(viewController, animated: true)
         }

@@ -243,7 +243,7 @@ class DoctorProfileViewController: BaseViewController<DoctorProfileViewModel> {
             
             doctorSpecialityLabel.text = doctorData?.descriptionAr
             doctorDetailsLabel.text = doctorData?.titleAr
-            waitingTimeLabel.text = doctorData?.waitingTime?.toString().appendingWithSpace(AppLocalizedKeys.waitingTime.localized)
+            waitingTimeLabel.text = doctorData?.waitingTime.map { $0.toString().appendingWithSpace(AppLocalizedKeys.waitingTime.localized) } ?? ""
             
             // Set medical insurance text in Arabic
             setupMedicalInsuranceText(isArabic: true)
@@ -262,7 +262,7 @@ class DoctorProfileViewController: BaseViewController<DoctorProfileViewModel> {
             
             doctorSpecialityLabel.text = doctorData?.descriptionEn
             doctorDetailsLabel.text = doctorData?.titleEn
-            waitingTimeLabel.text = doctorData?.waitingTime?.toString().appendingWithSpace(AppLocalizedKeys.waitingTime.localized)
+            waitingTimeLabel.text = doctorData?.waitingTime.map { $0.toString().appendingWithSpace(AppLocalizedKeys.waitingTime.localized) } ?? ""
             
             // Set medical insurance text in English
             setupMedicalInsuranceText(isArabic: false)

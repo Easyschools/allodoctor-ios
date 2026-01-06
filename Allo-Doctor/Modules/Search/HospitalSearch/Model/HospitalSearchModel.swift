@@ -42,12 +42,12 @@ struct Hospital: Codable {
 // MARK: - Specialty
 struct Specialty: Codable {
     let id: Int
-    let nameEn: String
-    let nameAr: String
-    let name: String
-    let descriptionEn: String
-    let descriptionAr: String
-    let description: String
+    let nameEn: String?
+    let nameAr: String?
+    let name: String?
+    let descriptionEn: String?
+    let descriptionAr: String?
+    let description: String?
 
     // Coding Keys for custom mapping
     enum CodingKeys: String, CodingKey {
@@ -61,22 +61,22 @@ struct Specialty: Codable {
 
 // MARK: - Doctor
 struct Doctor: Codable {
-    let id: Int
-    let name: String
+    let id: Int?
+    let name: String?
     let titleEn: String?
-    let titleAr: String
+    let titleAr: String?
     let title: String?
-    let descriptionEn: String
-    let descriptionAr: String
-    let description: String
-    let address: String
+    let descriptionEn: String?
+    let descriptionAr: String?
+    let description: String?
+    let address: String?
     let lat: Double?
     let long: Double?
     let rate: Double?
     let waitingTime: String?
-    let price: String
-    let priceAfterDiscount: String
-    let experience: String
+    let price: String?
+    let priceAfterDiscount: String?
+    let experience: Int?
     let mainImage: String?
 
     // Coding Keys for custom mapping

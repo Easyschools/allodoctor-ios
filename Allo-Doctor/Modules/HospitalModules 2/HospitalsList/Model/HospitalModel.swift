@@ -111,25 +111,6 @@ struct HospitalServiceInfo: Codable {
     }
 }
 
-// MARK: - Specialty
-//struct Specialty: Codable {
-//    let id: Int
-//    let nameEn: String?
-//    let nameAr: String?
-//    let name: String?
-//    let descriptionEn: String?
-//    let descriptionAr: String?
-//    let description: String?
-//
-//    enum CodingKeys: String, CodingKey {
-//        case id, name, description
-//        case nameEn = "name_en"
-//        case nameAr = "name_ar"
-//        case descriptionEn = "description_en"
-//        case descriptionAr = "description_ar"
-//    }
-//}
-
 // MARK: - Hospital Branch
 struct HospitalBranch: Codable {
     let id: Int
@@ -145,37 +126,6 @@ struct HospitalBranch: Codable {
     }
 }
 
-// MARK: - Medical Insurance
-//struct MedicalInsurance: Codable {
-//    let id: Int?
-//    let nameAr: String?
-//    let nameEn: String?
-//    let name: String?
-//
-//    enum CodingKeys: String, CodingKey {
-//        case id, name
-//        case nameAr = "name_ar"
-//        case nameEn = "name_en"
-//    }
-//}
-
-// MARK: - One Day Service
-//struct OneDayService: Codable {
-//    // Define properties based on your API response
-//}
-
-// MARK: - Doctor (Basic)
-//struct Doctor: Codable {
-//    let id: Int?
-//    let nameEn: String?
-//    let nameAr: String?
-//
-//    enum CodingKeys: String, CodingKey {
-//        case id
-//        case nameEn = "name_en"
-//        case nameAr = "name_ar"
-//    }
-//}
 
 // MARK: - Pagination Links
 struct HospitalLinks: Codable {

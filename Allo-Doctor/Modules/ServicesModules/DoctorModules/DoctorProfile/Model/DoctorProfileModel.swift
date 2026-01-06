@@ -457,6 +457,7 @@ struct ExternalClinicService: Decodable {
 //        case operationServiceId = "operation_service_id"
 //    }
 //}
+
 struct InfoService: Decodable {
     let id: Int?
     let name: String?
@@ -464,7 +465,7 @@ struct InfoService: Decodable {
     let nameEn: String?
     let descriptionAr: String?
     let descriptionEn: String?
-    let districtId: Int?
+    let district: District?
     let serviceIdOriginal: Int?
     let image: String?
     let isActive: Int?
@@ -480,17 +481,48 @@ struct InfoService: Decodable {
 
     enum CodingKeys: String, CodingKey {
         case id, name, image, address, lat, long
+        case district = "district_id"
         case nameAr = "name_ar"
         case nameEn = "name_en"
         case descriptionAr = "description_ar"
         case descriptionEn = "description_en"
-        case districtId = "district_id"
         case serviceIdOriginal = "service_id_original"
         case isActive = "is_active"
         case operationServiceId = "operation_service_id"
         case avgRating = "avg_rating"
         case reviewsCount = "reviews_count"
 //        case branchesCount = "branches_count"
+    }
+
+    // Custom decoder to handle district_id as either Int or District object
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        id = try container.decodeIfPresent(Int.self, forKey: .id)
+        name = try container.decodeIfPresent(String.self, forKey: .name)
+        nameAr = try container.decodeIfPresent(String.self, forKey: .nameAr)
+        nameEn = try container.decodeIfPresent(String.self, forKey: .nameEn)
+        descriptionAr = try container.decodeIfPresent(String.self, forKey: .descriptionAr)
+        descriptionEn = try container.decodeIfPresent(String.self, forKey: .descriptionEn)
+        serviceIdOriginal = try container.decodeIfPresent(Int.self, forKey: .serviceIdOriginal)
+        image = try container.decodeIfPresent(String.self, forKey: .image)
+        isActive = try container.decodeIfPresent(Int.self, forKey: .isActive)
+        address = try container.decodeIfPresent(String.self, forKey: .address)
+        lat = try container.decodeIfPresent(String.self, forKey: .lat)
+        long = try container.decodeIfPresent(String.self, forKey: .long)
+        operationServiceId = try container.decodeIfPresent(Int.self, forKey: .operationServiceId)
+        avgRating = try container.decodeIfPresent(Double.self, forKey: .avgRating)
+        reviewsCount = try container.decodeIfPresent(Int.self, forKey: .reviewsCount)
+
+        // Try to decode district_id as District object first, then as Int
+        if let districtObject = try? container.decodeIfPresent(District.self, forKey: .district) {
+            district = districtObject
+        } else if let districtInt = try? container.decodeIfPresent(Int.self, forKey: .district) {
+            // If it's just an Int, create a District with only the ID
+            district = District(id: districtInt, cityId: nil, name: nil, nameAr: nil, nameEn: nil)
+        } else {
+            district = nil
+        }
     }
 }
 

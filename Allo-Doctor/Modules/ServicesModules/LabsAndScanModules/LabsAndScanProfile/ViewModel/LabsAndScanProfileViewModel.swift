@@ -18,7 +18,8 @@ class LabsAndScanProfileViewModel: ObservableObject {
     @Published var id: Int?
     @Published var searchText: String = ""
     @Published var filteredTests: [LabTestType] = []
-    
+    @Published var expandedTestIds: Set<Int> = []
+
     private var cancellables = Set<AnyCancellable>()
     private var apiClient: APIClient
     
@@ -88,6 +89,19 @@ class LabsAndScanProfileViewModel: ObservableObject {
     
     func isAdded(test: LabTestType) -> Bool {
         return AddedItems.contains(test)
+    }
+
+    func toggleExpanded(testId: Int) {
+        if expandedTestIds.contains(testId) {
+            expandedTestIds.remove(testId)
+        } else {
+            expandedTestIds.insert(testId)
+        }
+        objectWillChange.send()
+    }
+
+    func isExpanded(testId: Int) -> Bool {
+        return expandedTestIds.contains(testId)
     }
 }
 

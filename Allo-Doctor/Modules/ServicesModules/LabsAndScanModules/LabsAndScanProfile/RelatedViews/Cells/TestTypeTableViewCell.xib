@@ -22,59 +22,88 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E9b-ek-Rlo" customClass="ShadowView" customModule="Allo_Doctor" customModuleProvider="target">
                         <rect key="frame" x="16" y="0.0" width="288" height="80"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="25r-1M-GPo">
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="vSt-9h-abc">
                                 <rect key="frame" x="20" y="10" width="258" height="60"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="US 4D" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bjE-j8-XU6" customClass="CairoSemiBold" customModule="Allo_Doctor" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="190" height="60"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="190" id="i3d-eq-UF2"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="25r-1M-GPo">
+                                        <rect key="frame" x="0.0" y="0.0" width="258" height="60"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="hWd-kL-9mN">
+                                                <rect key="frame" x="0.0" y="0.0" width="190" height="60"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="US 4D" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bjE-j8-XU6" customClass="CairoSemiBold" customModule="Allo_Doctor" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="19.666666666666668" width="166" height="20.333333333333329"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
+                                                                <real key="value" value="14"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </label>
+                                                    <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron.down" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Ztd-9Y-hJc">
+                                                        <rect key="frame" x="174" y="21.333333333333329" width="16" height="17.333333333333329"/>
+                                                        <color key="tintColor" systemColor="systemGrayColor"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="16" id="eKd-Gp-8hH"/>
+                                                            <constraint firstAttribute="height" constant="16" id="mEu-fG-wKq"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="190" id="i3d-eq-UF2"/>
+                                                </constraints>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="6G3-2Z-QaB">
+                                                <rect key="frame" x="200" y="0.0" width="58" height="60"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="500 EGP" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S08-AW-8Ix" customClass="CairoSemiBold" customModule="Allo_Doctor" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="20" width="27" height="20.333333333333329"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <color key="textColor" name="blueAppColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
+                                                                <real key="value" value="14"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </label>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9lG-Po-nP7">
+                                                        <rect key="frame" x="34" y="18" width="24" height="24"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="24" id="Vdq-W9-mfr"/>
+                                                        </constraints>
+                                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                        <state key="normal" title="Button" image="plus"/>
+                                                        <connections>
+                                                            <action selector="buttonTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Vwz-ce-frm"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Test description goes here" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pZg-h9-LwW" customClass="CairoRegular" customModule="Allo_Doctor" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="68" width="258" height="0.0"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <color key="textColor" systemColor="systemGray2Color"/>
                                         <nil key="highlightedColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
-                                                <real key="value" value="14"/>
+                                                <real key="value" value="12"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </label>
-                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="6G3-2Z-QaB">
-                                        <rect key="frame" x="200" y="0.0" width="58" height="60"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="500 EGP" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S08-AW-8Ix" customClass="CairoSemiBold" customModule="Allo_Doctor" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="20" width="27" height="20.333333333333329"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <color key="textColor" name="blueAppColor"/>
-                                                <nil key="highlightedColor"/>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
-                                                        <real key="value" value="14"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
-                                            </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9lG-Po-nP7">
-                                                <rect key="frame" x="34" y="18" width="24" height="24"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="24" id="Vdq-W9-mfr"/>
-                                                </constraints>
-                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                <state key="normal" title="Button" image="plus"/>
-                                                <connections>
-                                                    <action selector="buttonTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Vwz-ce-frm"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                    </stackView>
                                 </subviews>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="25r-1M-GPo" secondAttribute="trailing" constant="10" id="UB9-te-iND"/>
-                            <constraint firstAttribute="bottom" secondItem="25r-1M-GPo" secondAttribute="bottom" constant="10" id="cjE-3Z-q7K"/>
-                            <constraint firstItem="25r-1M-GPo" firstAttribute="leading" secondItem="E9b-ek-Rlo" secondAttribute="leading" constant="20" id="e0o-NT-MDq"/>
-                            <constraint firstItem="25r-1M-GPo" firstAttribute="top" secondItem="E9b-ek-Rlo" secondAttribute="top" constant="10" id="oNg-np-inI"/>
+                            <constraint firstAttribute="trailing" secondItem="vSt-9h-abc" secondAttribute="trailing" constant="10" id="UB9-te-iND"/>
+                            <constraint firstAttribute="bottom" secondItem="vSt-9h-abc" secondAttribute="bottom" constant="10" id="cjE-3Z-q7K"/>
+                            <constraint firstItem="vSt-9h-abc" firstAttribute="leading" secondItem="E9b-ek-Rlo" secondAttribute="leading" constant="20" id="e0o-NT-MDq"/>
+                            <constraint firstItem="vSt-9h-abc" firstAttribute="top" secondItem="E9b-ek-Rlo" secondAttribute="top" constant="10" id="oNg-np-inI"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -99,6 +128,8 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="addTestTypeButton" destination="9lG-Po-nP7" id="kjb-jn-OOY"/>
+                <outlet property="chevronIcon" destination="Ztd-9Y-hJc" id="Abc-De-Fgh"/>
+                <outlet property="descriptionLabel" destination="pZg-h9-LwW" id="Hij-Kl-Mno"/>
                 <outlet property="testPrice" destination="S08-AW-8Ix" id="7Bz-Lv-MoV"/>
                 <outlet property="testTypeLabel" destination="bjE-j8-XU6" id="d7A-s5-dg4"/>
             </connections>
@@ -106,6 +137,7 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="chevron.down" catalog="system" width="128" height="72"/>
         <image name="plus" width="24" height="24"/>
         <namedColor name="blueAppColor">
             <color red="0.11800000071525574" green="0.49000000953674316" blue="0.75300002098083496" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -115,6 +147,12 @@
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray2Color">
+            <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGrayColor">
+            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

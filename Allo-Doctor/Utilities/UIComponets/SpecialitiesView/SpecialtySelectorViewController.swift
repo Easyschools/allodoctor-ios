@@ -114,7 +114,16 @@ class SpecialtySelectorViewController: UIViewController {
                     self?.showError("Failed to fetch Specialities: \(error.localizedDescription)")
                 }
             }, receiveValue: { [weak self] response in
-                self?.allSpecialties = response
+                // Remove duplicates based on ID
+                var uniqueSpecialties: [AllSpeciality] = []
+                var seenIds: Set<Int> = []
+                for specialty in response {
+                    if let id = specialty.id, !seenIds.contains(id) {
+                        uniqueSpecialties.append(specialty)
+                        seenIds.insert(id)
+                    }
+                }
+                self?.allSpecialties = uniqueSpecialties
                 self?.filteredSpecialties = self?.allSpecialties ?? []
                 self?.tableView.reloadData()
             })

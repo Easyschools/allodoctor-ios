@@ -98,7 +98,16 @@ class SearchViewModel {
                     print(self?.errorMessage ?? "")
                 }
             }, receiveValue: { [weak self] speciality in
-                self?.specialties = speciality
+                // Remove duplicates based on ID
+                var uniqueSpecialties: [AllSpeciality] = []
+                var seenIds: Set<Int> = []
+                for specialty in speciality {
+                    if let id = specialty.id, !seenIds.contains(id) {
+                        uniqueSpecialties.append(specialty)
+                        seenIds.insert(id)
+                    }
+                }
+                self?.specialties = uniqueSpecialties
             })
             .store(in: &cancellables)
     }

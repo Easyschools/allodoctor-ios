@@ -22,6 +22,8 @@
 	</array>
 	<key>GMSApiKey</key>
 	<string>AIzaSyDJkVY_BdzPGHKPRV1zvVNoqiw2sbOszXg</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>We need your location to help you find nearby healthcare providers. For example, when you search for doctors, hospitals, clinics, laboratories, or pharmacies, we'll display results sorted by distance from your current location, helping you quickly find the closest medical care.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Cairo-Medium.ttf</string>

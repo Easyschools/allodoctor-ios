@@ -82,6 +82,8 @@ protocol HomeCoordinatorContact: AnyObject {
     func showAppointmentsActivity(bookingData:MyBookings)
     func showOrderDetails(orderDetails:Order)
     func showProfileSuppotViewController()
+    func showProfilePrivacyPolicyViewController()
+    func showProfileRefundPolicyViewController()
     func showInsuranceDetails(userInsurance:UserInsurance)
     func showSelectChatTypeViewController()
     func showMedicalImagesUpload(id:Int)
@@ -173,7 +175,23 @@ extension HomeCoordinator: HomeCoordinatorContact {
             navController.pushViewController(viewController, animated: true)
         }
     }
-    
+
+    func showProfilePrivacyPolicyViewController() {
+        let viewModel = ProfilePrivacyPolicyViewModel(coordinator:self)
+        let viewController = ProfilePrivacyPolicyViewController(viewModel: viewModel)
+        if let navController = (window?.rootViewController as? UITabBarController)?.selectedViewController as? UINavigationController {
+            navController.pushViewController(viewController, animated: true)
+        }
+    }
+
+    func showProfileRefundPolicyViewController() {
+        let viewModel = ProfileRefundPolicyViewModel(coordinator:self)
+        let viewController = ProfileRefundPolicyViewController(viewModel: viewModel)
+        if let navController = (window?.rootViewController as? UITabBarController)?.selectedViewController as? UINavigationController {
+            navController.pushViewController(viewController, animated: true)
+        }
+    }
+
     func showOrderDetails(orderDetails:Order) {
         let viewModel =   OrderDetailsViewModel(coordinator:self,order: orderDetails)
         let viewController = OrderDetailsViewController(viewModel: viewModel)

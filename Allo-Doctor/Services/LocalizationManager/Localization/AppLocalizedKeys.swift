@@ -47,6 +47,8 @@ enum AppLocalizedKeys: String, CaseIterable {
     case appointments
     case Confirm
     case myMedicalInfo
+    case privacyPolicy
+    case refundPolicy
     case InstensiveCare 
     case Month
     case Year

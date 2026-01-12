@@ -64,6 +64,8 @@
 "myChatHistory" = "My Chat History";
 "favorites" = "Favorites";
 "support" = "Support";
+"privacyPolicy" = "Privacy Policy";
+"refundPolicy" = "Refund Policy";
 "settings" = "Settings";
 "CategoriesMedication" = "Categories Medication";
 "logout" = "Logout";

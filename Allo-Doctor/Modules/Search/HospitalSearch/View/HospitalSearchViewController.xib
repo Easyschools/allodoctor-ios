@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="24412" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24405"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -26,11 +26,11 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="250"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cws-sr-JHi" customClass="CustomNavigationBackButton" customModule="Allo_Doctor" customModuleProvider="target">
-                            <rect key="frame" x="16.000000000000007" y="55" width="115.66666666666669" height="27"/>
+                            <rect key="frame" x="16.000000000000007" y="105" width="104.66666666666669" height="27"/>
                             <fontDescription key="fontDescription" type="system" pointSize="22"/>
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                            <state key="normal" title="Hospitsals" image="chevron.left" catalog="system">
+                            <state key="normal" title="Hospitals" image="chevron.left" catalog="system">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
                             <userDefinedRuntimeAttributes>
@@ -46,7 +46,7 @@
                             </connections>
                         </button>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Kxt-dQ-cug">
-                            <rect key="frame" x="16" y="97" width="343" height="90"/>
+                            <rect key="frame" x="16" y="147" width="343" height="90"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QpO-eU-U9w" customClass="CustomDropDownList" customModule="Allo_Doctor" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="343" height="40"/>
@@ -91,7 +91,7 @@
                     </userDefinedRuntimeAttributes>
                 </view>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="jMW-Cg-bBg">
-                    <rect key="frame" x="16" y="265" width="343" height="513"/>
+                    <rect key="frame" x="16" y="265" width="343" height="479"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hospitals" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rNR-Ai-DzX" customClass="CairoBold" customModule="Allo_Doctor" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="0.0" width="343" height="38"/>
@@ -115,7 +115,7 @@
                             </constraints>
                         </stackView>
                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="uae-7I-Z6m">
-                            <rect key="frame" x="0.0" y="53" width="343" height="460"/>
+                            <rect key="frame" x="0.0" y="53" width="343" height="426"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Bj8-Us-s33">
                                 <size key="itemSize" width="128" height="128"/>
@@ -144,14 +144,6 @@
             <point key="canvasLocation" x="136.80000000000001" y="0.0"/>
         </view>
     </objects>
-    <designables>
-        <designable name="Cws-sr-JHi">
-            <size key="intrinsicContentSize" width="115.66666666666667" height="27"/>
-        </designable>
-        <designable name="rNR-Ai-DzX">
-            <size key="intrinsicContentSize" width="71.333333333333329" height="20.333333333333332"/>
-        </designable>
-    </designables>
     <resources>
         <image name="chevron.left" catalog="system" width="97" height="128"/>
         <namedColor name="blueAppColor">

@@ -260,6 +260,7 @@
 		5E7330612CF100AD004E7F1B /* XIBLocalization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E73305A2CF100AD004E7F1B /* XIBLocalization.swift */; };
 		5E7330622CF100AD004E7F1B /* LocalizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E73305C2CF100AD004E7F1B /* LocalizationManager.swift */; };
 		5E7330652CF10778004E7F1B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5E7330632CF10778004E7F1B /* Localizable.strings */; };
+		5E7330662CF10802004E7F1B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5E7330682CF10803004E7F1B /* InfoPlist.strings */; };
 		5E73A1A82D2045BE00914494 /* OneDayCareBookingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E73A1A72D2045BE00914494 /* OneDayCareBookingViewController.xib */; };
 		5E73A1A92D2045BE00914494 /* OneDayCareBookingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E73A1A62D2045BE00914494 /* OneDayCareBookingViewController.swift */; };
 		5E73A1AB2D2045E900914494 /* OneDayCareBookingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E73A1AA2D2045E900914494 /* OneDayCareBookingViewModel.swift */; };
@@ -513,6 +514,12 @@
 		5EFBF7412E0A53CD006B1A61 /* ImageUploadManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EFBF7402E0A53C6006B1A61 /* ImageUploadManger.swift */; };
 		5EFBF7462E0A7426006B1A61 /* MedicalImagesCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EFBF7452E0A7426006B1A61 /* MedicalImagesCollectionViewCell.xib */; };
 		5EFBF7472E0A7426006B1A61 /* MedicalImagesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EFBF7442E0A7426006B1A61 /* MedicalImagesCollectionViewCell.swift */; };
+		CE3AEA2C2F119974005C2C48 /* ProfilePrivacyPolicyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE3AEA212F119974005C2C48 /* ProfilePrivacyPolicyViewController.xib */; };
+		CE3AEA2D2F119974005C2C48 /* ProfileRefundPolicyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE3AEA272F119974005C2C48 /* ProfileRefundPolicyViewController.xib */; };
+		CE3AEA2E2F119974005C2C48 /* ProfileRefundPolicyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3AEA262F119974005C2C48 /* ProfileRefundPolicyViewController.swift */; };
+		CE3AEA2F2F119974005C2C48 /* ProfilePrivacyPolicyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3AEA202F119974005C2C48 /* ProfilePrivacyPolicyViewController.swift */; };
+		CE3AEA302F119974005C2C48 /* ProfileRefundPolicyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3AEA292F119974005C2C48 /* ProfileRefundPolicyViewModel.swift */; };
+		CE3AEA312F119974005C2C48 /* ProfilePrivacyPolicyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3AEA232F119974005C2C48 /* ProfilePrivacyPolicyViewModel.swift */; };
 		CE65D3F02E63005400D01D4C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CE65D3EF2E63005400D01D4C /* GoogleService-Info.plist */; };
 		CED7C40A2EC7888C0010A7C8 /* HospitalsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED7C3FD2EC7888C0010A7C8 /* HospitalsListViewModel.swift */; };
 		CED7C40C2EC7888C0010A7C8 /* HospitalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED7C3F62EC7888C0010A7C8 /* HospitalModel.swift */; };
@@ -807,6 +814,8 @@
 		5E73305C2CF100AD004E7F1B /* LocalizationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalizationManager.swift; sourceTree = "<group>"; };
 		5E7330642CF10778004E7F1B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5E7330692CF107DE004E7F1B /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
+		5E73306A2CF10800004E7F1B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		5E73306B2CF10801004E7F1B /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5E73A1A62D2045BE00914494 /* OneDayCareBookingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneDayCareBookingViewController.swift; sourceTree = "<group>"; };
 		5E73A1A72D2045BE00914494 /* OneDayCareBookingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OneDayCareBookingViewController.xib; sourceTree = "<group>"; };
 		5E73A1AA2D2045E900914494 /* OneDayCareBookingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneDayCareBookingViewModel.swift; sourceTree = "<group>"; };
@@ -1042,6 +1051,12 @@
 		5EFBF7402E0A53C6006B1A61 /* ImageUploadManger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploadManger.swift; sourceTree = "<group>"; };
 		5EFBF7442E0A7426006B1A61 /* MedicalImagesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicalImagesCollectionViewCell.swift; sourceTree = "<group>"; };
 		5EFBF7452E0A7426006B1A61 /* MedicalImagesCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MedicalImagesCollectionViewCell.xib; sourceTree = "<group>"; };
+		CE3AEA202F119974005C2C48 /* ProfilePrivacyPolicyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePrivacyPolicyViewController.swift; sourceTree = "<group>"; };
+		CE3AEA212F119974005C2C48 /* ProfilePrivacyPolicyViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfilePrivacyPolicyViewController.xib; sourceTree = "<group>"; };
+		CE3AEA232F119974005C2C48 /* ProfilePrivacyPolicyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePrivacyPolicyViewModel.swift; sourceTree = "<group>"; };
+		CE3AEA262F119974005C2C48 /* ProfileRefundPolicyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRefundPolicyViewController.swift; sourceTree = "<group>"; };
+		CE3AEA272F119974005C2C48 /* ProfileRefundPolicyViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileRefundPolicyViewController.xib; sourceTree = "<group>"; };
+		CE3AEA292F119974005C2C48 /* ProfileRefundPolicyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRefundPolicyViewModel.swift; sourceTree = "<group>"; };
 		CE65D3EF2E63005400D01D4C /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CED7C3F62EC7888C0010A7C8 /* HospitalModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HospitalModel.swift; sourceTree = "<group>"; };
 		CED7C3FB2EC7888C0010A7C8 /* HospitalsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HospitalsListViewController.swift; sourceTree = "<group>"; };
@@ -3135,6 +3150,7 @@
 				5E7330552CF100AD004E7F1B /* AppLocalizedKeys.swift */,
 				5E73305A2CF100AD004E7F1B /* XIBLocalization.swift */,
 				5E7330632CF10778004E7F1B /* Localizable.strings */,
+				5E7330682CF10803004E7F1B /* InfoPlist.strings */,
 			);
 			path = Localization;
 			sourceTree = "<group>";
@@ -4500,6 +4516,8 @@
 		5EB9F2082CF4D52700722DE5 /* ProfileModules */ = {
 			isa = PBXGroup;
 			children = (
+				CE3AEA252F119974005C2C48 /* ProfilePrivacyPolicy 2 */,
+				CE3AEA2B2F119974005C2C48 /* ProfileRefundPolicy 2 */,
 				5E6A89182D2E9B2E0009D0BA /* ProfileSuppot */,
 				5E75931C2D09E906006C2B6F /* ProfileMedicalInsurance */,
 				5E6FEA962CF5C79F00F512C4 /* ProfileFavourites */,
@@ -5066,6 +5084,58 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		CE3AEA222F119974005C2C48 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CE3AEA202F119974005C2C48 /* ProfilePrivacyPolicyViewController.swift */,
+				CE3AEA212F119974005C2C48 /* ProfilePrivacyPolicyViewController.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		CE3AEA242F119974005C2C48 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				CE3AEA232F119974005C2C48 /* ProfilePrivacyPolicyViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		CE3AEA252F119974005C2C48 /* ProfilePrivacyPolicy 2 */ = {
+			isa = PBXGroup;
+			children = (
+				CE3AEA222F119974005C2C48 /* View */,
+				CE3AEA242F119974005C2C48 /* ViewModel */,
+			);
+			path = "ProfilePrivacyPolicy 2";
+			sourceTree = "<group>";
+		};
+		CE3AEA282F119974005C2C48 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CE3AEA262F119974005C2C48 /* ProfileRefundPolicyViewController.swift */,
+				CE3AEA272F119974005C2C48 /* ProfileRefundPolicyViewController.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		CE3AEA2A2F119974005C2C48 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				CE3AEA292F119974005C2C48 /* ProfileRefundPolicyViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		CE3AEA2B2F119974005C2C48 /* ProfileRefundPolicy 2 */ = {
+			isa = PBXGroup;
+			children = (
+				CE3AEA282F119974005C2C48 /* View */,
+				CE3AEA2A2F119974005C2C48 /* ViewModel */,
+			);
+			path = "ProfileRefundPolicy 2";
+			sourceTree = "<group>";
+		};
 		CED7C3F72EC7888C0010A7C8 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -5354,6 +5424,7 @@
 				5EE831952C9652F000671BD7 /* SearchViewController.xib in Resources */,
 				5E167EAB2C85B8E8008864F6 /* Assets.xcassets in Resources */,
 				5E7330652CF10778004E7F1B /* Localizable.strings in Resources */,
+				5E7330662CF10802004E7F1B /* InfoPlist.strings in Resources */,
 				5E1FA0612C8D0CD700F7314E /* RegisterViewController.xib in Resources */,
 				5E6707F02CFCB6F30004465F /* NonAuthUserViewController.xib in Resources */,
 				5E6EE3692CAA3FC800275056 /* HospitalSearchViewController.xib in Resources */,
@@ -5391,6 +5462,8 @@
 				5E6FEAA32CF5CB9B00F512C4 /* ProfileFavouritesCollectionViewCell.xib in Resources */,
 				5E1C529D2D19720700F97A97 /* PaymentViewController.xib in Resources */,
 				5E85DCB32D0D71FA000FA3C1 /* PharmaciesListTableViewCell.xib in Resources */,
+				CE3AEA2C2F119974005C2C48 /* ProfilePrivacyPolicyViewController.xib in Resources */,
+				CE3AEA2D2F119974005C2C48 /* ProfileRefundPolicyViewController.xib in Resources */,
 				5E6D72162CE128850026D91C /* MyActivityTableViewCell.xib in Resources */,
 				5E7F9AF92D2C295400D0EF37 /* MessageTableViewCell.xib in Resources */,
 				5E6BC0522C96B24A009BACEC /* CustomSearchBar.xib in Resources */,
@@ -5688,6 +5761,10 @@
 				5E763C5A2CC7ACA200B064B8 /* CategoryCollectionViewCell.swift in Sources */,
 				5E7679E12CE54E3900564866 /* SearchScreenTableViewCell.swift in Sources */,
 				5E79770E2CDF925B00F37A39 /* UserAddressViewController.swift in Sources */,
+				CE3AEA2E2F119974005C2C48 /* ProfileRefundPolicyViewController.swift in Sources */,
+				CE3AEA2F2F119974005C2C48 /* ProfilePrivacyPolicyViewController.swift in Sources */,
+				CE3AEA302F119974005C2C48 /* ProfileRefundPolicyViewModel.swift in Sources */,
+				CE3AEA312F119974005C2C48 /* ProfilePrivacyPolicyViewModel.swift in Sources */,
 				5E6707FB2CFDC62A0004465F /* HomeNursingViewController.swift in Sources */,
 				5E167EA42C85B8E6008864F6 /* SceneDelegate.swift in Sources */,
 				5EE656542C9EFD2500435772 /* AlertMangerCheckInternet.swift in Sources */,
@@ -5862,6 +5939,15 @@
 			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
+		5E7330682CF10803004E7F1B /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5E73306A2CF10800004E7F1B /* en */,
+				5E73306B2CF10801004E7F1B /* ar */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		5E7679E42CE54FC800564866 /* Cairo-Medium.ttf */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -6016,7 +6102,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Allo-Doctor/Allo-Doctor.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = YCR27B67XA;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Allo-Doctor/Info.plist";
@@ -6061,7 +6147,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Allo-Doctor/Allo-Doctor.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = YCR27B67XA;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Allo-Doctor/Info.plist";

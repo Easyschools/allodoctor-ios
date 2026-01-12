@@ -135,10 +135,10 @@
                                             </constraints>
                                         </stackView>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="WjV-pt-A3U">
-                                            <rect key="frame" x="0.0" y="159" width="375" height="356"/>
+                                            <rect key="frame" x="0.0" y="159" width="375" height="476"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="LW5-1Y-dwN">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="290"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="410"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OoL-Mb-mP3" customClass="ShadowView" customModule="Allo_Doctor" customModuleProvider="target">
                                                             <rect key="frame" x="16" y="0.0" width="343" height="50"/>
@@ -441,8 +441,158 @@
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Sw-DF-AoB" customClass="ShadowView" customModule="Allo_Doctor" customModuleProvider="target">
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="prv-pol-view" customClass="ShadowView" customModule="Allo_Doctor" customModuleProvider="target">
                                                             <rect key="frame" x="16" y="240" width="343" height="50"/>
+                                                            <subviews>
+                                                                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="prv-pol-stack">
+                                                                    <rect key="frame" x="16" y="0.0" width="299" height="50"/>
+                                                                    <subviews>
+                                                                        <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="prv-pol-inner">
+                                                                            <rect key="frame" x="0.0" y="14.999999999999998" width="283" height="20.333333333333329"/>
+                                                                            <subviews>
+                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="security-safe" translatesAutoresizingMaskIntoConstraints="NO" id="prv-pol-img">
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
+                                                                                    <constraints>
+                                                                                        <constraint firstAttribute="height" constant="20" id="prv-pol-img-h"/>
+                                                                                        <constraint firstAttribute="width" constant="20" id="prv-pol-img-w"/>
+                                                                                    </constraints>
+                                                                                </imageView>
+                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Privacy Policy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="prv-pol-lbl" customClass="CairoRegular" customModule="Allo_Doctor" customModuleProvider="target">
+                                                                                    <rect key="frame" x="28" y="0.0" width="255" height="20.333333333333332"/>
+                                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                                    <nil key="textColor"/>
+                                                                                    <nil key="highlightedColor"/>
+                                                                                    <userDefinedRuntimeAttributes>
+                                                                                        <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
+                                                                                            <real key="value" value="16"/>
+                                                                                        </userDefinedRuntimeAttribute>
+                                                                                        <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="privacyPolicy"/>
+                                                                                    </userDefinedRuntimeAttributes>
+                                                                                </label>
+                                                                            </subviews>
+                                                                        </stackView>
+                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowBlueRight" translatesAutoresizingMaskIntoConstraints="NO" id="prv-pol-arrow">
+                                                                            <rect key="frame" x="283" y="17" width="16" height="16"/>
+                                                                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="width" constant="16" id="prv-pol-arrow-w"/>
+                                                                                <constraint firstAttribute="height" constant="16" id="prv-pol-arrow-h"/>
+                                                                            </constraints>
+                                                                            <userDefinedRuntimeAttributes>
+                                                                                <userDefinedRuntimeAttribute type="string" keyPath="xibLocImageKey" value="loc"/>
+                                                                            </userDefinedRuntimeAttributes>
+                                                                        </imageView>
+                                                                    </subviews>
+                                                                </stackView>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="prv-pol-btn">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="343" height="50"/>
+                                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                    <connections>
+                                                                        <action selector="navToPrivacyPolicy:" destination="-1" eventType="touchUpInside" id="prv-pol-action"/>
+                                                                    </connections>
+                                                                </button>
+                                                            </subviews>
+                                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="bottom" secondItem="prv-pol-stack" secondAttribute="bottom" id="prv-pol-c1"/>
+                                                                <constraint firstAttribute="trailing" secondItem="prv-pol-btn" secondAttribute="trailing" id="prv-pol-c2"/>
+                                                                <constraint firstAttribute="height" constant="50" id="prv-pol-c3"/>
+                                                                <constraint firstItem="prv-pol-stack" firstAttribute="leading" secondItem="prv-pol-view" secondAttribute="leading" constant="16" id="prv-pol-c4"/>
+                                                                <constraint firstAttribute="bottom" secondItem="prv-pol-btn" secondAttribute="bottom" id="prv-pol-c5"/>
+                                                                <constraint firstAttribute="trailing" secondItem="prv-pol-stack" secondAttribute="trailing" constant="28" id="prv-pol-c6"/>
+                                                                <constraint firstItem="prv-pol-btn" firstAttribute="top" secondItem="prv-pol-view" secondAttribute="top" id="prv-pol-c7"/>
+                                                                <constraint firstItem="prv-pol-stack" firstAttribute="top" secondItem="prv-pol-view" secondAttribute="top" id="prv-pol-c8"/>
+                                                                <constraint firstItem="prv-pol-btn" firstAttribute="leading" secondItem="prv-pol-view" secondAttribute="leading" id="prv-pol-c9"/>
+                                                            </constraints>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                    <real key="value" value="10"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                    <color key="value" name="lighrGrey-#F2F2F2"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                    <real key="value" value="1"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </view>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ref-pol-view" customClass="ShadowView" customModule="Allo_Doctor" customModuleProvider="target">
+                                                            <rect key="frame" x="16" y="300" width="343" height="50"/>
+                                                            <subviews>
+                                                                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="ref-pol-stack">
+                                                                    <rect key="frame" x="16" y="0.0" width="299" height="50"/>
+                                                                    <subviews>
+                                                                        <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ref-pol-inner">
+                                                                            <rect key="frame" x="0.0" y="14.999999999999998" width="283" height="20.333333333333329"/>
+                                                                            <subviews>
+                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="moneyBlue" translatesAutoresizingMaskIntoConstraints="NO" id="ref-pol-img">
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
+                                                                                    <constraints>
+                                                                                        <constraint firstAttribute="height" constant="20" id="ref-pol-img-h"/>
+                                                                                        <constraint firstAttribute="width" constant="20" id="ref-pol-img-w"/>
+                                                                                    </constraints>
+                                                                                </imageView>
+                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Refund Policy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ref-pol-lbl" customClass="CairoRegular" customModule="Allo_Doctor" customModuleProvider="target">
+                                                                                    <rect key="frame" x="28" y="0.0" width="255" height="20.333333333333332"/>
+                                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                                    <nil key="textColor"/>
+                                                                                    <nil key="highlightedColor"/>
+                                                                                    <userDefinedRuntimeAttributes>
+                                                                                        <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
+                                                                                            <real key="value" value="16"/>
+                                                                                        </userDefinedRuntimeAttribute>
+                                                                                        <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="refundPolicy"/>
+                                                                                    </userDefinedRuntimeAttributes>
+                                                                                </label>
+                                                                            </subviews>
+                                                                        </stackView>
+                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowBlueRight" translatesAutoresizingMaskIntoConstraints="NO" id="ref-pol-arrow">
+                                                                            <rect key="frame" x="283" y="17" width="16" height="16"/>
+                                                                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="width" constant="16" id="ref-pol-arrow-w"/>
+                                                                                <constraint firstAttribute="height" constant="16" id="ref-pol-arrow-h"/>
+                                                                            </constraints>
+                                                                            <userDefinedRuntimeAttributes>
+                                                                                <userDefinedRuntimeAttribute type="string" keyPath="xibLocImageKey" value="loc"/>
+                                                                            </userDefinedRuntimeAttributes>
+                                                                        </imageView>
+                                                                    </subviews>
+                                                                </stackView>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ref-pol-btn">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="343" height="50"/>
+                                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                    <connections>
+                                                                        <action selector="navToRefundPolicy:" destination="-1" eventType="touchUpInside" id="ref-pol-action"/>
+                                                                    </connections>
+                                                                </button>
+                                                            </subviews>
+                                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="bottom" secondItem="ref-pol-stack" secondAttribute="bottom" id="ref-pol-c1"/>
+                                                                <constraint firstAttribute="trailing" secondItem="ref-pol-btn" secondAttribute="trailing" id="ref-pol-c2"/>
+                                                                <constraint firstAttribute="height" constant="50" id="ref-pol-c3"/>
+                                                                <constraint firstItem="ref-pol-stack" firstAttribute="leading" secondItem="ref-pol-view" secondAttribute="leading" constant="16" id="ref-pol-c4"/>
+                                                                <constraint firstAttribute="bottom" secondItem="ref-pol-btn" secondAttribute="bottom" id="ref-pol-c5"/>
+                                                                <constraint firstAttribute="trailing" secondItem="ref-pol-stack" secondAttribute="trailing" constant="28" id="ref-pol-c6"/>
+                                                                <constraint firstItem="ref-pol-btn" firstAttribute="top" secondItem="ref-pol-view" secondAttribute="top" id="ref-pol-c7"/>
+                                                                <constraint firstItem="ref-pol-stack" firstAttribute="top" secondItem="ref-pol-view" secondAttribute="top" id="ref-pol-c8"/>
+                                                                <constraint firstItem="ref-pol-btn" firstAttribute="leading" secondItem="ref-pol-view" secondAttribute="leading" id="ref-pol-c9"/>
+                                                            </constraints>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                    <real key="value" value="10"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                    <color key="value" name="lighrGrey-#F2F2F2"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                    <real key="value" value="1"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </view>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Sw-DF-AoB" customClass="ShadowView" customModule="Allo_Doctor" customModuleProvider="target">
+                                                            <rect key="frame" x="16" y="360" width="343" height="50"/>
                                                             <subviews>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="KXe-pB-mbG">
                                                                     <rect key="frame" x="16" y="0.0" width="299" height="50"/>
@@ -527,6 +677,10 @@
                                                         <constraint firstItem="lzb-ed-1if" firstAttribute="leading" secondItem="LW5-1Y-dwN" secondAttribute="leading" constant="16" id="WB3-zK-ajL"/>
                                                         <constraint firstAttribute="trailing" secondItem="7Sw-DF-AoB" secondAttribute="trailing" constant="16" id="Xtv-5K-O8c"/>
                                                         <constraint firstItem="OoL-Mb-mP3" firstAttribute="leading" secondItem="LW5-1Y-dwN" secondAttribute="leading" constant="16" id="dy4-oE-ylE"/>
+                                                        <constraint firstItem="prv-pol-view" firstAttribute="leading" secondItem="LW5-1Y-dwN" secondAttribute="leading" constant="16" id="prv-pol-leading"/>
+                                                        <constraint firstAttribute="trailing" secondItem="prv-pol-view" secondAttribute="trailing" constant="16" id="prv-pol-trailing"/>
+                                                        <constraint firstItem="ref-pol-view" firstAttribute="leading" secondItem="LW5-1Y-dwN" secondAttribute="leading" constant="16" id="ref-pol-leading"/>
+                                                        <constraint firstAttribute="trailing" secondItem="ref-pol-view" secondAttribute="trailing" constant="16" id="ref-pol-trailing"/>
                                                         <constraint firstAttribute="trailing" secondItem="OoL-Mb-mP3" secondAttribute="trailing" constant="16" id="oEF-QD-gUy"/>
                                                         <constraint firstAttribute="trailing" secondItem="lzb-ed-1if" secondAttribute="trailing" constant="16" id="x9d-pr-rQu"/>
                                                     </constraints>
@@ -629,6 +783,8 @@
         <image name="healthBlue" width="20" height="20"/>
         <image name="heartBlue" width="20" height="20"/>
         <image name="insuranceBlue" width="20" height="20"/>
+        <image name="moneyBlue" width="20" height="20"/>
+        <image name="security-safe" width="20" height="20"/>
         <image name="settingsBlue" width="24" height="24"/>
         <image name="user" width="24" height="24"/>
         <namedColor name="blueAppColor">

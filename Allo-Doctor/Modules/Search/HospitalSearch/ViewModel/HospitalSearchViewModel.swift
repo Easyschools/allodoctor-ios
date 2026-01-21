@@ -115,7 +115,7 @@ extension HospitalSearchViewModel{
     // Navigation for specialties mode
     func navigateToSpecialty(specialty: Specialty) {
         guard let hospital = selectedHospital else { return }
-        coordinator?.showDoctorsForHospital(hospitalId: hospital.id, specialtyId: specialty.id)
+        coordinator?.showDoctorsForHospital(hospitalId: hospital.id, specialtyId: specialty.id, serviceId: nil)
     }
 
     func navigateBack() {

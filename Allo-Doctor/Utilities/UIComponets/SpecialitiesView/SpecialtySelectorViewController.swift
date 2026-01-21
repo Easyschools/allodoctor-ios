@@ -215,7 +215,7 @@ extension SpecialtySelectorViewController: UITableViewDelegate, UITableViewDataS
         case .hospitalSpecialties(let hospitalId, _, let coordinator):
             let selectedSpecialty = filteredHospitalSpecialties[indexPath.row]
             // Navigate to doctors for this hospital and specialty
-            coordinator.showDoctorsForHospital(hospitalId: hospitalId, specialtyId: selectedSpecialty.id)
+            coordinator.showDoctorsForHospital(hospitalId: hospitalId, specialtyId: selectedSpecialty.id, serviceId: nil)
         }
     }
 }

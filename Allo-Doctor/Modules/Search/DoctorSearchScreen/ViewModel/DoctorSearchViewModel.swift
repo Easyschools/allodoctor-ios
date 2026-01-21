@@ -17,19 +17,31 @@ class DoctorSearchViewModel {
     private var specialityId:String?
     private let externalClinicServiceId : Int?
     private let infoServiceId: Int?
+    private let serviceId: Int?
     @Published var errorMessage: String?
     @Published var cities: [City] = []
     var doctorPlace: DoctorPlace
-    init(coordinator: HomeCoordinatorContact? = nil, apiClient: APIClient = APIClient(),specialityId:String?,externalClinicServiceId:Int?,doctorPlace: DoctorPlace, infoServiceId: Int? = nil) {
+
+    init(coordinator: HomeCoordinatorContact? = nil, apiClient: APIClient = APIClient(),specialityId:String?,externalClinicServiceId:Int?,doctorPlace: DoctorPlace, infoServiceId: Int? = nil, serviceId: Int? = nil) {
         self.coordinator = coordinator
         self.apiClient = apiClient
         self.specialityId = specialityId
         self.externalClinicServiceId = externalClinicServiceId
         self.doctorPlace = doctorPlace
         self.infoServiceId = infoServiceId
+        self.serviceId = serviceId
+
+        // Debug logging for initialization
+        print("🔍 DoctorSearchViewModel initialized with:")
+        print("   - specialityId: \(specialityId ?? "nil")")
+        print("   - infoServiceId: \(String(describing: infoServiceId))")
+        print("   - serviceId: \(String(describing: serviceId))")
+        print("   - externalClinicServiceId: \(String(describing: externalClinicServiceId))")
+        print("   - doctorPlace: \(doctorPlace)")
+
         setupSearchSubscription()
     }
-    
+
     private func setupSearchSubscription() {
         $searchText
             .debounce(for: .milliseconds(300), scheduler: DispatchQueue.main)
@@ -39,20 +51,79 @@ class DoctorSearchViewModel {
             }
             .store(in: &cancellables)
     }
-    
+
     func fetchDoctors(searchedText: String,sortBy:String,districtId:Int?,maxPrice:String,medicalInsuranceId:String,gender:String,title:String) {
-        let encodedText = searchedText.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
-        let district = districtId.map { "\($0)" } ?? ""
-        let speciality = specialityId
-        let infoService = infoServiceId.map { "\($0)" } ?? ""
-        let urlString = "https://Backend.allo-doctor.com/api/admin/doctor/all?is_paginate=30&speciality_id=\(speciality ?? "")&search=\(encodedText)&web=1&sort_by=\(sortBy)&district_id=\(district)&title_type_en=\(filters?.titleType ?? "")&gender=\(filters?.gender ?? "")&max_price=\(filters?.maxPrice?.toString ?? "")&medical_insurance=\(filters?.medicalInsuranceId?.toString() ?? "")&external_clinic_service_id=\(externalClinicServiceId?.toString() ?? "")&info_service_id=\(infoService)"
-         print(urlString)
-         guard let url = URL(string: urlString) else {
-             print("Invalid URL")
-             return
-         }
-         print(url)
-       
+        // Build URL properly using URLComponents
+        var components = URLComponents(string: "https://backend.allo-doctor.com/api/admin/doctor/all")!
+
+        var queryItems: [URLQueryItem] = []
+
+        // Required parameters
+        queryItems.append(URLQueryItem(name: "is_paginate", value: "30"))
+        queryItems.append(URLQueryItem(name: "web", value: "1"))
+
+        // Core filtering parameters - add only if they have values
+        if let specialityId = specialityId, !specialityId.isEmpty {
+            queryItems.append(URLQueryItem(name: "speciality_id", value: specialityId))
+        }
+
+        if let infoServiceId = infoServiceId {
+            queryItems.append(URLQueryItem(name: "info_service_id", value: "\(infoServiceId)"))
+        }
+
+        if let serviceId = serviceId {
+            queryItems.append(URLQueryItem(name: "service_id", value: "\(serviceId)"))
+        }
+
+        if let externalClinicServiceId = externalClinicServiceId {
+            queryItems.append(URLQueryItem(name: "external_clinic_service_id", value: "\(externalClinicServiceId)"))
+        }
+
+        // Search and filters - add only if not empty
+        if !searchedText.isEmpty {
+            queryItems.append(URLQueryItem(name: "search", value: searchedText))
+        }
+
+        if !sortBy.isEmpty {
+            queryItems.append(URLQueryItem(name: "sort_by", value: sortBy))
+        }
+
+        if let districtId = districtId {
+            queryItems.append(URLQueryItem(name: "district_id", value: "\(districtId)"))
+        }
+
+        if !title.isEmpty {
+            queryItems.append(URLQueryItem(name: "title_type_en", value: title))
+        }
+
+        if !gender.isEmpty {
+            queryItems.append(URLQueryItem(name: "gender", value: gender))
+        }
+
+        if !maxPrice.isEmpty {
+            queryItems.append(URLQueryItem(name: "max_price", value: maxPrice))
+        }
+
+        if !medicalInsuranceId.isEmpty {
+            queryItems.append(URLQueryItem(name: "medical_insurance", value: medicalInsuranceId))
+        }
+
+        components.queryItems = queryItems
+
+        guard let url = components.url else {
+            print("❌ Failed to construct URL")
+            return
+        }
+
+        // Enhanced logging
+        print("🔍 API URL: \(url.absoluteString)")
+        print("📋 Parameters:")
+        print("   - specialityId: \(specialityId ?? "nil")")
+        print("   - infoServiceId: \(infoServiceId?.description ?? "nil")")
+        print("   - serviceId: \(serviceId?.description ?? "nil")")
+        print("   - externalClinicServiceId: \(externalClinicServiceId?.description ?? "nil")")
+        print("   - search: \(searchedText.isEmpty ? "empty" : searchedText)")
+
         apiClient.fetchData(from: url, as: DoctorsResponse.self)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { [weak self] completion in
@@ -60,15 +131,19 @@ class DoctorSearchViewModel {
                 case .finished:
                     break
                 case .failure(let error):
-                    print("Error: \(error)")
+                    print("❌ API Error: \(error)")
                     self?.errorMessage = "Failed to fetch doctors: \(error.localizedDescription)"
                 }
             }, receiveValue: { [weak self] doctorResponse in
                 self?.doctors = doctorResponse.data
-                print("Fetched \(doctorResponse.data.count) doctors")
+                print("✅ Fetched \(doctorResponse.data.count) doctors")
+                if doctorResponse.data.isEmpty {
+                    print("⚠️ No doctors found with current filters")
+                }
             })
             .store(in: &cancellables)
     }
+
     func navToDoctorProfile(doctorID: String,doctorServiveSpecialityId:Int) {
         if doctorPlace == .outpatientClinics {
             coordinator?.showDoctorProfile(doctorID: doctorID, doctorPlace:.outpatientClinics)

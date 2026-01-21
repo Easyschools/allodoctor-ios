@@ -164,7 +164,7 @@ extension ServicesViewController: UICollectionViewDelegate, UICollectionViewData
                 case .hospital:
                     viewModel.navToHospitalsListScreen()
                 case .clinics:
-                    viewModel.navToSearchScreen()
+                    viewModel.navToSearchScreen(serviceId: 2)  // Pass serviceId=2 for clinics
                 case .labs:
                     viewModel.navToLabsAndScanSearchScreen(screenId:String(serviceid))
                 case .scans:

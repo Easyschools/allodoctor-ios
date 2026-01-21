@@ -31,12 +31,19 @@ class SearchViewModel {
     var coordinator: HomeCoordinatorContact?
     var displayMode: SearchDisplayMode
     private var hospitalId: Int?
+    private var serviceId: Int?  // Track service context (e.g., 2 for clinics)
 
     // MARK: - Initialization
-    init(coordinator: HomeCoordinatorContact? = nil, apiClient: APIClient = APIClient(), mode: SearchDisplayMode = .globalSearch) {
+    init(coordinator: HomeCoordinatorContact? = nil, apiClient: APIClient = APIClient(), mode: SearchDisplayMode = .globalSearch, serviceId: Int? = nil) {
         self.coordinator = coordinator
         self.apiClient = apiClient
         self.displayMode = mode
+        self.serviceId = serviceId
+
+        // Debug logging
+        if let serviceId = serviceId {
+            print("🔍 SearchViewModel initialized with serviceId: \(serviceId)")
+        }
 
         // If hospital specialties mode, setup specialties
         if case .hospitalSpecialties(let hospitalId, let specialties) = mode {
@@ -170,12 +177,12 @@ class SearchViewModel {
     }
     
     func navtoDoctorSearch(specialityId:String) {
-        coordinator?.showDoctorSearch(specialityId:specialityId, externalClinicServiceId: "", doctorPlace: .doctorClinics)
+        coordinator?.showDoctorSearch(specialityId:specialityId, externalClinicServiceId: "", doctorPlace: .doctorClinics, serviceId: serviceId)
     }
 
     func navToHospitalDoctorSearch(specialtyId: Int) {
         guard let hospitalId = hospitalId else { return }
-        coordinator?.showDoctorsForHospital(hospitalId: hospitalId, specialtyId: specialtyId)
+        coordinator?.showDoctorsForHospital(hospitalId: hospitalId, specialtyId: specialtyId, serviceId: nil)
     }
 
     func navToDoctor(id:String){

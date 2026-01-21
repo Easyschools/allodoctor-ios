@@ -14,7 +14,7 @@ protocol HomeCoordinatorContact: AnyObject {
     func showTabBar()
     func navigationBack()
     func showSubServicesVC()
-    func showSearchScreen()
+    func showSearchScreen(serviceId: Int?)
     func navigateBack()
     func showProfileMedical()
     func dismiss(completion: (() -> Void)?)
@@ -22,7 +22,7 @@ protocol HomeCoordinatorContact: AnyObject {
     func showPhonenumberScreen()
     func showOtpScreen()
     var navigationController: UINavigationController { get }
-    func showDoctorSearch(specialityId:String,externalClinicServiceId:String,doctorPlace: DoctorPlace)
+    func showDoctorSearch(specialityId:String,externalClinicServiceId:String,doctorPlace: DoctorPlace, serviceId: Int?)
     func showClinicProfile(clinicID:String)
     func showClinicsSearch()
     func showProfileEdit()
@@ -90,7 +90,7 @@ protocol HomeCoordinatorContact: AnyObject {
     func presentReview(reviewType:String,reviewId:Int)
     func showHospitalsList()
     func showHospitalSpecialties(hospital: HospitalInfoService)
-    func showDoctorsForHospital(hospitalId: Int, specialtyId: Int)
+    func showDoctorsForHospital(hospitalId: Int, specialtyId: Int, serviceId: Int?)
 }
 
 // MARK: - HomeCoordinator
@@ -474,8 +474,8 @@ extension HomeCoordinator: HomeCoordinatorContact {
         navigationController.setViewControllers([viewController], animated: true)
     }
 
-    func showSearchScreen() {
-        let viewModel = SearchViewModel(coordinator: self)
+    func showSearchScreen(serviceId: Int? = nil) {
+        let viewModel = SearchViewModel(coordinator: self, serviceId: serviceId)
         let viewController = SearchViewController(viewModel: viewModel)
         if let navController = (window?.rootViewController as? UITabBarController)?.selectedViewController as? UINavigationController {
                 navController.pushViewController(viewController, animated: true)
@@ -542,13 +542,14 @@ extension HomeCoordinator {
         }
     }
 
-    func showDoctorsForHospital(hospitalId: Int, specialtyId: Int) {
+    func showDoctorsForHospital(hospitalId: Int, specialtyId: Int, serviceId: Int? = nil) {
         let viewModel = DoctorSearchViewModel(
             coordinator: self,
             specialityId: String(specialtyId),
             externalClinicServiceId: nil,
             doctorPlace: .doctorClinics,
-            infoServiceId: hospitalId
+            infoServiceId: hospitalId,
+            serviceId: serviceId
         )
         let viewController = DoctorSearchViewController(viewModel: viewModel)
         if let navController = (window?.rootViewController as? UITabBarController)?.selectedViewController as? UINavigationController {

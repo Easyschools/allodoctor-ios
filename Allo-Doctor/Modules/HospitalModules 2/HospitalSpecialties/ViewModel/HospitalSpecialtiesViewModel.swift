@@ -56,7 +56,7 @@ class HospitalSpecialtiesViewModel {
 
     // MARK: - Navigation Methods
     func navigateToSpecialty(specialty: Specialty) {
-        coordinator?.showDoctorsForHospital(hospitalId: hospitalId, specialtyId: specialty.id)
+        coordinator?.showDoctorsForHospital(hospitalId: hospitalId, specialtyId: specialty.id, serviceId: nil)
     }
 
     func navigateBack() {

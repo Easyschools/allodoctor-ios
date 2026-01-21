@@ -86,6 +86,6 @@ extension ClinicSearchScreenViewModel{
 
     func navigateToSpecialty(specialty: Specialty) {
         guard let hospitalId = hospitalId else { return }
-        coordinator?.showDoctorsForHospital(hospitalId: hospitalId, specialtyId: specialty.id)
+        coordinator?.showDoctorsForHospital(hospitalId: hospitalId, specialtyId: specialty.id, serviceId: 2)
     }
 }

@@ -38,7 +38,7 @@ extension SubServiceViewModel{
         
     }
     func navToSearchScreen() {
-        coordinator?.showSearchScreen()
+        coordinator?.showSearchScreen(serviceId: nil)
     }
     func showHospitalSearch(){
         coordinator?.showHospitalSearch()

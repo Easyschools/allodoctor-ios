@@ -15,8 +15,8 @@ extension HomeCoordinator{
               navController.pushViewController(viewController, animated: true)
           }
     }
-    func showDoctorSearch(specialityId:String,externalClinicServiceId:String,doctorPlace: DoctorPlace) {
-        let viewModel = DoctorSearchViewModel(coordinator: self, specialityId: specialityId, externalClinicServiceId: externalClinicServiceId.toInt(), doctorPlace: doctorPlace)
+    func showDoctorSearch(specialityId:String,externalClinicServiceId:String,doctorPlace: DoctorPlace, serviceId: Int? = nil) {
+        let viewModel = DoctorSearchViewModel(coordinator: self, specialityId: specialityId, externalClinicServiceId: externalClinicServiceId.toInt(), doctorPlace: doctorPlace, serviceId: serviceId)
         let viewController = DoctorSearchViewController(viewModel: viewModel)
         if let navController = (window?.rootViewController as? UITabBarController)?.selectedViewController as? UINavigationController {
               navController.pushViewController(viewController, animated: true)

@@ -30,23 +30,30 @@ class AppointmentDoctorTimeViewModel{
     }
 }
 extension AppointmentDoctorTimeViewModel{
-internal func fetchDoctorAppointment(){
-    print(doctorServiceSpecialtyId)
-        let router = APIRouter.fetchDoctorAppointment(doctorId: doctor?.id ?? 0, specialtyId:doctor?.speciality?[0].id ?? 0, serviceId: doctor?.services?[0].id ?? 0, day: day, date: date)
+    internal func fetchDoctorAppointment(){
+        print("Doctor Service Specialty ID: \(doctorServiceSpecialtyId)")
+        
+        let router = APIRouter.fetchDoctorAppointment(
+            doctorId: doctor?.id ?? 0,
+            specialtyId: doctor?.speciality?[0].id ?? 0,
+            serviceId: doctor?.services?[0].id ?? 0,
+            day: day,
+            date: date,
+            doctorServiceSpecialtyId: doctorServiceSpecialtyId
+        )
+        
         apiClient.fetchData(from: router.url, as: DoctorAppointmentAvailableResponse.self)
-            .sink(receiveCompletion: {  completion in
+            .sink(receiveCompletion: { completion in
                 switch completion {
-                case.finished:
+                case .finished:
                     break
                 case .failure(let error):
-                    print (error)
+                    print("Error fetching appointments: \(error)")
+                    self.errorMessage = error.localizedDescription
                 }
-            } , receiveValue: {[weak self] doctorResponse in
+            }, receiveValue: { [weak self] doctorResponse in
                 self?.doctorData = doctorResponse.appointments
-                
             }).store(in: &cancellables)
-
-        
     }
   
 }

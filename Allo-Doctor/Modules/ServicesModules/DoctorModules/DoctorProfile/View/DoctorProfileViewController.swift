@@ -38,6 +38,8 @@ class DoctorProfileViewController: BaseViewController<DoctorProfileViewModel> {
     private let collapsedHeight: CGFloat = 100
     private var doctorsData: DoctorProfile?
     private var appointments:[DoctorAppointment]?
+    private var selectedSpecialtyIndex: Int = 0
+
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +49,9 @@ class DoctorProfileViewController: BaseViewController<DoctorProfileViewModel> {
         placesToggleSwitch.onToggle = { [weak self] index in
             guard let self = self else { return }
             
+            // Store the selected index
+            self.selectedSpecialtyIndex = index
+
             // Reset the view model or any relevant state
             viewModel.reset()
             
@@ -384,9 +389,20 @@ extension DoctorProfileViewController: UICollectionViewDelegate, UICollectionVie
                 print("Error: Doctor data is unavailable.")
                 return
             }
+            
             let day = appointments?[indexPath.row].day.nameEn ?? ""
             let date = appointments?[indexPath.row].day.date ?? "Not Available"
-            viewModel.navToAppointmentsScreen(doctor: doctor, date: date, day: day, doctorServiceSpecialityId: doctor.doctorServiceSpecialtyIds?[0].id ?? 0)
+            
+            // Get the selected toggle switch index to determine which specialty was chosen
+            let selectedSpecialtyIndex = placesToggleSwitch.selectedIndex
+            let selectedSpecialtyId = doctor.doctorServiceSpecialtyIds?[selectedSpecialtyIndex].id ?? 0
+            
+            viewModel.navToAppointmentsScreen(
+                doctor: doctor,
+                date: date,
+                day: day,
+                doctorServiceSpecialityId: selectedSpecialtyId
+            )
         }
     }
 }

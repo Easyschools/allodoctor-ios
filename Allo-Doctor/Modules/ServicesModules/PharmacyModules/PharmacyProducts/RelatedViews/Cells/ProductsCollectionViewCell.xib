@@ -22,9 +22,39 @@
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="RhE-gS-nDL">
                         <rect key="frame" x="0.0" y="8" width="166" height="242"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="medicine" translatesAutoresizingMaskIntoConstraints="NO" id="3eP-gE-3k0">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="imageContainerView">
                                 <rect key="frame" x="0.0" y="0.0" width="166" height="126"/>
-                            </imageView>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="medicine" translatesAutoresizingMaskIntoConstraints="NO" id="3eP-gE-3k0">
+                                        <rect key="frame" x="0.0" y="0.0" width="166" height="126"/>
+                                    </imageView>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Out of Stock" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="outOfStockLabelId">
+                                        <rect key="frame" x="8" y="8" width="80" height="24"/>
+                                        <color key="backgroundColor" systemColor="systemRedColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="24" id="outOfStockHeightConstraint"/>
+                                            <constraint firstAttribute="width" constant="80" id="outOfStockWidthConstraint"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="12"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <real key="value" value="4"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="3eP-gE-3k0" firstAttribute="leading" secondItem="imageContainerView" secondAttribute="leading" id="imgLeading"/>
+                                    <constraint firstAttribute="trailing" secondItem="3eP-gE-3k0" secondAttribute="trailing" id="imgTrailing"/>
+                                    <constraint firstItem="3eP-gE-3k0" firstAttribute="top" secondItem="imageContainerView" secondAttribute="top" id="imgTop"/>
+                                    <constraint firstAttribute="bottom" secondItem="3eP-gE-3k0" secondAttribute="bottom" id="imgBottom"/>
+                                    <constraint firstItem="outOfStockLabelId" firstAttribute="leading" secondItem="imageContainerView" secondAttribute="leading" constant="8" id="stockLeading"/>
+                                    <constraint firstItem="outOfStockLabelId" firstAttribute="top" secondItem="imageContainerView" secondAttribute="top" constant="8" id="stockTop"/>
+                                </constraints>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NR5-RB-Nqh">
                                 <rect key="frame" x="0.0" y="126" width="166" height="116"/>
                                 <subviews>
@@ -113,7 +143,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="3eP-gE-3k0" firstAttribute="height" secondItem="RhE-gS-nDL" secondAttribute="height" multiplier="0.520661" id="9YM-2a-h4V"/>
+                            <constraint firstItem="imageContainerView" firstAttribute="height" secondItem="RhE-gS-nDL" secondAttribute="height" multiplier="0.520661" id="9YM-2a-h4V"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
@@ -142,6 +172,7 @@
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
             <connections>
+                <outlet property="outOfStockLabel" destination="outOfStockLabelId" id="outOfStockOutlet"/>
                 <outlet property="priceAfterDisscount" destination="faZ-NL-c5A" id="49L-zD-Air"/>
                 <outlet property="productImage" destination="3eP-gE-3k0" id="wLP-r0-s3m"/>
                 <outlet property="productName" destination="xr3-i2-UuL" id="vjl-aI-Eaa"/>
@@ -163,6 +194,9 @@
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

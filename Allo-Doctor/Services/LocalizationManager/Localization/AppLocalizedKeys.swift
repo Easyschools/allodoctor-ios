@@ -210,6 +210,7 @@ enum AppLocalizedKeys: String, CaseIterable {
     case pleaseSelectPayment
     case searchForAnyPharmacy
     case failed
+    case outOfStock
 
 
 }

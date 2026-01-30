@@ -13,21 +13,34 @@ class ProductsCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var productImage: UIImageView!
     @IBOutlet weak var productName: UILabel!
     @IBOutlet weak var productPrice: CairoLight!
+    @IBOutlet weak var outOfStockLabel: UILabel!
 
     override func awakeFromNib() {
-        priceAfterDisscount.isHidden = true
         super.awakeFromNib()
+        priceAfterDisscount.isHidden = true
+        setupOutOfStockLabel()
+    }
+
+    private func setupOutOfStockLabel() {
+        outOfStockLabel.text = AppLocalizedKeys.outOfStock.localized
+        outOfStockLabel.textColor = .white
+        outOfStockLabel.backgroundColor = UIColor.systemRed
+        outOfStockLabel.textAlignment = .center
+        outOfStockLabel.font = UIFont.systemFont(ofSize: 12, weight: .semibold)
+        outOfStockLabel.layer.cornerRadius = 4
+        outOfStockLabel.clipsToBounds = true
+        outOfStockLabel.isHidden = true
     }
     
-    func setup(with imageUrl: String, name: String, price: String, priceAfterDiscount: String?) {
+    func setup(with imageUrl: String, name: String, price: String, priceAfterDiscount: String?, isOutOfStock: Bool = false) {
         // Set image
         if let url = URL(string: imageUrl) {
             productImage.kf.setImage(with: url)
         }
-        
+
         // Set name
         productName.text = name
-        
+
         // Check if there's a discounted price
         if let discounted = priceAfterDiscount, !discounted.isEmpty {
             // Show discounted price
@@ -47,6 +60,10 @@ class ProductsCollectionViewCell: UICollectionViewCell {
             productPrice.attributedText = nil
             productPrice.text = price.withoutDecimals.appendingWithSpace(AppLocalizedKeys.EGP.localized)
         }
+
+        // Out of stock handling
+        outOfStockLabel.isHidden = !isOutOfStock
+        productImage.alpha = isOutOfStock ? 0.5 : 1.0
     }
 
 }

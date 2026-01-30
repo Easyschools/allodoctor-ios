@@ -53,7 +53,21 @@ class ProductDetailsViewController: BaseViewController<ProductDetailsViewModel> 
         setupInitialState()
         setupProductDescription()
         setupQuantity()
-       
+        checkStockAvailability()
+    }
+
+    private func checkStockAvailability() {
+        let quantity = viewModel.product?.medicationPharmacies?.first?.quantity ?? 0
+        let isOutOfStock = quantity == 0
+
+        addToCartButton.isEnabled = !isOutOfStock
+        addToCartButton.alpha = isOutOfStock ? 0.5 : 1.0
+        quantityIncreaseButton.isEnabled = !isOutOfStock
+        quantityDecreaseButton.isEnabled = !isOutOfStock
+
+        if isOutOfStock {
+            addToCartButton.setTitle(AppLocalizedKeys.outOfStock.localized, for: .normal)
+        }
     }
     
     private func setupProductDescription() {

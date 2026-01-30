@@ -163,7 +163,8 @@ class ProfilePrivacyPolicyViewModel {
             <h2>Contact Us</h2>
             <p><strong>Allo Doctor</strong><br>
             Email: allodoctor@allodoctor<br>
-            Phone: 201001971333</p>
+            Phone: +201001971333<br>
+            Address: Al-Mirghani Street, Heliopolis, Egypt</p>
         </body>
         </html>
         """
@@ -309,10 +310,13 @@ class ProfilePrivacyPolicyViewModel {
             <h2>التعديلات على سياسة الخصوصية</h2>
             <p>قد نقوم بتحديث هذه السياسة من وقت لآخر، وسيتم توضيح تاريخ آخر تحديث دائمًا.</p>
 
-            <h2>التواصل معنا</h2>
-            <p><strong>ألو دكتور</strong><br>
-            البريد الإلكتروني: allodoctor@allodoctor<br>
-            رقم الهاتف: 201001971333</p>
+        <h2>التواصل معنا</h2>
+        <p>
+          <strong>ألو دكتور</strong><br>
+          البريد الإلكتروني: allodoctor@allodoctor<br>
+          رقم الهاتف: +20 100 197 1333<br>
+          العنوان: شارع الميرغني، مصر الجديدة، القاهرة
+        </p>
         </body>
         </html>
         """

@@ -41,7 +41,7 @@ extension DoctorSearchCollectionViewCell {
             let dayName = isArabic ? day.nameAr : day.nameEn
             avalibailtyLabel.text = dayName.prepend(AppLocalizedKeys.availableOn.localized, separator: " ")
         } else {
-            avalibailtyLabel.text = AppLocalizedKeys.notAvailable.localized
+            avalibailtyLabel.text = "" //AppLocalizedKeys.notAvailable.localized
         }
 
         // MARK: - Description

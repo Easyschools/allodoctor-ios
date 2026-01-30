@@ -77,7 +77,14 @@ extension PharmacyProductViewModel {
                     self?.errorMessage = "Failed to fetch Pharmacy: \(error.localizedDescription)"
                 }
             }, receiveValue: { [weak self] products in
-                self?.products = products.data
+                // Filter out products with availability == 0 or nil
+                let filteredProducts = products.data?.filter { product in
+                    guard let availability = product.medicationPharmacies?.first?.availability else {
+                        return false // availability is nil, don't show
+                    }
+                    return availability == 1 // only show products with availability == 1
+                }
+                self?.products = filteredProducts
                 print(self?.products?.count ?? 0)
             })
             .store(in: &cancellables)

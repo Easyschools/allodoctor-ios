@@ -19,9 +19,38 @@ struct ConfirmOrderBody: Codable {
     let reminder_type:String
 }
 
-struct OrderResponseData:Codable{
+struct OrderResponseData: Codable {
     let order: OrderResponse
-    let payment_url : String?
+    let payment_url: String?
+
+    enum CodingKeys: String, CodingKey {
+        case order, data, payment_url
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        // Try "order" key first (paymob response)
+        if let order = try? container.decode(OrderResponse.self, forKey: .order) {
+            self.order = order
+            self.payment_url = try? container.decodeIfPresent(String.self, forKey: .payment_url)
+        }
+        // Try "data" key (some API responses wrap in data)
+        else if let order = try? container.decode(OrderResponse.self, forKey: .data) {
+            self.order = order
+            self.payment_url = try? container.decodeIfPresent(String.self, forKey: .payment_url)
+        }
+        // Try flat response (order fields at top level)
+        else {
+            self.order = try OrderResponse(from: decoder)
+            self.payment_url = try? container.decodeIfPresent(String.self, forKey: .payment_url)
+        }
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(order, forKey: .order)
+        try container.encodeIfPresent(payment_url, forKey: .payment_url)
+    }
 }
 struct OrderResponse: Codable {
        let userId: Int?
@@ -48,10 +77,10 @@ struct OrderDataCheck: Codable {
     }
 }
 struct OrderStatusCheck: Codable {
-    let id: Int
-    let name: String
-    let nameAr: String
-    let nameEn: String
+    let id: Int?
+    let name: String?
+    let nameAr: String?
+    let nameEn: String?
 
     enum CodingKeys: String, CodingKey {
         case id

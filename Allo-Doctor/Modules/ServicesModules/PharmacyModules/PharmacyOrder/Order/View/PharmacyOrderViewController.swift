@@ -30,7 +30,13 @@ class PharmacyOrderViewController: BaseViewController<PharmacyOrderViewModel> {
     override func viewDidLoad() {
         super.viewDidLoad()
         bindOrderStatus()
+        observeNewAddress()
 //        viewModel.getStatusCheck(orderID: 273)
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // Re-fetch cart from server to ensure prices reflect actual state
+        viewModel.getPharmacyCart()
     }
       
     override func setupUI() {
@@ -161,6 +167,16 @@ class PharmacyOrderViewController: BaseViewController<PharmacyOrderViewModel> {
         totalPayConfirmPrice.text = (grandTotalData?.totalAfterDiscount ?? AppLocalizedKeys.zero.localized) + AppLocalizedKeys.EGP.localized
         disscountPrice.text =  (grandTotalData?.discount ?? AppLocalizedKeys.zero.localized).appendingWithSpace(AppLocalizedKeys.EGP.localized)
         deliveyFees.text = (grandTotalData?.deliveryFee ?? AppLocalizedKeys.zero.localized) + AppLocalizedKeys.EGP.localized
+    }
+    private func observeNewAddress() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleNewAddress(_:)), name: .newAddressCreated, object: nil)
+    }
+    @objc private func handleNewAddress(_ notification: Notification) {
+        if let addressName = notification.userInfo?["addressName"] as? String,
+           let addressId = notification.userInfo?["addressId"] as? Int {
+            adressLabel.text = addressName
+            viewModel.adressId = addressId
+        }
     }
     private func bindProductsData() {
         viewModel.$pharmacyCart

@@ -129,15 +129,15 @@ func getPharmacyCart() {
             case .failure(let error):
                 print("Error: \(error)")
                 self?.errorMessage = "Failed to fetch cart: \(error.localizedDescription)"
-                
-                
             }
         }, receiveValue: { [weak self] cart in
-            guard let strongSelf = self, let cartData = cart.data, !cartData.isEmpty else {
-                return
+            guard let strongSelf = self else { return }
+            if let cartData = cart.data, !cartData.isEmpty {
+                strongSelf.pharmacyCart = cartData[0]
+            } else {
+                // Cart is empty on server, reset local data
+                strongSelf.pharmacyCart = nil
             }
-            strongSelf.pharmacyCart = cartData[0]
-           
         })
         .store(in: &cancellables)
 }

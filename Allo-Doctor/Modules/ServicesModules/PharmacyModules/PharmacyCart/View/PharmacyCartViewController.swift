@@ -150,15 +150,8 @@ extension PharmacyCartViewController {
             // Call the delete function from view model
             self.viewModel.deleteProduct(productId: itemId) { [weak self] success in
                 DispatchQueue.main.async {
-                    if success {
-                        // The UI will be updated automatically through the binding
-                        // No need to manually manipulate the array or delete rows
-                        completion(true)
-                    } else {
-                        // Handle error case
-                        completion(false)
-                        // Optionally show an error message to the user
-                    }
+                    // Item is removed locally in both success and failure cases
+                    completion(true)
                 }
             }
         }

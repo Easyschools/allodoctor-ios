@@ -183,7 +183,7 @@ struct Order: Decodable {
     let paymentTypeId: Int?
     let paymentType: String?
     let transactionId: String?
-    let total: String?
+    let total: Double?
     let totalBeforeDiscount: String?
     let notes: String?
     let createdAt: String?
@@ -296,7 +296,7 @@ struct OrderCartItem: Decodable {
     let medicationPharmacy: OrderMedicationPharmacy?
     let quantity: Int?
     let price: Double?
-    let total: String?
+    let total: Double?
     let createdAt: String?
 
     enum CodingKeys: String, CodingKey {

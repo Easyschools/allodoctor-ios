@@ -22,13 +22,22 @@ class ServicesCollectionViewCell: UICollectionViewCell {
         contentView.applyDropShadow()
     }
 }
-extension ServicesCollectionViewCell{
-    func setupImage(with image:String,chatNowButton:Bool? = nil){
-        serviceImage.kf.setImage(with:URL(string: image))
-        if chatNowButton == true {
-            bookVisitButton.setTitle(AppLocalizedKeys.chatNow.localized, for: .normal)
-        }
-        else{
+
+extension ServicesCollectionViewCell {
+    func setupImage(with image: String, serviceId: Int? = nil) {
+        serviceImage.kf.setImage(with: URL(string: image))
+        
+        // Determine button text based on service ID
+        if let id = serviceId {
+            switch id {
+            case 78:  // Contact Doctor
+                bookVisitButton.setTitle(AppLocalizedKeys.chatNow.localized, for: .normal)
+            case 24:  // Pharmacy
+                bookVisitButton.setTitle(AppLocalizedKeys.buyNow.localized, for: .normal)
+            default:
+                bookVisitButton.setTitle(AppLocalizedKeys.bookVisit.localized, for: .normal)
+            }
+        } else {
             bookVisitButton.setTitle(AppLocalizedKeys.bookVisit.localized, for: .normal)
         }
     }

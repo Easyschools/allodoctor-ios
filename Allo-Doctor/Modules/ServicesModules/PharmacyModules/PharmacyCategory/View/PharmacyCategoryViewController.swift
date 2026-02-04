@@ -13,6 +13,8 @@ class PharmacyCategoryViewController: BaseViewController<PharmacyCategoryViewMod
     @IBOutlet weak var searchView: CustomSearchBar!
     @IBOutlet weak var categoryCollectionView: UICollectionView!
     @IBOutlet weak var categoryCollectionViewDynamicHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var bannerCollectionView: UICollectionView!
+    @IBOutlet weak var bannerPageControl: UIPageControl!
     override func viewDidLoad() {
         super.viewDidLoad()
      
@@ -43,11 +45,14 @@ class PharmacyCategoryViewController: BaseViewController<PharmacyCategoryViewMod
         viewModel.getPharmacy()
         bindSearchBarButton()
         viewModel.fetchPharmacyFavourite()
+        viewModel.getPharmacyOffers()
+        bindBannerData()
     }
     override func setupUI() {
         setupCollectionView()
         bindCollectionViewHeight()
         setupViewControllerUI()
+        setupBannerCollectionView()
     }
 }
 extension PharmacyCategoryViewController{
@@ -62,6 +67,19 @@ extension PharmacyCategoryViewController{
         categoryCollectionView.delegate = self
         categoryCollectionView.dataSource = self
     }
+    private func setupBannerCollectionView() {
+        bannerCollectionView.registerCell(cellClass: OffersCollectionViewCell.self)
+        bannerCollectionView.delegate = self
+        bannerCollectionView.dataSource = self
+        bannerCollectionView.isPagingEnabled = true
+        bannerCollectionView.showsHorizontalScrollIndicator = false
+
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 0
+        layout.minimumInteritemSpacing = 0
+        bannerCollectionView.collectionViewLayout = layout
+    }
     private func bindCollectionViewHeight() {
         categoryCollectionView.publisher(for: \.contentSize)
             .sink { [weak self] newSize in
@@ -72,15 +90,24 @@ extension PharmacyCategoryViewController{
                 }
             }
             .store(in: &cancellables)
-        
+
     }
 }
 extension PharmacyCategoryViewController:UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if collectionView == bannerCollectionView {
+            return viewModel.banners?.count ?? 0
+        }
         return viewModel.pharmacy?.categories.count ?? 0
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if collectionView == bannerCollectionView {
+            let cell = collectionView.dequeue(indexpath: indexPath) as OffersCollectionViewCell
+            let imageUrl = viewModel.banners?[indexPath.row].image ?? ""
+            cell.configureCellImage(with: imageUrl)
+            return cell
+        }
         let cell = collectionView.dequeue(indexpath: indexPath) as CategoryCollectionViewCell
         let data = viewModel.pharmacy?.categories[indexPath.row]
         if UserDefaultsManager.sharedInstance.getLanguage() == .ar{
@@ -92,22 +119,37 @@ extension PharmacyCategoryViewController:UICollectionViewDelegate,UICollectionVi
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if collectionView == bannerCollectionView {
+            return collectionView.bounds.size
+        }
         return CGSize(width: collectionView.width*0.3, height: 120)
     }
-   
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView == bannerCollectionView {
+            guard let banner = viewModel.banners?[safe: indexPath.row],
+                  let pharmacyId = banner.bannerableId else { return }
+            viewModel.navToPharmacyFromBanner(pharmacyId: pharmacyId)
+            return
+        }
         let pharmacyData = viewModel.pharmacy
         viewModel.navigateToProducts(pharmacyId: pharmacyData?.id ?? 0, categoryId: pharmacyData?.categories[indexPath.row].id ?? 0)
     }
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        if collectionView == bannerCollectionView {
+            return 0
+        }
         return 6
     }
-    
+
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        if collectionView == bannerCollectionView {
+            return 0
+        }
         return 6
     }
 }
@@ -138,13 +180,56 @@ extension PharmacyCategoryViewController{
 }
 
 extension PharmacyCategoryViewController{
- 
+
     private func bindSearchBarButton() {
         searchView.navButtonTapped
             .sink { [weak self] in
                 self?.viewModel.navToProductsSerarh()
             }
             .store(in: &cancellables)
+    }
+    private func bindBannerData() {
+        viewModel.$banners
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] banners in
+                self?.bannerCollectionView.reloadData()
+                self?.bannerPageControl.numberOfPages = banners?.count ?? 0
+                self?.viewModel.startBannerAutoScroll()
+            }
+            .store(in: &cancellables)
+
+        viewModel.$currentBannerIndex
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] index in
+                guard let self = self else { return }
+                self.bannerPageControl.currentPage = index
+                let indexPath = IndexPath(item: index, section: 0)
+                if self.bannerCollectionView.numberOfItems(inSection: 0) > index {
+                    self.bannerCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+                }
+            }
+            .store(in: &cancellables)
+    }
+}
+// MARK: - UIScrollViewDelegate for Banner
+extension PharmacyCategoryViewController {
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        if scrollView == bannerCollectionView {
+            viewModel.stopBannerAutoScroll()
+        }
+    }
+
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if scrollView == bannerCollectionView {
+            viewModel.startBannerAutoScroll()
+        }
+    }
+
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        if scrollView == bannerCollectionView {
+            let visibleIndex = Int(scrollView.contentOffset.x / scrollView.frame.width)
+            viewModel.updateCurrentBannerIndex(to: visibleIndex)
+        }
     }
 }
 

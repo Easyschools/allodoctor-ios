@@ -14,6 +14,10 @@ class PharmacyHomeViewModel{
     @Published var errorMessage: String?
     private var apiClient = APIClient()
     @Published var pharmacies: [Pharmacy]?
+    @Published var banners: [Banner]?
+    @Published var currentBannerIndex: Int = 0
+    private var bannerTimer: AnyCancellable?
+    private let autoScrollInterval: TimeInterval = 7
     private var lat : String?
     private var long : String?
     init(coordinator: HomeCoordinatorContact? = nil, apiClient: APIClient = APIClient(),lat:String,long:String) {
@@ -45,9 +49,51 @@ extension PharmacyHomeViewModel{
             print(pharmacyResponse.data.count)
             let dis = self?.pharmacies?.first?.distance
 
-          
-            
+
+
         }).store(in: &cancellables)
+    }
+}
+// MARK: - Banner/Offers API
+extension PharmacyHomeViewModel {
+    func getPharmacyOffers() {
+        let router = APIRouter.fetchOffers(offerType: "pharmacy")
+        apiClient.fetchData(from: router.url, as: BannerResponse.self)
+            .sink(receiveCompletion: { [weak self] completion in
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    print("Error fetching pharmacy offers: \(error)")
+                    self?.errorMessage = "Failed to fetch Pharmacy Offers: \(error.localizedDescription)"
+                }
+            }, receiveValue: { [weak self] response in
+                self?.banners = response.data ?? []
+            })
+            .store(in: &cancellables)
+    }
+
+    func startBannerAutoScroll() {
+        stopBannerAutoScroll()
+        guard banners?.count ?? 0 > 1 else { return }
+        bannerTimer = Timer.publish(every: autoScrollInterval, on: .main, in: .common)
+            .autoconnect()
+            .sink { [weak self] _ in
+                self?.scrollToNextBanner()
+            }
+    }
+
+    func stopBannerAutoScroll() {
+        bannerTimer?.cancel()
+        bannerTimer = nil
+    }
+
+    private func scrollToNextBanner() {
+        currentBannerIndex = (currentBannerIndex + 1) % (banners?.count ?? 1)
+    }
+
+    func updateCurrentBannerIndex(to index: Int) {
+        currentBannerIndex = index
     }
 }
 extension PharmacyHomeViewModel {
@@ -66,5 +112,8 @@ extension PharmacyHomeViewModel {
     }
     func  navToshowPharmaciesCartViewController() {
         coordinator?.showPharmaciesCartViewController()
+    }
+    func navToPharmacyFromBanner(pharmacyId: Int) {
+        coordinator?.showPharmacyCategory(pharmacyId: pharmacyId)
     }
 }

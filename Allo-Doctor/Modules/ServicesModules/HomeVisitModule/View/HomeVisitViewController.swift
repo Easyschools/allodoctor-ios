@@ -58,6 +58,7 @@ class HomeVisitViewController: BaseViewController<HomeVisitViewModel> {
         }
     }
 }
+
 extension HomeVisitViewController{
     private func bindVm (){
         nameTextField.bindText(to: viewModel.name, storeIn: &cancellables)

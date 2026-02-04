@@ -211,7 +211,7 @@ enum AppLocalizedKeys: String, CaseIterable {
     case searchForAnyPharmacy
     case failed
     case outOfStock
-
+    case buyNow
 
 }
 
@@ -226,4 +226,6 @@ extension AppLocalizedKeys {
     var localized: String {
            return self.rawValue.localized
        }
+   
 }
+

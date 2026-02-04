@@ -13,6 +13,8 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PharmacyHomeViewController" customModule="Allo_Doctor" customModuleProvider="target">
             <connections>
                 <outlet property="backButton" destination="Y4Z-Ak-1t3" id="VCl-fZ-qxw"/>
+                <outlet property="bannerCollectionView" destination="BNR-cv-001" id="BNR-cn-001"/>
+                <outlet property="bannerPageControl" destination="BNR-pg-001" id="BNR-pg-cn1"/>
                 <outlet property="locationButton" destination="p7M-sj-QwR" id="UYG-WR-JRc"/>
                 <outlet property="pharmaciesCollectionView" destination="7oa-k6-sJL" id="C4C-Eh-GLU"/>
                 <outlet property="pharmaciesCollectionViewDynamicHeightConstraint" destination="w9R-x7-4wz" id="0rH-lG-hAh"/>
@@ -97,25 +99,32 @@
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bDE-hN-gZ6">
                                     <rect key="frame" x="16" y="60" width="343" height="150"/>
                                     <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pharmacybanner" translatesAutoresizingMaskIntoConstraints="NO" id="HFK-sa-iuF">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="150"/>
-                                        </imageView>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LJo-G5-ZpG">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="150"/>
-                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        </button>
+                                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="BNR-cv-001">
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="130"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                            <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0" minimumInteritemSpacing="0" id="BNR-fl-001">
+                                                <size key="itemSize" width="343" height="130"/>
+                                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                            </collectionViewFlowLayout>
+                                        </collectionView>
+                                        <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="BNR-pg-001">
+                                            <rect key="frame" x="121.66666666666666" y="130" width="100" height="20"/>
+                                            <color key="currentPageIndicatorTintColor" name="blueAppColor"/>
+                                            <color key="pageIndicatorTintColor" name="grey-#A8A8A8"/>
+                                        </pageControl>
                                     </subviews>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     <constraints>
-                                        <constraint firstAttribute="bottom" secondItem="HFK-sa-iuF" secondAttribute="bottom" id="7IG-jf-8sL"/>
                                         <constraint firstAttribute="height" constant="150" id="ATB-vR-cuD"/>
-                                        <constraint firstItem="LJo-G5-ZpG" firstAttribute="leading" secondItem="bDE-hN-gZ6" secondAttribute="leading" id="LK4-tr-7S7"/>
-                                        <constraint firstAttribute="trailing" secondItem="HFK-sa-iuF" secondAttribute="trailing" id="Oeo-GQ-Ykf"/>
-                                        <constraint firstItem="LJo-G5-ZpG" firstAttribute="top" secondItem="bDE-hN-gZ6" secondAttribute="top" id="R54-z4-7FC"/>
-                                        <constraint firstItem="HFK-sa-iuF" firstAttribute="top" secondItem="bDE-hN-gZ6" secondAttribute="top" id="YQ2-SM-u5O"/>
-                                        <constraint firstItem="HFK-sa-iuF" firstAttribute="leading" secondItem="bDE-hN-gZ6" secondAttribute="leading" id="hWp-mt-JYv"/>
-                                        <constraint firstAttribute="bottom" secondItem="LJo-G5-ZpG" secondAttribute="bottom" id="kRR-5h-1sA"/>
-                                        <constraint firstAttribute="trailing" secondItem="LJo-G5-ZpG" secondAttribute="trailing" id="lU9-vb-AaT"/>
+                                        <constraint firstItem="BNR-cv-001" firstAttribute="leading" secondItem="bDE-hN-gZ6" secondAttribute="leading" id="BNR-ld-001"/>
+                                        <constraint firstAttribute="trailing" secondItem="BNR-cv-001" secondAttribute="trailing" id="BNR-tr-001"/>
+                                        <constraint firstItem="BNR-cv-001" firstAttribute="top" secondItem="bDE-hN-gZ6" secondAttribute="top" id="BNR-tp-001"/>
+                                        <constraint firstItem="BNR-cv-001" firstAttribute="height" constant="130" id="BNR-ht-001"/>
+                                        <constraint firstItem="BNR-pg-001" firstAttribute="top" secondItem="BNR-cv-001" secondAttribute="bottom" id="BNR-pg-tp1"/>
+                                        <constraint firstItem="BNR-pg-001" firstAttribute="centerX" secondItem="bDE-hN-gZ6" secondAttribute="centerX" id="BNR-pg-cx1"/>
+                                        <constraint firstAttribute="bottom" secondItem="BNR-pg-001" secondAttribute="bottom" id="BNR-pg-bt1"/>
                                     </constraints>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -178,7 +187,6 @@
     </objects>
     <resources>
         <image name="basket" width="20" height="20"/>
-        <image name="pharmacybanner" width="343" height="145"/>
         <namedColor name="blueAppColor">
             <color red="0.11800000071525574" green="0.49000000953674316" blue="0.75300002098083496" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

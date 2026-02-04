@@ -19,10 +19,10 @@ struct Pharmacy: Decodable {
     let id: Int
     let nameEn: String
     let nameAr: String
-    let titleEn: String
-    let titleAr: String
-    let descriptionEn: String
-    let descriptionAr: String
+    let titleEn: String?
+    let titleAr: String?
+    let descriptionEn: String?
+    let descriptionAr: String?
     let distance: Double?
     let addressAr: String?
     let addressEn: String?
@@ -77,10 +77,10 @@ struct Pharmacy: Decodable {
         id = try container.decode(Int.self, forKey: .id)
         nameEn = try container.decode(String.self, forKey: .nameEn)
         nameAr = try container.decode(String.self, forKey: .nameAr)
-        titleEn = try container.decode(String.self, forKey: .titleEn)
-        titleAr = try container.decode(String.self, forKey: .titleAr)
-        descriptionEn = try container.decode(String.self, forKey: .descriptionEn)
-        descriptionAr = try container.decode(String.self, forKey: .descriptionAr)
+        titleEn = try container.decodeIfPresent(String.self, forKey: .titleEn)
+        titleAr = try container.decodeIfPresent(String.self, forKey: .titleAr)
+        descriptionEn = try container.decodeIfPresent(String.self, forKey: .descriptionEn)
+        descriptionAr = try container.decodeIfPresent(String.self, forKey: .descriptionAr)
         distance = try container.decodeIfPresent(Double.self, forKey: .distance)
         addressAr = try container.decodeIfPresent(String.self, forKey: .addressAr)
         addressEn = try container.decodeIfPresent(String.self, forKey: .addressEn)

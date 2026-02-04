@@ -88,6 +88,7 @@ extension DoctorSearchViewController: UICollectionViewDelegate, UICollectionView
         return viewModel.doctors.count
     }
 
+    // ✅ NEW CODE - CLEAN
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DoctorSearchCollectionViewCell", for: indexPath) as? DoctorSearchCollectionViewCell else {
             fatalError("Unable to dequeue DoctorSearchCollectionViewCell")
@@ -97,45 +98,13 @@ extension DoctorSearchViewController: UICollectionViewDelegate, UICollectionView
             return cell
         }
         
-        // Set doctor name based on language
-        if UserDefaultsManager.sharedInstance.getLanguage() == .ar {
-            cell.doctorName.text = doctor.nameAr ?? "Unknown Doctor"
-        } else {
-            cell.doctorName.text = doctor.nameEn ?? "Unknown Doctor"
-        }
-        
-        // Set address based on doctor place type
-        // Get localized service name from any available external clinic service
-        if let serviceSpecialties = doctor.doctorServiceSpecialtyIds,
-           let matchingSpecialty = serviceSpecialties.first(where: { $0.externalClinicService?.infoService != nil }),
-           let infoService = matchingSpecialty.externalClinicService?.infoService {
-
-            let lang = UserDefaultsManager.sharedInstance.getLanguage()
-
-            let localizedName: String?
-            if lang == .ar {
-                localizedName = infoService.nameAr ?? infoService.name
-            } else {
-                localizedName = infoService.nameEn ?? infoService.name
-            }
-
-            cell.AdressLabel.text = localizedName
-
-        } else {
-            // fallback if no service info found
-            cell.AdressLabel.text = doctor.address ?? " not available"
-        }
-
-
-        // Set fees
-        cell.feesLabel.text = doctor.price ?? "Fees not available"
-        
-        // Setup cell with doctor data
+        // FIXED: Let the cell handle ALL logic including address
         let doctorPlace = viewModel.doctorPlace
         cell.setupCell(with: doctor, doctorPlace: doctorPlace)
         
         return cell
     }
+    
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.width, height: 241)

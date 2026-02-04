@@ -5,6 +5,7 @@
   Created by Abdallah ismail on 22/11/2024.
   
 */
+"buyNow" = "اشتري الآن";
 "verifyYourNumber" = "التحقق من رقمك";
 "mobileNumber" =  "رقم الهاتف المحمول";
 "getOTP" = " OTP احصل على";
@@ -160,7 +161,7 @@
 "Filter" = "فلتر";
 "AllSpecialities" = "كل التخصصات";
 "Speciality" = "تخصص";
-"Fees:" = "الرسوم:";
+"Fees:" = "الرسوم :";
 "WaitingTime:" = "وقت الانتظار:";
 "AvailableToday" = "متاح اليوم";
 "Delivery Fees :" = "رسوم التوصيل :";

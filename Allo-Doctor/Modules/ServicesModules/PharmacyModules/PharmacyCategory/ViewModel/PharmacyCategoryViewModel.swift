@@ -14,6 +14,10 @@ class PharmacyCategoryViewModel{
     @Published var pharmacyId: Int?
     @Published var pharmacy: Pharmacy?
     @Published var favData: [FavData]?
+    @Published var banners: [Banner]?
+    @Published var currentBannerIndex: Int = 0
+    private var bannerTimer: AnyCancellable?
+    private let autoScrollInterval: TimeInterval = 7
     init(coordinator: HomeCoordinatorContact? = nil, apiClient: APIClient = APIClient(),pharmacyId:Int) {
         self.coordinator = coordinator
         self.apiClient = apiClient
@@ -104,6 +108,51 @@ extension PharmacyCategoryViewModel{
     }
     func navBack(){
         coordinator?.navigateBack()
+    }
+    func navToPharmacyFromBanner(pharmacyId: Int) {
+        coordinator?.showPharmacyCategory(pharmacyId: pharmacyId)
+    }
+}
+// MARK: - Banner/Offers API
+extension PharmacyCategoryViewModel {
+    func getPharmacyOffers() {
+        let router = APIRouter.fetchOffers(offerType: "pharmacy")
+        apiClient.fetchData(from: router.url, as: BannerResponse.self)
+            .sink(receiveCompletion: { [weak self] completion in
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    print("Error fetching pharmacy offers: \(error)")
+                    self?.errorMessage = "Failed to fetch Pharmacy Offers: \(error.localizedDescription)"
+                }
+            }, receiveValue: { [weak self] response in
+                self?.banners = response.data ?? []
+            })
+            .store(in: &cancellables)
+    }
+
+    func startBannerAutoScroll() {
+        stopBannerAutoScroll()
+        guard banners?.count ?? 0 > 1 else { return }
+        bannerTimer = Timer.publish(every: autoScrollInterval, on: .main, in: .common)
+            .autoconnect()
+            .sink { [weak self] _ in
+                self?.scrollToNextBanner()
+            }
+    }
+
+    func stopBannerAutoScroll() {
+        bannerTimer?.cancel()
+        bannerTimer = nil
+    }
+
+    private func scrollToNextBanner() {
+        currentBannerIndex = (currentBannerIndex + 1) % (banners?.count ?? 1)
+    }
+
+    func updateCurrentBannerIndex(to index: Int) {
+        currentBannerIndex = index
     }
 }
 

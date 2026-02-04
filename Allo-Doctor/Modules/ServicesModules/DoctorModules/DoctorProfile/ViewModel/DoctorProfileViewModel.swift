@@ -4,11 +4,12 @@
 //
 //  Created by Abdallah ismail on 20/09/2024.
 //
-//
+
 enum DoctorPlace {
     case outpatientClinics
     case doctorClinics
 }
+
 import Foundation
 
 class DoctorProfileViewModel {
@@ -20,9 +21,10 @@ class DoctorProfileViewModel {
     private let calendar = Calendar.current
     private var maxId: Int = 0
     var doctorPlace: DoctorPlace
+    
     // New pagination properties
-    private var appointmentPages: [[DoctorAppointment]] = []
-    private var currentPageIndex = 0
+    private var currentStartIndex = 0
+    private let itemsPerPage = 3
     
     // Published properties
     @Published var favData: [FavData]?
@@ -34,7 +36,6 @@ class DoctorProfileViewModel {
     // Private properties
     private var cancellables = Set<AnyCancellable>()
     private var apiClient: APIClient
-    private let itemsPerPage = 3
     
     private let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -43,7 +44,7 @@ class DoctorProfileViewModel {
     }()
     
     // MARK: - Initialization
-    init(coordinator: HomeCoordinatorContact? = nil, doctorId: String, apiClient: APIClient = APIClient(),doctorPlace: DoctorPlace) {
+    init(coordinator: HomeCoordinatorContact? = nil, doctorId: String, apiClient: APIClient = APIClient(), doctorPlace: DoctorPlace) {
         self.coordinator = coordinator
         self.doctorId = doctorId
         self.apiClient = apiClient
@@ -90,125 +91,115 @@ class DoctorProfileViewModel {
             }).store(in: &cancellables)
     }
     
-    // MARK: - Appointment Generation Methods
+    // MARK: - NEW: Show all appointments from API with dates
     func generateNextThreeDates(from baseAppointments: [DoctorAppointment]) -> [DoctorAppointment] {
         guard !baseAppointments.isEmpty else { return [] }
         
-        // Check if we have a next stored page
-        if currentPageIndex < appointmentPages.count - 1 {
-            currentPageIndex += 1
-            return appointmentPages[currentPageIndex]
+        // Initialize all appointments with generated dates on first call
+        if allAppointments.isEmpty {
+            allAppointments = generateDatesForAppointments(baseAppointments)
+            currentStartIndex = 0
         }
         
-        // Generate new appointments
-        let newAppointments = generateNewAppointments(from: baseAppointments)
+        // Calculate end index for pagination
+        let endIndex = min(currentStartIndex + itemsPerPage, allAppointments.count)
         
-        // Store the new page
-        appointmentPages.append(newAppointments)
-        currentPageIndex = appointmentPages.count - 1
+        // Return the current page of appointments
+        let currentPage = Array(allAppointments[currentStartIndex..<endIndex])
         
-        return newAppointments
+        return currentPage
     }
     
-    private func generateNewAppointments(from baseAppointments: [DoctorAppointment]) -> [DoctorAppointment] {
+    // MARK: - Generate dates for all appointment days (next 26 weeks = ~6 months)
+    private func generateDatesForAppointments(_ baseAppointments: [DoctorAppointment]) -> [DoctorAppointment] {
         let today = Date()
         let calendar = Calendar.current
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
-
-        // Initialize if first time
-        if allAppointments.isEmpty {
-            allAppointments = baseAppointments
-            maxId = baseAppointments.map { $0.appointmentDayHourId }.max() ?? 0
-
-            let todayString = dateFormatter.string(from: today)
-            if baseAppointments.contains(where: { $0.day.date == todayString }) {
-                currentDate = today
-            } else {
-                let firstDay = baseAppointments[0].day.nameEn
-                let targetWeekday = getWeekday(firstDay)
-                let currentWeekday = calendar.component(.weekday, from: today)
-                var daysToAdd = targetWeekday - currentWeekday
-                if daysToAdd < 0 {
-                    daysToAdd += 7
-                }
-                currentDate = calendar.date(byAdding: .day, value: daysToAdd, to: today) ?? today
-            }
-        } else {
-            currentDate = calendar.date(byAdding: .day, value: 1, to: currentDate) ?? today
-        }
-
-        let dayPattern = baseAppointments.map { $0.day.nameEn }
-        var nextDate = currentDate
-        var weekCount = 0
-        var newAppointments: [DoctorAppointment] = []
-
-        while weekCount < 3 {
-            for (index, templateDay) in dayPattern.enumerated() {
-                let template = baseAppointments[index]
-                maxId += 1
-
-                let targetWeekday = getWeekday(templateDay)
-                let currentWeekday = calendar.component(.weekday, from: nextDate)
-                var daysToAdd = targetWeekday - currentWeekday
-
-                // Fixed logic for single day patterns
-                if daysToAdd < 0 {
-                    daysToAdd += 7
-                } else if daysToAdd == 0 {
-                    // If it's the same weekday, we need to move to next week
-                    // unless it's the first appointment of the first week
-                    if weekCount > 0 || index > 0 {
-                        daysToAdd = 7
-                    }
-                }
-
-                nextDate = calendar.date(byAdding: .day, value: daysToAdd, to: nextDate) ?? nextDate
-                let nextDateString = dateFormatter.string(from: nextDate)
+        
+        var appointmentsWithDates: [DoctorAppointment] = []
+        var maxId = baseAppointments.map { $0.appointmentDayHourId }.max() ?? 0
+        
+        // Generate dates for the next 26 weeks (~6 months)
+        for weekOffset in 0..<26 {
+            for template in baseAppointments {
+                let targetWeekday = getWeekday(template.day.nameEn)
                 
-                if allAppointments.contains(where: { $0.day.date == nextDateString }) {
+                // Calculate the date for this appointment
+                var components = calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: today)
+                components.weekday = targetWeekday
+                components.weekOfYear = (components.weekOfYear ?? 0) + weekOffset
+                
+                guard let appointmentDate = calendar.date(from: components) else { continue }
+                
+                // Skip if the date is in the past
+                if appointmentDate < calendar.startOfDay(for: today) {
                     continue
                 }
-
+                
+                let dateString = dateFormatter.string(from: appointmentDate)
+                maxId += 1
+                
+                // Create new appointment with date
                 let newDay = DoctorDay(
                     id: template.day.id,
                     nameEn: template.day.nameEn,
                     nameAr: template.day.nameAr,
                     name: template.day.name,
                     available: template.day.available,
-                    date: nextDateString
+                    date: dateString
                 )
-
-                let newHours = template.hour.enumerated().map { hourIndex, hour in
+                
+                // Include ALL hours for this appointment
+                let newHours = template.hour.map { hour in
                     DoctorHour(
-                        appointmentDayHourId: maxId + hourIndex,
+                        appointmentDayHourId: maxId,
                         id: hour.id,
                         from: hour.from,
                         to: hour.to
                     )
                 }
-
+                
                 let newAppointment = DoctorAppointment(
                     appointmentDayHourId: maxId,
                     day: newDay,
                     hour: newHours
                 )
-
-                newAppointments.append(newAppointment)
+                
+                appointmentsWithDates.append(newAppointment)
             }
-            weekCount += 1
         }
-
-        allAppointments.append(contentsOf: newAppointments)
-        currentDate = nextDate
-
-        return newAppointments
+        
+        // Sort by date
+        appointmentsWithDates.sort { appointment1, appointment2 in
+            guard let date1 = appointment1.day.date,
+                  let date2 = appointment2.day.date else {
+                return false
+            }
+            return date1 < date2
+        }
+        
+        return appointmentsWithDates
     }
     
+    // MARK: - Pagination Methods
     func getPreviousAppointments() -> [DoctorAppointment]? {
-        guard currentPageIndex > 0 else { return nil }
-        currentPageIndex -= 1
-        return appointmentPages[currentPageIndex]
+        guard currentStartIndex > 0 else { return nil }
+        
+        currentStartIndex -= itemsPerPage
+        let endIndex = min(currentStartIndex + itemsPerPage, allAppointments.count)
+        
+        return Array(allAppointments[currentStartIndex..<endIndex])
+    }
+    
+    func getNextAppointments() -> [DoctorAppointment]? {
+        let nextStartIndex = currentStartIndex + itemsPerPage
+        guard nextStartIndex < allAppointments.count else { return nil }
+        
+        currentStartIndex = nextStartIndex
+        let endIndex = min(currentStartIndex + itemsPerPage, allAppointments.count)
+        
+        return Array(allAppointments[currentStartIndex..<endIndex])
     }
     
     // MARK: - Navigation Methods
@@ -250,8 +241,7 @@ class DoctorProfileViewModel {
     func reset() {
         currentDate = Date()
         allAppointments.removeAll()
-        appointmentPages.removeAll()
-        currentPageIndex = 0
+        currentStartIndex = 0
         maxId = 0
     }
 }

@@ -291,6 +291,7 @@ struct DoctorProfile: Decodable {
     let experience: Int?
     let mainImage: String?
     let district: DoctorDistrict?
+    let doctorDistricts: [DoctorDistrictDetail]?
     let districtId: Int?
     let images: [ClinicImages]?
     let doctorServiceSpecialtyIds: [DoctorServiceSpecialties]?
@@ -317,6 +318,7 @@ struct DoctorProfile: Decodable {
         case priceAfterDiscount = "price_after_discount"
         case mainImage = "main_image"
         case districtId = "district_id"
+        case doctorDistricts = "doctor_districts"
         case doctorServiceSpecialtyIds = "doctor_service_specialty_ids"
         case appointments
         case appointmentsBooking = "appointments_booking"
@@ -328,6 +330,12 @@ struct DoctorProfile: Decodable {
         case reviewsCount = "reviews_count"
         case medicalInsurance = "medical_insurance"
     }
+}
+
+struct DoctorDistrictDetail: Decodable {
+    let id: Int?
+    let district: District?
+    let address: String?
 }
 
 // MARK: - District

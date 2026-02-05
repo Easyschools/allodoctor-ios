@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HospitalSearchViewController" customModule="Allo_Doctor" customModuleProvider="target">
             <connections>
+                <outlet property="areaDropDownView" destination="QpO-eU-U9w" id="aDD-Xk-123"/>
                 <outlet property="hospitalsCollectionVIew" destination="uae-7I-Z6m" id="Upm-Wv-hIV"/>
                 <outlet property="searchBar" destination="T6K-pu-QcB" id="hRN-Z4-KqB"/>
                 <outlet property="upperView" destination="NtZ-it-y7c" id="AF0-OV-NpV"/>
@@ -50,7 +51,22 @@
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QpO-eU-U9w" customClass="CustomDropDownList" customModule="Allo_Doctor" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="343" height="40"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aSB-area-btn">
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="40"/>
+                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                            <connections>
+                                                <action selector="showAreaSelection:" destination="-1" eventType="touchUpInside" id="aSA-act-123"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstItem="aSB-area-btn" firstAttribute="leading" secondItem="QpO-eU-U9w" secondAttribute="leading" id="aLd-cn-123"/>
+                                        <constraint firstItem="aSB-area-btn" firstAttribute="top" secondItem="QpO-eU-U9w" secondAttribute="top" id="aTp-cn-123"/>
+                                        <constraint firstAttribute="trailing" secondItem="aSB-area-btn" secondAttribute="trailing" id="aTr-cn-123"/>
+                                        <constraint firstAttribute="bottom" secondItem="aSB-area-btn" secondAttribute="bottom" id="aBt-cn-123"/>
+                                    </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T6K-pu-QcB" customClass="SearchView" customModule="Allo_Doctor" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="50" width="343" height="40"/>

@@ -10,32 +10,43 @@ import UIKit
 class HospitalSearchViewController: BaseViewController<HospitalSearchViewModel> {
     @IBOutlet weak var upperView: CustomCornerRaduis!
     @IBOutlet weak var searchBar: SearchView!
-        
+    @IBOutlet weak var areaDropDownView: CustomDropDownList!
     @IBOutlet weak var hospitalsCollectionVIew: UICollectionView!
-    
+
     override func viewDidLoad() {
-            super.viewDidLoad()
-          
-           
-        }
-        override func setupUI(){
-            setupCollectionView()
-        }
-        override func bindViewModel() {
-            viewModel.fetchHospitals()
-            bindCollectionView()
-        }
-        override func viewDidLayoutSubviews() {
-            upperView.roundCorners([.bottomLeft,.bottomRight], radius: 30)
-        }
-
-
-        @IBAction func navBack(_ sender: Any) {
-            viewModel.coordinator?.navigateBack()
-        }
-        
-
+        super.viewDidLoad()
     }
+
+    override func setupUI(){
+        setupCollectionView()
+        setupAreaDropdown()
+    }
+
+    override func bindViewModel() {
+        viewModel.fetchHospitals()
+        viewModel.fetchCities()
+        bindCollectionView()
+    }
+
+    override func viewDidLayoutSubviews() {
+        upperView.roundCorners([.bottomLeft,.bottomRight], radius: 30)
+    }
+
+    private func setupAreaDropdown() {
+        areaDropDownView.label.text = AppLocalizedKeys.selectArea.localized
+        areaDropDownView.setDropdownHeight(500)
+    }
+
+    @IBAction func navBack(_ sender: Any) {
+        viewModel.coordinator?.navigateBack()
+    }
+
+    @IBAction func showAreaSelection(_ sender: Any) {
+        let citiesVC = SectionSearchableTableViewController(cityData: viewModel.cities)
+        citiesVC.delegate = self
+        viewModel.coordinator?.presentModallyWithRoot(citiesVC)
+    }
+}
     extension HospitalSearchViewController:UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
         func setupCollectionView() {
             hospitalsCollectionVIew.delegate = self
@@ -126,4 +137,18 @@ class HospitalSearchViewController: BaseViewController<HospitalSearchViewModel> 
                 .store(in: &cancellables)
         }
     }
+
+// MARK: - SectionSearchableTableViewControllerDelegate
+extension HospitalSearchViewController: SectionSearchableTableViewControllerDelegate {
+    func sectionSearchableTableViewController(_ controller: SectionSearchableTableViewController, didSelectDistrictWithID id: Int, districtName name: String) {
+        areaDropDownView.label.text = name
+        areaDropDownView.label.textColor = .black
+        viewModel.selectDistrict(id: id, name: name)
+        viewModel.coordinator?.dismissPresnetiontabBarNav(self)
+    }
+
+    func sectionSearchableTableViewControllerDidTapDismiss(_ controller: SectionSearchableTableViewController) {
+        viewModel.coordinator?.dismissPresnetiontabBarNav(self)
+    }
+}
 

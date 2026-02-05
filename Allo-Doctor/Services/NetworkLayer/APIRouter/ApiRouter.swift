@@ -67,6 +67,7 @@ enum APIRouter {
     case getUser(userId:Int)
     case updateMedicalData
     case fetchHospitals(isPaginate: Int, serviceId: Int)
+    case fetchHospitalsWithDistrict(isPaginate: Int, serviceId: Int, districtId: Int)
     case fetchHospitalById(hospitalId: Int)
     case fetchDoctorsByHospitalAndSpecialty(isPaginate: Int, hospitalId: Int, specialtyId: Int)
     // Construct the full path and query for each case
@@ -191,6 +192,8 @@ enum APIRouter {
             return "/admin/medical-info/update"
         case .fetchHospitals(isPaginate: let isPaginate, serviceId: let serviceId):
             return "/admin/info-service/all?service_id=\(serviceId)&is_paginate=\(isPaginate)"
+        case .fetchHospitalsWithDistrict(isPaginate: let isPaginate, serviceId: let serviceId, districtId: let districtId):
+            return "/admin/info-service/all?service_id=\(serviceId)&is_paginate=\(isPaginate)&district_id=\(districtId)"
         case .fetchHospitalById(hospitalId: let hospitalId):
             return "/admin/info-service/get?id=\(hospitalId)"
         case .fetchDoctorsByHospitalAndSpecialty(isPaginate: let isPaginate, hospitalId: let hospitalId, specialtyId: let specialtyId):

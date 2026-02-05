@@ -20,6 +20,9 @@ class HospitalSearchViewModel{
     @Published var specialties: [Specialty] = []
     @Published var filteredSpecialties: [Specialty] = []
     @Published var searchText: String = ""
+    @Published var cities: [City] = []
+    @Published var selectedDistrictId: Int?
+    @Published var selectedDistrictName: String?
 
     var coordinator: HomeCoordinatorContact?
     private var apiClient :APIClient?
@@ -88,7 +91,12 @@ class HospitalSearchViewModel{
 extension HospitalSearchViewModel{
     func fetchHospitals(){
         // Fetch hospitals using the APIRouter
-        let router = APIRouter.fetchHospitals(isPaginate: 50, serviceId: 1)
+        let router: APIRouter
+        if let districtId = selectedDistrictId {
+            router = APIRouter.fetchHospitalsWithDistrict(isPaginate: 50, serviceId: 1, districtId: districtId)
+        } else {
+            router = APIRouter.fetchHospitals(isPaginate: 50, serviceId: 1)
+        }
         apiClient?.fetchData(from: router.url, as: HospitalResponse.self)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { [weak self] completion in
@@ -105,6 +113,36 @@ extension HospitalSearchViewModel{
                 print("Fetched \(hospitalResponse.data.count) hospitals")
             })
             .store(in: &cancellables)
+    }
+
+    func fetchCities() {
+        let router = APIRouter.fetchCities
+        apiClient?.fetchData(from: router.url, as: CityDataResponse.self)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { [weak self] completion in
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    self?.errorMessage = "Failed to fetch cities: \(error.localizedDescription)"
+                    print("Error fetching cities: \(error)")
+                }
+            }, receiveValue: { [weak self] citiesResponse in
+                self?.cities = citiesResponse.data ?? []
+            })
+            .store(in: &cancellables)
+    }
+
+    func selectDistrict(id: Int, name: String) {
+        selectedDistrictId = id
+        selectedDistrictName = name
+        fetchHospitals()
+    }
+
+    func clearDistrictFilter() {
+        selectedDistrictId = nil
+        selectedDistrictName = nil
+        fetchHospitals()
     }
 
     func navigateToHospitalFromList(hospital: HospitalInfoService) {

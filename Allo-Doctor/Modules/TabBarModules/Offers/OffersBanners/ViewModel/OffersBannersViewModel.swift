@@ -44,4 +44,7 @@ extension OffersBannersViewModel{
     func navToPharmacy(id:Int){
         coordinator?.showPharmacyCategory(pharmacyId:id)
     }
+    func navToLab(id:Int){
+        coordinator?.showLabsAndScanProfile(url: "", type: "lab", id: id)
+    }
 }

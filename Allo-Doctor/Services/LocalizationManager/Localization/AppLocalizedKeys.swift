@@ -65,6 +65,8 @@ enum AppLocalizedKeys: String, CaseIterable {
     case SearchforDoctor
     case selectArea = "Enter Your Area"
     case doctors
+    case Pharmacies
+    case Labs
 //    case ok
     case uploadPrescription
     case uploadPrescriptionFirst

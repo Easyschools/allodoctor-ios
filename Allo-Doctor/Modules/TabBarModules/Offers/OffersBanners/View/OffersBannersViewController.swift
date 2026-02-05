@@ -76,6 +76,9 @@ class OffersBannersViewController: BaseViewController<OffersBannersViewModel> {
             if viewModel.screenType == "doctor" {
                 viewModel.navToDoctor(id: id ?? 0)
             }
+            else if viewModel.screenType == "lab" {
+                viewModel.navToLab(id: id ?? 0)
+            }
             else {
                 viewModel.navToPharmacy(id: id ?? 0)
             }
@@ -95,9 +98,12 @@ extension OffersBannersViewController{
         if viewModel.screenType == "doctor" {
             screenTypeLabel.text = AppLocalizedKeys.doctors.localized
         }
-        else {
-            screenTypeLabel.text = "Phamracies"
+        else if viewModel.screenType == "lab" {
+            screenTypeLabel.text = AppLocalizedKeys.Labs.localized
         }
-        
+        else {
+            screenTypeLabel.text = AppLocalizedKeys.Pharmacies.localized
+        }
+
     }
 }

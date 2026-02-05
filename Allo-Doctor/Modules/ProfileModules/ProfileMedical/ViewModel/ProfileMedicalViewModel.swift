@@ -19,7 +19,10 @@ class ProfileMedicalViewModel{
     @Published var medicalData: MedicalData?
     @Published var isLoading: Bool = false
     private var apiClient = APIClient()
-    
+
+    // Delegate for image upload completion callback
+    weak var imageUploadDelegate: ImageUploadDelegate?
+
     init(coordinator: HomeCoordinatorContact? = nil, apiClient: APIClient = APIClient()) {
        self.coordinator = coordinator
        self.apiClient = apiClient
@@ -58,7 +61,7 @@ extension ProfileMedicalViewModel{
             .store(in: &cancellables)
     }
     
-    func fetchMedicalData() {
+    func fetchMedicalData(updateTextFields: Bool = true) {
         isLoading = true
         let router = APIRouter.fetchMedicalData
 
@@ -75,7 +78,10 @@ extension ProfileMedicalViewModel{
                 }
             }, receiveValue: { [weak self] response in
                 self?.medicalData = response.data
-                self?.updateSubjectsWithFetchedData()
+                // Only update text fields on initial load, not after image upload
+                if updateTextFields {
+                    self?.updateSubjectsWithFetchedData()
+                }
             }).store(in: &cancellables)
     }
     
@@ -100,7 +106,7 @@ extension ProfileMedicalViewModel{
         isLoading = true
         let router = APIRouter.updateMedicalData
         let request = deleteImageRequest(deletedImageId: id, id: self.medicalData?.id ?? 0)
-        
+
         apiClient.postData(to: router.url, body: request, as: MedicalInfoResponse.self)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
@@ -115,7 +121,8 @@ extension ProfileMedicalViewModel{
             } receiveValue: { [weak self] response in
                 self?.handleResponse(response)
                 // Refresh the medical data after successful deletion
-                self?.fetchMedicalData()
+                // Pass false to preserve user's text input
+                self?.fetchMedicalData(updateTextFields: false)
             }
             .store(in: &cancellables)
     }
@@ -145,9 +152,56 @@ extension ProfileMedicalViewModel{
 }
 
 extension ProfileMedicalViewModel {
-    func showMedicalImagesUpload(){
-        let id = self.medicalData?.id ?? 0
-        coordinator?.showMedicalImagesUpload(id: id)
+    func showMedicalImagesUpload() {
+        // Check if medical info exists with a valid ID
+        if let id = self.medicalData?.id, id > 0 {
+            // Medical info exists, proceed to upload
+            coordinator?.showMedicalImagesUpload(id: id, delegate: imageUploadDelegate)
+        } else {
+            // No medical info, create one first
+            createMedicalInfoThenShowUpload()
+        }
+    }
+
+    private func createMedicalInfoThenShowUpload() {
+        isLoading = true
+        let request = MedicalInfoBody(
+            allergy: allergy.value,
+            medication: medication.value,
+            medicalHistory: medicalHistory.value
+        )
+
+        let router = APIRouter.medicalInfoPost
+        apiClient.postData(to: router.url, body: request, as: MedicalInfoResponse.self)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] completion in
+                self?.isLoading = false
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    print(error)
+                    self?.errorMessage = "Failed to create medical info"
+                }
+            } receiveValue: { [weak self] response in
+                // Store the new ID and show upload screen
+                if let newId = response.data?.id, newId > 0 {
+                    self?.updateMedicalDataWithNewId(newId)
+                    self?.coordinator?.showMedicalImagesUpload(id: newId, delegate: self?.imageUploadDelegate)
+                }
+            }
+            .store(in: &cancellables)
+    }
+
+    private func updateMedicalDataWithNewId(_ id: Int) {
+        // Update medicalData with the new ID from creation response
+        self.medicalData = MedicalData(
+            id: id,
+            allergy: allergy.value,
+            medication: medication.value,
+            medicalHistory: medicalHistory.value,
+            images: []
+        )
     }
     
     func navToHome(){

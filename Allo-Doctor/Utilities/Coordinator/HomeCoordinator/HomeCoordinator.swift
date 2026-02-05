@@ -86,7 +86,7 @@ protocol HomeCoordinatorContact: AnyObject {
     func showProfileRefundPolicyViewController()
     func showInsuranceDetails(userInsurance:UserInsurance)
     func showSelectChatTypeViewController()
-    func showMedicalImagesUpload(id:Int)
+    func showMedicalImagesUpload(id:Int, delegate: ImageUploadDelegate?)
     func presentReview(reviewType:String,reviewId:Int)
     func showHospitalsList()
     func showHospitalSpecialties(hospital: HospitalInfoService)
@@ -144,8 +144,9 @@ extension HomeCoordinator: HomeCoordinatorContact {
         }
     }
      
-    func showMedicalImagesUpload(id:Int) {
+    func showMedicalImagesUpload(id:Int, delegate: ImageUploadDelegate?) {
         let viewController = ImageUploadViewController(id: id)
+        viewController.delegate = delegate
         viewController.modalPresentationStyle = .fullScreen
         if let navController = (window?.rootViewController as? UITabBarController)?.selectedViewController as? UINavigationController {
             navController.present(viewController, animated: true)

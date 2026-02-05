@@ -384,3 +384,10 @@
 "outOfStock" = "غير متوفر";
 "idNumberEmpty" = "رقم الهوية لا يمكن أن يكون فارغًا.";
 "insuranceProviderEmpty" = "يرجى اختيار مقدم التأمين.";
+"deleteImage" = "حذف الصورة";
+"deleteImageConfirmation" = "هل أنت متأكد من حذف هذه الصورة؟";
+"delete" = "حذف";
+"deletingImage" = "جارٍ حذف الصورة...";
+"deleteImageFailed" = "فشل حذف الصورة.";
+"imageDeletedSuccessfully" = "تم حذف الصورة بنجاح.";
+"loadingImages" = "جارٍ تحميل الصور...";

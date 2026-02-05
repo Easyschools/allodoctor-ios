@@ -17,19 +17,24 @@ class ProfileMedicalViewController: BaseViewController<ProfileMedicalViewModel> 
     @IBOutlet weak var medicalHistoryTextView: CustomTextView!
     @IBOutlet weak var allergieTextView: CustomTextView!
     @IBOutlet weak var medicineTextView: CustomTextView!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         confirmationButton.setTitle(AppLocalizedKeys.Confirm.localized, for: .normal)
         navBackButton.setTitle(AppLocalizedKeys.myMedicalInfo.localized)
         setupCollectionView()
+        // Set self as the delegate for image upload completion
+        viewModel.imageUploadDelegate = self
     }
 
     override func viewDidLayoutSubviews() {
         upperView.roundCorners([.bottomLeft,.bottomRight], radius: 25)
     }
     override func viewWillAppear(_ animated: Bool) {
-        viewModel.fetchMedicalData()
+        super.viewWillAppear(animated)
+        // Pass false to preserve user's text input when returning from modal
+        // Initial text field population happens in bindViewModel() with updateTextFields: true
+        viewModel.fetchMedicalData(updateTextFields: false)
     }
     @IBAction func navBackAction(_ sender: Any) {
         viewModel.navBack()
@@ -80,15 +85,12 @@ class ProfileMedicalViewController: BaseViewController<ProfileMedicalViewModel> 
     private func bindData(){
         viewModel.$medicalData
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] medicalData in
-                self?.medicalHistoryTextView.text = medicalData?.medicalHistory
-                self?.allergieTextView.text = medicalData?.allergy
-                self?.medicineTextView.text = medicalData?.medication
-                
-                // Reload collection view when data changes
+            .sink { [weak self] _ in
+                // Only reload collection view for images
+                // Text fields are updated via CurrentValueSubjects binding in setupTextView()
                 self?.MedicalImagesCollectionView.reloadData()
             }.store(in: &cancellables)
-        
+
         viewModel.$bookingStatus
             .receive(on: DispatchQueue.main)
             .sink { status in
@@ -155,5 +157,14 @@ extension ProfileMedicalViewController{
             .store(in: &cancellables)
         // Add it to the view controller's view
         view.addSubview(confirmationView)
+    }
+}
+
+// MARK: - ImageUploadDelegate
+extension ProfileMedicalViewController: ImageUploadDelegate {
+    func imageUploadDidComplete() {
+        // Refresh medical data to show newly uploaded images
+        // Pass false to preserve user's text input (don't overwrite text fields)
+        viewModel.fetchMedicalData(updateTextFields: false)
     }
 }

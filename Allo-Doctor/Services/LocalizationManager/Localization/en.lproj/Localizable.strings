@@ -388,5 +388,12 @@
 "outOfStock" = "Out of Stock";
 "idNumberEmpty" = "ID Number cannot be empty.";
 "insuranceProviderEmpty" = "Please select an insurance provider.";
+"deleteImage" = "Delete Image";
+"deleteImageConfirmation" = "Are you sure you want to delete this image?";
+"delete" = "Delete";
+"deletingImage" = "Deleting image...";
+"deleteImageFailed" = "Failed to delete image.";
+"imageDeletedSuccessfully" = "Image deleted successfully.";
+"loadingImages" = "Loading images...";
 
 

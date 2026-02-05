@@ -218,6 +218,13 @@ enum AppLocalizedKeys: String, CaseIterable {
     case buyNow
     case idNumberEmpty
     case insuranceProviderEmpty
+    case deleteImage
+    case deleteImageConfirmation
+    case delete
+    case deletingImage
+    case deleteImageFailed
+    case imageDeletedSuccessfully
+    case loadingImages
 
 }
 

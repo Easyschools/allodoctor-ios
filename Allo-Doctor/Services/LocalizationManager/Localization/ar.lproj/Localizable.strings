@@ -382,3 +382,5 @@
 "Enter Apartment" = "أدخل رقم الشقة";
 "Floor" = "الطابق";
 "outOfStock" = "غير متوفر";
+"idNumberEmpty" = "رقم الهوية لا يمكن أن يكون فارغًا.";
+"insuranceProviderEmpty" = "يرجى اختيار مقدم التأمين.";

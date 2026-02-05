@@ -386,5 +386,7 @@
 "Enter Apartment" = "Enter Apartment";
 "Floor" = "Floor";
 "outOfStock" = "Out of Stock";
+"idNumberEmpty" = "ID Number cannot be empty.";
+"insuranceProviderEmpty" = "Please select an insurance provider.";
 
 

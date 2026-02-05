@@ -216,6 +216,8 @@ enum AppLocalizedKeys: String, CaseIterable {
     case failed
     case outOfStock
     case buyNow
+    case idNumberEmpty
+    case insuranceProviderEmpty
 
 }
 

@@ -7,7 +7,7 @@
 
 import Foundation
 struct LaravelResponse: Codable {
-    let data: MedicalInsurance?
+    let data: InsuranceResponseData?
     let message: String?
 }
 struct UserInsuranceModel:Codable{

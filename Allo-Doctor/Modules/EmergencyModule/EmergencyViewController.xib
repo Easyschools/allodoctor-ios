@@ -17,6 +17,7 @@
                 <outlet property="nameTextfield" destination="csE-8H-dEo" id="C6v-1Q-Cu2"/>
                 <outlet property="phoneNumberTextField" destination="P1S-Nu-SHm" id="dwf-1B-WNL"/>
                 <outlet property="selectAreaLabel" destination="Bof-0u-1f0" id="f2s-Ln-fE9"/>
+                <outlet property="termsTextView" destination="mQz-2D-zz4" id="abc-def-123"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -321,13 +322,23 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="gnP-Cz-PTI">
                                                     <rect key="frame" x="16" y="12" width="311" height="326"/>
                                                     <subviews>
-                                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" pagingEnabled="YES" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="mQz-2D-zz4">
-                                                            <rect key="frame" x="0.0" y="0.0" width="311" height="302"/>
-                                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                            <color key="textColor" systemColor="labelColor"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                                        </textView>
+                                                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" scrollEnabled="YES" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="mQz-2D-zz4">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="311" height="302"/>
+                                                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                            <string key="text">• Allo Doctor Is Not A Medical Facility, But Rather An Intermediary Between Licensed Healthcare Providers And Patients Through Its Website/mobile Applications.
+
+• Allo Doctor Does Not Replace Your Existing Primary Care Physician Relationship.
+
+• Medical Services Provided By Health Care Providers Are Subject To Their Professional Judgment.
+
+• Physicians And Providers Do Not Prescribe Controlled Substances, Scheduled Drugs, Non-therapeutic Drugs, And Some Other Drugs That May Be Harmful Because Of Their Potential For Abuse.</string>
+                                                                            <color key="textColor" name="grey-#6B7280"/>
+                                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                                            <userDefinedRuntimeAttributes>
+                                                                                <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="emergency_terms_text"/>
+                                                                            </userDefinedRuntimeAttributes>
+                                                                        </textView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="oZQ-vb-qeb">
                                                             <rect key="frame" x="0.0" y="302.00000000000006" width="311" height="24"/>
                                                             <subviews>
@@ -468,9 +479,6 @@
         <namedColor name="grey-#6B7280">
             <color red="0.41999998688697815" green="0.44699999690055847" blue="0.50199997425079346" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

@@ -9,22 +9,27 @@ import UIKit
 
 class EmergencyViewController: BaseViewController<EmergencyViewModel> {
 
-
     @IBOutlet weak var phoneNumberTextField: UITextField!
     @IBOutlet weak var confirmationButton: CustomButton!
     @IBOutlet weak var nameTextfield: UITextField!
     @IBOutlet weak var selectAreaLabel: UILabel!
     @IBOutlet weak var acceptTermsButton: SelectableButton!
+    @IBOutlet weak var termsTextView: UITextView!
+    
     private var isAreaSelected:Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         nameTextfield.bindText(to: viewModel.nameSubject, storeIn: &cancellables)
         phoneNumberTextField.bindText(to: viewModel.numberSubject, storeIn: &cancellables)
+        setupTermsText()
     }
+    
     override func setupUI() {
         confirmationButton.isUserInteractionEnabled = false
         confirmationButton.layer.backgroundColor = UIColor.grey6B7280.cgColor
     }
+    
     override func bindViewModel() {
         handleViewModelResponse()
         viewModel.getAllAreaOfResidence()
@@ -44,36 +49,46 @@ class EmergencyViewController: BaseViewController<EmergencyViewModel> {
             }
         }
     }
+    
+    private func setupTermsText() {
+        // Set up the localized terms and conditions text
+        let termsKey = "emergency_terms_text"
+        let termsText = AppLocalizedKeys.emergencyTermsText.localized
+        termsTextView.text = termsText
+    }
 
     @IBAction func chooseArea(_ sender: Any) {
         let citiesVC = SectionSearchableTableViewController(cityData: viewModel.cities)
         citiesVC.delegate = self
         viewModel.coordinator?.presentModallyWithRoot(citiesVC)
-
     }
+    
     @IBAction func dismissButtonAction(_ sender: Any) {
         viewModel.navBack()
     }
+    
     @IBAction func acceptTermsAction(_ sender: Any) {
     }
+    
     @IBAction func confirmationAction(_ sender: Any) {
         if validateInputs(){
-            viewModel.createBooking()}
+            viewModel.createBooking()
+        }
     }
 }
+
 extension EmergencyViewController:SectionSearchableTableViewControllerDelegate {
     func sectionSearchableTableViewController(_ controller: SectionSearchableTableViewController, didSelectDistrictWithID id: Int, districtName name: String) {
-     
-            selectAreaLabel.text = name
-            viewModel.districtId.value = id
-            isAreaSelected = true
-        
+        selectAreaLabel.text = name
+        viewModel.districtId.value = id
+        isAreaSelected = true
         viewModel.coordinator?.dismissPresnetiontabBarNav(self)
     }
     
-        func sectionSearchableTableViewControllerDidTapDismiss(_ controller: SectionSearchableTableViewController) {
-            viewModel.coordinator?.dismissPresnetiontabBarNav(self)
-        }
+    func sectionSearchableTableViewControllerDidTapDismiss(_ controller: SectionSearchableTableViewController) {
+        viewModel.coordinator?.dismissPresnetiontabBarNav(self)
+    }
+    
     private func showErrorAlert(message: String) {
         DispatchQueue.main.async {
             let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
@@ -96,6 +111,7 @@ extension EmergencyViewController:SectionSearchableTableViewControllerDelegate {
                    }
                    .store(in: &cancellables)
     }
+    
     private func handleSucessViews(){
         let confirmationView = ConfirmationView(frame: view.bounds)
         confirmationView.proceedActionPublisher
@@ -103,9 +119,10 @@ extension EmergencyViewController:SectionSearchableTableViewControllerDelegate {
                        self?.viewModel.navToHome()
                    }
                    .store(in: &cancellables)
-               // Add it to the view controller's view
-         view.addSubview(confirmationView)
+        // Add it to the view controller's view
+        view.addSubview(confirmationView)
     }
+    
     private func validateInputs() -> Bool {
         // Validate name
         guard let name = nameTextfield.text, !name.isEmpty else {
@@ -131,6 +148,7 @@ extension EmergencyViewController:SectionSearchableTableViewControllerDelegate {
             AlertManager.showAlert(on: self, title: AppLocalizedKeys.InvalidNumber.localized, message: AppLocalizedKeys.phoneRejecs.localized)
             return false
         }
+        
         guard isAreaSelected else {
             AlertManager.showAlert(on: self, title: AppLocalizedKeys.selectArea.localized, message: AppLocalizedKeys.selectArea.localized)
             return false
@@ -138,5 +156,4 @@ extension EmergencyViewController:SectionSearchableTableViewControllerDelegate {
 
         return true
     }
-  
 }

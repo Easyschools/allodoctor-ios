@@ -9,7 +9,7 @@ enum AppLocalizedKeys: String, CaseIterable {
     // MARK: - Splash Module
     case verifyYourNumber
     case mobileNumber
-    
+    case emergencyTermsText = "emergency_terms_text"
     // MARK: - Onboardig Module
     case getOTP
     case onboardingSubtitle

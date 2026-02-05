@@ -142,6 +142,10 @@ extension PhoneNumberViewModel {
     func navToOtpScreen() {
         coordinator?.showOtpScreen()
     }
+
+    func navToTabBarAsGuest() {
+        coordinator?.showTabBar()
+    }
 }
 
 // MARK: - PostPhoneNumber for Verification

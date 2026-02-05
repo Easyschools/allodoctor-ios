@@ -50,6 +50,13 @@ class PhoneNumberViewController: BaseViewController<PhoneNumberViewModel> {
         }
     }
     
+    // MARK: - Continue as Guest Action
+    @IBAction func continueAsGuestAction(_ sender: Any) {
+        print("Continue as Guest button tapped")
+        UserDefaultsManager.sharedInstance.sawOnboarding()
+        viewModel.navToTabBarAsGuest()
+    }
+
     // MARK: - Dismiss Keyboard on Tap
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)

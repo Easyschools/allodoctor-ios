@@ -44,7 +44,7 @@ enum APIRouter {
     case fetchProductsGlobalSearch(isPaginate:Int ,search:String)
     case fetchCities
     case updateUser
-    case bookEmergency(Emergencgy)
+    case bookEmergency(EmergencyRequest)
     case operationBooking(ConfirmOperationRequest)
     case bookDoctor(BookingRequest)
     case fetchOffers(offerType:String)

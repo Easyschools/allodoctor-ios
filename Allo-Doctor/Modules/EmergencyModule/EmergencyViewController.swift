@@ -113,7 +113,7 @@ extension EmergencyViewController:SectionSearchableTableViewControllerDelegate {
             return false
         }
         
-        let nameRegex = "^[a-zA-Z ]+$"
+        let nameRegex = "^[a-zA-Z\\u0600-\\u06FF ]+$"
         let namePredicate = NSPredicate(format: "SELF MATCHES %@", nameRegex)
         guard namePredicate.evaluate(with: name) else {
             AlertManager.showAlert(on: self, title: AppLocalizedKeys.InvalidName.localized, message:AppLocalizedKeys.NameRejecs.localized)

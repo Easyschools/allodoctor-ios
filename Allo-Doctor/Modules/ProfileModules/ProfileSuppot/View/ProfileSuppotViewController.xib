@@ -169,6 +169,13 @@
                                         </label>
                                     </subviews>
                                 </stackView>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="email-btn-001">
+                                    <rect key="frame" x="0.0" y="0.0" width="361" height="112"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <connections>
+                                        <action selector="showEmailComposer:" destination="-1" eventType="touchUpInside" id="email-action-001"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
@@ -177,6 +184,10 @@
                                 <constraint firstAttribute="bottom" secondItem="DPf-nG-Phi" secondAttribute="bottom" constant="12" id="6ll-vI-IRG"/>
                                 <constraint firstItem="DPf-nG-Phi" firstAttribute="top" secondItem="mHC-KR-iMX" secondAttribute="top" constant="12" id="EFH-lH-Wli"/>
                                 <constraint firstAttribute="height" constant="112" id="HO1-QB-xAH"/>
+                                <constraint firstItem="email-btn-001" firstAttribute="top" secondItem="mHC-KR-iMX" secondAttribute="top" id="email-top-001"/>
+                                <constraint firstItem="email-btn-001" firstAttribute="leading" secondItem="mHC-KR-iMX" secondAttribute="leading" id="email-leading-001"/>
+                                <constraint firstAttribute="trailing" secondItem="email-btn-001" secondAttribute="trailing" id="email-trailing-001"/>
+                                <constraint firstAttribute="bottom" secondItem="email-btn-001" secondAttribute="bottom" id="email-bottom-001"/>
                             </constraints>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="color" keyPath="borderColor">

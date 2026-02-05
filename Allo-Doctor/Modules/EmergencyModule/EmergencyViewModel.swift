@@ -30,21 +30,21 @@ class EmergencyViewModel: ObservableObject {
 
 extension EmergencyViewModel {
     func createBooking() {
-        let emergencyRequest = Emergencgy(
+        let emergencyRequest = EmergencyRequest(
             name: nameSubject.value,
-            phone: numberSubject.value,
-            districtID: districtId.value,
+            districtId: districtId.value,
             acceptTerms: 1,
+            phone: numberSubject.value,
             isME: 1,
             patientName: nameSubject.value,
-            patientNumber: numberSubject.value
+            patientPhone: numberSubject.value
         )
         emergencyBooking(request: emergencyRequest)
     }
-    
-    func emergencyBooking(request: Emergencgy) {
+
+    func emergencyBooking(request: EmergencyRequest) {
         let router = APIRouter.bookEmergency(request)
-        apiClient.postData(to: router.url, body: request, as: EmergencgyResponse.self)
+        apiClient.postData(to: router.url, body: request, as: EmergencyResponse.self)
             .sink(receiveCompletion: { completion in
                 switch completion {
                 case .finished:

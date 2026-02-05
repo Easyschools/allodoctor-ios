@@ -5,6 +5,13 @@
   Created by Abdallah ismail on 22/11/2024.
   
 */
+
+/* Email Support */
+"SupportRequest" = "طلب دعم";
+"EmailNotAvailable" = "البريد الإلكتروني غير متاح";
+"EmailNotAvailableMessage" = "يرجى تكوين حساب البريد الإلكتروني الخاص بك أو الاتصال بنا على";
+"OK" = "حسناً";
+
 "buyNow" = "اشتري الآن";
 "verifyYourNumber" = "التحقق من رقمك";
 "mobileNumber" =  "رقم الهاتف المحمول";

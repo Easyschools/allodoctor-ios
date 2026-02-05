@@ -34,7 +34,11 @@ enum AppLocalizedKeys: String, CaseIterable {
     case adultsICU = "Adults ICU"
     case pediatricICU = "Pediatric ICU"
     case neonatalICU = "Neonatal ICU"
-    
+    // Add these to your AppLocalizedKeys file
+    case supportRequest = "SupportRequest"
+    case emailNotAvailable = "EmailNotAvailable"
+    case emailNotAvailableMessage = "EmailNotAvailableMessage"
+    static let ok = "OK"
     case operations = "operations"
     case searchForAnyOperation 
     case Services
@@ -61,7 +65,7 @@ enum AppLocalizedKeys: String, CaseIterable {
     case SearchforDoctor
     case selectArea = "Enter Your Area"
     case doctors
-    case ok
+//    case ok
     case uploadPrescription
     case uploadPrescriptionFirst
     case EGP

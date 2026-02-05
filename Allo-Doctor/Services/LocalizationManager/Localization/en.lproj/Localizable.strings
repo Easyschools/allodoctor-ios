@@ -4,6 +4,13 @@
 
   Created by Abdallah Ismail on 22/11/2024.
 */
+
+/* Email Support */
+"SupportRequest" = "Support Request";
+"EmailNotAvailable" = "Email Not Available";
+"EmailNotAvailableMessage" = "Please configure your email account or contact us at";
+"OK" = "OK";
+
 "buyNow" = "Buy now";
 "bookVisit" = "Book visit";
 "verifyYourNumber" = "Verify your number";

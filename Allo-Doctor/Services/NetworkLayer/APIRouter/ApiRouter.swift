@@ -61,7 +61,7 @@ enum APIRouter {
     case fetchMedicalData
     case delteFav (entity:String,id:Int)
     case deleteInsurance(id:Int)
-    case deleteProductid(id:Int,pharmacyId:Int)
+    case deleteProductid(id:Int)
     case deletePharmacyCart(pharmacyId:Int)
     case cancelReservation(id:Int,type:String)
     case getUser(userId:Int)
@@ -180,8 +180,8 @@ enum APIRouter {
 
         case .deleteInsurance(id: let id):
             return "/admin/user-insurance/delete?medical_insurance_id=\(id)"
-        case .deleteProductid(id: let id,pharmacyId: let pharmacyId):
-            return "/admin/cart/delete?id=\(id)&pharmacy_id=\(pharmacyId)"
+        case .deleteProductid(id: let id):
+            return "/admin/cart/delete?id=\(id)"
         case .deletePharmacyCart(pharmacyId: let pharmacyId):
             return "/admin/cart/delete?pharmacy_id=\(pharmacyId)"
         case .cancelReservation(id: let id,type: let type):

@@ -55,30 +55,8 @@ extension PharmacyCartViewModel {
             .store(in: &cancellables)
     }
     func deleteProduct(productId:Int){
-        // Prevent double-delete of the same item
-        guard !deletingItemIds.contains(productId) else {
-            print("Item \(productId) is already being deleted, skipping.")
-            return
-        }
-        deletingItemIds.insert(productId)
-
-        let router = APIRouter.deleteProductid(id: productId, pharmacyId: pharmacyId ?? 0)
-        print(router.url)
-        apiClient.deleteData(from: router.url, as: DeleteResponse.self)
-            .sink(receiveCompletion: { [weak self] completion in
-                self?.deletingItemIds.remove(productId)
-                switch completion {
-                case .finished:
-                    print("Delete request completed successfully.")
-                case .failure(let error):
-                    print("Error during delete request: \(error)")
-                }
-            }, receiveValue: { [weak self] response in
-                print("Message: \(response.Message)")
-                print("Data: \(response.data)")
-                self?.getPharmacyCart()
-            })
-        .store(in: &cancellables)}
+        deleteProduct(productId: productId) { _ in }
+    }
 }
 
 // MARK: - Presentation Logic
@@ -158,7 +136,7 @@ extension PharmacyCartViewModel {
         recalculateTotalQuantity()
         recalculateTotalPrice()
 
-        let router = APIRouter.deleteProductid(id: productId, pharmacyId: pharmacyId ?? 0)
+        let router = APIRouter.deleteProductid(id: productId)
         print("Delete URL: \(router.url)")
 
         apiClient.deleteData(from: router.url, as: DeleteResponse.self)

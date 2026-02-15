@@ -89,7 +89,7 @@ extension OperationHospitalsViewController:UICollectionViewDelegate,UICollection
             return
         }
 
-        viewModel.coordinator?.showOperationAppointments(operationServiceId: opeationDataId, hospitalData: hospital)
+        viewModel.coordinator?.showOperationAppointments(operationServiceId: opeationDataId, hospitalData: hospital, infoServiceId: hospital.infoService?.id ?? viewModel.infoServiceId)
 
     }
     func collectionView(_ collectionView: UICollectionView,

@@ -21,10 +21,12 @@ class EmergencyViewModel: ObservableObject {
     @Published var bookingStatus: BookingStatus? // New published property
     
     private let apiClient: APIClient
-    
-    init(coordinator: HomeCoordinatorContact? = nil, apiClient: APIClient = APIClient()) {
+    var infoServiceId: Int?
+
+    init(coordinator: HomeCoordinatorContact? = nil, apiClient: APIClient = APIClient(), infoServiceId: Int? = nil) {
         self.coordinator = coordinator
         self.apiClient = apiClient
+        self.infoServiceId = infoServiceId
     }
 }
 
@@ -37,7 +39,8 @@ extension EmergencyViewModel {
             phone: numberSubject.value,
             isME: 1,
             patientName: nameSubject.value,
-            patientPhone: numberSubject.value
+            patientPhone: numberSubject.value,
+            infoServiceId: infoServiceId
         )
         emergencyBooking(request: emergencyRequest)
     }

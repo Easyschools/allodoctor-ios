@@ -120,7 +120,8 @@ struct EmergencyRequest: Codable {
     let isME: Int
     let patientName: String
     let patientPhone: String
-    
+    let infoServiceId: Int?
+
     enum CodingKeys: String, CodingKey {
         case name
         case districtId = "district_id"
@@ -129,6 +130,7 @@ struct EmergencyRequest: Codable {
         case isME = "is_me"
         case patientName = "patient_name"
         case patientPhone = "patient_phone"
+        case infoServiceId = "info_service_id"
     }
 }
 

@@ -19,13 +19,15 @@ class OneDayCareBookingViewModel{
     private var dayServiceId: Int?
     @Published var hospitalData:OneDayCareAppointmentsModel
     var date: String?
+    var infoServiceId: Int?
     // Dependency Injection
-    init(coordinator: HomeCoordinatorContact? = nil, apiClient: APIClient = APIClient(),dayServiceId: Int,date:String ,hospitalData:OneDayCareAppointmentsModel) {
+    init(coordinator: HomeCoordinatorContact? = nil, apiClient: APIClient = APIClient(),dayServiceId: Int,date:String ,hospitalData:OneDayCareAppointmentsModel, infoServiceId: Int? = nil) {
         self.coordinator = coordinator
         self.apiClient = apiClient
         self.dayServiceId = dayServiceId
         self.hospitalData = hospitalData
         self.date = date
+        self.infoServiceId = infoServiceId
 
     }
 }
@@ -37,31 +39,30 @@ extension OneDayCareBookingViewModel {
             name:nameSubject.value,
             phone: phoneSubject.value,
             info_day_service_id :dayServiceId,
-            date: date
+            date: date,
+            info_service_id: infoServiceId
         )
         operationBooking(request: operationBookingRequest)
         
     }
     
     func operationBooking(request: ConfirmOneDayRequest) {
-        let router = APIRouter.oneDayServiceBooking
-        apiClient.postData(to: router.url, body: request, as: ConfirmOneDayRequestResponse.self)
-            .sink(receiveCompletion: { completion in
-                switch completion {
-                case .finished:
-
-                    break
+        NetworkManagerAlamofire.shared.postFormData(
+            endpoint: "/admin/day-service/booking",
+            params: request,
+            responseType: ConfirmOneDayRequestResponse.self
+        ) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let response):
+                    print("Booking Response: \(response)")
+                    self?.status = .success
                 case .failure(let error):
-                    print("Error: \(error)")
-                    self.status = .failure
-                    
+                    print("Booking Error: \(error)")
+                    self?.status = .failure
                 }
-            }, receiveValue: { response in
-                print("Registration Response: \(response)")
-                self.status = .success
-            })
-            .store(in: &cancellables)
-        
+            }
+        }
     }
     
 

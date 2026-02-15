@@ -79,24 +79,35 @@ extension SubServiceViewController:UICollectionViewDataSource,UICollectionViewDe
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
        let  id =  viewModel.subServices[indexPath.row].id
         if  id == 4 || id == 22 {
-            viewModel.coordinator?.showExternalClinics()
+            viewModel.coordinator?.showExternalClinics(infoServiceId: viewModel.infoServiceId)
         }
        else if id == 6 {
-            viewModel.coordinator?.showOperationsSearchScreen()
+            viewModel.coordinator?.showOperationsSearchScreen(infoServiceId: viewModel.infoServiceId)
         }
         else if id == 5 {
-            viewModel.coordinator?.showIntensiveCareUnits()
+            viewModel.coordinator?.showIntensiveCareUnits(infoServiceId: viewModel.infoServiceId)
         }
         else if id == 33{
-            viewModel.coordinator?.showIncubations()
+            viewModel.coordinator?.showIncubations(infoServiceId: viewModel.infoServiceId)
         }
         else if id == 36 {
-            viewModel.showEmergency()
+            viewModel.coordinator?.showEmergency(infoServiceId: viewModel.infoServiceId)
+        }
+        else if id == 35 {
+            if let infoServiceId = viewModel.infoServiceId {
+                viewModel.fetchHospitalAndShowSpecialties(hospitalId: infoServiceId)
+            } else {
+                viewModel.coordinator?.showOneDayCareHospitals()
+            }
         }
         else {
-            viewModel.coordinator?.showOneDayCareHospitals()
+            if let infoServiceId = viewModel.infoServiceId {
+                viewModel.coordinator?.showHospitalProfile(hospitalId: infoServiceId)
+            } else {
+                viewModel.coordinator?.showOneDayCareHospitals()
+            }
         }
-        
+
     }
 }
 extension SubServiceViewController{

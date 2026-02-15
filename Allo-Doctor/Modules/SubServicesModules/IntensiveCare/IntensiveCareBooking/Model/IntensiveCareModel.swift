@@ -18,4 +18,5 @@ struct IntensiveCareBody:Codable {
     let birthdate : String
     let type : String
     let accept_terms:Int
+    let info_service_id: Int?
 }

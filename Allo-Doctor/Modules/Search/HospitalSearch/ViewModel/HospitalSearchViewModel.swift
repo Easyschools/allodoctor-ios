@@ -146,8 +146,8 @@ extension HospitalSearchViewModel{
     }
 
     func navigateToHospitalFromList(hospital: HospitalInfoService) {
-        // Navigate to hospital specialties when a hospital is selected
-        coordinator?.showHospitalSpecialties(hospital: hospital)
+        // Navigate to sub-services screen with the hospital's info_service_id
+        coordinator?.showSubServicesVC(infoServiceId: hospital.id)
     }
 
     // Navigation for specialties mode

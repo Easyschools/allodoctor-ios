@@ -28,8 +28,8 @@ enum APIRouter {
     case fetchUserAddresses
     case orderConfirm
     case fetchDoctorAppointment(doctorId: Int, specialtyId: Int, serviceId: Int, day: String, date: String, doctorServiceSpecialtyId: Int)
-    case fetchOperations(isPaginate:Int,search:String)
-    case fetchExternalClinics(isPaginate:Int,search:String)
+    case fetchOperations(isPaginate:Int,search:String,infoServiceId:Int? = nil)
+    case fetchExternalClinics(isPaginate:Int,search:String,infoServiceId:Int? = nil)
     case fetchOperationData(operationId:Int,search:String,districtId:String)
     case fetchExternalClinicData(externalClinicId:Int)
     case fetchAllOneDayCareHospitals(search:String)
@@ -70,6 +70,7 @@ enum APIRouter {
     case fetchHospitalsWithDistrict(isPaginate: Int, serviceId: Int, districtId: Int)
     case fetchHospitalById(hospitalId: Int)
     case fetchDoctorsByHospitalAndSpecialty(isPaginate: Int, hospitalId: Int, specialtyId: Int)
+    case fetchDayServices(isPaginate: Int, infoServiceId: Int)
     // Construct the full path and query for each case
     private var path: String {
         switch self {
@@ -110,10 +111,14 @@ enum APIRouter {
         case .fetchDoctorAppointment(let doctorId, let specialtyId, let serviceId, let day, let date, let doctorServiceSpecialtyId):
             return "/admin/appointment-doctor/get-available-appointment?doctor_id=\(doctorId)&service_id=\(serviceId)&speciality_id=\(specialtyId)&date=\(date)&day=\(day)&doctor_service_specialty_ids=\(doctorServiceSpecialtyId)"
         case .addToCart: return "/admin/cart/create"
-        case .fetchOperations(isPaginate: let isPaginate,search: let search):
-            return "/admin/operation/all?is_paginate=\(isPaginate)&search=\(search)"
-        case .fetchExternalClinics(isPaginate: let isPaginate,search: let search):
-            return "/admin/external-clinic/all?is_paginate=\(isPaginate)&search=\(search)"
+        case .fetchOperations(isPaginate: let isPaginate,search: let search, infoServiceId: let infoServiceId):
+            var path = "/admin/operation/all?is_paginate=\(isPaginate)&search=\(search)"
+            if let id = infoServiceId { path += "&info_service_id=\(id)" }
+            return path
+        case .fetchExternalClinics(isPaginate: let isPaginate,search: let search, infoServiceId: let infoServiceId):
+            var path = "/admin/external-clinic/all?is_paginate=\(isPaginate)&search=\(search)"
+            if let id = infoServiceId { path += "&info_service_id=\(id)" }
+            return path
         case .fetchOperationData(operationId: let id,search: let search,districtId: let districtId):
             return "/admin/operation/get?id=\(id)&search=\(search)&district_id=\(districtId)"
         case .fetchExternalClinicData(externalClinicId: let id):
@@ -198,6 +203,8 @@ enum APIRouter {
             return "/admin/info-service/get?id=\(hospitalId)"
         case .fetchDoctorsByHospitalAndSpecialty(isPaginate: let isPaginate, hospitalId: let hospitalId, specialtyId: let specialtyId):
             return "/admin/doctor/all?is_paginate=\(isPaginate)&web=1&info_service_id=\(hospitalId)&speciality_id=\(specialtyId)"
+        case .fetchDayServices(isPaginate: let isPaginate, infoServiceId: let infoServiceId):
+            return "/admin/day-service/all?is_paginate=\(isPaginate)&info_service_id=\(infoServiceId)"
         }
     }
     // Define the base URL for all requests

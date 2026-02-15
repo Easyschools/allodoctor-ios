@@ -23,7 +23,7 @@ struct OneDayCareHospitals: Codable {
     let image: String?
     let backgroundImage: String?
     let address: String?
-    let oneDayServices: [OneDayService]?
+    var oneDayServices: [OneDayService]?
 
     enum CodingKeys: String, CodingKey {
         case id, name, nameAr = "name_ar", nameEn = "name_en"
@@ -109,5 +109,34 @@ struct DayService: Codable {
         case id, nameEn = "name_en", nameAr = "name_ar"
         case descriptionEn = "description_en", descriptionAr = "description_ar"
         case image, backgroundImage = "background_image", address, lat, long
+    }
+}
+
+// MARK: - Day Service List Response (from /admin/day-service/all)
+struct DayServiceListResponse: Decodable {
+    let data: [DayServiceListItem]?
+}
+
+struct DayServiceListItem: Decodable {
+    let id: Int?
+    let nameEn: String?
+    let nameAr: String?
+    let descriptionEn: String?
+    let descriptionAr: String?
+    let image: String?
+    let backgroundImage: String?
+    let address: String?
+    let lat: String?
+    let long: String?
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case nameEn = "name_en"
+        case nameAr = "name_ar"
+        case descriptionEn = "description_en"
+        case descriptionAr = "description_ar"
+        case image
+        case backgroundImage = "background_image"
+        case address, lat, long
     }
 }

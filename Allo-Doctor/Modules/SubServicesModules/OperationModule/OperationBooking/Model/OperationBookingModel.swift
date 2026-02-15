@@ -16,6 +16,7 @@ struct ConfirmOperationRequest: Codable {
     let phone: String?
     let operation_service_id: Int?
     let operation_date: String?
+    let info_service_id: Int?
 }
 
 // Error Response Model

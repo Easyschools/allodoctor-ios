@@ -20,7 +20,11 @@ struct Response<T: Decodable>: Decodable {
 
 struct OneDayCareAppointmentsModel: Decodable {
     let data: AppointmentData
-    
+
+    init(data: AppointmentData) {
+        self.data = data
+    }
+
     struct AppointmentData: Decodable {
         let id: Int?
         let price: String?
@@ -29,12 +33,22 @@ struct OneDayCareAppointmentsModel: Decodable {
         let infoService: InfoService?
         let dayService: DayService?
         var days: [DayAvailability]?
-        
+
         enum CodingKeys: String, CodingKey {
             case id, price, from, to
             case infoService = "info_service"
             case dayService = "day_service"
             case days
+        }
+
+        init(id: Int?, price: String?, from: String?, to: String?, infoService: InfoService?, dayService: DayService?, days: [DayAvailability]?) {
+            self.id = id
+            self.price = price
+            self.from = from
+            self.to = to
+            self.infoService = infoService
+            self.dayService = dayService
+            self.days = days
         }
     }
     

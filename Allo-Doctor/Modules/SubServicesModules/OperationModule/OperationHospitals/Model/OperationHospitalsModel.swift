@@ -34,11 +34,24 @@ struct OperationInfoServiceWrapper: Decodable {
     let operationServiceID: Int?
     let price: String?
     let infoService: InfoService?
-    
+
     enum CodingKeys: String, CodingKey {
         case operationServiceID = "operation_service_id"
         case price
         case infoService = "info_service"
+    }
+
+    init(operationServiceID: Int?, price: String?, infoService: InfoService?) {
+        self.operationServiceID = operationServiceID
+        self.price = price
+        self.infoService = infoService
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        operationServiceID = try container.decodeIfPresent(Int.self, forKey: .operationServiceID)
+        price = try container.decodeIfPresent(String.self, forKey: .price)
+        infoService = try container.decodeIfPresent(InfoService.self, forKey: .infoService)
     }
 }
 

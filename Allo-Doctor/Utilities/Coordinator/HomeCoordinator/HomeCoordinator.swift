@@ -14,6 +14,7 @@ protocol HomeCoordinatorContact: AnyObject {
     func showTabBar()
     func navigationBack()
     func showSubServicesVC()
+    func showSubServicesVC(infoServiceId: Int)
     func showSearchScreen(serviceId: Int?)
     func navigateBack()
     func showProfileMedical()
@@ -38,6 +39,7 @@ protocol HomeCoordinatorContact: AnyObject {
     func showDoctorAppointmentsScreen(docotor:DoctorProfile,date:String,day:String,doctorServiceSpecialtyId:Int)
     func showLabsAndScanBooking(tests:[LabTestType],hourId:Int?,dayId:Int?,date:String,labId:Int,bookingType:String?)
     func showOperationsSearchScreen()
+    func showOperationsSearchScreen(infoServiceId: Int?)
     func showPharmacyHome(lat:String,long:String)
     func showLabsAndScanBookingAppointments(labId:Int,tests:[LabTestType],type:String)
     func showPharmacyCategory(pharmacyId:Int)
@@ -53,22 +55,30 @@ protocol HomeCoordinatorContact: AnyObject {
     func navigateToRoot()
     func navigateToRootFromPresentation()
     func showExternalClinics()
+    func showExternalClinics(infoServiceId: Int?)
     func showExternalClinicHospitals(externalClinicId:Int)
     func showOpertionHospitals(operationID:Int)
+    func showOpertionHospitals(operationID:Int, infoServiceId: Int?)
     func showOperationAppointments(operationServiceId:Int,hospitalData:OperationInfoServiceWrapper)
+    func showOperationAppointments(operationServiceId:Int,hospitalData:OperationInfoServiceWrapper, infoServiceId: Int?)
     func showHomeVisit()
     func showIntensiveCare(selectedUnit:String)
+    func showIntensiveCare(selectedUnit:String, infoServiceId: Int?)
     func showIncubations()
+    func showIncubations(infoServiceId: Int?)
     func showUploadPharmacyPrescription(pharmacyId:Int)
     func showPharmacyGlobalSearch()
     func showHomeNursing()
     func showEmergency()
+    func showEmergency(infoServiceId: Int?)
     func showOperationBooking(operationServiceId:Int,date:String,hospitalData:OperationInfoServiceWrapper)
+    func showOperationBooking(operationServiceId:Int,date:String,hospitalData:OperationInfoServiceWrapper, infoServiceId: Int?)
     func showAlluserInsurance()
     func showPharmaciesCartViewController()
     func showAddInsurnace()
     func showOffersBanners(screenType:String)
     func showIntensiveCareUnits()
+    func showIntensiveCareUnits(infoServiceId: Int?)
     func showProfileSettings()
     func showPaymentWebKit(url: String,Delegete:PaymentTaskHandling,orderId:Int)
     func showOperationConfirmed(operationServiceId:Int,hospitalData:OperationInfoServiceWrapper,date:String)
@@ -76,7 +86,9 @@ protocol HomeCoordinatorContact: AnyObject {
     func showOneDayCareHospitals()
     func  showHospitalProfile(hospitalId:Int)
     func showOneDayCareAppointments(serviceId:Int)
+    func showOneDayCareAppointments(serviceId:Int, infoServiceId:Int?)
     func showOneDayCareBooking(dayServiceId:Int,date:String,hospitalData:OneDayCareAppointmentsModel)
+    func showOneDayCareBooking(dayServiceId:Int,date:String,hospitalData:OneDayCareAppointmentsModel, infoServiceId:Int?)
     func showProfileFavouritesViewController()
     func showChatViewController(chatType:chatType)
     func showAppointmentsActivity(bookingData:MyBookings)
@@ -236,8 +248,14 @@ extension HomeCoordinator: HomeCoordinatorContact {
         if let navController = (window?.rootViewController as? UITabBarController)?.selectedViewController as? UINavigationController {
             navController.pushViewController(viewController, animated: true)
         }
-        
-        
+    }
+    func showOneDayCareBooking(dayServiceId:Int,date:String,hospitalData:OneDayCareAppointmentsModel, infoServiceId:Int?)
+    {
+        let viewModel =   OneDayCareBookingViewModel(coordinator:self,dayServiceId: dayServiceId, date: date, hospitalData: hospitalData, infoServiceId: infoServiceId)
+        let viewController = OneDayCareBookingViewController(viewModel: viewModel)
+        if let navController = (window?.rootViewController as? UITabBarController)?.selectedViewController as? UINavigationController {
+            navController.pushViewController(viewController, animated: true)
+        }
     }
     func showOneDayCareAppointments(serviceId:Int){
         let viewModel =   OneDayCareAppointmentsViewModel(coordinator:self, ServiceId:serviceId)
@@ -245,7 +263,14 @@ extension HomeCoordinator: HomeCoordinatorContact {
         if let navController = (window?.rootViewController as? UITabBarController)?.selectedViewController as? UINavigationController {
             navController.pushViewController(viewController, animated: true)
         }
-      
+
+    }
+    func showOneDayCareAppointments(serviceId:Int, infoServiceId:Int?){
+        let viewModel =   OneDayCareAppointmentsViewModel(coordinator:self, ServiceId:serviceId, infoServiceId: infoServiceId)
+        let viewController = OneDayCareAppointmentsViewController(viewModel:viewModel)
+        if let navController = (window?.rootViewController as? UITabBarController)?.selectedViewController as? UINavigationController {
+            navController.pushViewController(viewController, animated: true)
+        }
     }
     func showHospitalProfile(hospitalId:Int) {
         let viewModel = OneDayCareProfileViewModel(coordinator:self, hospitalId: hospitalId)
@@ -287,7 +312,15 @@ extension HomeCoordinator: HomeCoordinatorContact {
         if let navController = (window?.rootViewController as? UITabBarController)?.selectedViewController as? UINavigationController {
             navController.pushViewController(viewController, animated: true)
         }
-        
+
+    }
+
+    func showIntensiveCareUnits(infoServiceId: Int?) {
+        let viewModel = IntensiveCareUnitsViewModel(coordinator:self, infoServiceId: infoServiceId)
+        let viewController = IntensiveCareUnitsViewController(viewModel: viewModel)
+        if let navController = (window?.rootViewController as? UITabBarController)?.selectedViewController as? UINavigationController {
+            navController.pushViewController(viewController, animated: true)
+        }
     }
     
     func showOffersBanners(screenType: String) {
@@ -335,6 +368,14 @@ extension HomeCoordinator: HomeCoordinatorContact {
             navController.pushViewController(viewController, animated: true)
         }
     }
+
+    func showOperationBooking(operationServiceId:Int,date:String,hospitalData:OperationInfoServiceWrapper, infoServiceId: Int?) {
+        let viewModel = OperationBookingViewModel(coordinator: self,operationServiceId: operationServiceId, date: date, hospitalData:hospitalData, infoServiceId: infoServiceId)
+        let viewController = OperationBookingViewController(viewModel: viewModel)
+        if let navController = (window?.rootViewController as? UITabBarController)?.selectedViewController as? UINavigationController {
+            navController.pushViewController(viewController, animated: true)
+        }
+    }
    
     
     func showIncubations(){
@@ -343,8 +384,24 @@ extension HomeCoordinator: HomeCoordinatorContact {
         if let navController = (window?.rootViewController as? UITabBarController)?.selectedViewController as? UINavigationController {
             navController.pushViewController(viewController, animated: true)
         }}
+
+    func showIncubations(infoServiceId: Int?){
+        let viewModel = IncubationsViewModel(coordinator: self, infoServiceId: infoServiceId)
+        let viewController = IncubationsViewController(viewModel:viewModel)
+        if let navController = (window?.rootViewController as? UITabBarController)?.selectedViewController as? UINavigationController {
+            navController.pushViewController(viewController, animated: true)
+        }
+    }
     func showIntensiveCare(selectedUnit:String) {
         let viewModel = IntensiveCareViewModel(coordinator: self, selectedUnit: selectedUnit)
+        let viewController = IntensiveCareViewController(viewModel:viewModel)
+        if let navController = (window?.rootViewController as? UITabBarController)?.selectedViewController as? UINavigationController {
+              navController.pushViewController(viewController, animated: true)
+          }
+    }
+
+    func showIntensiveCare(selectedUnit:String, infoServiceId: Int?) {
+        let viewModel = IntensiveCareViewModel(coordinator: self, selectedUnit: selectedUnit, infoServiceId: infoServiceId)
         let viewController = IntensiveCareViewController(viewModel:viewModel)
         if let navController = (window?.rootViewController as? UITabBarController)?.selectedViewController as? UINavigationController {
               navController.pushViewController(viewController, animated: true)
@@ -358,7 +415,14 @@ extension HomeCoordinator: HomeCoordinatorContact {
         if let navController = (window?.rootViewController as? UITabBarController)?.selectedViewController as? UINavigationController {
               navController.pushViewController(viewController, animated: true)
           }
-        
+    }
+
+    func showOperationAppointments(operationServiceId:Int,hospitalData:OperationInfoServiceWrapper, infoServiceId: Int?){
+        let viewModel = OperationAppointmentsViewModel(coordinator: self, operationServiceId: operationServiceId, hospitalData: hospitalData, infoServiceId: infoServiceId)
+        let viewController =  OperationAppointmentsViewController(viewModel:viewModel)
+        if let navController = (window?.rootViewController as? UITabBarController)?.selectedViewController as? UINavigationController {
+              navController.pushViewController(viewController, animated: true)
+          }
     }
     func showExternalClinicHospitals(externalClinicId: Int) {
         let viewModel = ExternalClinicHospitalsViewModel(coordinator: self, externalClinicId: externalClinicId)
@@ -375,9 +439,25 @@ extension HomeCoordinator: HomeCoordinatorContact {
               navController.pushViewController(viewController, animated: true)
           }
     }
+
+    func showOpertionHospitals(operationID: Int, infoServiceId: Int?) {
+        let viewModel = OperationHospitalsViewModel(coordinator: self, operationId: operationID, infoServiceId: infoServiceId)
+        let viewController =  OperationHospitalsViewController(viewModel:viewModel)
+        if let navController = (window?.rootViewController as? UITabBarController)?.selectedViewController as? UINavigationController {
+              navController.pushViewController(viewController, animated: true)
+          }
+    }
     
     func showExternalClinics() {
         let viewModel = ExterntalClinicSearchViewModel(coordinator: self)
+        let viewController =  ExterntalClinicSearchViewController(viewModel:viewModel)
+        if let navController = (window?.rootViewController as? UITabBarController)?.selectedViewController as? UINavigationController {
+              navController.pushViewController(viewController, animated: true)
+          }
+    }
+
+    func showExternalClinics(infoServiceId: Int?) {
+        let viewModel = ExterntalClinicSearchViewModel(coordinator: self, infoServiceId: infoServiceId)
         let viewController =  ExterntalClinicSearchViewController(viewModel:viewModel)
         if let navController = (window?.rootViewController as? UITabBarController)?.selectedViewController as? UINavigationController {
               navController.pushViewController(viewController, animated: true)
@@ -412,6 +492,14 @@ extension HomeCoordinator: HomeCoordinatorContact {
               navController.pushViewController(viewController, animated: true)
           }
     }
+
+    func showOperationsSearchScreen(infoServiceId: Int?){
+        let viewModel = OperationSearchViewModel(coordinator: self, infoServiceId: infoServiceId)
+        let viewController =  OperationSearchViewController(viewModel: viewModel)
+        if let navController = (window?.rootViewController as? UITabBarController)?.selectedViewController as? UINavigationController {
+              navController.pushViewController(viewController, animated: true)
+          }
+    }
     func showHospitalSearch() {
         let viewModel = HospitalSearchViewModel(coordinator: self)
         let viewController =  HospitalSearchViewController(viewModel: viewModel)
@@ -439,6 +527,14 @@ extension HomeCoordinator: HomeCoordinatorContact {
                 navController.pushViewController(viewController, animated: true)
             }
 
+    }
+
+    func showSubServicesVC(infoServiceId: Int) {
+        let viewModel = SubServiceViewModel(coordinator: self, infoServiceId: infoServiceId)
+        let viewController = SubServiceViewController(viewModel: viewModel)
+        if let navController = (window?.rootViewController as? UITabBarController)?.selectedViewController as? UINavigationController {
+                navController.pushViewController(viewController, animated: true)
+            }
     }
     
 
@@ -585,6 +681,15 @@ extension HomeCoordinator{
             navController.pushViewController(viewController, animated: true)
         }
 
+    }
+
+    func showEmergency(infoServiceId: Int?) {
+        let viewModel = EmergencyViewModel(coordinator: self, infoServiceId: infoServiceId)
+        let viewController = EmergencyViewController(viewModel: viewModel)
+        viewController.modalPresentationStyle = .fullScreen
+        if let navController = (window?.rootViewController as? UITabBarController)?.selectedViewController as? UINavigationController {
+            navController.pushViewController(viewController, animated: true)
+        }
     }
 
 }

@@ -227,11 +227,13 @@ class APIClient {
         imageKey: String? = nil,
         imageData: Data? = nil,
         fileName: String? = nil,
-        requiresAuth: Bool = true  // New parameter to control authorization
+        requiresAuth: Bool = true,
+        forceFormData: Bool = false
     ) -> AnyPublisher<T, Error> {
         let boundary = "Boundary-\(UUID().uuidString)"
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
 
         // Authorization header if exists and required
         if requiresAuth, let authorizationHeader = AuthManager.shared.getAuthorizationHeader() {
@@ -239,8 +241,8 @@ class APIClient {
             request.setValue(authorizationHeader, forHTTPHeaderField: "Authorization")
         }
 
-        // Multipart (image) branch
-        if let imageData = imageData, let imageKey = imageKey, let fileName = fileName {
+        // Multipart (image or forceFormData) branch
+        if forceFormData || (imageData != nil && imageKey != nil && fileName != nil) {
             request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
             var data = Data()
 
@@ -278,17 +280,18 @@ class APIClient {
                 }
             }
 
-            // Append file
-            let mimeType: String
-            if fileName.lowercased().hasSuffix(".png") {
-                mimeType = "image/png"
-            } else if fileName.lowercased().hasSuffix(".jpg") || fileName.lowercased().hasSuffix(".jpeg") {
-                mimeType = "image/jpeg"
-            } else {
-                mimeType = "application/octet-stream"
+            // Append file only if image data is provided
+            if let imageData = imageData, let imageKey = imageKey, let fileName = fileName {
+                let mimeType: String
+                if fileName.lowercased().hasSuffix(".png") {
+                    mimeType = "image/png"
+                } else if fileName.lowercased().hasSuffix(".jpg") || fileName.lowercased().hasSuffix(".jpeg") {
+                    mimeType = "image/jpeg"
+                } else {
+                    mimeType = "application/octet-stream"
+                }
+                data.append(createFileDataPostData(fieldName: imageKey, fileName: fileName, mimeType: mimeType, fileData: imageData, boundary: boundary))
             }
-
-            data.append(createFileDataPostData(fieldName: imageKey, fileName: fileName, mimeType: mimeType, fileData: imageData, boundary: boundary))
 
             // Closing boundary
             data.append("--\(boundary)--\r\n".data(using: .utf8)!)
@@ -303,6 +306,9 @@ class APIClient {
 
         print("request send postData:")
         dump(request)
+        if let body = request.httpBody, let bodyString = String(data: body, encoding: .utf8) {
+            print("POST Body: \(bodyString)")
+        }
 
         return URLSession.shared.dataTaskPublisher(for: request)
             .tryMap { result -> Data in

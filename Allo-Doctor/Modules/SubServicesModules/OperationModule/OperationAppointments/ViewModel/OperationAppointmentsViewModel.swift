@@ -19,12 +19,14 @@ class OperationAppointmentsViewModel{
     @Published var hospitalAppointment : [HospitalSchedule]?
     var hospitalData:OperationInfoServiceWrapper
     var lastGeneratedDate: Date? = nil
+    var infoServiceId: Int?
     // MARK: - ViewModel init
-    init(coordinator: HomeCoordinatorContact? = nil, apiClient: APIClient = APIClient(), operationServiceId: Int,hospitalData:OperationInfoServiceWrapper) {
+    init(coordinator: HomeCoordinatorContact? = nil, apiClient: APIClient = APIClient(), operationServiceId: Int,hospitalData:OperationInfoServiceWrapper, infoServiceId: Int? = nil) {
         self.coordinator = coordinator
         self.apiClient = apiClient
         self.operationServiceId = operationServiceId
         self.hospitalData = hospitalData
+        self.infoServiceId = infoServiceId
     }
     
 }
@@ -112,7 +114,7 @@ extension OperationAppointmentsViewModel{
     }
 extension OperationAppointmentsViewModel{
     func showOperationBooking(date:String){
-        coordinator?.showOperationBooking(operationServiceId: operationServiceId ?? 0, date: date, hospitalData: hospitalData)
+        coordinator?.showOperationBooking(operationServiceId: operationServiceId ?? 0, date: date, hospitalData: hospitalData, infoServiceId: infoServiceId)
     }
     func navBack(){
         coordinator?.navigateBack()

@@ -26,14 +26,16 @@ class IntensiveCareViewModel{
     @Published var isLoading: Bool = false
     @Published var uploadProgress: Float = 0.0
     @Published var isUploadSuccess: Bool = false
-    
+    var infoServiceId: Int?
+
     // MARK: - Private Properties
     private let imageFileName = "reportedImage.png"
          private var apiClient = APIClient()
-    init(coordinator: HomeCoordinatorContact? = nil, apiClient: APIClient = APIClient(),selectedUnit:String) {
+    init(coordinator: HomeCoordinatorContact? = nil, apiClient: APIClient = APIClient(),selectedUnit:String, infoServiceId: Int? = nil) {
            self.coordinator = coordinator
         self.apiClient = apiClient
         self.selectedUnit = selectedUnit
+        self.infoServiceId = infoServiceId
         }
     }
       extension IntensiveCareViewModel{
@@ -42,7 +44,8 @@ class IntensiveCareViewModel{
                 name : name.value,
                 phone : phone.value,
                 district_id:districtId.value, birthdate: "\(year.value)-\(month.value.monthNumber() ?? 2)-\(day.value)",
-                type : selectedUnit ?? "", accept_terms : 1
+                type : selectedUnit ?? "", accept_terms : 1,
+                info_service_id: infoServiceId
                )
             print(confirmOrderRequest)
           uploadImage(request:confirmOrderRequest)

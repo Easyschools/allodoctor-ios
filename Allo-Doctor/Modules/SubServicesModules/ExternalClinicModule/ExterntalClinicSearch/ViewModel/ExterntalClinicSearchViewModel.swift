@@ -16,10 +16,12 @@ class ExterntalClinicSearchViewModel{
     
     private var apiClient: APIClient
     private var currentPageURL: URL?
-    
-    init(coordinator: HomeCoordinatorContact? = nil, apiClient: APIClient = APIClient()) {
+    var infoServiceId: Int?
+
+    init(coordinator: HomeCoordinatorContact? = nil, apiClient: APIClient = APIClient(), infoServiceId: Int? = nil) {
         self.coordinator = coordinator
         self.apiClient = apiClient
+        self.infoServiceId = infoServiceId
     }
     
     func setupSearchSubscription() {
@@ -38,7 +40,7 @@ class ExterntalClinicSearchViewModel{
         guard !isLoading else { return }
         isLoading = true
         
-        let router = APIRouter.fetchExternalClinics(isPaginate: 100, search: searchedText)
+        let router = APIRouter.fetchExternalClinics(isPaginate: 100, search: searchedText, infoServiceId: infoServiceId)
         currentPageURL = router.url
         print(router.url)
         apiClient.fetchData(from: router.url, as: ExternalClinicResponse.self)
@@ -77,7 +79,11 @@ class ExterntalClinicSearchViewModel{
 }
 extension ExterntalClinicSearchViewModel {
     internal func navToClinicHospitals (externalClinicId:Int){
-        coordinator?.showExternalClinicHospitals(externalClinicId: externalClinicId)
+        if let infoServiceId = infoServiceId {
+            coordinator?.showDoctorsForHospital(hospitalId: infoServiceId, specialtyId: externalClinicId, serviceId: 4)
+        } else {
+            coordinator?.showExternalClinicHospitals(externalClinicId: externalClinicId)
+        }
     }
     func navBack(){
         coordinator?.navigateBack()

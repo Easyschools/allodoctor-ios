@@ -12,14 +12,16 @@ var coordinator: HomeCoordinatorContact?
 private var cancellables = Set<AnyCancellable>()
 @Published var errorMessage: String?
 private var apiClient = APIClient()
-init(coordinator: HomeCoordinatorContact? = nil, apiClient: APIClient = APIClient()) {
+var infoServiceId: Int?
+init(coordinator: HomeCoordinatorContact? = nil, apiClient: APIClient = APIClient(), infoServiceId: Int? = nil) {
  self.coordinator = coordinator
  self.apiClient = apiClient
+ self.infoServiceId = infoServiceId
 }
 }
 extension IntensiveCareUnitsViewModel{
     func navToIntensiveCareBooking(){
-        coordinator?.showIntensiveCare(selectedUnit: selectedUnit.value)
+        coordinator?.showIntensiveCare(selectedUnit: selectedUnit.value, infoServiceId: infoServiceId)
     }
     func navBack(){
         coordinator?.navigateBack()

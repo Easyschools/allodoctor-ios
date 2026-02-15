@@ -159,11 +159,6 @@ struct MedicalInsurance: Codable {
     }
 }
 
-// MARK: - One Day Service
-struct OneDayService: Codable {
-    // Define properties based on your API response
-}
-
 // MARK: - Doctor (Basic)
 struct Doctor: Codable {
     let id: Int?

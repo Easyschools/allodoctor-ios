@@ -182,7 +182,7 @@ class SearchViewModel {
 
     func navToHospitalDoctorSearch(specialtyId: Int) {
         guard let hospitalId = hospitalId else { return }
-        coordinator?.showDoctorsForHospital(hospitalId: hospitalId, specialtyId: specialtyId, serviceId: nil)
+        coordinator?.showDoctorsForHospital(hospitalId: hospitalId, specialtyId: specialtyId, serviceId: nil, externalClinicServiceId: nil)
     }
 
     func navToDoctor(id:String){

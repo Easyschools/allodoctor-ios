@@ -102,7 +102,7 @@ protocol HomeCoordinatorContact: AnyObject {
     func presentReview(reviewType:String,reviewId:Int)
     func showHospitalsList()
     func showHospitalSpecialties(hospital: HospitalInfoService)
-    func showDoctorsForHospital(hospitalId: Int, specialtyId: Int, serviceId: Int?)
+    func showDoctorsForHospital(hospitalId: Int, specialtyId: Int, serviceId: Int?, externalClinicServiceId: Int?)
 }
 
 // MARK: - HomeCoordinator
@@ -639,11 +639,11 @@ extension HomeCoordinator {
         }
     }
 
-    func showDoctorsForHospital(hospitalId: Int, specialtyId: Int, serviceId: Int? = nil) {
+    func showDoctorsForHospital(hospitalId: Int, specialtyId: Int, serviceId: Int? = nil, externalClinicServiceId: Int? = nil) {
         let viewModel = DoctorSearchViewModel(
             coordinator: self,
             specialityId: String(specialtyId),
-            externalClinicServiceId: nil,
+            externalClinicServiceId: externalClinicServiceId,
             doctorPlace: .doctorClinics,
             infoServiceId: hospitalId,
             serviceId: serviceId

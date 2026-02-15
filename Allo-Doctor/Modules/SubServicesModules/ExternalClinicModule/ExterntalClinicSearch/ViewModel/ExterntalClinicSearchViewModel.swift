@@ -78,11 +78,20 @@ class ExterntalClinicSearchViewModel{
 //    }
 }
 extension ExterntalClinicSearchViewModel {
-    internal func navToClinicHospitals (externalClinicId:Int){
+    internal func navToClinicHospitals(externalClinic: ExternalClinicsData) {
         if let infoServiceId = infoServiceId {
-            coordinator?.showDoctorsForHospital(hospitalId: infoServiceId, specialtyId: externalClinicId, serviceId: 4)
+            let externalClinicServiceId = externalClinic.infoServices?
+                .first(where: { $0.clinicInfo?.infoServiceId == infoServiceId })?
+                .clinicInfo?.externalClinicServicesId
+
+            coordinator?.showDoctorsForHospital(
+                hospitalId: infoServiceId,
+                specialtyId: externalClinic.serviceID ?? 0,
+                serviceId: externalClinic.serviceID,
+                externalClinicServiceId: externalClinicServiceId
+            )
         } else {
-            coordinator?.showExternalClinicHospitals(externalClinicId: externalClinicId)
+            coordinator?.showExternalClinicHospitals(externalClinicId: externalClinic.id ?? 0)
         }
     }
     func navBack(){

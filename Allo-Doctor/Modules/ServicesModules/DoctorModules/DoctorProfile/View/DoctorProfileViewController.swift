@@ -189,37 +189,13 @@ class DoctorProfileViewController: BaseViewController<DoctorProfileViewModel> {
                 self?.doctorsData = doctor
                 self?.populateDoctorData()
                 
-                // Check doctorPlace to determine toggle switch options
-                if self?.viewModel.doctorPlace == .outpatientClinics {
-                    // Use external clinics for outpatient clinics
-                    if let doctorServiceSpecialtyIds = self?.viewModel.doctorData?.doctorServiceSpecialtyIds {
-                        let externalClinicNames = doctorServiceSpecialtyIds.compactMap { specialty in
-                            if UserDefaultsManager.sharedInstance.getLanguage() == .ar {
-                                return specialty.externalClinicService?.infoService?.nameAr
-                            } else {
-                                return specialty.externalClinicService?.infoService?.nameEn
-                            }
-                        }.filter { !$0.isEmpty } // Filter out empty names
-                        
-                        self?.placesToggleSwitch.setToggleOptions(externalClinicNames.isEmpty ? ["Not Available"] : externalClinicNames)
-                    } else {
-                        self?.placesToggleSwitch.setToggleOptions(["Not Available"])
+                if let doctorServiceSpecialtyIds = self?.viewModel.doctorData?.doctorServiceSpecialtyIds {
+                    let hasAppointments = doctorServiceSpecialtyIds.contains { specialty in
+                        !(specialty.appointments?.isEmpty ?? true)
                     }
+                    self?.placesToggleSwitch.setToggleOptions(hasAppointments ? ["Available"] : ["Not Available"])
                 } else {
-                    // Use info services for doctor clinics (existing logic)
-                    if let doctorServiceSpecialtyIds = self?.viewModel.doctorData?.doctorServiceSpecialtyIds {
-                        let infoServices = doctorServiceSpecialtyIds.compactMap { specialty in
-                            if UserDefaultsManager.sharedInstance.getLanguage() == .ar {
-                                return specialty.infoService?.nameAr
-                            } else {
-                                return specialty.infoService?.nameEn
-                            }
-                        }.filter { !$0.isEmpty } // Filter out empty names
-                        
-                        self?.placesToggleSwitch.setToggleOptions(infoServices.isEmpty ? ["Not Available"] : infoServices)
-                    } else {
-                        self?.placesToggleSwitch.setToggleOptions(["Not Available"])
-                    }
+                    self?.placesToggleSwitch.setToggleOptions(["Not Available"])
                 }
             }.store(in: &cancellables)
     }
@@ -310,7 +286,14 @@ class DoctorProfileViewController: BaseViewController<DoctorProfileViewModel> {
             setupMedicalInsuranceText(isArabic: false)
         }
         
-        appointments = viewModel.generateNextThreeDates(from: viewModel.doctorData?.doctorServiceSpecialtyIds?[0].appointments ?? [])
+        let specialties = viewModel.doctorData?.doctorServiceSpecialtyIds ?? []
+        let firstWithAppointments = specialties.firstIndex(where: { !($0.appointments?.isEmpty ?? true) }) ?? 0
+        selectedSpecialtyIndex = firstWithAppointments
+        if firstWithAppointments < specialties.count {
+            appointments = viewModel.generateNextThreeDates(from: specialties[firstWithAppointments].appointments ?? [])
+        } else {
+            appointments = []
+        }
         
         ChooseYourAppointmentLabel.text = AppLocalizedKeys.ChooseYourAppointment.localized
         appointmentsCollectionView.reloadData()
@@ -463,8 +446,8 @@ extension DoctorProfileViewController: UICollectionViewDelegate, UICollectionVie
             let day = appointments?[indexPath.row].day.nameEn ?? ""
             let date = appointments?[indexPath.row].day.date ?? "Not Available"
             
-            // Get the selected toggle switch index to determine which specialty was chosen
-            let selectedSpecialtyIndex = placesToggleSwitch.selectedIndex
+            // Use the instance variable which points to the first specialty with appointments
+            let selectedSpecialtyIndex = self.selectedSpecialtyIndex
             let selectedSpecialtyId = doctor.doctorServiceSpecialtyIds?[selectedSpecialtyIndex].id ?? 0
             
             viewModel.navToAppointmentsScreen(

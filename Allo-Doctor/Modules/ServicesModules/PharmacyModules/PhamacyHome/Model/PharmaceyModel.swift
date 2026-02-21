@@ -10,6 +10,8 @@ import Foundation
 // MARK: - PharmacyResponse
 struct PharmaciesResponse: Decodable {
     let data: [Pharmacy]
+    let links: Links?
+    let meta: Meta?
 }
 struct PharmacyResponse: Decodable {
     let data: Pharmacy

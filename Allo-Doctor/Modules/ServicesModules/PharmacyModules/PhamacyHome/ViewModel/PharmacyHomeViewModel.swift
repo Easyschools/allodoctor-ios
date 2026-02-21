@@ -20,6 +20,10 @@ class PharmacyHomeViewModel{
     private let autoScrollInterval: TimeInterval = 7
     private var lat : String?
     private var long : String?
+    private var currentPage = 1
+    private var lastPage = 1
+    @Published var isLoading = false
+    private var pharmacyCancellable: AnyCancellable?
     init(coordinator: HomeCoordinatorContact? = nil, apiClient: APIClient = APIClient(),lat:String,long:String) {
         self.coordinator = coordinator
         self.apiClient = apiClient
@@ -34,24 +38,44 @@ extension PharmacyHomeViewModel{
         getPharmacies(lat: lat ?? "", long: long ?? "")
     }
     func getPharmacies(lat:String,long:String){
-    let router = APIRouter.fetchPharmacies(isPaginate: 8,lat:lat ,long:long, search: "")
-        print (router.url)
-    apiClient.fetchData(from: router.url, as: PharmaciesResponse.self)
-        .sink(receiveCompletion: { [weak self] completion in
-            switch completion {
-            case .finished:
-                break
-            case .failure(let error):
-                print("Error: \(error)")
-                self?.errorMessage = "Failed to fetch Pharmicies: \(error.localizedDescription)"}
-        }, receiveValue: { [weak self]  pharmacyResponse in
-            self?.pharmacies = pharmacyResponse.data
-            print(pharmacyResponse.data.count)
-            let dis = self?.pharmacies?.first?.distance
-
-
-
-        }).store(in: &cancellables)
+        // Cancel any in-flight pharmacy request to prevent race conditions
+        pharmacyCancellable?.cancel()
+        self.lat = lat
+        self.long = long
+        self.currentPage = 1
+        self.lastPage = 1
+        self.isLoading = false
+        let router = APIRouter.fetchPharmacies(isPaginate: 10, lat: lat, long: long, search: "", page: 1)
+        pharmacyCancellable = apiClient.fetchData(from: router.url, as: PharmaciesResponse.self)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { [weak self] completion in
+                if case .failure(let error) = completion {
+                    print("Error: \(error)")
+                    self?.errorMessage = "Failed to fetch Pharmicies: \(error.localizedDescription)"
+                }
+            }, receiveValue: { [weak self]  pharmacyResponse in
+                self?.pharmacies = pharmacyResponse.data
+                self?.currentPage = pharmacyResponse.meta?.currentPage ?? 1
+                self?.lastPage = pharmacyResponse.meta?.lastPage ?? 1
+            })
+    }
+    func loadMorePharmacies() {
+        guard !isLoading, currentPage < lastPage else { return }
+        isLoading = true
+        let nextPage = currentPage + 1
+        let router = APIRouter.fetchPharmacies(isPaginate: 10, lat: lat ?? "", long: long ?? "", search: "", page: nextPage)
+        pharmacyCancellable = apiClient.fetchData(from: router.url, as: PharmaciesResponse.self)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { [weak self] completion in
+                self?.isLoading = false
+                if case .failure(let error) = completion {
+                    self?.errorMessage = "Failed to fetch more pharmacies: \(error.localizedDescription)"
+                }
+            }, receiveValue: { [weak self] pharmacyResponse in
+                self?.pharmacies?.append(contentsOf: pharmacyResponse.data)
+                self?.currentPage = pharmacyResponse.meta?.currentPage ?? nextPage
+                self?.lastPage = pharmacyResponse.meta?.lastPage ?? nextPage
+            })
     }
 }
 // MARK: - Banner/Offers API

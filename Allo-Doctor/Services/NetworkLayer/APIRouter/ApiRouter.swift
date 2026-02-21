@@ -14,7 +14,7 @@ enum APIRouter {
     case fetchSubServices(isPaginate: Int)
     case fetchInfoService(id: Int)
     case fetchDoctors(isPaginate: Int)
-    case fetchPharmacies(isPaginate: Int, lat: String, long: String,search:String)
+    case fetchPharmacies(isPaginate: Int, lat: String, long: String,search:String, page: Int = 1)
     case fetchPharmacy(id: Int)
     case fetchBasketPharmacies
     case fetchProducts(isPaginate: Int, categoryId: Int, pharmacyId: Int,search:String)
@@ -88,8 +88,8 @@ enum APIRouter {
             return "/admin/service/get?id=\(id)"
         case .fetchDoctors(let isPaginate):
             return "/admin/doctor/all?is_paginate=\(isPaginate)"
-        case .fetchPharmacies(let isPaginate, let lat, let long,let search):
-            return "/admin/pharmacy/all?is_paginate=\(isPaginate)&lat=\(lat)&long=\(long)&search=\(search)"
+        case .fetchPharmacies(let isPaginate, let lat, let long,let search, let page):
+            return "/admin/pharmacy/all?is_paginate=\(isPaginate)&lat=\(lat)&long=\(long)&search=\(search)&page=\(page)"
         case .fetchPharmacy(let id):
             return "/admin/pharmacy/get?id=\(id)"
         case .fetchProducts(let isPaginate, let categoryId, let pharmacyId,let search):

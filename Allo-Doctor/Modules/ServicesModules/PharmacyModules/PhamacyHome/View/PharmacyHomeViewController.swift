@@ -24,7 +24,6 @@ class PharmacyHomeViewController: BaseViewController<PharmacyHomeViewModel> {
     // MARK: - Overided FunctionFrom baseViewController
     override func bindViewModel() {
         bindPhamraciesData()
-        viewModel.getPharmacies()
         bindSearchBarButton()
         viewModel.getPharmacyOffers()
         bindBannerData()
@@ -40,9 +39,8 @@ class PharmacyHomeViewController: BaseViewController<PharmacyHomeViewModel> {
         super.viewWillAppear(animated)
         if let coordinates = UserDefaultsManager.sharedInstance.getCoordinates() {
             viewModel.getPharmacies(lat: coordinates.lat, long: coordinates.long)
-        }
-        else {
-          
+        } else {
+            viewModel.getPharmacies()
         }
         if let location = UserDefaultsManager.sharedInstance.getSavedAreaName(), !location.isEmpty {
             locationButton.setTitle(location, for: .normal)
@@ -171,7 +169,13 @@ extension PharmacyHomeViewController:UICollectionViewDelegate,UICollectionViewDa
             let width = collectionView.bounds.width - 32
             return CGSize(width: width, height: 140)
         }
-
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        guard collectionView == pharmaciesCollectionView else { return }
+        let count = viewModel.pharmacies?.count ?? 0
+        if indexPath.row >= count - 3 {
+            viewModel.loadMorePharmacies()
+        }
+    }
 }
 // MARK: ViewModel Binding phamrmacies Data
 extension PharmacyHomeViewController{

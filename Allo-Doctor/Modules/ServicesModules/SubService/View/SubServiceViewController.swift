@@ -32,12 +32,14 @@ class SubServiceViewController: BaseViewController<SubServiceViewModel> {
         chatWithUsView.onChatWithUsButtonTapped = { [weak self] in
             self?.viewModel.showChat()
                 }
-       
+        bannerPhoto.superview?.isHidden = true
     }
     override func bindViewModel() {
         bindSearchBarButton()
         viewModel.fetchSubServices()
         bindSubServiceCollectionView()
+        viewModel.fetchBanners()
+        bindBannerPhoto()
     }
     override func viewDidLayoutSubviews() {
         view.addSubview(loadingScreen)
@@ -131,6 +133,23 @@ extension SubServiceViewController{
             .store(in: &cancellables)
     }
     
+    private func bindBannerPhoto() {
+        viewModel.$banners
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] banners in
+                guard let self = self else { return }
+                let isEmpty = banners?.isEmpty ?? true
+                self.bannerPhoto.superview?.isHidden = isEmpty
+                if let imageUrl = banners?.first?.image {
+                    self.bannerPhoto.kf.setImage(
+                        with: URL(string: imageUrl),
+                        placeholder: nil,
+                        options: [.transition(.fade(0.3)), .cacheOriginalImage]
+                    )
+                }
+            }
+            .store(in: &cancellables)
+    }
     private func bindCollectionViewHeight() {
         subServicesCollectionView.publisher(for: \.contentSize)
             .sink { [weak self] newSize in

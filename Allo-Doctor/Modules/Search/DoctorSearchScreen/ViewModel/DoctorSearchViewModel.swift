@@ -63,7 +63,7 @@ class DoctorSearchViewModel {
         queryItems.append(URLQueryItem(name: "web", value: "1"))
 
         // Core filtering parameters - add only if they have values
-        if let specialityId = specialityId, !specialityId.isEmpty {
+        if let specialityId = specialityId, !specialityId.isEmpty, externalClinicServiceId == nil {
             queryItems.append(URLQueryItem(name: "speciality_id", value: specialityId))
         }
 

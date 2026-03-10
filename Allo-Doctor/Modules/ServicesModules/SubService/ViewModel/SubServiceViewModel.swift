@@ -13,6 +13,7 @@ struct HospitalByIdResponse: Codable {
 
 class SubServiceViewModel{
     @Published var subServices: [SubService] = []
+    @Published var banners: [Banner]?
     @Published var errorMessage: String?
     private var cancellables = Set<AnyCancellable>()
     private var apiClient = APIClient()
@@ -67,6 +68,16 @@ extension SubServiceViewModel{
             }, receiveValue: { [weak self] response in
                 self?.coordinator?.showHospitalSpecialties(hospital: response.data)
             })
+            .store(in: &cancellables)
+    }
+    func fetchBanners() {
+        let router = APIRouter.fetchOffers(offerType: "doctor")
+        apiClient.fetchData(from: router.url, as: BannerResponse.self)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { _ in },
+                  receiveValue: { [weak self] response in
+                      self?.banners = response.data ?? []
+                  })
             .store(in: &cancellables)
     }
     func navBack() {

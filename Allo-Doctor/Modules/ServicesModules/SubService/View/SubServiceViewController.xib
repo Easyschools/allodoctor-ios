@@ -84,6 +84,9 @@
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9dN-0n-3eD" customClass="CustomSearchBar" customModule="Allo_Doctor" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="0.0" width="343" height="39"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="39" id="sub-searchbar-h"/>
+                                                            </constraints>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                                                     <real key="value" value="1"/>
@@ -117,6 +120,7 @@
                                                                 <constraint firstAttribute="bottom" secondItem="UCa-Qg-6Eb" secondAttribute="bottom" id="GVk-Ts-uK9"/>
                                                                 <constraint firstItem="UCa-Qg-6Eb" firstAttribute="leading" secondItem="Ri3-gZ-Rqb" secondAttribute="leading" id="rhc-rz-bSz"/>
                                                                 <constraint firstItem="UCa-Qg-6Eb" firstAttribute="top" secondItem="Ri3-gZ-Rqb" secondAttribute="top" id="yZY-tQ-FxI"/>
+                                                                <constraint firstAttribute="height" constant="151" id="sub-banner-h"/>
                                                             </constraints>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -131,10 +135,6 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
                                                     </subviews>
-                                                    <constraints>
-                                                        <constraint firstItem="9dN-0n-3eD" firstAttribute="height" secondItem="tqu-ot-ERu" secondAttribute="height" multiplier="0.19" id="Ptf-tF-ilQ"/>
-                                                        <constraint firstAttribute="height" constant="205" id="Sx6-LY-lRq"/>
-                                                    </constraints>
                                                 </stackView>
                                             </subviews>
                                         </stackView>

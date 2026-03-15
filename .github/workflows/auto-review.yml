@@ -1,0 +1,32 @@
+name: Auto Code Review
+
+on: [push]
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      
+      - name: Get commit info
+        id: commit
+        run: |
+          echo "sha=${{ github.sha }}" >> $GITHUB_OUTPUT
+          echo "message=$(git log -1 --pretty=%B)" >> $GITHUB_OUTPUT
+          echo "author=${{ github.actor }}" >> $GITHUB_OUTPUT
+      
+      - name: Send to Misho for review
+        run: |
+          curl -X POST http://5.182.17.89:5000/github-webhook \
+            -H "X-GitHub-Event: push" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "repository": {"full_name": "${{ github.repository }}"},
+              "pusher": {"name": "${{ github.actor }}"},
+              "commits": [{
+                "id": "${{ steps.commit.outputs.sha }}",
+                "message": "${{ steps.commit.outputs.message }}"
+              }]
+            }'

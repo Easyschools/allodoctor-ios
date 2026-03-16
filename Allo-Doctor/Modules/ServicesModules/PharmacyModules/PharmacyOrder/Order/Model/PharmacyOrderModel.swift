@@ -17,6 +17,7 @@ struct ConfirmOrderBody: Codable {
     let address_user_id : Int
     let order_status_id:Int
     let reminder_type:String
+    let delivery_type: String
 }
 
 struct OrderResponseData: Codable {

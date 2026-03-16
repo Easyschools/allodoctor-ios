@@ -214,6 +214,10 @@ enum AppLocalizedKeys: String, CaseIterable {
     case maximumQuantityReached
     case pleaseSelectAddress
     case pleaseSelectPayment
+    case DeliveryType = "Delivery Type"
+    case Delivery
+    case PickupFromStore = "Pickup from Store"
+    case pleaseSelectDeliveryType = "Please Select Delivery Type"
     case searchForAnyPharmacy
     case failed
     case outOfStock

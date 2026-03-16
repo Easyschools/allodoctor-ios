@@ -593,8 +593,11 @@ extension HomeCoordinator: HomeCoordinatorContact {
 
 
   func presentModally(_ viewController: UIViewController) {
-        navigationController.present(viewController, animated: true, completion: nil)
-   
+        if let navController = (window?.rootViewController as? UITabBarController)?.selectedViewController as? UINavigationController {
+            navController.present(viewController, animated: true, completion: nil)
+        } else {
+            navigationController.present(viewController, animated: true, completion: nil)
+        }
        }
     
     func presentModallyWithRoot(_ viewController: UIViewController) {
@@ -603,8 +606,11 @@ extension HomeCoordinator: HomeCoordinatorContact {
           }
          }
     func dismissPresnet(_ viewController: UIViewController) {
-            navigationController.dismiss(animated: true)
-             
+            if let navController = (window?.rootViewController as? UITabBarController)?.selectedViewController as? UINavigationController {
+                navController.dismiss(animated: true)
+            } else {
+                navigationController.dismiss(animated: true)
+            }
          }
    func dismissPresnetiontabBarNav(_ viewController: UIViewController) {
         if let navController = (window?.rootViewController as? UITabBarController)?.selectedViewController as? UINavigationController {

@@ -131,12 +131,12 @@ extension RegisterViewController: SearchableTableViewControllerDelegate {
     func searchableTableViewControllerDidTapDismiss(_ controller: SearchableTableViewController) {
         viewModel.coordinator?.dismissPresnet(self)
     }
-    
+
     func searchableTableViewController(_ controller: SearchableTableViewController, didSelectItem item: String) {
 
             selectAreaLabel.text = item
             isCitySelected = true
-        
+
         viewModel.coordinator?.dismissPresnet(self)
     }
 }
@@ -147,9 +147,9 @@ extension RegisterViewController:SectionSearchableTableViewControllerDelegate {
             isCitySelected = true
         viewModel.coordinator?.dismissPresnet(self)
     }
-    
+
         func sectionSearchableTableViewControllerDidTapDismiss(_ controller: SectionSearchableTableViewController) {
             viewModel.coordinator?.dismissPresnet(self)
         }
-        
+
     }

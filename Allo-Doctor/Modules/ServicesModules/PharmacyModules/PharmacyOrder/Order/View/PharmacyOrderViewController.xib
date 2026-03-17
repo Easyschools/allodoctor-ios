@@ -668,7 +668,7 @@
                                     </constraints>
                                 </stackView>
                             </subviews>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <color key="backgroundColor" red="0.94900000095367432" green="0.94900000095367432" blue="0.94900000095367432" alpha="0.01" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstItem="4rY-14-G8R" firstAttribute="leading" secondItem="pXT-gV-ac5" secondAttribute="leading" id="hy2-dW-uYW"/>
                                 <constraint firstItem="4rY-14-G8R" firstAttribute="top" secondItem="pXT-gV-ac5" secondAttribute="top" constant="24" id="iTx-38-h5H"/>
@@ -770,7 +770,7 @@
                 </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="2xN-a5-V5N"/>
-            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="2vs-NB-zE2" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="7t5-ef-Peg"/>
                 <constraint firstItem="DNI-9J-O2f" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="Lyi-UJ-W6x"/>

@@ -188,6 +188,22 @@
                         <constraint firstAttribute="height" constant="330" id="xNo-Km-fxh"/>
                     </constraints>
                 </stackView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gst-Md-btn">
+                    <rect key="frame" x="16" y="545" width="288" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="gst-ht-cns"/>
+                    </constraints>
+                    <state key="normal" title="Continue as Guest"/>
+                    <buttonConfiguration key="configuration" style="plain" title="Continue as a guest">
+                        <color key="baseForegroundColor" name="grey-#A8A8A8"/>
+                    </buttonConfiguration>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="continueAsAGuest"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="continueAsGuestAction:" destination="-1" eventType="touchUpInside" id="gst-ac-cnn"/>
+                    </connections>
+                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -199,6 +215,9 @@
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Pzl-hU-8i4" secondAttribute="trailing" constant="16" id="vEo-S1-6qn"/>
                 <constraint firstItem="Pzl-hU-8i4" firstAttribute="top" secondItem="F1U-sr-9CF" secondAttribute="bottom" constant="80" id="yZt-IS-c1a"/>
                 <constraint firstItem="F1U-sr-9CF" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="63" id="zRf-8S-gdG"/>
+                <constraint firstItem="gst-Md-btn" firstAttribute="top" secondItem="Pzl-hU-8i4" secondAttribute="bottom" constant="16" id="gst-tp-cns"/>
+                <constraint firstItem="gst-Md-btn" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="gst-ld-cns"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="gst-Md-btn" secondAttribute="trailing" constant="16" id="gst-tr-cns"/>
             </constraints>
             <point key="canvasLocation" x="128.80000000000001" y="0.0"/>
         </view>

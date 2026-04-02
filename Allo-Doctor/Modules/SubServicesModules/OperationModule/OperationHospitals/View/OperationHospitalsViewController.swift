@@ -46,6 +46,23 @@ extension OperationHospitalsViewController{
         operationHospitalsCollectionView.delegate = self
         operationHospitalsCollectionView.dataSource = self
     }
+    
+    private func getDistrictName(for districtId: Int?) -> String {
+        guard let districtId = districtId else { return "" }
+        
+        // Find the district name from the cities array
+        for city in viewModel.cities {
+            if let districts = city.districts {
+                for district in districts {
+                    if district.id == districtId {
+                        return district.nameEn ?? ""
+                    }
+                }
+            }
+        }
+        
+        return ""
+    }
 }
 extension OperationHospitalsViewController:UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -55,7 +72,11 @@ extension OperationHospitalsViewController:UICollectionViewDelegate,UICollection
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let hospital = viewModel.operationData?.infoServices?[indexPath.row]
        let cell = collectionView.dequeue(indexpath: indexPath) as OperationHospitalsCollectionViewCell
-        cell.setupCell(price:hospital?.price ?? "0", hospitalLogoURL: hospital?.infoService?.image , name: hospital?.infoService?.nameEn ?? "", district: hospital?.infoService?.districtId?.nameEn ?? "", rating: hospital?.infoService?.avgRating ?? 0)
+        
+        // Get district name from cities array based on districtId
+        let districtName = getDistrictName(for: hospital?.infoService?.district?.id)
+        
+        cell.setupCell(price:hospital?.price ?? "0", hospitalLogoURL: hospital?.infoService?.image, backgroundImageURL: hospital?.infoService?.image , name: hospital?.infoService?.nameEn ?? "", district: districtName, rating: hospital?.infoService?.avgRating ?? 0)
         cell.cornerRadius = 10
         cell.applyDropShadow()
         
@@ -68,7 +89,7 @@ extension OperationHospitalsViewController:UICollectionViewDelegate,UICollection
             return
         }
 
-        viewModel.coordinator?.showOperationAppointments(operationServiceId: opeationDataId, hospitalData: hospital)
+        viewModel.coordinator?.showOperationAppointments(operationServiceId: opeationDataId, hospitalData: hospital, infoServiceId: hospital.infoService?.id ?? viewModel.infoServiceId)
 
     }
     func collectionView(_ collectionView: UICollectionView,

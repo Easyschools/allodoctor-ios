@@ -1,7 +1,7 @@
 import Foundation
 
 // MARK: - OneDayCareHospitalsResponse
-struct OneDayCareHospitalsResponse: Decodable {
+struct OneDayCareHospitalsResponse: Codable {
     let data: OneDayCareHospitals?
     
     enum CodingKeys: String, CodingKey {
@@ -10,7 +10,7 @@ struct OneDayCareHospitalsResponse: Decodable {
 }
 
 // MARK: - Data
-struct OneDayCareHospitals: Decodable {
+struct OneDayCareHospitals: Codable {
     let id: Int?
     let name: String?
     let nameAr: String?
@@ -23,7 +23,7 @@ struct OneDayCareHospitals: Decodable {
     let image: String?
     let backgroundImage: String?
     let address: String?
-    let oneDayServices: [OneDayService]?
+    var oneDayServices: [OneDayService]?
 
     enum CodingKeys: String, CodingKey {
         case id, name, nameAr = "name_ar", nameEn = "name_en"
@@ -37,7 +37,7 @@ struct OneDayCareHospitals: Decodable {
 }
 
 // MARK: - DistrictId
-struct DistrictId: Decodable {
+struct DistrictId: Codable {
     let id: Int?
     let cityId: Int?
     let name: String?
@@ -53,7 +53,7 @@ struct DistrictId: Decodable {
 
 
 // MARK: - ExternalClinic
-struct ExternalClinic: Decodable {
+struct ExternalClinic: Codable {
     let id: Int?
     let nameAr: String?
     let nameEn: String?
@@ -65,7 +65,7 @@ struct ExternalClinic: Decodable {
 }
 
 // MARK: - ExternalClinicServiceId
-struct ExternalClinicServiceId: Decodable {
+struct ExternalClinicServiceId: Codable {
     let id: Int?
     let nameAr: String?
     let nameEn: String?
@@ -78,7 +78,7 @@ struct ExternalClinicServiceId: Decodable {
 
 
 // MARK: - OneDayService
-struct OneDayService: Decodable {
+struct OneDayService: Codable {
     let id: Int?
     let price: String?
     let from: String?
@@ -93,7 +93,7 @@ struct OneDayService: Decodable {
 // MARK: - InfoService
 
 // MARK: - DayService
-struct DayService: Decodable {
+struct DayService: Codable {
     let id: Int?
     let nameEn: String?
     let nameAr: String?
@@ -109,5 +109,34 @@ struct DayService: Decodable {
         case id, nameEn = "name_en", nameAr = "name_ar"
         case descriptionEn = "description_en", descriptionAr = "description_ar"
         case image, backgroundImage = "background_image", address, lat, long
+    }
+}
+
+// MARK: - Day Service List Response (from /admin/day-service/all)
+struct DayServiceListResponse: Decodable {
+    let data: [DayServiceListItem]?
+}
+
+struct DayServiceListItem: Decodable {
+    let id: Int?
+    let nameEn: String?
+    let nameAr: String?
+    let descriptionEn: String?
+    let descriptionAr: String?
+    let image: String?
+    let backgroundImage: String?
+    let address: String?
+    let lat: String?
+    let long: String?
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case nameEn = "name_en"
+        case nameAr = "name_ar"
+        case descriptionEn = "description_en"
+        case descriptionAr = "description_ar"
+        case image
+        case backgroundImage = "background_image"
+        case address, lat, long
     }
 }

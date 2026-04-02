@@ -29,10 +29,13 @@ class IncubationsViewModel {
     @Published var isLoading: Bool = false
     
 
+    var infoServiceId: Int?
+
     // Initializer
-    init(coordinator: HomeCoordinatorContact? = nil,apiClient: APIClient = APIClient()) {
+    init(coordinator: HomeCoordinatorContact? = nil,apiClient: APIClient = APIClient(), infoServiceId: Int? = nil) {
         self.coordinator = coordinator
         self.apiClient = apiClient
+        self.infoServiceId = infoServiceId
     }
 
   
@@ -42,7 +45,8 @@ class IncubationsViewModel {
            district_id:districtId.value,
              accept_terms :1 ,
            phone: phone.value,
-           birthdate:"2000-02-17"
+           birthdate:"2000-02-17",
+           info_service_id: infoServiceId
         )
    
       uploadImage(request:body)

@@ -131,18 +131,16 @@ extension ServicesViewController: UICollectionViewDelegate, UICollectionViewData
         } else {
             let service = viewModel.services[indexPath.row]
             let cell = collectionView.dequeue(indexpath: indexPath) as ServicesCollectionViewCell
-            if UserDefaultsManager.sharedInstance.getLanguage() == .ar{
+            
+            if UserDefaultsManager.sharedInstance.getLanguage() == .ar {
                 cell.serviceLabel.text = service.nameAr
-            }
-            else{
+            } else {
                 cell.serviceLabel.text = service.name
             }
-            if service.id == 78{
-                cell.setupImage(with: service.image ?? "",chatNowButton: true)}
-            else {
-                cell.setupImage(with: service.image ?? "",chatNowButton: false)
-                
-            }
+            
+            // Pass service ID to setupImage
+            cell.setupImage(with: service.image ?? "", serviceId: service.id)
+            
             return cell
         }
     }
@@ -162,9 +160,9 @@ extension ServicesViewController: UICollectionViewDelegate, UICollectionViewData
             if let navServiceId = NavToServiceId(rawValue: serviceid) {
                 switch navServiceId {
                 case .hospital:
-                    viewModel.navToSubServiceScreen()
+                    viewModel.navToHospitalsListScreen()
                 case .clinics:
-                    viewModel.navToSearchScreen()
+                    viewModel.navToSearchScreen(serviceId: 2)  // Pass serviceId=2 for clinics
                 case .labs:
                     viewModel.navToLabsAndScanSearchScreen(screenId:String(serviceid))
                 case .scans:

@@ -32,12 +32,14 @@ class SubServiceViewController: BaseViewController<SubServiceViewModel> {
         chatWithUsView.onChatWithUsButtonTapped = { [weak self] in
             self?.viewModel.showChat()
                 }
-       
+        bannerPhoto.superview?.isHidden = true
     }
     override func bindViewModel() {
         bindSearchBarButton()
         viewModel.fetchSubServices()
         bindSubServiceCollectionView()
+        viewModel.fetchBanners()
+        bindBannerPhoto()
     }
     override func viewDidLayoutSubviews() {
         view.addSubview(loadingScreen)
@@ -79,24 +81,35 @@ extension SubServiceViewController:UICollectionViewDataSource,UICollectionViewDe
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
        let  id =  viewModel.subServices[indexPath.row].id
         if  id == 4 || id == 22 {
-            viewModel.coordinator?.showExternalClinics()
+            viewModel.coordinator?.showExternalClinics(infoServiceId: viewModel.infoServiceId)
         }
        else if id == 6 {
-            viewModel.coordinator?.showOperationsSearchScreen()
+            viewModel.coordinator?.showOperationsSearchScreen(infoServiceId: viewModel.infoServiceId)
         }
         else if id == 5 {
-            viewModel.coordinator?.showIntensiveCareUnits()
+            viewModel.coordinator?.showIntensiveCareUnits(infoServiceId: viewModel.infoServiceId)
         }
         else if id == 33{
-            viewModel.coordinator?.showIncubations()
+            viewModel.coordinator?.showIncubations(infoServiceId: viewModel.infoServiceId)
         }
         else if id == 36 {
-            viewModel.showEmergency()
+            viewModel.coordinator?.showEmergency(infoServiceId: viewModel.infoServiceId)
+        }
+        else if id == 35 {
+            if let infoServiceId = viewModel.infoServiceId {
+                viewModel.fetchHospitalAndShowSpecialties(hospitalId: infoServiceId)
+            } else {
+                viewModel.coordinator?.showOneDayCareHospitals()
+            }
         }
         else {
-            viewModel.coordinator?.showOneDayCareHospitals()
+            if let infoServiceId = viewModel.infoServiceId {
+                viewModel.coordinator?.showHospitalProfile(hospitalId: infoServiceId)
+            } else {
+                viewModel.coordinator?.showOneDayCareHospitals()
+            }
         }
-        
+
     }
 }
 extension SubServiceViewController{
@@ -120,6 +133,23 @@ extension SubServiceViewController{
             .store(in: &cancellables)
     }
     
+    private func bindBannerPhoto() {
+        viewModel.$banners
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] banners in
+                guard let self = self else { return }
+                let isEmpty = banners?.isEmpty ?? true
+                self.bannerPhoto.superview?.isHidden = isEmpty
+                if let imageUrl = banners?.first?.image {
+                    self.bannerPhoto.kf.setImage(
+                        with: URL(string: imageUrl),
+                        placeholder: nil,
+                        options: [.transition(.fade(0.3)), .cacheOriginalImage]
+                    )
+                }
+            }
+            .store(in: &cancellables)
+    }
     private func bindCollectionViewHeight() {
         subServicesCollectionView.publisher(for: \.contentSize)
             .sink { [weak self] newSize in

@@ -1,0 +1,8 @@
+/*
+  InfoPlist.strings
+  Allo-Doctor
+
+  Created for App Store Submission
+*/
+
+"NSLocationWhenInUseUsageDescription" = "We need your location to help you find nearby healthcare providers. For example, when you search for doctors, hospitals, clinics, laboratories, or pharmacies, we'll display results sorted by distance from your current location, helping you quickly find the closest medical care.";

@@ -18,6 +18,9 @@
                 <outlet property="coupon" destination="4rG-hU-OqQ" id="0KA-G8-TfP"/>
                 <outlet property="couponView" destination="1vV-xq-9zg" id="fTU-tF-Pnu"/>
                 <outlet property="coupunTextField" destination="4rG-hU-OqQ" id="c1X-Kr-JaT"/>
+                <outlet property="deliveryButton" destination="DeliveryButton" id="DeliveryButton-Outlet"/>
+                <outlet property="deliveryTypeView" destination="DeliveryType-View" id="DeliveryTypeView-Outlet"/>
+                <outlet property="pickupButton" destination="PickupButton" id="PickupButton-Outlet"/>
                 <outlet property="deliveyFees" destination="0Tk-aN-oiO" id="zMx-c1-E14"/>
                 <outlet property="disscountPrice" destination="1Ey-1v-BoJ" id="YGC-6f-nmz"/>
                 <outlet property="disscountView" destination="F1M-16-ZRy" id="RFj-Yu-Kjo"/>
@@ -68,8 +71,10 @@
                                     <rect key="frame" x="0.0" y="24" width="393" height="561"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="GbX-KJ-p3c">
-                                            <rect key="frame" x="16" y="0.0" width="361" height="256"/>
+                                            <rect key="frame" x="16" y="0.0" width="361" height="344"/>
                                             <subviews>
+
+                                                <!-- ========== YOUR ADDRESS ========== -->
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="dKJ-5Z-Avj">
                                                     <rect key="frame" x="0.0" y="0.0" width="361" height="80"/>
                                                     <subviews>
@@ -163,8 +168,87 @@
                                                         </view>
                                                     </subviews>
                                                 </stackView>
+
+                                                <!-- ========== DELIVERY TYPE (NEW) ========== -->
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="DeliveryType-Stack">
+                                                    <rect key="frame" x="0.0" y="88" width="361" height="88"/>
+                                                    <subviews>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DeliveryType-View">
+                                                            <subviews>
+                                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="DeliveryType-ButtonStack">
+                                                                    <subviews>
+                                                                        <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Delivery-Row">
+                                                                            <subviews>
+                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Delivery" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Delivery-Label">
+                                                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                                                    <color key="textColor" name="grey-#6B7280"/>
+                                                                                    <nil key="highlightedColor"/>
+                                                                                    <userDefinedRuntimeAttributes>
+                                                                                        <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="Delivery"/>
+                                                                                    </userDefinedRuntimeAttributes>
+                                                                                </label>
+                                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DeliveryButton" customClass="SelectableButton" customModule="Allo_Doctor" customModuleProvider="target">
+                                                                                    <constraints>
+                                                                                        <constraint firstAttribute="width" constant="20" id="DeliveryButton-Width"/>
+                                                                                        <constraint firstAttribute="height" constant="20" priority="999" id="DeliveryButton-Height"/>
+                                                                                    </constraints>
+                                                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                                    <connections>
+                                                                                        <action selector="deliveryButtonAction:" destination="-1" eventType="touchUpInside" id="DeliveryButton-Action"/>
+                                                                                    </connections>
+                                                                                </button>
+                                                                            </subviews>
+                                                                        </stackView>
+                                                                        <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Pickup-Row">
+                                                                            <subviews>
+                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pickup from Store" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pickup-Label">
+                                                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                                                    <color key="textColor" name="grey-#6B7280"/>
+                                                                                    <nil key="highlightedColor"/>
+                                                                                    <userDefinedRuntimeAttributes>
+                                                                                        <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="Pickup from Store"/>
+                                                                                    </userDefinedRuntimeAttributes>
+                                                                                </label>
+                                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PickupButton" customClass="SelectableButton" customModule="Allo_Doctor" customModuleProvider="target">
+                                                                                    <constraints>
+                                                                                        <constraint firstAttribute="width" constant="20" id="PickupButton-Width"/>
+                                                                                        <constraint firstAttribute="height" constant="20" priority="999" id="PickupButton-Height"/>
+                                                                                    </constraints>
+                                                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                                    <connections>
+                                                                                        <action selector="pickupButtonAction:" destination="-1" eventType="touchUpInside" id="PickupButton-Action"/>
+                                                                                    </connections>
+                                                                                </button>
+                                                                            </subviews>
+                                                                        </stackView>
+                                                                    </subviews>
+                                                                </stackView>
+                                                            </subviews>
+                                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                            <constraints>
+                                                                <constraint firstItem="DeliveryType-ButtonStack" firstAttribute="top" secondItem="DeliveryType-View" secondAttribute="top" constant="12" id="DeliveryType-Top"/>
+                                                                <constraint firstAttribute="trailing" secondItem="DeliveryType-ButtonStack" secondAttribute="trailing" constant="16" id="DeliveryType-Trailing"/>
+                                                                <constraint firstItem="DeliveryType-ButtonStack" firstAttribute="leading" secondItem="DeliveryType-View" secondAttribute="leading" constant="16" id="DeliveryType-Leading"/>
+                                                                <constraint firstAttribute="bottom" secondItem="DeliveryType-ButtonStack" secondAttribute="bottom" constant="12" id="DeliveryType-Bottom"/>
+                                                            </constraints>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                    <real key="value" value="8"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                    <real key="value" value="1"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                    <color key="value" name="greishWhite#F2F2F2"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </view>
+                                                    </subviews>
+                                                </stackView>
+
+                                                <!-- ========== COUPON ========== -->
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="qpK-P0-fqZ">
-                                                    <rect key="frame" x="0.0" y="88" width="361" height="80"/>
+                                                    <rect key="frame" x="0.0" y="184" width="361" height="80"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Coupon" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ufT-es-Wxd">
                                                             <rect key="frame" x="0.0" y="0.0" width="361" height="24"/>
@@ -246,8 +330,10 @@
                                                         </view>
                                                     </subviews>
                                                 </stackView>
+
+                                                <!-- ========== PAYMENT ========== -->
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="42y-E7-qvk">
-                                                    <rect key="frame" x="0.0" y="176" width="361" height="80"/>
+                                                    <rect key="frame" x="0.0" y="272" width="361" height="80"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Payment" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iMq-F0-cGE">
                                                             <rect key="frame" x="0.0" y="0.0" width="361" height="24"/>
@@ -332,11 +418,15 @@
                                                         </view>
                                                     </subviews>
                                                 </stackView>
+
                                             </subviews>
+                                            <!-- Height: 256 (original) + 72 (delivery card only, no label) = 328 -->
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="256" id="0Iv-V6-Lkn"/>
+                                                <constraint firstAttribute="height" constant="328" id="0Iv-V6-Lkn"/>
                                             </constraints>
                                         </stackView>
+
+                                        <!-- ========== ORDER SUMMARY ========== -->
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="09F-gt-QDH">
                                             <rect key="frame" x="16" y="264" width="361" height="177"/>
                                             <subviews>
@@ -477,6 +567,8 @@
                                                 <constraint firstAttribute="height" priority="999" constant="177" id="e8h-Uk-BuQ"/>
                                             </constraints>
                                         </stackView>
+
+                                        <!-- ========== ORDER REMINDER ========== -->
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="pcZ-Sd-5Uz">
                                             <rect key="frame" x="16" y="449" width="361" height="112"/>
                                             <subviews>
@@ -576,7 +668,7 @@
                                     </constraints>
                                 </stackView>
                             </subviews>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <color key="backgroundColor" red="0.94900000095367432" green="0.94900000095367432" blue="0.94900000095367432" alpha="0.01" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstItem="4rY-14-G8R" firstAttribute="leading" secondItem="pXT-gV-ac5" secondAttribute="leading" id="hy2-dW-uYW"/>
                                 <constraint firstItem="4rY-14-G8R" firstAttribute="top" secondItem="pXT-gV-ac5" secondAttribute="top" constant="24" id="iTx-38-h5H"/>
@@ -595,6 +687,8 @@
                     <viewLayoutGuide key="contentLayoutGuide" id="AOA-OR-mp7"/>
                     <viewLayoutGuide key="frameLayoutGuide" id="lAD-52-Mgw"/>
                 </scrollView>
+
+                <!-- ========== CONFIRM BUTTON ========== -->
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DNI-9J-O2f">
                     <rect key="frame" x="16" y="736" width="361" height="68"/>
                     <subviews>
@@ -676,7 +770,7 @@
                 </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="2xN-a5-V5N"/>
-            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="2vs-NB-zE2" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="7t5-ef-Peg"/>
                 <constraint firstItem="DNI-9J-O2f" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="Lyi-UJ-W6x"/>

@@ -8,12 +8,12 @@
 import Foundation
 
 // MARK: - Main Data Model
-struct HospitalData: Decodable {
+struct HospitalData: Codable {
     let data: Hospital
 }
 
 // MARK: - Hospital
-struct Hospital: Decodable {
+struct Hospital: Codable {
     let id: Int
     let nameAr: String
     let nameEn: String
@@ -40,14 +40,14 @@ struct Hospital: Decodable {
 }
 
 // MARK: - Specialty
-struct Specialty: Decodable {
+struct Specialty: Codable {
     let id: Int
-    let nameEn: String
-    let nameAr: String
-    let name: String
-    let descriptionEn: String
-    let descriptionAr: String
-    let description: String
+    let nameEn: String?
+    let nameAr: String?
+    let name: String?
+    let descriptionEn: String?
+    let descriptionAr: String?
+    let description: String?
 
     // Coding Keys for custom mapping
     enum CodingKeys: String, CodingKey {
@@ -60,23 +60,23 @@ struct Specialty: Decodable {
 }
 
 // MARK: - Doctor
-struct Doctor: Decodable {
-    let id: Int
-    let name: String
+struct Doctor: Codable {
+    let id: Int?
+    let name: String?
     let titleEn: String?
-    let titleAr: String
+    let titleAr: String?
     let title: String?
-    let descriptionEn: String
-    let descriptionAr: String
-    let description: String
-    let address: String
+    let descriptionEn: String?
+    let descriptionAr: String?
+    let description: String?
+    let address: String?
     let lat: Double?
     let long: Double?
     let rate: Double?
     let waitingTime: String?
-    let price: String
-    let priceAfterDiscount: String
-    let experience: String
+    let price: String?
+    let priceAfterDiscount: String?
+    let experience: Int?
     let mainImage: String?
 
     // Coding Keys for custom mapping

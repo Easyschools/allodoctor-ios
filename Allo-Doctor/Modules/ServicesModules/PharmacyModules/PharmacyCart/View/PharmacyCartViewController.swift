@@ -135,7 +135,7 @@ extension PharmacyCartViewController{
 extension PharmacyCartViewController {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         // Create the delete action
-        let deleteAction = UIContextualAction(style: .destructive, title: AppLocalizedKeys.deletedSuccessfully.localized) { [weak self] (action, view, completion) in
+        let deleteAction = UIContextualAction(style: .destructive, title: AppLocalizedKeys.delete.localized) { [weak self] (action, view, completion) in
             guard let self = self,
                   let items = self.viewModel.pharmacyCart?.items,
                   indexPath.row < items.count else {
@@ -150,15 +150,8 @@ extension PharmacyCartViewController {
             // Call the delete function from view model
             self.viewModel.deleteProduct(productId: itemId) { [weak self] success in
                 DispatchQueue.main.async {
-                    if success {
-                        // The UI will be updated automatically through the binding
-                        // No need to manually manipulate the array or delete rows
-                        completion(true)
-                    } else {
-                        // Handle error case
-                        completion(false)
-                        // Optionally show an error message to the user
-                    }
+                    // Item is removed locally in both success and failure cases
+                    completion(true)
                 }
             }
         }

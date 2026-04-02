@@ -35,10 +35,10 @@ class AppointmentDoctorTimeViewController: BaseViewController<AppointmentDoctorT
     }
 
     @IBAction func confirmationButtonAction(_ sender: Any) {
-        guard let hours = viewModel.doctorData?[0].appointmentHour?[selectedIndexPath?.row ?? 0] else {return}
+        guard let hours = viewModel.doctorData?.first?.appointmentHour?[selectedIndexPath?.row ?? 0] else {return}
         guard let doctorData = viewModel.doctor else {return}
         if selectedIndexPath != nil{
-            viewModel.navToBookingScreen(hour:hours, appoimentDayHourId:viewModel.doctorData?[0].id ?? 0 , doctor:doctorData)
+            viewModel.navToBookingScreen(hour:hours, appoimentDayHourId:viewModel.doctorData?.first?.id ?? 0 , doctor:doctorData)
         }
         else {return}
     }
@@ -83,7 +83,7 @@ extension AppointmentDoctorTimeViewController:UICollectionViewDelegate,UICollect
         let cell = collectionView.dequeue(indexpath: indexPath) as DoctorAppointmentsCollectionViewCell
           
           // Get the appointment hour
-          let appointmentHour = viewModel.doctorData?[0].appointmentHour?[indexPath.row]
+          let appointmentHour = viewModel.doctorData?.first?.appointmentHour?[indexPath.row]
           
           // Safely convert the time to 12-hour format
         let appointmentTimeText = appointmentHour?.from?.convertTo12HourFormat().appendingWithSpace("-").appendingWithSpace(appointmentHour?.to?.convertTo12HourFormat() ?? "--") ?? "--:--"
@@ -119,7 +119,7 @@ extension AppointmentDoctorTimeViewController:UICollectionViewDelegate,UICollect
 
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let appoinments = viewModel.doctorData?[0].appointmentHour?.count
+        let appoinments = viewModel.doctorData?.first?.appointmentHour?.count
         if appoinments == 1 {
             return CGSize(width: collectionView.frame.width, height: 40)}
         else {

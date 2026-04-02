@@ -52,6 +52,14 @@ class UserAddressViewModel{
                      let decoder = JSONDecoder()
                      let response = try decoder.decode(UserAddressResponseData.self, from: data)
               print (response)
+                     // Notify checkout screen about the new address
+                     if let addressData = response.data {
+                         NotificationCenter.default.post(
+                             name: .newAddressCreated,
+                             object: nil,
+                             userInfo: ["addressName": addressData.address ?? "", "addressId": addressData.id ?? 0]
+                         )
+                     }
                      self.navToRoot()
                  } catch {
                      self.errorMessage = "Failed to parse server response."

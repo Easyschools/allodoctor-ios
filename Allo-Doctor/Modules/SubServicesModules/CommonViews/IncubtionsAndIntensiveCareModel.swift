@@ -13,7 +13,7 @@ struct IncubtionsAndIntensiveCareModel: Codable {
     let accept_terms : Int?
     let phone: String?
     let birthdate: String?
-
+    let info_service_id: Int?
 }
 
 struct IncubtionsAndIntensiveCareModelResponse: Codable {

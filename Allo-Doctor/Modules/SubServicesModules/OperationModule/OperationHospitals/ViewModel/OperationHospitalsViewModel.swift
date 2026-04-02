@@ -15,11 +15,13 @@ class OperationHospitalsViewModel{
     @Published var operationId: Int?
     @Published var cities: [City] = []
     @Published var operationData: OperationData?
+    var infoServiceId: Int?
     // MARK: - ViewModel init
-    init(coordinator: HomeCoordinatorContact? = nil, apiClient: APIClient = APIClient(), operationId: Int) {
+    init(coordinator: HomeCoordinatorContact? = nil, apiClient: APIClient = APIClient(), operationId: Int, infoServiceId: Int? = nil) {
         self.coordinator = coordinator
         self.apiClient = apiClient
         self.operationId = operationId
+        self.infoServiceId = infoServiceId
     }
 }
 

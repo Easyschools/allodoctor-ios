@@ -21,30 +21,33 @@ class EmergencyViewModel: ObservableObject {
     @Published var bookingStatus: BookingStatus? // New published property
     
     private let apiClient: APIClient
-    
-    init(coordinator: HomeCoordinatorContact? = nil, apiClient: APIClient = APIClient()) {
+    var infoServiceId: Int?
+
+    init(coordinator: HomeCoordinatorContact? = nil, apiClient: APIClient = APIClient(), infoServiceId: Int? = nil) {
         self.coordinator = coordinator
         self.apiClient = apiClient
+        self.infoServiceId = infoServiceId
     }
 }
 
 extension EmergencyViewModel {
     func createBooking() {
-        let emergencyRequest = Emergencgy(
+        let emergencyRequest = EmergencyRequest(
             name: nameSubject.value,
-            phone: numberSubject.value,
-            districtID: districtId.value,
+            districtId: districtId.value,
             acceptTerms: 1,
+            phone: numberSubject.value,
             isME: 1,
             patientName: nameSubject.value,
-            patientNumber: numberSubject.value
+            patientPhone: numberSubject.value,
+            infoServiceId: infoServiceId
         )
         emergencyBooking(request: emergencyRequest)
     }
-    
-    func emergencyBooking(request: Emergencgy) {
+
+    func emergencyBooking(request: EmergencyRequest) {
         let router = APIRouter.bookEmergency(request)
-        apiClient.postData(to: router.url, body: request, as: EmergencgyResponse.self)
+        apiClient.postData(to: router.url, body: request, as: EmergencyResponse.self)
             .sink(receiveCompletion: { completion in
                 switch completion {
                 case .finished:

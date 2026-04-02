@@ -131,7 +131,12 @@ extension AppointmentsActivityViewController{
             bookingDate.isHidden = true
             bookingTypeImage.image = .operation
             nameOfAppointment.text = data.name
-            adressLabel.text = data.address
+            if let district = data.district {
+                let lang = UserDefaultsManager.sharedInstance.getLanguage()
+                adressLabel.text = lang == .ar ? (district.nameAr ?? district.name) : (district.nameEn ?? district.name)
+            } else {
+                adressLabel.text = data.address ?? AppLocalizedKeys.notAvailable.localized
+            }
             bookingTypeName.text = AppLocalizedKeys.Ambulance.localized
             price.text = AppLocalizedKeys.priceInfo.localized
         }

@@ -22,7 +22,11 @@ extension HomeCoordinator{
     func showRegisterScreen() {
         let viewModel = RegisterViewModel(coordinator: self)
         let viewController = RegisterViewController(viewModel: viewModel)
-        navigationController.setViewControllers([viewController], animated: false)
+        if let navController = (window?.rootViewController as? UITabBarController)?.selectedViewController as? UINavigationController {
+            navController.setViewControllers([viewController], animated: false)
+        } else {
+            navigationController.setViewControllers([viewController], animated: false)
+        }
     }
     func showOnboardingScreen() {
         let viewModel = OnBoardingScreensViewModel()

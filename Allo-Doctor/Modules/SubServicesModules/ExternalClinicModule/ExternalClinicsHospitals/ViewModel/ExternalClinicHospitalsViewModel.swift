@@ -51,7 +51,7 @@ extension ExternalClinicHospitalsViewModel{
         coordinator?.navigateBack()
     }
     func navToDoctors(){
-        coordinator?.showDoctorSearch(specialityId:"", externalClinicServiceId: externalClinicData?.infoServices?[0].clinicInfo?.externalClinicServicesId?.toString() ?? "", doctorPlace: .outpatientClinics)
+        coordinator?.showDoctorSearch(specialityId:"", externalClinicServiceId: externalClinicData?.infoServices?[0].clinicInfo?.externalClinicServicesId?.toString() ?? "", doctorPlace: .outpatientClinics, serviceId: nil)
     }
 }
 extension ExternalClinicHospitalsViewModel{

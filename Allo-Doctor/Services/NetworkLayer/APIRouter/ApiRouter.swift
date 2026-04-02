@@ -14,22 +14,22 @@ enum APIRouter {
     case fetchSubServices(isPaginate: Int)
     case fetchInfoService(id: Int)
     case fetchDoctors(isPaginate: Int)
-    case fetchPharmacies(isPaginate: Int, lat: String, long: String,search:String)
+    case fetchPharmacies(isPaginate: Int, lat: String, long: String,search:String, page: Int = 1)
     case fetchPharmacy(id: Int)
     case fetchBasketPharmacies
     case fetchProducts(isPaginate: Int, categoryId: Int, pharmacyId: Int,search:String)
     case fetchAllProducts(isPaginate: Int, pharmacyId: Int,search:String)
     case addToCart(AddProductToCart)
-    case fetchPharmacyCart(pharmacyId: Int,couponId:String)
+    case fetchPharmacyCart(pharmacyId: Int,couponId:String, deliveryType: String)
     case fetchOrderStatus(orderId: Int)
     case fetchMyBookings
     case fetchOrders(userId: Int)
     case fetchLabsAndScanInfo(id: Int)
     case fetchUserAddresses
     case orderConfirm
-    case fetchDoctorAppointment(doctorId: Int, specialtyId: Int, serviceId: Int, day: String, date: String)
-    case fetchOperations(isPaginate:Int,search:String)
-    case fetchExternalClinics(isPaginate:Int,search:String)
+    case fetchDoctorAppointment(doctorId: Int, specialtyId: Int, serviceId: Int, day: String, date: String, doctorServiceSpecialtyId: Int)
+    case fetchOperations(isPaginate:Int,search:String,infoServiceId:Int? = nil)
+    case fetchExternalClinics(isPaginate:Int,search:String,infoServiceId:Int? = nil)
     case fetchOperationData(operationId:Int,search:String,districtId:String)
     case fetchExternalClinicData(externalClinicId:Int)
     case fetchAllOneDayCareHospitals(search:String)
@@ -44,7 +44,7 @@ enum APIRouter {
     case fetchProductsGlobalSearch(isPaginate:Int ,search:String)
     case fetchCities
     case updateUser
-    case bookEmergency(Emergencgy)
+    case bookEmergency(EmergencyRequest)
     case operationBooking(ConfirmOperationRequest)
     case bookDoctor(BookingRequest)
     case fetchOffers(offerType:String)
@@ -61,11 +61,16 @@ enum APIRouter {
     case fetchMedicalData
     case delteFav (entity:String,id:Int)
     case deleteInsurance(id:Int)
-    case deleteProductid(id:Int,pharmacyId:Int)
+    case deleteProductid(id:Int)
     case deletePharmacyCart(pharmacyId:Int)
     case cancelReservation(id:Int,type:String)
     case getUser(userId:Int)
     case updateMedicalData
+    case fetchHospitals(isPaginate: Int, serviceId: Int)
+    case fetchHospitalsWithDistrict(isPaginate: Int, serviceId: Int, districtId: Int)
+    case fetchHospitalById(hospitalId: Int)
+    case fetchDoctorsByHospitalAndSpecialty(isPaginate: Int, hospitalId: Int, specialtyId: Int)
+    case fetchDayServices(isPaginate: Int, infoServiceId: Int)
     // Construct the full path and query for each case
     private var path: String {
         switch self {
@@ -83,8 +88,8 @@ enum APIRouter {
             return "/admin/service/get?id=\(id)"
         case .fetchDoctors(let isPaginate):
             return "/admin/doctor/all?is_paginate=\(isPaginate)"
-        case .fetchPharmacies(let isPaginate, let lat, let long,let search):
-            return "/admin/pharmacy/all?is_paginate=\(isPaginate)&lat=\(lat)&long=\(long)&search=\(search)"
+        case .fetchPharmacies(let isPaginate, let lat, let long,let search, let page):
+            return "/admin/pharmacy/all?is_paginate=\(isPaginate)&lat=\(lat)&long=\(long)&search=\(search)&page=\(page)"
         case .fetchPharmacy(let id):
             return "/admin/pharmacy/get?id=\(id)"
         case .fetchProducts(let isPaginate, let categoryId, let pharmacyId,let search):
@@ -93,8 +98,8 @@ enum APIRouter {
             return "/admin/filter/all-medications?is_paginate=\(isPaginate)&search=\(search)"
         case .fetchBasketPharmacies:
             return "/admin/order/grand-total"
-        case .fetchPharmacyCart(let pharmacyId,let couponId):
-            return "/admin/order/grand-total?pharmacy_id=\(pharmacyId)&coupon_code=\(couponId)"
+        case .fetchPharmacyCart(let pharmacyId,let couponId, let deliveryType):
+            return "/admin/order/grand-total?pharmacy_id=\(pharmacyId)&coupon_code=\(couponId)&delivery_type=\(deliveryType)"
         case .fetchMyBookings:
             return "/admin/my-bookings/all"
         case .fetchLabsAndScanInfo(let id):
@@ -103,13 +108,17 @@ enum APIRouter {
             return "/admin/address-user/all"
         case .orderConfirm:
             return "/admin/order/create"
-        case .fetchDoctorAppointment(let doctorId, let specialtyId, let serviceId, let day, let date):
-            return "/admin/appointment-doctor/get-available-appointment?doctor_id=\(doctorId)&service_id=\(serviceId)&speciality_id=\(specialtyId)&date=\(date)&day=\(day)"
+        case .fetchDoctorAppointment(let doctorId, let specialtyId, let serviceId, let day, let date, let doctorServiceSpecialtyId):
+            return "/admin/appointment-doctor/get-available-appointment?doctor_id=\(doctorId)&service_id=\(serviceId)&speciality_id=\(specialtyId)&date=\(date)&day=\(day)&doctor_service_specialty_ids=\(doctorServiceSpecialtyId)"
         case .addToCart: return "/admin/cart/create"
-        case .fetchOperations(isPaginate: let isPaginate,search: let search):
-            return "/admin/operation/all?is_paginate=\(isPaginate)&search=\(search)"
-        case .fetchExternalClinics(isPaginate: let isPaginate,search: let search):
-            return "/admin/external-clinic/all?is_paginate=\(isPaginate)&search=\(search)"
+        case .fetchOperations(isPaginate: let isPaginate,search: let search, infoServiceId: let infoServiceId):
+            var path = "/admin/operation/all?is_paginate=\(isPaginate)&search=\(search)"
+            if let id = infoServiceId { path += "&info_service_id=\(id)" }
+            return path
+        case .fetchExternalClinics(isPaginate: let isPaginate,search: let search, infoServiceId: let infoServiceId):
+            var path = "/admin/external-clinic/all?is_paginate=\(isPaginate)&search=\(search)"
+            if let id = infoServiceId { path += "&info_service_id=\(id)" }
+            return path
         case .fetchOperationData(operationId: let id,search: let search,districtId: let districtId):
             return "/admin/operation/get?id=\(id)&search=\(search)&district_id=\(districtId)"
         case .fetchExternalClinicData(externalClinicId: let id):
@@ -176,8 +185,8 @@ enum APIRouter {
 
         case .deleteInsurance(id: let id):
             return "/admin/user-insurance/delete?medical_insurance_id=\(id)"
-        case .deleteProductid(id: let id,pharmacyId: let pharmacyId):
-            return "/admin/cart/delete?id=\(id)&pharmacy_id=\(pharmacyId)"
+        case .deleteProductid(id: let id):
+            return "/admin/cart/delete?id=\(id)"
         case .deletePharmacyCart(pharmacyId: let pharmacyId):
             return "/admin/cart/delete?pharmacy_id=\(pharmacyId)"
         case .cancelReservation(id: let id,type: let type):
@@ -186,6 +195,16 @@ enum APIRouter {
             return "/admin/user/get?id=\(userId)"
         case .updateMedicalData:
             return "/admin/medical-info/update"
+        case .fetchHospitals(isPaginate: let isPaginate, serviceId: let serviceId):
+            return "/admin/info-service/all?service_id=\(serviceId)&is_paginate=\(isPaginate)"
+        case .fetchHospitalsWithDistrict(isPaginate: let isPaginate, serviceId: let serviceId, districtId: let districtId):
+            return "/admin/info-service/all?service_id=\(serviceId)&is_paginate=\(isPaginate)&district_id=\(districtId)"
+        case .fetchHospitalById(hospitalId: let hospitalId):
+            return "/admin/info-service/get?id=\(hospitalId)"
+        case .fetchDoctorsByHospitalAndSpecialty(isPaginate: let isPaginate, hospitalId: let hospitalId, specialtyId: let specialtyId):
+            return "/admin/doctor/all?is_paginate=\(isPaginate)&web=1&info_service_id=\(hospitalId)&speciality_id=\(specialtyId)"
+        case .fetchDayServices(isPaginate: let isPaginate, infoServiceId: let infoServiceId):
+            return "/admin/day-service/all?is_paginate=\(isPaginate)&info_service_id=\(infoServiceId)"
         }
     }
     // Define the base URL for all requests

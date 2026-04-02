@@ -48,8 +48,9 @@ extension ExterntalClinicSearchViewController: UITableViewDelegate, UITableViewD
         return 52
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let externalClinicId = viewModel.externalClinics?[indexPath.row].id ?? 0
-         viewModel.navToClinicHospitals(externalClinicId: externalClinicId)
+        if let externalClinic = viewModel.externalClinics?[indexPath.row] {
+            viewModel.navToClinicHospitals(externalClinic: externalClinic)
+        }
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: SearchScreenTableViewCell = tableView.dequeue(indexPath: indexPath)

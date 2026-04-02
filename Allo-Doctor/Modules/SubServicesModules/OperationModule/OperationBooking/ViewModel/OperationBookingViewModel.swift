@@ -21,14 +21,15 @@ class OperationBookingViewModel {
     private var operationServiceId: Int?
     @Published var hospitalData:OperationInfoServiceWrapper
     var date: String?
+    var infoServiceId: Int?
     // Dependency Injection
-    init(coordinator: HomeCoordinatorContact? = nil, apiClient: APIClient = APIClient(),operationServiceId: Int,date:String ,hospitalData:OperationInfoServiceWrapper) {
+    init(coordinator: HomeCoordinatorContact? = nil, apiClient: APIClient = APIClient(),operationServiceId: Int,date:String ,hospitalData:OperationInfoServiceWrapper, infoServiceId: Int? = nil) {
         self.coordinator = coordinator
         self.apiClient = apiClient
         self.operationServiceId = operationServiceId
         self.hospitalData = hospitalData
         self.date = date
-
+        self.infoServiceId = infoServiceId
     }
 }
 
@@ -39,7 +40,8 @@ extension OperationBookingViewModel {
             user_name:nameSubject.value,
             phone: phoneSubject.value,
             operation_service_id :operationServiceId,
-            operation_date: date
+            operation_date: date,
+            info_service_id: infoServiceId
         )
         operationBooking(request: operationBookingRequest)
         

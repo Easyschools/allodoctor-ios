@@ -12,7 +12,7 @@ protocol OneDayCareProfileViewModelProtocol {
     var hospitalData: OneDayCareHospitals? { get }
     var isLoading: Bool { get }
     var error: Error? { get }
-    
+
     func getHospitalData()
     func showOneDayCareAppointments(serviceId: Int)
 }
@@ -63,14 +63,60 @@ class OneDayCareProfileViewModel: OneDayCareProfileViewModelProtocol {
                 }
             } receiveValue: { [weak self] response in
                 self?.hospitalData = response.data
+                if response.data?.oneDayServices?.isEmpty ?? true {
+                    self?.fetchDayServicesAsFallback()
+                }
             }
             .store(in: &cancellables)
     }
     
     func showOneDayCareAppointments(serviceId: Int) {
-        coordinator.showOneDayCareAppointments(serviceId: serviceId)
+        // Find the selected service to get price info
+        let selectedService = hospitalData?.oneDayServices?.first(where: { $0.id == serviceId })
+        let appointmentData = OneDayCareAppointmentsModel.AppointmentData(
+            id: selectedService?.id,
+            price: selectedService?.price,
+            from: selectedService?.from,
+            to: selectedService?.to,
+            infoService: nil,
+            dayService: nil,
+            days: nil
+        )
+        let hospitalModel = OneDayCareAppointmentsModel(data: appointmentData)
+        coordinator.showOneDayCareBooking(dayServiceId: serviceId, date: "", hospitalData: hospitalModel, infoServiceId: hospitalId)
     }
     
+    private func fetchDayServicesAsFallback() {
+        let router = APIRouter.fetchDayServices(isPaginate: 10, infoServiceId: hospitalId)
+        apiClient.fetchData(from: router.url, as: DayServiceListResponse.self)
+            .receive(on: DispatchQueue.main)
+            .sink { _ in } receiveValue: { [weak self] response in
+                guard let items = response.data, !items.isEmpty else { return }
+                let services = items.map { item in
+                    OneDayService(
+                        id: item.id,
+                        price: nil,
+                        from: nil,
+                        to: nil,
+                        dayService: DayService(
+                            id: item.id,
+                            nameEn: item.nameEn,
+                            nameAr: item.nameAr,
+                            descriptionEn: item.descriptionEn,
+                            descriptionAr: item.descriptionAr,
+                            image: item.image,
+                            backgroundImage: item.backgroundImage,
+                            address: item.address,
+                            lat: item.lat,
+                            long: item.long
+                        )
+                    )
+                }
+                self?.hospitalData?.oneDayServices = services
+            }
+            .store(in: &cancellables)
+    }
+
     // MARK: - Private Methods
     private func handleError(_ error: Error) {
         self.error = error

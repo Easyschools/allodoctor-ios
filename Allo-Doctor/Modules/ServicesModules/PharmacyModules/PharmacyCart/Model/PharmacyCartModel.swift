@@ -21,9 +21,9 @@ struct PharmacyCartData: Decodable {
     let image: String?
     var totalPrice: String?
     var totalQuantity: Int
-    let discount: String?
-    let totalAfterDiscount: String?
-    let deliveryFee:String?
+    var discount: String?
+    var totalAfterDiscount: String?
+    var deliveryFee:String?
     var items: [PharmacyCartItem]?
    
     

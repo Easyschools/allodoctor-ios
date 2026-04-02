@@ -74,7 +74,9 @@ extension OrderDetailsViewController{
         else {
             deleviryFees.text = pharmacyCartData?.pharmacy?.deliveryfees?.appendingWithSpace(AppLocalizedKeys.EGP.localized)
         }
-        totalPrice.text = pharmacyCartData?.total?.appendingWithSpace(AppLocalizedKeys.EGP.localized)
+        if let total = pharmacyCartData?.total {
+            totalPrice.text = String(format: "%.0f", total).appendingWithSpace(AppLocalizedKeys.EGP.localized)
+        }
 //        totalPrice.text = (
 //            pharmacyCartData?.total ?? "0").prepend(AppLocalizedKeys.total.localized, separator: ":").appendingWithSpace(AppLocalizedKeys.EGP.localized)
         orderQuantity.text = pharmacyCartData?.cartItems?.first?.quantity?.toString()

@@ -15,10 +15,12 @@ class OperationSearchViewModel {
     
     private var apiClient: APIClient
     private var currentPageURL: URL?
-    
-    init(coordinator: HomeCoordinatorContact? = nil, apiClient: APIClient = APIClient()) {
+    var infoServiceId: Int?
+
+    init(coordinator: HomeCoordinatorContact? = nil, apiClient: APIClient = APIClient(), infoServiceId: Int? = nil) {
         self.coordinator = coordinator
         self.apiClient = apiClient
+        self.infoServiceId = infoServiceId
     }
     
     func setupSearchSubscription() {
@@ -33,7 +35,7 @@ class OperationSearchViewModel {
     
     func getOperations(searchedText: String) {
         
-        let router = APIRouter.fetchOperations(isPaginate: 10, search: searchedText)
+        let router = APIRouter.fetchOperations(isPaginate: 10, search: searchedText, infoServiceId: infoServiceId)
         currentPageURL = router.url
         
         apiClient.fetchData(from: router.url, as: OperationsResponse.self)
@@ -69,11 +71,49 @@ class OperationSearchViewModel {
     }
 }
 extension OperationSearchViewModel{
-    internal func navToOperationHospitals (operationID:Int){
-        coordinator?.showOpertionHospitals(operationID: operationID)
+    internal func navToOperationHospitals(operationID: Int) {
+        if let infoServiceId = infoServiceId {
+            // Try to extract data from already-fetched operations list first
+            if let operation = operations?.first(where: { $0.id == operationID }),
+               let listInfoService = operation.infoServices?.first(where: { $0.infoService?.id == infoServiceId }),
+               let operationServiceId = listInfoService.operationInfo?.operationServiceId {
+                // Build wrapper from list data and navigate directly to booking
+                let wrapper = OperationInfoServiceWrapper(
+                    operationServiceID: operationServiceId,
+                    price: listInfoService.operationInfo?.price,
+                    infoService: nil
+                )
+                coordinator?.showOperationBooking(operationServiceId: operationServiceId, date: "", hospitalData: wrapper, infoServiceId: infoServiceId)
+            } else {
+                // Fallback: fetch operation data via /operation/get then go to booking
+                fetchOperationAndNavigateDirectly(operationID: operationID, infoServiceId: infoServiceId)
+            }
+        } else {
+            coordinator?.showOpertionHospitals(operationID: operationID, infoServiceId: nil)
+        }
     }
-  func navBack(){
-      coordinator?.navigateBack()
+
+    private func fetchOperationAndNavigateDirectly(operationID: Int, infoServiceId: Int) {
+        let router = APIRouter.fetchOperationData(operationId: operationID, search: "", districtId: "")
+        apiClient.fetchData(from: router.url, as: OperationDataResponse.self)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { [weak self] completion in
+                if case .failure(let error) = completion {
+                    self?.errorMessage = "Failed to fetch operation data: \(error.localizedDescription)"
+                }
+            }, receiveValue: { [weak self] response in
+                let infoServices = response.data?.infoServices ?? []
+                guard let hospital = infoServices.first(where: { $0.infoService?.id == infoServiceId }),
+                      let operationServiceId = hospital.operationServiceID else {
+                    self?.coordinator?.showOpertionHospitals(operationID: operationID, infoServiceId: infoServiceId)
+                    return
+                }
+                self?.coordinator?.showOperationBooking(operationServiceId: operationServiceId, date: "", hospitalData: hospital, infoServiceId: infoServiceId)
+            })
+            .store(in: &cancellables)
     }
-    
+
+    func navBack(){
+        coordinator?.navigateBack()
+    }
 }

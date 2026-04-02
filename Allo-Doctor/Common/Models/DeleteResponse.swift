@@ -8,5 +8,5 @@
 import Foundation
 struct DeleteResponse: Decodable {
     let Message: String
-    let data: String
+    let data: String?
 }

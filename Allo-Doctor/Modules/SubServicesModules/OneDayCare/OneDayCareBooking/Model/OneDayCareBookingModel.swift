@@ -17,5 +17,6 @@ struct ConfirmOneDayRequest: Codable {
     let phone: String?
     let info_day_service_id: Int?
     let date: String?
+    let info_service_id: Int?
 }
 

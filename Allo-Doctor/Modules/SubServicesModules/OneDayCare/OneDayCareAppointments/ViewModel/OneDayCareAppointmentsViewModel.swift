@@ -19,11 +19,13 @@ class OneDayCareAppointmentsViewModel{
     @Published var hospitalAppointment : OneDayCareAppointmentsModel?
    
     var lastGeneratedDate: Date? = nil
+    var infoServiceId: Int?
     // MARK: - ViewModel init
-    init(coordinator: HomeCoordinatorContact? = nil, apiClient: APIClient = APIClient(), ServiceId: Int) {
+    init(coordinator: HomeCoordinatorContact? = nil, apiClient: APIClient = APIClient(), ServiceId: Int, infoServiceId: Int? = nil) {
         self.coordinator = coordinator
         self.apiClient = apiClient
         self.ServiceId = ServiceId
+        self.infoServiceId = infoServiceId
     }
     
 }
@@ -126,7 +128,7 @@ extension OneDayCareAppointmentsViewModel {
 
 extension OneDayCareAppointmentsViewModel{
     func showOneDayCareBooking(date:String,dayServiceId:Int,hospitalData:OneDayCareAppointmentsModel){
-        coordinator?.showOneDayCareBooking(dayServiceId: dayServiceId, date: date, hospitalData: hospitalData )
+        coordinator?.showOneDayCareBooking(dayServiceId: dayServiceId, date: date, hospitalData: hospitalData, infoServiceId: infoServiceId)
     }
     func navBack(){
         coordinator?.navigateBack()

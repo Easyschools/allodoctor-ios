@@ -57,10 +57,16 @@ class MyProfileViewController: BaseViewController<MyProfileViewModel> {
     @IBAction func navToFavourites(_ sender: Any) {
         viewModel.showFavourites()
     }
+    @IBAction func navToPrivacyPolicy(_ sender: Any) {
+        viewModel.showPrivacyPolicy()
+    }
+    @IBAction func navToRefundPolicy(_ sender: Any) {
+        viewModel.showRefundPolicy()
+    }
     @IBAction func logoutAction(_ sender: Any) {
         UserDefaultsManager.sharedInstance.logout()
         UserDefaultsManager.sharedInstance.resetAllData()
         viewModel.navToLogin()
-        
+
     }
 }

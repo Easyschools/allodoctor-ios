@@ -17,6 +17,7 @@ class PharmacyCartViewModel {
     @Published var totalPrice: Double = 0.0
     @Published var categoryId: Int?
     @Published var quantity: Int? = 1
+    private var deletingItemIds = Set<Int>()
     // MARK: - ViewModel init
     init(coordinator: HomeCoordinatorContact? = nil, apiClient: APIClient = APIClient(), pharmacyId: Int) {
         self.coordinator = coordinator
@@ -32,7 +33,7 @@ extension PharmacyCartViewModel {
     }
     
     private func getPharmacyCart(pharmacyId: Int) {
-        let router = APIRouter.fetchPharmacyCart(pharmacyId: pharmacyId, couponId: "")
+        let router = APIRouter.fetchPharmacyCart(pharmacyId: pharmacyId, couponId: "", deliveryType: "delivery")
         apiClient.fetchData(from: router.url, as: PharmacyCartResponse.self)
             .sink(receiveCompletion: { [weak self] completion in
                 switch completion {
@@ -43,32 +44,19 @@ extension PharmacyCartViewModel {
                     self?.errorMessage = "Failed to fetch cart: \(error.localizedDescription)"
                 }
             }, receiveValue: { [weak self] cart in
-                guard let strongSelf = self, let cartData = cart.data, !cartData.isEmpty else {
-                    return
+                guard let strongSelf = self else { return }
+                if let cartData = cart.data, !cartData.isEmpty {
+                    strongSelf.pharmacyCart = cartData[0]
+                } else {
+                    // Cart is empty on server, reset local data
+                    strongSelf.pharmacyCart = nil
                 }
-                strongSelf.pharmacyCart = cartData[0]
-
             })
             .store(in: &cancellables)
     }
     func deleteProduct(productId:Int){
-        let router = APIRouter.deleteProductid(id: productId, pharmacyId: pharmacyId ?? 0)
-        print(router.url)
-        apiClient.deleteData(from: router.url, as: DeleteResponse.self)
-            .sink(receiveCompletion: { completion in
-                switch completion {
-                case .finished:
-                    
-                    print("Delete request completed successfully.")
-                case .failure(let error):
-       
-                    print("Error during delete request: \(error)")
-                }
-            }, receiveValue: { response in
-                print("Message: \(response.Message)")
-                print("Data: \(response.data)")
-            })
-        .store(in: &cancellables)}
+        deleteProduct(productId: productId) { _ in }
+    }
 }
 
 // MARK: - Presentation Logic
@@ -135,29 +123,39 @@ extension PharmacyCartViewModel{
 }
 extension PharmacyCartViewModel {
     func deleteProduct(productId: Int, completion: @escaping (Bool) -> Void) {
-        let router = APIRouter.deleteProductid(id: productId, pharmacyId: pharmacyId ?? 0)
+        // Prevent double-delete of the same item
+        guard !deletingItemIds.contains(productId) else {
+            print("Item \(productId) is already being deleted, skipping.")
+            completion(false)
+            return
+        }
+        deletingItemIds.insert(productId)
+
+        // Remove item from local data immediately to prevent re-trigger
+        removeItemFromCart(productId: productId)
+        recalculateTotalQuantity()
+        recalculateTotalPrice()
+
+        let router = APIRouter.deleteProductid(id: productId)
         print("Delete URL: \(router.url)")
-        
+
         apiClient.deleteData(from: router.url, as: DeleteResponse.self)
             .sink(receiveCompletion: { [weak self] networkCompletion in
+                self?.deletingItemIds.remove(productId)
                 switch networkCompletion {
                 case .finished:
                     print("Delete request completed successfully.")
                 case .failure(let error):
                     print("Error during delete request: \(error)")
+                    // Refresh cart from server to ensure consistency
+                    self?.getPharmacyCart()
                     completion(false)
                 }
             }, receiveValue: { [weak self] response in
                 print("Delete Response - Message: \(response.Message)")
                 print("Delete Response - Data: \(response.data)")
-                
-                // Remove the item from local data
-                self?.removeItemFromCart(productId: productId)
-                
-                // Recalculate totals
-                self?.recalculateTotalQuantity()
-                self?.recalculateTotalPrice()
-                
+                // Refresh cart from server to ensure consistency
+                self?.getPharmacyCart()
                 completion(true)
             })
             .store(in: &cancellables)
@@ -175,9 +173,11 @@ extension PharmacyCartViewModel {
     
     func recalculateTotalPrice() {
         let newTotalPrice = pharmacyCart?.items?.reduce(0.0) { total, item in
-            let itemPrice = Double(item.medicationPharmacy?.price ?? "0.0") ?? 0.0
+            let itemPrice = Double(item.medicationPharmacy?.priceAfterDiscount ?? item.medicationPharmacy?.price ?? "0.0") ?? 0.0
             return total + (itemPrice * Double(item.quantity))
         } ?? 0.0
-        pharmacyCart?.totalPrice = String(format: "%.2f", newTotalPrice)
+        let formattedPrice = String(format: "%.2f", newTotalPrice)
+        pharmacyCart?.totalPrice = formattedPrice
+        pharmacyCart?.totalAfterDiscount = formattedPrice
     }
 }

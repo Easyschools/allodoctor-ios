@@ -30,18 +30,32 @@ class OperationHospitalsCollectionViewCell: UICollectionViewCell {
     }
     
     // MARK: - Cell Setup
-    func setupCell(price: String, hospitalLogoURL: String?, name: String, district: String, rating: Double) {
+    func setupCell(price: String, hospitalLogoURL: String?, backgroundImageURL: String?, name: String, district: String, rating: Double) {
         // Set the price label
         self.price.text = price
-        
+
         // Load the hospital logo using Kingfisher
         let placeholderImage = UIImage(named: "placeholder") // Replace with your placeholder image
         hospitalLogo.kf.setImage(with: URL (string: hospitalLogoURL ?? ""), placeholder: placeholderImage)
-        
+
+        // Load the background image using Kingfisher
+        if let backgroundURL = backgroundImageURL, let url = URL(string: backgroundURL) {
+            hospitalBackGround.kf.setImage(
+                with: url,
+                placeholder: UIImage(named: "hospitalsBackGround"),
+                options: [
+                    .transition(.fade(0.2)),
+                    .cacheOriginalImage
+                ]
+            )
+        } else {
+            hospitalBackGround.image = UIImage(named: "hospitalsBackGround")
+        }
+
         // Set the name and district labels
         self.name.text = name
         self.district.text = district
-        
+
         // Configure the star rating view
         starRatingView.configure(rating: 4.4)
     }

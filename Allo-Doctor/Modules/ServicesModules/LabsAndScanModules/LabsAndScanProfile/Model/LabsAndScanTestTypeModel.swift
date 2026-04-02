@@ -356,13 +356,19 @@ struct LabTest: Decodable,Hashable {
     let id: Int?
     let nameEn: String?
     let nameAr: String?
-   
-    
+    let descriptionEn: String?
+    let descriptionAr: String?
+    let instructionEn: String?
+    let instructionAr: String?
+
     enum CodingKeys: String, CodingKey {
         case id
         case nameEn = "name_en"
         case nameAr = "name_ar"
-   
+        case descriptionEn = "description_en"
+        case descriptionAr = "description_ar"
+        case instructionEn = "instruction_en"
+        case instructionAr = "instruction_ar"
     }
 }
 

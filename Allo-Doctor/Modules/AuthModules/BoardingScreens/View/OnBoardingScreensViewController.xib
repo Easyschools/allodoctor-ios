@@ -28,9 +28,6 @@
                 <collectionView multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" bounces="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="slL-dR-eau">
                     <rect key="frame" x="0.0" y="0.0" width="428" height="500"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="500" id="pbM-pZ-pve"/>
-                    </constraints>
                     <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="vuc-sO-rdP">
                         <size key="itemSize" width="128" height="128"/>
                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -46,9 +43,6 @@
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Booking &amp; consultations" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gAC-mg-Tji" customClass="CairoBold" customModule="Allo_Doctor" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="271.33333333333331" height="32"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="32" id="L8Q-N7-BMq"/>
-                                    </constraints>
                                     <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -138,7 +132,8 @@
                 <constraint firstItem="slL-dR-eau" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="CWz-CS-Ieu"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="HGd-5L-kpq" secondAttribute="trailing" constant="16" id="IDi-S5-iWU"/>
                 <constraint firstItem="HGd-5L-kpq" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="OHg-2M-Nko"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="HGd-5L-kpq" secondAttribute="bottom" constant="60" id="urt-Ww-E0C"/>
+                <constraint firstItem="slL-dR-eau" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.54" id="collection-height-proportional"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="HGd-5L-kpq" secondAttribute="bottom" constant="40" id="urt-Ww-E0C"/>
                 <constraint firstItem="slL-dR-eau" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="wLm-ej-oH2"/>
             </constraints>
             <point key="canvasLocation" x="190.65420560747663" y="14.902807775377971"/>

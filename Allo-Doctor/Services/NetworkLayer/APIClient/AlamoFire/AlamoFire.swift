@@ -90,6 +90,48 @@ class NetworkManagerAlamofire {
         }
     }
     
+    // MARK: - Form Data POST (no image)
+    func postFormData<T: Decodable, P: Encodable>(
+        endpoint: String,
+        params: P,
+        headers: HTTPHeaders? = nil,
+        responseType: T.Type,
+        completion: @escaping (Result<T, Error>) -> Void
+    ) {
+        let url = "\(baseURL)\(endpoint)"
+
+        var updatedHeaders = headers ?? HTTPHeaders()
+        if let token = AuthManager.shared.getAuthorizationHeader() {
+            updatedHeaders.add(name: "Authorization", value: token)
+        }
+        updatedHeaders.add(name: "Accept", value: "application/json")
+
+        guard let paramsData = try? JSONEncoder().encode(params),
+              let paramsDict = try? JSONSerialization.jsonObject(with: paramsData, options: []) as? [String: Any] else {
+            completion(.failure(NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "Invalid parameters"])))
+            return
+        }
+
+        AF.upload(multipartFormData: { multiPart in
+            for (key, value) in paramsDict {
+                if let valueString = "\(value)".data(using: .utf8) {
+                    multiPart.append(valueString, withName: key)
+                }
+            }
+        }, to: url, headers: updatedHeaders)
+        .responseDecodable(of: responseType) { response in
+            if let data = response.data, let rawResponse = String(data: data, encoding: .utf8) {
+                print("postFormData response: \(rawResponse)")
+            }
+            switch response.result {
+            case .success(let decodedData):
+                completion(.success(decodedData))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+
     // MARK: - Multiple Images Upload
     func uploadImages<T: Decodable, P: Encodable>(
                endpoint: String,

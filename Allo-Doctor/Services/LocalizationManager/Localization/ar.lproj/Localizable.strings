@@ -5,6 +5,15 @@
   Created by Abdallah ismail on 22/11/2024.
   
 */
+"emergency_terms_text" = "• ألو دكتور ليس منشأة طبية، بل وسيطًا بين مقدمي الرعاية الصحية المرخصين والمرضى من خلال موقعه الإلكتروني/تطبيقات الهاتف المحمول.\n\n• ألو دكتور لا يحل محل علاقتك الحالية مع طبيب الرعاية الأولية.\n\n• الخدمات الطبية المقدمة من قبل مقدمي الرعاية الصحية تخضع لحكمهم المهني.\n\n• الأطباء ومقدمو الخدمة لا يصفون المواد الخاضعة للرقابة أو الأدوية المجدولة أو الأدوية غير العلاجية وبعض الأدوية الأخرى التي قد تكون ضارة بسبب إمكانية إساءة استخدامها.";
+
+/* Email Support */
+"SupportRequest" = "طلب دعم";
+"EmailNotAvailable" = "البريد الإلكتروني غير متاح";
+"EmailNotAvailableMessage" = "يرجى تكوين حساب البريد الإلكتروني الخاص بك أو الاتصال بنا على";
+"OK" = "حسناً";
+
+"buyNow" = "اشتري الآن";
 "verifyYourNumber" = "التحقق من رقمك";
 "mobileNumber" =  "رقم الهاتف المحمول";
 "getOTP" = " OTP احصل على";
@@ -65,6 +74,8 @@
 "myChatHistory" = "سجل الدردشة الخاص بي";
 "favorites" = "المفضلة";
 "support" = "الدعم";
+"privacyPolicy" = "سياسة الخصوصية";
+"refundPolicy" = "سياسة الاسترداد";
 "settings" = "الإعدادات";
 "logout" = "تسجيل الخروج";
 "myInsurasnce" = "تأميني";
@@ -72,6 +83,8 @@
 "doctors" = "الدكاترة";
 "Discover exclusive discounts and special deals on a wide range of medications" = "اكتشف خصومات حصرية وعروض خاصة على مجموعة واسعة من الأدوية";
 "Take advantage of limited-time offers on consultations and specialized medical services" = "استفد من العروض المحدودة على الاستشارات والخدمات الطبية المتخصصة";
+"Labs" = "المختبرات";
+"Discover exclusive discounts and special deals on a wide range of lab tests" = "اكتشف خصومات حصرية وعروض خاصة على مجموعة واسعة من التحاليل المخبرية";
 "offers" = "العروض";
 "orders" = "الطلبات";
 "appointments" = "المواعيد";
@@ -158,7 +171,7 @@
 "Filter" = "فلتر";
 "AllSpecialities" = "كل التخصصات";
 "Speciality" = "تخصص";
-"Fees:" = "الرسوم:";
+"Fees:" = "الرسوم :";
 "WaitingTime:" = "وقت الانتظار:";
 "AvailableToday" = "متاح اليوم";
 "Delivery Fees :" = "رسوم التوصيل :";
@@ -371,3 +384,13 @@
 "Enter Floor" = "أدخل الطابق";
 "Enter Apartment" = "أدخل رقم الشقة";
 "Floor" = "الطابق";
+"outOfStock" = "غير متوفر";
+"idNumberEmpty" = "رقم الهوية لا يمكن أن يكون فارغًا.";
+"insuranceProviderEmpty" = "يرجى اختيار مقدم التأمين.";
+"deleteImage" = "حذف الصورة";
+"deleteImageConfirmation" = "هل أنت متأكد من حذف هذه الصورة؟";
+"delete" = "حذف";
+"deletingImage" = "جارٍ حذف الصورة...";
+"deleteImageFailed" = "فشل حذف الصورة.";
+"imageDeletedSuccessfully" = "تم حذف الصورة بنجاح.";
+"loadingImages" = "جارٍ تحميل الصور...";

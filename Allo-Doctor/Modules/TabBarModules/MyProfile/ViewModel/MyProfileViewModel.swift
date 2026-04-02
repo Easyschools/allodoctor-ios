@@ -39,5 +39,11 @@ extension MyProfileViewModel{
     func showProfileSupport(){
         coordinator?.showProfileSuppotViewController()
     }
+    func showPrivacyPolicy(){
+        coordinator?.showProfilePrivacyPolicyViewController()
+    }
+    func showRefundPolicy(){
+        coordinator?.showProfileRefundPolicyViewController()
+    }
 }
 

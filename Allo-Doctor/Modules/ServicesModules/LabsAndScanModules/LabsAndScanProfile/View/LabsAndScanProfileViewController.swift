@@ -116,19 +116,24 @@ extension LabsAndScanProfileViewController: UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = testTypesTableView.dequeue(indexPath: indexPath) as TestTypeTableViewCell
         let test = viewModel.displayedTests[indexPath.row]
-        
+
         if UserDefaultsManager.sharedInstance.getLanguage() == .ar {
             cell.testTypeLabel.text = test.test.nameAr
+            cell.descriptionLabel.text = test.test.descriptionAr
         } else {
             cell.testTypeLabel.text = test.test.nameEn
+            cell.descriptionLabel.text = test.test.descriptionEn
         }
-        
+
         cell.testPrice.text = (test.price ?? "0").appendingWithSpace(AppLocalizedKeys.EGP.localized)
         cell.selectionStyle = .none
-        
+
         let isAdded = viewModel.isAdded(test: test)
         cell.configure(isAdded: isAdded)
-        
+
+        let isExpanded = viewModel.isExpanded(testId: test.test.id ?? 0)
+        cell.setExpanded(isExpanded, animated: false)
+
         cell.onButtonTap = { [weak self] in
             self?.viewModel.toggleAdded(test: test)
             cell.updateButtonAppearance(isAdded: self?.viewModel.isAdded(test: test) ?? false)
@@ -139,8 +144,23 @@ extension LabsAndScanProfileViewController: UITableViewDelegate, UITableViewData
                 self?.BindTotalPriceView()
             }
         }
-        
+
         return cell
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let test = viewModel.displayedTests[indexPath.row]
+        guard let testId = test.test.id else { return }
+
+        viewModel.toggleExpanded(testId: testId)
+
+        let isExpanded = viewModel.isExpanded(testId: testId)
+        if let cell = tableView.cellForRow(at: indexPath) as? TestTypeTableViewCell {
+            cell.setExpanded(isExpanded, animated: true)
+        }
+
+        tableView.beginUpdates()
+        tableView.endUpdates()
     }
 }
 

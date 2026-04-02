@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class LabsCollectionViewCell: UICollectionViewCell {
 
@@ -28,5 +29,54 @@ class LabsCollectionViewCell: UICollectionViewCell {
         if let url = URL(string: imageURL) {
             self.labImage.kf.setImage(with: url, placeholder: UIImage(named: "placeholderImage"))
         }
+    }
+}
+
+// MARK: - Hospital Support Extension
+extension LabsCollectionViewCell {
+    func configure(hospital: HospitalInfoService) {
+        // Load background image
+        if let backgroundURL = hospital.backgroundImage, let url = URL(string: backgroundURL) {
+            labsBackGroundImage.kf.setImage(
+                with: url,
+                placeholder: UIImage(named: "hospitalsBackGround"),
+                options: [
+                    .transition(.fade(0.2)),
+                    .cacheOriginalImage
+                ]
+            )
+        } else {
+            labsBackGroundImage.image = UIImage(named: "hospitalsBackGround")
+        }
+
+        // Set hospital name based on language
+        if UserDefaultsManager.sharedInstance.getLanguage() == .ar {
+            labName.text = hospital.nameAr ?? hospital.name ?? "Unknown"
+        } else {
+            labName.text = hospital.nameEn ?? hospital.name ?? "Unknown"
+        }
+
+        // Load hospital image
+        if let imageURL = hospital.image, let url = URL(string: imageURL) {
+            labImage.kf.setImage(with: url, placeholder: UIImage(named: "placeholderImage"))
+        } else {
+            labImage.image = UIImage(named: "placeholderImage")
+        }
+    }
+}
+
+// MARK: - Specialty Support Extension
+extension LabsCollectionViewCell {
+    func configure(specialty: Specialty) {
+        // Set specialty name based on language
+        if UserDefaultsManager.sharedInstance.getLanguage() == .ar {
+            labName.text = specialty.nameAr ?? specialty.name ?? "Unknown"
+        } else {
+            labName.text = specialty.nameEn ?? specialty.name ?? "Unknown"
+        }
+
+        // Use stethoscope icon for specialties
+        labImage.image = UIImage(systemName: "stethoscope")
+        labImage.tintColor = .darkBlue_295DA8
     }
 }

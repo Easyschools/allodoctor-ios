@@ -90,9 +90,17 @@ extension PharmacyProductViewController:UICollectionViewDelegate,UICollectionVie
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
        let cell = collectionView.dequeue(indexpath: indexPath) as ProductsCollectionViewCell
         let product = viewModel.products?[indexPath.row]
-        if UserDefaultsManager.sharedInstance.getLanguage() == .ar{
-            cell.setup(with: product?.mainImage ?? "", name: product?.nameAr ?? "",price: product?.medicationPharmacies?.first?.price ?? "", priceAfterDiscount: product?.medicationPharmacies?.first?.priceAfterDiscount)}
-        else {  cell.setup(with: product?.mainImage ?? "", name: product?.nameEn ?? "", price: product?.medicationPharmacies?.first?.price ?? "", priceAfterDiscount: product?.medicationPharmacies?.first?.priceAfterDiscount)}
+        let medicationPharmacy = product?.medicationPharmacies?.first
+        let isOutOfStock = (medicationPharmacy?.quantity ?? 0) == 0
+        let productName = UserDefaultsManager.sharedInstance.getLanguage() == .ar ? product?.nameAr ?? "" : product?.nameEn ?? ""
+
+        cell.setup(
+            with: product?.mainImage ?? "",
+            name: productName,
+            price: medicationPharmacy?.price ?? "",
+            priceAfterDiscount: medicationPharmacy?.priceAfterDiscount,
+            isOutOfStock: isOutOfStock
+        )
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

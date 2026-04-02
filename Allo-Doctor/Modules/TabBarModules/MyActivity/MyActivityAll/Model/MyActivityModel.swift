@@ -19,22 +19,40 @@ struct MyBookings: Decodable {
     let name: String?
     let typeOfBooking: String?
     let address:String?
+    let district: EmergencyDistrict?
     let doctor: Doctor?
     let lab: Lab?
     let operation_service: OperationService?
     let date:String?
     let status:String?
-  
+
     enum CodingKeys: String, CodingKey {
         case id
         case createdAt = "created_at"
         case name
         case address
+        case district
         case typeOfBooking = "type_of_booking"
         case doctor = "appointment_day_hour"
         case lab = "appointment_lab"
 
         case date , status ,operation_service
+    }
+
+    struct EmergencyDistrict: Decodable {
+        let id: Int?
+        let cityId: Int?
+        let name: String?
+        let nameAr: String?
+        let nameEn: String?
+
+        enum CodingKeys: String, CodingKey {
+            case id
+            case cityId = "city_id"
+            case name
+            case nameAr = "name_ar"
+            case nameEn = "name_en"
+        }
     }
     
     struct Doctor: Decodable {
@@ -183,12 +201,13 @@ struct Order: Decodable {
     let paymentTypeId: Int?
     let paymentType: String?
     let transactionId: String?
-    let total: String?
+
+    let total: Double?
+
     let totalBeforeDiscount: String?
     let notes: String?
     let createdAt: String?
     let pharmacy: OrderPharmacy?
-//    let address: OrderAddress?
     let cartItems: [OrderCartItem]?
     let prescription: String?
 
@@ -205,11 +224,43 @@ struct Order: Decodable {
         case notes
         case createdAt = "created_at"
         case pharmacy
-//        case address
         case cartItems = "cartItems"
         case prescription
     }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        id = try? container.decode(Int.self, forKey: .id)
+        code = try? container.decode(String.self, forKey: .code)
+        userId = try? container.decode(Int.self, forKey: .userId)
+        orderStatusId = try? container.decode(Int.self, forKey: .orderStatusId)
+        orderStatus = try? container.decode(OrderStatus.self, forKey: .orderStatus)
+        paymentTypeId = try? container.decode(Int.self, forKey: .paymentTypeId)
+        paymentType = try? container.decode(String.self, forKey: .paymentType)
+        transactionId = try? container.decode(String.self, forKey: .transactionId)
+
+        // 👇 Handle String OR Double
+        if let doubleValue = try? container.decode(Double.self, forKey: .total) {
+            total = doubleValue
+        }
+        else if let stringValue = try? container.decode(String.self, forKey: .total),
+                let doubleValue = Double(stringValue) {
+            total = doubleValue
+        }
+        else {
+            total = nil
+        }
+
+        totalBeforeDiscount = try? container.decode(String.self, forKey: .totalBeforeDiscount)
+        notes = try? container.decode(String.self, forKey: .notes)
+        createdAt = try? container.decode(String.self, forKey: .createdAt)
+        pharmacy = try? container.decode(OrderPharmacy.self, forKey: .pharmacy)
+        cartItems = try? container.decode([OrderCartItem].self, forKey: .cartItems)
+        prescription = try? container.decode(String.self, forKey: .prescription)
+    }
 }
+
 
 // Order Status
 struct OrderStatus: Decodable {
@@ -296,7 +347,7 @@ struct OrderCartItem: Decodable {
     let medicationPharmacy: OrderMedicationPharmacy?
     let quantity: Int?
     let price: Double?
-    let total: String?
+    let total: Double?
     let createdAt: String?
 
     enum CodingKeys: String, CodingKey {

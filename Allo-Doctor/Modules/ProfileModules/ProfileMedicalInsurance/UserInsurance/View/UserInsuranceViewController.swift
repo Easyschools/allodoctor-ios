@@ -103,17 +103,37 @@ extension UserInsuranceViewController{
            viewModel.deleteImage()
        }
     func setupValidate() {
-        let isIdNumberValid = idNumber.validateNotEmpty(message: AppLocalizedKeys.phoneEmpty.localized, viewController: self)
-        let isAgeValid = ageTextField.validateNotEmpty(message: AppLocalizedKeys.ageEmpty.localized, viewController: self) &&
-        ageTextField.validateNumberInRange(min: 10, max: 99, message: AppLocalizedKeys.ValidAge.localized, viewController: self)
-        if insuranceCard == nil {
-            AlertManager.showInternetAlert(on: self, message: AppLocalizedKeys.pleaseAddInsuranceCardPhoto.localized)
+        // Validate insurance provider selection first
+        guard viewModel.insuranceId.value != 0 else {
+            AlertManager.showAlert(on: self, title: AppLocalizedKeys.error.localized, message: AppLocalizedKeys.insuranceProviderEmpty.localized)
+            return
         }
-         
-        if isIdNumberValid && isAgeValid && insuranceCard != nil {
-            LoadingIndicator.shared.show()
-            viewModel.addInsurance()
+
+        // Validate age
+        guard let ageText = ageTextField.text, !ageText.isEmpty else {
+            AlertManager.showAlert(on: self, title: AppLocalizedKeys.error.localized, message: AppLocalizedKeys.ageEmpty.localized)
+            return
         }
+
+        guard let age = Int(ageText), age >= 10 && age <= 99 else {
+            AlertManager.showAlert(on: self, title: AppLocalizedKeys.error.localized, message: AppLocalizedKeys.ValidAge.localized)
+            return
+        }
+
+        // Validate ID number
+        guard let idNumberText = idNumber.text, !idNumberText.isEmpty else {
+            AlertManager.showAlert(on: self, title: AppLocalizedKeys.error.localized, message: AppLocalizedKeys.idNumberEmpty.localized)
+            return
+        }
+
+        // Validate insurance card photo
+        guard viewModel.selectedImage != nil else {
+            AlertManager.showAlert(on: self, title: AppLocalizedKeys.error.localized, message: AppLocalizedKeys.pleaseAddInsuranceCardPhoto.localized)
+            return
+        }
+
+        LoadingIndicator.shared.show()
+        viewModel.addInsurance()
     }
    
 }

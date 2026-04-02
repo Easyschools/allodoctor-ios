@@ -62,9 +62,12 @@ class UserInsuranceViewModel {
         
     }
     func uploadImage(request:UserInsuranceModel) {
-      
+        guard let imgData = getSavedImageData() else {
+            print("Error: No image data found")
+            self.status = .failure
+            return
+        }
 
-        let imgData =  getSavedImageData()!
         let imageName = getSavedImageName()
         let imageKey = "photo_of_medical_card"
 
@@ -86,8 +89,6 @@ class UserInsuranceViewModel {
                 self.status = .failure
             }
         }
-
-           
     }
 
     // MARK: - Image Management

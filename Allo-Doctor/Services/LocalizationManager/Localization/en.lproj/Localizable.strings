@@ -4,6 +4,15 @@
 
   Created by Abdallah Ismail on 22/11/2024.
 */
+"emergency_terms_text" = "• Allo Doctor Is Not A Medical Facility, But Rather An Intermediary Between Licensed Healthcare Providers And Patients Through Its Website/mobile Applications.\n\n• Allo Doctor Does Not Replace Your Existing Primary Care Physician Relationship.\n\n• Medical Services Provided By Health Care Providers Are Subject To Their Professional Judgment.\n\n• Physicians And Providers Do Not Prescribe Controlled Substances, Scheduled Drugs, Non-therapeutic Drugs, And Some Other Drugs That May Be Harmful Because Of Their Potential For Abuse.";
+
+/* Email Support */
+"SupportRequest" = "Support Request";
+"EmailNotAvailable" = "Email Not Available";
+"EmailNotAvailableMessage" = "Please configure your email account or contact us at";
+"OK" = "OK";
+
+"buyNow" = "Buy now";
 "bookVisit" = "Book visit";
 "verifyYourNumber" = "Verify your number";
 "mobileNumber" = "Mobile Number";
@@ -64,6 +73,8 @@
 "myChatHistory" = "My Chat History";
 "favorites" = "Favorites";
 "support" = "Support";
+"privacyPolicy" = "Privacy Policy";
+"refundPolicy" = "Refund Policy";
 "settings" = "Settings";
 "CategoriesMedication" = "Categories Medication";
 "logout" = "Logout";
@@ -73,6 +84,8 @@
 "Discover exclusive discounts and special deals on a wide range of medications" = "Discover exclusive discounts and special deals on a wide range of medications";
 "Take advantage of limited-time offers on consultations and specialized medical services" =
 "Take advantage of limited-time offers on consultations and specialized medical services";
+"Labs" = "Labs";
+"Discover exclusive discounts and special deals on a wide range of lab tests" = "Discover exclusive discounts and special deals on a wide range of lab tests";
 "offers" = "Offers";
 "orders" = "Orders";
 "appointments" = "Appointments";
@@ -375,5 +388,15 @@
 "Enter Floor" = "Enter Floor";
 "Enter Apartment" = "Enter Apartment";
 "Floor" = "Floor";
+"outOfStock" = "Out of Stock";
+"idNumberEmpty" = "ID Number cannot be empty.";
+"insuranceProviderEmpty" = "Please select an insurance provider.";
+"deleteImage" = "Delete Image";
+"deleteImageConfirmation" = "Are you sure you want to delete this image?";
+"delete" = "Delete";
+"deletingImage" = "Deleting image...";
+"deleteImageFailed" = "Failed to delete image.";
+"imageDeletedSuccessfully" = "Image deleted successfully.";
+"loadingImages" = "Loading images...";
 
 

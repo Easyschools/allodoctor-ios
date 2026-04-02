@@ -7,6 +7,12 @@
 import UIKit
 import Photos
 import AVFoundation
+import Combine
+
+// MARK: - ImageUploadDelegate Protocol
+protocol ImageUploadDelegate: AnyObject {
+    func imageUploadDidComplete()
+}
 
 class ImageUploadViewController: UIViewController {
     
@@ -25,12 +31,19 @@ class ImageUploadViewController: UIViewController {
 
     private var id: Int
 
+    // MARK: - Delegate
+    weak var delegate: ImageUploadDelegate?
+
     // MARK: - Properties
     private var selectedImages: [UIImage] = []
+    private var existingImages: [Image] = []  // Remote images from API
     private let maxImageCount = 3
     private var imageViews: [UIImageView] = []
     private var removeButtons: [UIButton] = []
+    private var placeholderLabels: [UILabel] = []
     private var isUploading = false
+    private var apiClient = APIClient()
+    private var cancellables = Set<AnyCancellable>()
 
     // MARK: - Custom Initializer
     init(id: Int) {
@@ -52,6 +65,33 @@ class ImageUploadViewController: UIViewController {
         setupConstraints()
         setupImageStackView()
         updateUI()
+        fetchExistingImages()
+    }
+
+    // MARK: - Fetch Existing Images
+    private func fetchExistingImages() {
+        statusLabel.text = AppLocalizedKeys.loadingImages.localized
+        statusLabel.textColor = .secondaryLabel
+
+        let router = APIRouter.fetchMedicalData
+        apiClient.fetchData(from: router.url, as: MedicalDataResponse.self)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { [weak self] completion in
+                switch completion {
+                case .failure(let error):
+                    self?.statusLabel.text = ""
+                    print("Failed to fetch existing images: \(error)")
+                case .finished:
+                    break
+                }
+            }, receiveValue: { [weak self] response in
+                self?.statusLabel.text = ""
+                if let images = response.data?.images, !images.isEmpty {
+                    self?.existingImages = images
+                    self?.updateImageViews()
+                    self?.updateUI()
+                }
+            }).store(in: &cancellables)
     }
 
     // MARK: - Navigation Bar Setup
@@ -205,7 +245,8 @@ class ImageUploadViewController: UIViewController {
         imageStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
         imageViews.removeAll()
         removeButtons.removeAll()
-        
+        placeholderLabels.removeAll()
+
         // Create image container views
         for i in 0..<maxImageCount {
             let containerView = createImageContainerView(at: i)
@@ -251,10 +292,11 @@ class ImageUploadViewController: UIViewController {
         containerView.addSubview(imageView)
         containerView.addSubview(placeholderLabel)
         containerView.addSubview(removeButton)
-        
+
         imageViews.append(imageView)
         removeButtons.append(removeButton)
-        
+        placeholderLabels.append(placeholderLabel)
+
         // Constraints
         NSLayoutConstraint.activate([
             containerView.heightAnchor.constraint(equalToConstant: 120),
@@ -278,11 +320,12 @@ class ImageUploadViewController: UIViewController {
     
     // MARK: - Actions
     @objc private func addPhotoButtonTapped() {
-        guard selectedImages.count < maxImageCount else {
+        let totalCount = existingImages.count + selectedImages.count
+        guard totalCount < maxImageCount else {
             showAlert(title: AppLocalizedKeys.maximumPhotosReached.localized, message: AppLocalizedKeys.uploadLimitWarning.localized)
             return
         }
-        
+
         showImagePickerOptions()
     }
     
@@ -294,11 +337,67 @@ class ImageUploadViewController: UIViewController {
     
     @objc private func removeImageTapped(_ sender: UIButton) {
         let index = sender.tag
-        guard index < selectedImages.count else { return }
-        
-        selectedImages.remove(at: index)
-        updateImageViews()
-        updateUI()
+        let existingCount = existingImages.count
+
+        if index < existingCount {
+            // Removing an existing remote image - show confirmation
+            showDeleteExistingImageConfirmation(at: index)
+        } else {
+            // Removing a newly selected local image
+            let localIndex = index - existingCount
+            guard localIndex < selectedImages.count else { return }
+            selectedImages.remove(at: localIndex)
+            updateImageViews()
+            updateUI()
+        }
+    }
+
+    private func showDeleteExistingImageConfirmation(at index: Int) {
+        guard index < existingImages.count,
+              let imageId = existingImages[index].id else { return }
+
+        let alert = UIAlertController(
+            title: AppLocalizedKeys.deleteImage.localized,
+            message: AppLocalizedKeys.deleteImageConfirmation.localized,
+            preferredStyle: .alert
+        )
+
+        alert.addAction(UIAlertAction(title: AppLocalizedKeys.cancelled.localized, style: .cancel))
+        alert.addAction(UIAlertAction(title: AppLocalizedKeys.delete.localized, style: .destructive) { [weak self] _ in
+            self?.deleteExistingImage(imageId: imageId, at: index)
+        })
+
+        present(alert, animated: true)
+    }
+
+    private func deleteExistingImage(imageId: Int, at index: Int) {
+        setUploadingState(true)
+        statusLabel.text = AppLocalizedKeys.deletingImage.localized
+
+        let request = deleteImageRequest(deletedImageId: imageId, id: self.id)
+        let router = APIRouter.updateMedicalData
+
+        apiClient.postData(to: router.url, body: request, as: MedicalInfoResponse.self)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] completion in
+                self?.setUploadingState(false)
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    self?.statusLabel.text = AppLocalizedKeys.deleteImageFailed.localized
+                    self?.statusLabel.textColor = .systemRed
+                    print("Delete error: \(error)")
+                }
+            } receiveValue: { [weak self] _ in
+                // Remove from local array and update UI
+                self?.existingImages.remove(at: index)
+                self?.updateImageViews()
+                self?.updateUI()
+                self?.statusLabel.text = AppLocalizedKeys.imageDeletedSuccessfully.localized
+                self?.statusLabel.textColor = .systemGreen
+            }
+            .store(in: &cancellables)
     }
     
     // MARK: - Image Picker
@@ -437,45 +536,65 @@ class ImageUploadViewController: UIViewController {
     
     // MARK: - Image Management
     private func addImage(_ image: UIImage) {
-        guard selectedImages.count < maxImageCount else { return }
-        
+        let totalCount = existingImages.count + selectedImages.count
+        guard totalCount < maxImageCount else { return }
+
         selectedImages.append(image)
         updateImageViews()
         updateUI()
     }
     
     private func updateImageViews() {
+        let existingCount = existingImages.count
+        let selectedCount = selectedImages.count
+
         for (index, imageView) in imageViews.enumerated() {
-            if index < selectedImages.count {
-                imageView.image = selectedImages[index]
+            let placeholderLabel = index < placeholderLabels.count ? placeholderLabels[index] : nil
+
+            if index < existingCount {
+                // Show existing remote image
+                if let imageUrlString = existingImages[index].image {
+                    imageView.loadImage(from: imageUrlString)
+                }
                 removeButtons[index].isHidden = false
-                imageView.superview?.subviews.first(where: { $0 is UILabel })?.isHidden = true
+                removeButtons[index].tag = index  // Tag for existing images
+                placeholderLabel?.isHidden = true
+            } else if index < existingCount + selectedCount {
+                // Show newly selected local image
+                let localIndex = index - existingCount
+                imageView.image = selectedImages[localIndex]
+                removeButtons[index].isHidden = false
+                removeButtons[index].tag = index
+                placeholderLabel?.isHidden = true
             } else {
+                // Show empty placeholder
                 imageView.image = nil
                 removeButtons[index].isHidden = true
-                imageView.superview?.subviews.first(where: { $0 is UILabel })?.isHidden = false
+                placeholderLabel?.isHidden = false
             }
         }
     }
     
     private func updateUI() {
-        let hasImages = !selectedImages.isEmpty
-        let canAddMore = selectedImages.count < maxImageCount
-        
-        uploadButton.isEnabled = hasImages && !isUploading
+        let totalCount = existingImages.count + selectedImages.count
+        let hasNewImages = !selectedImages.isEmpty
+        let canAddMore = totalCount < maxImageCount
+
+        // Upload button only enabled if there are new images to upload
+        uploadButton.isEnabled = hasNewImages && !isUploading
         uploadButton.alpha = uploadButton.isEnabled ? 1.0 : 0.6
-        
+
         addPhotoButton.isEnabled = canAddMore && !isUploading
         addPhotoButton.alpha = addPhotoButton.isEnabled ? 1.0 : 0.6
-        
+
         if canAddMore {
-            addPhotoButton.setTitle("Add Photos (\(selectedImages.count)/\(maxImageCount))", for: .normal)
+            addPhotoButton.setTitle("Add Photos (\(totalCount)/\(maxImageCount))", for: .normal)
         } else {
             addPhotoButton.setTitle(AppLocalizedKeys.maximumPhotosAdded.localized, for: .normal)
         }
-        
-        if hasImages {
-            uploadButton.setTitle(AppLocalizedKeys.uploadPhotos.localized.appendingWithSpace("\(selectedImages.count > 1 ? "" : "")"), for: .normal)
+
+        if hasNewImages {
+            uploadButton.setTitle(AppLocalizedKeys.uploadPhotos.localized.appendingWithSpace("(\(selectedImages.count))"), for: .normal)
         } else {
             uploadButton.setTitle(AppLocalizedKeys.uploadPhotos.localized, for: .normal)
         }
@@ -526,14 +645,19 @@ class ImageUploadViewController: UIViewController {
     private func handleUploadSuccess(data: Data, message: String) {
         statusLabel.text = message
         statusLabel.textColor = .systemGreen
-        
-        // Clear images after successful upload
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-            self.clearAllImages()
-            self.dismiss(animated: true)
-        }
-        
-        showAlert(title: AppLocalizedKeys.medicalInfoUpdatedSuccesfully.localized, message: message)
+        clearAllImages()
+
+        // Show success alert and dismiss after user taps OK
+        let alert = UIAlertController(
+            title: AppLocalizedKeys.medicalInfoUpdatedSuccesfully.localized,
+            message: message,
+            preferredStyle: .alert
+        )
+        alert.addAction(UIAlertAction(title: AppLocalizedKeys.ok.localized, style: .default) { [weak self] _ in
+            self?.delegate?.imageUploadDidComplete()
+            self?.dismiss(animated: true)
+        })
+        present(alert, animated: true)
     }
     
     private func handleUploadError(error: NetworkError) {

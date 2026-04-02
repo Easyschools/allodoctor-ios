@@ -22,7 +22,7 @@ class CustomToggleSwitch: UIView {
     
     @IBInspectable var CustomborderColor: UIColor = UIColor(red: 0.851, green: 0.851, blue: 0.851, alpha: 1.0) // Light gray
     
-    private var selectedIndex: Int = 0 {
+    var selectedIndex: Int = 0 {
         didSet {
             updateUI()
         }

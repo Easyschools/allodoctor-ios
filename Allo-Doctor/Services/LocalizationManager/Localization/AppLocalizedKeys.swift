@@ -9,7 +9,7 @@ enum AppLocalizedKeys: String, CaseIterable {
     // MARK: - Splash Module
     case verifyYourNumber
     case mobileNumber
-    
+    case emergencyTermsText = "emergency_terms_text"
     // MARK: - Onboardig Module
     case getOTP
     case onboardingSubtitle
@@ -34,7 +34,11 @@ enum AppLocalizedKeys: String, CaseIterable {
     case adultsICU = "Adults ICU"
     case pediatricICU = "Pediatric ICU"
     case neonatalICU = "Neonatal ICU"
-    
+    // Add these to your AppLocalizedKeys file
+    case supportRequest = "SupportRequest"
+    case emailNotAvailable = "EmailNotAvailable"
+    case emailNotAvailableMessage = "EmailNotAvailableMessage"
+    static let ok = "OK"
     case operations = "operations"
     case searchForAnyOperation 
     case Services
@@ -47,6 +51,8 @@ enum AppLocalizedKeys: String, CaseIterable {
     case appointments
     case Confirm
     case myMedicalInfo
+    case privacyPolicy
+    case refundPolicy
     case InstensiveCare 
     case Month
     case Year
@@ -59,7 +65,9 @@ enum AppLocalizedKeys: String, CaseIterable {
     case SearchforDoctor
     case selectArea = "Enter Your Area"
     case doctors
-    case ok
+    case Pharmacies
+    case Labs
+//    case ok
     case uploadPrescription
     case uploadPrescriptionFirst
     case EGP
@@ -206,9 +214,23 @@ enum AppLocalizedKeys: String, CaseIterable {
     case maximumQuantityReached
     case pleaseSelectAddress
     case pleaseSelectPayment
+    case DeliveryType = "Delivery Type"
+    case Delivery
+    case PickupFromStore = "Pickup from Store"
+    case pleaseSelectDeliveryType = "Please Select Delivery Type"
     case searchForAnyPharmacy
     case failed
-
+    case outOfStock
+    case buyNow
+    case idNumberEmpty
+    case insuranceProviderEmpty
+    case deleteImage
+    case deleteImageConfirmation
+    case delete
+    case deletingImage
+    case deleteImageFailed
+    case imageDeletedSuccessfully
+    case loadingImages
 
 }
 
@@ -223,4 +245,6 @@ extension AppLocalizedKeys {
     var localized: String {
            return self.rawValue.localized
        }
+   
 }
+

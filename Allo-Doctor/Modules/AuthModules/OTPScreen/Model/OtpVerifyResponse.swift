@@ -10,9 +10,11 @@ struct OtpVerifyResponse:Codable{
     let otp:String 
     let phone : String
 }
-struct OtpMessageResponse: Decodable {
+struct OtpMessageResponse: Codable {
     let message: String
- 
+    let user: LoginResponse?
+    let token: String? 
+
 }
 
 struct PhoneLoginRequest: Codable {

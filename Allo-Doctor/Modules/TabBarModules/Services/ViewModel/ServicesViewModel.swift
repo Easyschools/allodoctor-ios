@@ -72,9 +72,12 @@ extension ServicesViewModel{
         print("called")
         coordinator?.showSubServicesVC()
     }
-    func navToSearchScreen() {
-        coordinator?.showSearchScreen()
-       
+    func navToHospitalsListScreen(){
+        print("called - hospitals")
+        coordinator?.showHospitalsList()
+    }
+    func navToSearchScreen(serviceId: Int? = nil) {
+        coordinator?.showSearchScreen(serviceId: serviceId)
     }
     func navtoclinicsSearch (){
         coordinator?.showClinicsSearch()

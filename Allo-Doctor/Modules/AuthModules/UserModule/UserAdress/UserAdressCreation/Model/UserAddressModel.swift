@@ -7,6 +7,10 @@
 
 import Foundation
 
+extension Notification.Name {
+    static let newAddressCreated = Notification.Name("newAddressCreated")
+}
+
     struct UserAddressBody: Encodable {
         let lat: String?
         let long: String?

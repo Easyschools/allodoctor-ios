@@ -20,7 +20,7 @@ enum APIRouter {
     case fetchProducts(isPaginate: Int, categoryId: Int, pharmacyId: Int,search:String)
     case fetchAllProducts(isPaginate: Int, pharmacyId: Int,search:String)
     case addToCart(AddProductToCart)
-    case fetchPharmacyCart(pharmacyId: Int,couponId:String)
+    case fetchPharmacyCart(pharmacyId: Int,couponId:String, deliveryType: String)
     case fetchOrderStatus(orderId: Int)
     case fetchMyBookings
     case fetchOrders(userId: Int)
@@ -98,8 +98,8 @@ enum APIRouter {
             return "/admin/filter/all-medications?is_paginate=\(isPaginate)&search=\(search)"
         case .fetchBasketPharmacies:
             return "/admin/order/grand-total"
-        case .fetchPharmacyCart(let pharmacyId,let couponId):
-            return "/admin/order/grand-total?pharmacy_id=\(pharmacyId)&coupon_code=\(couponId)"
+        case .fetchPharmacyCart(let pharmacyId,let couponId, let deliveryType):
+            return "/admin/order/grand-total?pharmacy_id=\(pharmacyId)&coupon_code=\(couponId)&delivery_type=\(deliveryType)"
         case .fetchMyBookings:
             return "/admin/my-bookings/all"
         case .fetchLabsAndScanInfo(let id):

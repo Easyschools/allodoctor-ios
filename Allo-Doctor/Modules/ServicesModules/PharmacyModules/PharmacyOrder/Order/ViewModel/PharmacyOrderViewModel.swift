@@ -110,7 +110,7 @@ extension PharmacyOrderViewModel {
     }
 
     func getPharmacyCart(pharmacyId: Int) {
-        let router = APIRouter.fetchPharmacyCart(pharmacyId: pharmacyId, couponId: "")
+        let router = APIRouter.fetchPharmacyCart(pharmacyId: pharmacyId, couponId: "", deliveryType: deliveryType ?? "delivery")
         print(router.url)
         apiClient.fetchData(from: router.url, as: PharmacyCartResponse.self)
             .sink(receiveCompletion: { [weak self] completion in
@@ -133,7 +133,7 @@ extension PharmacyOrderViewModel {
     }
 
     func applyCoupoun(pharmacyId: Int, coupounId: String) {
-        let router = APIRouter.fetchPharmacyCart(pharmacyId: pharmacyId, couponId: coupounId)
+        let router = APIRouter.fetchPharmacyCart(pharmacyId: pharmacyId, couponId: coupounId, deliveryType: deliveryType ?? "delivery")
         print(router.url)
         apiClient.fetchData(from: router.url, as: PharmacyCartResponse.self)
             .sink(receiveCompletion: { [weak self] completion in

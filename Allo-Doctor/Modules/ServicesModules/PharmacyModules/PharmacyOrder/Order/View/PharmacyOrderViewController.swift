@@ -114,6 +114,7 @@ class PharmacyOrderViewController: BaseViewController<PharmacyOrderViewModel> {
         deliveryButton.isSelected = true
         pickupButton.isSelected = false
         viewModel.deliveryType = "delivery"
+        viewModel.getPharmacyCart() // Refetch cart with delivery fees
         // Address always visible
     }
 
@@ -122,6 +123,7 @@ class PharmacyOrderViewController: BaseViewController<PharmacyOrderViewModel> {
         pickupButton.isSelected = true
         deliveryButton.isSelected = false
         viewModel.deliveryType = "pickup"
+        viewModel.getPharmacyCart() // Refetch cart without delivery fees
         // Address always visible — user may still want to save address for pickup
     }
 

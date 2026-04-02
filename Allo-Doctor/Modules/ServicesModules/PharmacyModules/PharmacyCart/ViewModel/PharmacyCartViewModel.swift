@@ -33,7 +33,7 @@ extension PharmacyCartViewModel {
     }
     
     private func getPharmacyCart(pharmacyId: Int) {
-        let router = APIRouter.fetchPharmacyCart(pharmacyId: pharmacyId, couponId: "")
+        let router = APIRouter.fetchPharmacyCart(pharmacyId: pharmacyId, couponId: "", deliveryType: "delivery")
         apiClient.fetchData(from: router.url, as: PharmacyCartResponse.self)
             .sink(receiveCompletion: { [weak self] completion in
                 switch completion {
